@@ -1,0 +1,12 @@
+## Pages
+- [À Propos | Agence Marketing Digital Pragmatique Suisse](/about): Découvrez notre équipe locale en Suisse. Une approche pragmatique du marketing digital : parler simple, agir vite et livrer des résultats concrets pour les PME.
+- [Admin Dashboard | Horizon Marketing](/admin): No description available
+- [Contactez-nous | Agence Marketing Digital Suisse](/contact): Prêt à faire décoller votre activité ? Contactez-nous pour un audit gratuit ou planifiez directement un appel de 20 minutes.
+- [Demande Reçue | Horizon](/diagnosticconfirmation): No description available
+- [Espace Client |](/clientportal): No description available
+- [Mentions Légales | Marketing Digital PME](/legal): No description available
+- [Nos Résultats & Études de Cas | Marketing Digital PME Suisse](/results): Découvrez comment nous aidons les architectes, artisans et PME suisses à décoller. Études de cas concrètes et témoignages vérifiés.
+- [Nos Services | Automatisation, CRM & Formation | Horizon](/services): Boostez votre productivité avec nos services : Diagnostic, Automatisation de factures, Mise en place CRM (HubSpot/Notion) et Formation d
+- [Politique de Confidentialité | Clic COM Suisse (nLPD / RGPD)](/privacypolicy): No description available
+- [Politique de Cookies | Clic COM Suisse](/cookiepolicy): No description available
+- [Tarifs Création Site Web Suisse | Transparence & Qualité](/pricing): Découvrez nos tarifs pour la création de sites web en Suisse. Packs tout inclus dès 990 CHF. Sites vitrines, e-commerce et SEO. Transparence totale.

@@ -1,0 +1,15 @@
+# CRM Application - Robots.txt
+# This is a private application, not intended for search engine indexing
+
+User-agent: *
+Disallow: /api/
+Disallow: /config/
+Disallow: /views/
+Disallow: /sql/
+Disallow: /docs/
+
+# Allow public assets
+Allow: /assets/
+
+# Sitemap
+Sitemap: /sitemap.xml

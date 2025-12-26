@@ -1,0 +1,15 @@
+/* TEAM */
+Application: CRM Leads & Sales
+Technology: PHP 8+ / MySQL / Vanilla JS
+Version: 1.0.0
+
+/* THANKS */
+Built with modern web standards
+Accessibility: WCAG 2.1 AA compliant
+Security: OWASP guidelines followed
+
+/* SITE */
+Last update: 2024/01/01
+Language: PHP / JavaScript / CSS
+Standards: HTML5, CSS3, ES6+
+IDE: Your favorite editor

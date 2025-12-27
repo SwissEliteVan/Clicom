@@ -1,0 +1,22 @@
+# robots.txt — Clic COM
+
+User-agent: *
+
+# Bloquer accès répertoires sensibles
+Disallow: /config/
+Disallow: /api/
+Disallow: /includes/
+Disallow: /logs/
+
+# Bloquer pages utilitaires
+Disallow: /merci/
+Disallow: /404.php
+
+# Bloquer fichiers PHP bruts
+Disallow: /*.php$
+
+# Autoriser tout le reste
+Allow: /
+
+# Sitemap
+Sitemap: https://clicom.ch/sitemap.xml

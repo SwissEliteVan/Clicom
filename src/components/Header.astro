@@ -1,0 +1,39 @@
+---
+import Button from './Button.astro';
+const path = Astro.url.pathname;
+const links = [
+  ['/services', 'Services'], ['/solutions', 'Solutions'], ['/realisations', 'Réalisations'],
+  ['/agence', 'Agence'], ['/ressources', 'Ressources'], ['/contact', 'Contact'],
+];
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="wordmark" href="/" aria-label="CLICOM, accueil">clicom<span>.</span></a>
+    <nav aria-label="Navigation principale">
+      {links.map(([href, label]) => <a class:list={{active: path.startsWith(href)}} href={href}>{label}</a>)}
+    </nav>
+    <Button href="/contact#audit">Audit gratuit <span aria-hidden="true">→</span></Button>
+    <details class="mobile-menu">
+      <summary aria-label="Ouvrir le menu"><span></span><span></span><span></span></summary>
+      <div class="mobile-menu__panel">
+        {links.map(([href, label]) => <a href={href}>{label}</a>)}
+        <Button href="/contact#audit">Audit gratuit →</Button>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(228,232,240,.78); background: rgba(247,249,252,.88); backdrop-filter: blur(16px); }
+  .header-inner { display: flex; height: 80px; align-items: center; gap: 28px; }
+  .wordmark { margin-right: auto; font-size: 1.7rem; font-weight: 800; letter-spacing: -.065em; line-height: 1; }
+  .wordmark span { color: var(--color-primary); }
+  nav { display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); }
+  nav a { position: relative; color: var(--color-muted); font-size: .9rem; font-weight: 650; transition: color var(--transition-fast); }
+  nav a:hover, nav a.active { color: var(--color-midnight); }
+  nav a.active::after { position: absolute; right: 0; bottom: -11px; left: 0; height: 2px; border-radius: 2px; background: var(--color-primary); content: ''; }
+  .header-inner > .button { min-height: 46px; padding: 12px 18px; font-size: .9rem; }
+  .mobile-menu { display: none; }
+  @media (max-width: 1050px) { nav, .header-inner > .button { display: none; } .mobile-menu { display: block; } .mobile-menu summary { display: grid; width: 44px; height: 44px; place-content: center; gap: 5px; border: 1px solid var(--color-border); border-radius: 12px; background: white; cursor: pointer; list-style: none; } .mobile-menu summary::-webkit-details-marker { display: none; } .mobile-menu summary span { display: block; width: 20px; height: 2px; background: var(--color-midnight); } .mobile-menu__panel { position: absolute; top: 72px; right: 16px; left: 16px; display: grid; gap: 4px; padding: 16px; border: 1px solid var(--color-border); border-radius: 18px; background: white; box-shadow: var(--shadow-featured); } .mobile-menu__panel > a:not(.button) { padding: 11px 12px; font-weight: 650; } .mobile-menu__panel .button { margin-top: 8px; } }
+  @media (max-width: 680px) { .header-inner { height: 70px; } }
+</style>

@@ -1,3 +1,20 @@
 ---
-import Icon from './Icon.astro';interface Props{title:string;text:string;icon:'search'|'cursor'|'chart'|'globe'|'automation'|'target'|'code'|'spark';href?:string;id?:string};const{title,text,icon,href='/services',id}=Astro.props;---
-<article class="card" {id}><div class="icon-box"><Icon name={icon}/></div><h3>{title}</h3><p>{text}</p><a class="text-link" href={href}>Découvrir <span>→</span></a></article>
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  text: string;
+  icon: 'search' | 'cursor' | 'chart' | 'globe' | 'automation' | 'target' | 'code' | 'spark';
+  href?: string;
+  id?: string;
+}
+
+const { title, text, icon, href, id } = Astro.props;
+---
+
+<article class="card" {id}>
+  <div class="icon-box"><Icon name={icon} /></div>
+  <h3>{title}</h3>
+  <p>{text}</p>
+  {href && <a class="text-link" href={href}>Découvrir <span>→</span></a>}
+</article>

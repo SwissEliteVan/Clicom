@@ -1,46 +1,37 @@
-# Astro Starter Kit: Basics
+# Clicom
+
+Site vitrine de Clicom, agence digitale suisse orientée croissance et acquisition.
+
+## Stack
+
+- Astro 7 en génération statique
+- composants Astro sans framework client
+- CSS global et styles scoppés par composant
+- police variable Manrope
+
+## Commandes
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev
+npm run check
+npm run build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Pour lancer le serveur en arrière-plan :
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```sh
+npm run astro -- dev --background
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Gestion du serveur : `npm run astro -- dev status`, `npm run astro -- dev logs` et `npm run astro -- dev stop`.
 
-## 🧞 Commands
+## Routes
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `/` : accueil
+- `/services` : expertises
+- `/solutions` : systèmes de croissance
+- `/realisations` : périmètres d’intervention
+- `/agence` : positionnement et méthode
+- `/ressources` : repères pratiques
+- `/contact` : coordonnées et demande d’audit

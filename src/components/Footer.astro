@@ -1,5 +1,64 @@
 ---
-const links=[['Services','/services'],['Solutions','/solutions'],['Réalisations','/realisations'],['Agence','/agence'],['Ressources','/ressources'],['Contact','/contact']];
+import Button from './Button.astro';
+
+const navigation = [['Services','/services'],['Solutions','/solutions'],['Réalisations','/realisations'],['Agence','/agence'],['Ressources','/ressources'],['Contact','/contact']];
+const services = [['Sites web','/services#web'],['SEO, GEO & AEO','/services#seo'],['Google & Social Ads','/services#ads'],['Contenu & branding','/services#contenu'],['Automatisation IA','/solutions#ia'],['CRM & email','/solutions#crm']];
 ---
-<footer><div class="container footer-grid"><div><a class="wordmark" href="/">clicom<span>.</span></a><p>Agence digitale suisse pour attirer, convertir et automatiser votre croissance.</p><div class="motif">●────→</div></div><div><h2>Navigation</h2>{links.map(([label,href])=><a href={href}>{label}</a>)}</div><div class="contact"><h2>Parlons croissance</h2><a href="tel:+41788238950">078 823 89 50</a><a href="mailto:hello@clicom.ch">hello@clicom.ch</a></div></div><div class="container bottom"><span>© {new Date().getFullYear()} Clicom</span><span>Agence digitale suisse</span></div></footer>
-<style>footer{padding-top:clamp(64px,8vw,104px);color:#fff;background:var(--color-midnight)}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1.3fr;gap:48px;padding-bottom:72px}.wordmark{font-size:2.2rem;font-weight:800;letter-spacing:-.07em}.wordmark span,.motif{color:var(--color-cyan)}p,a,.bottom{color:var(--color-dark-muted)}h2{margin:7px 0 22px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}.footer-grid>div:not(:first-child){display:flex;flex-direction:column;align-items:flex-start;gap:10px}.bottom{display:flex;justify-content:space-between;padding-block:24px;border-top:1px solid rgba(255,255,255,.1);font-size:.82rem}@media(max-width:700px){.footer-grid{grid-template-columns:1fr}.bottom{flex-direction:column;gap:8px}}</style>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cta">
+      <div><span>Votre prochain levier de croissance</span><h2>Prêt à accélérer ?</h2></div>
+      <Button href="/contact#audit">Demander un audit <span aria-hidden="true">→</span></Button>
+    </div>
+
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="wordmark" href="/" aria-label="Clicom, accueil">clicom<span>.</span></a>
+        <p>Agence digitale suisse<br />nouvelle génération.</p>
+        <div class="brand-line" aria-hidden="true"><i></i><span></span><b>→</b></div>
+      </div>
+      <div class="footer-column"><h2>Navigation</h2>{navigation.map(([label,href]) => <a href={href}>{label}</a>)}</div>
+      <div class="footer-column"><h2>Services</h2>{services.map(([label,href]) => <a href={href}>{label}</a>)}</div>
+      <div class="footer-column footer-contact">
+        <h2>Contact</h2>
+        <a href="tel:+41788238950"><span>Téléphone</span>+41 78 823 89 50</a>
+        <a href="mailto:hello@clicom.ch"><span>Email</span>hello@clicom.ch</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} Clicom</span>
+      <span>Swiss digital precision.</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { position: relative; overflow: hidden; padding-top: clamp(72px, 9vw, 120px); color: white; background: var(--color-midnight); }
+  .site-footer::before { position: absolute; inset: 0; opacity: .42; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(circle at 75% 25%, black, transparent 58%); content: ''; pointer-events: none; }
+  .site-footer .container { position: relative; z-index: 1; }
+  .footer-cta { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-bottom: clamp(54px, 7vw, 82px); border-bottom: 1px solid var(--color-dark-border); }
+  .footer-cta span { display: block; margin-bottom: 10px; color: var(--color-cyan); font-size: .72rem; font-weight: 760; letter-spacing: .14em; text-transform: uppercase; }
+  .footer-cta h2 { margin: 0; font-size: clamp(2.25rem, 4vw, 3.75rem); }
+  .footer-cta :global(.button) { flex: 0 0 auto; }
+  .footer-main { display: grid; grid-template-columns: 1.55fr .75fr 1fr 1.2fr; gap: clamp(32px, 5vw, 72px); padding-block: clamp(56px, 7vw, 88px); }
+  .wordmark { display: inline-block; font-size: 2.25rem; font-weight: 800; letter-spacing: -.075em; line-height: 1; }
+  .wordmark span { color: var(--color-cyan); }
+  .footer-brand p { margin: 24px 0 32px; color: var(--color-dark-muted); font-size: 1rem; line-height: 1.55; }
+  .brand-line { display: flex; width: 130px; align-items: center; color: var(--color-cyan); }
+  .brand-line i { width: 8px; height: 8px; border-radius: 50%; background: var(--color-cyan); }
+  .brand-line span { height: 1px; flex: 1; background: linear-gradient(90deg, var(--color-cyan), rgba(34,211,238,.2)); }
+  .brand-line b { font-size: 1.3rem; font-weight: 400; }
+  .footer-column { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .footer-column h2 { margin: 6px 0 17px; color: #78849b; font-size: .68rem; font-weight: 760; letter-spacing: .14em; text-transform: uppercase; }
+  .footer-column > a { color: var(--color-dark-muted); font-size: .87rem; transition: color var(--transition-fast), transform var(--transition-fast); }
+  .footer-column > a:hover { color: white; transform: translateX(3px); }
+  .footer-contact { gap: 21px; }
+  .footer-contact > a { color: white; font-size: .94rem; font-weight: 650; }
+  .footer-contact > a span { display: block; margin-bottom: 3px; color: #78849b; font-size: .67rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-block: 24px 28px; border-top: 1px solid var(--color-dark-border); color: #78849b; font-size: .75rem; letter-spacing: .02em; }
+
+  @media (max-width: 960px) { .footer-main { grid-template-columns: 1.4fr 1fr 1fr; } .footer-contact { grid-column: 2 / -1; } }
+  @media (max-width: 680px) { .footer-cta { align-items: stretch; flex-direction: column; } .footer-cta :global(.button) { width: 100%; } .footer-main { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } .footer-contact { grid-column: 1 / -1; } .footer-bottom { align-items: flex-start; flex-direction: column; } }
+</style>

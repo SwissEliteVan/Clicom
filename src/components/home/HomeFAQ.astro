@@ -1,0 +1,45 @@
+---
+const questions = [
+  ['Quels services propose Clicom ?', 'Clicom accompagne les entreprises sur les sites web, le SEO et la visibilité IA, Google Ads, Social Ads, les réseaux sociaux, le contenu, le branding, l’automatisation, le CRM, l’email marketing, l’hébergement et la sécurité.'],
+  ['Pourquoi combiner SEO et publicité ?', 'La publicité permet de capter rapidement une demande identifiée, tandis que le SEO construit une visibilité durable. Les combiner permet de couvrir plusieurs moments du parcours sans dépendre d’un seul canal.'],
+  ['Combien de temps faut-il pour obtenir des résultats SEO ?', 'Le SEO s’inscrit généralement dans la durée. Le calendrier dépend du site, du marché, de la concurrence et du travail déjà réalisé. Un audit permet d’établir des priorités réalistes.'],
+  ['À quoi sert un audit digital ?', 'Il sert à identifier les freins et les opportunités sur votre site, votre visibilité, vos campagnes et votre suivi commercial afin de prioriser les actions utiles.'],
+  ['L’intelligence artificielle peut-elle automatiser mon marketing ?', 'Oui, lorsque le processus est clair et que l’automatisation apporte un gain réel. Clicom évalue les données, les outils et les contrôles humains nécessaires avant de mettre en place un workflow.'],
+  ['Clicom travaille-t-elle avec les PME ?', 'Oui. L’approche est particulièrement adaptée aux PME, indépendants et entreprises qui souhaitent structurer leur acquisition et leur suivi sans multiplier les prestataires.'],
+  ['Comment démarrer un projet avec Clicom ?', 'Commencez par nous expliquer votre objectif via le formulaire, par email ou par téléphone. Un premier échange permet ensuite de clarifier le contexte, les priorités et la prochaine étape.'],
+];
+---
+
+<section class="section faq" aria-labelledby="faq-title">
+  <div class="container faq__layout">
+    <div class="faq__intro"><div class="eyebrow">Questions fréquentes</div><h2 id="faq-title">Des réponses claires avant de commencer.</h2><p>Le bon projet commence par un périmètre compris et des attentes réalistes.</p></div>
+    <div class="faq__list">
+      {questions.map(([question, answer], index) => (
+        <details open={index === 0}>
+          <summary><span>{String(index + 1).padStart(2, '0')}</span><strong>{question}</strong><i aria-hidden="true"></i></summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq { background: white; }
+  .faq__layout { display: grid; grid-template-columns: minmax(280px,.72fr) minmax(0,1.28fr); gap: clamp(56px,8vw,120px); }
+  .faq__intro { position: sticky; top: 120px; align-self: start; }
+  .faq__intro p { max-width: 500px; }
+  .faq__list { border-top: 1px solid var(--color-border); }
+  details { border-bottom: 1px solid var(--color-border); }
+  summary { display: grid; grid-template-columns: 34px 1fr 24px; align-items: center; gap: 14px; padding: 25px 4px; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary > span { color: var(--color-primary); font-size: .7rem; font-weight: 760; }
+  summary strong { color: var(--color-midnight); font-size: 1rem; letter-spacing: -.02em; }
+  summary i { position: relative; width: 18px; height: 18px; }
+  summary i::before, summary i::after { position: absolute; top: 50%; left: 50%; width: 14px; height: 1px; background: var(--color-primary); content: ''; transform: translate(-50%,-50%); transition: transform var(--transition-fast); }
+  summary i::after { transform: translate(-50%,-50%) rotate(90deg); }
+  details[open] summary i::after { transform: translate(-50%,-50%) rotate(0); }
+  details p { max-width: 760px; margin: -5px 38px 27px 52px; }
+  @media (max-width: 800px) { .faq__layout { grid-template-columns: 1fr; gap: 40px; } .faq__intro { position: static; } }
+  @media (max-width: 480px) { summary { grid-template-columns: 26px 1fr 20px; gap: 9px; } details p { margin-right: 0; margin-left: 35px; } }
+</style>

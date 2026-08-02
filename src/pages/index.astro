@@ -1,10 +1,295 @@
 ---
-import Layout from '../layouts/Layout.astro';import Button from '../components/Button.astro';import ServiceCard from '../components/ServiceCard.astro';import Icon from '../components/Icon.astro';import CTA from '../components/CTA.astro';
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import HomeHero from '../components/home/HomeHero.astro';
+import HomeFAQ from '../components/home/HomeFAQ.astro';
+
+const title = 'Clicom | Agence digitale suisse — Web, SEO, Ads & IA';
+const description = 'Clicom accompagne les entreprises avec des sites web performants, du SEO, Google Ads, Social Ads et des solutions d’intelligence artificielle et d’automatisation.';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['Organization', 'ProfessionalService'],
+      '@id': 'https://clicom.ch/#organization',
+      name: 'Clicom',
+      url: 'https://clicom.ch/',
+      email: 'hello@clicom.ch',
+      telephone: '+41788238950',
+      description,
+      areaServed: { '@type': 'Country', name: 'Suisse' },
+      serviceType: ['Création de sites web', 'SEO', 'Référencement IA', 'Google Ads', 'Social Ads', 'Automatisation IA', 'CRM et email marketing'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://clicom.ch/#website',
+      url: 'https://clicom.ch/',
+      name: 'Clicom',
+      inLanguage: 'fr-CH',
+      publisher: { '@id': 'https://clicom.ch/#organization' },
+    },
+  ],
+};
+
+type ServiceIcon = 'search' | 'cursor' | 'chart' | 'globe' | 'automation' | 'target' | 'code' | 'spark';
+interface HomeService { icon: ServiceIcon; title: string; text: string; href: string; class?: string; }
+
+const services: HomeService[] = [
+  { icon: 'code', title: 'Sites web', text: 'Des expériences rapides et convaincantes pensées pour transformer les visiteurs en prospects.', href: '/services#web', class: 'service--wide' },
+  { icon: 'search', title: 'SEO & Référencement IA', text: 'Renforcez votre visibilité sur Google et dans les nouveaux environnements de recherche générative.', href: '/services#seo', class: 'service--tall' },
+  { icon: 'cursor', title: 'Google Ads', text: 'Captez la demande existante avec des campagnes orientées acquisition et rentabilité.', href: '/services#ads' },
+  { icon: 'target', title: 'Social Ads', text: 'Touchez les bonnes audiences avec des campagnes Meta, LinkedIn et autres plateformes pertinentes.', href: '/services#ads' },
+  { icon: 'spark', title: 'Réseaux sociaux & contenu', text: 'Construisez une présence cohérente avec des contenus pensés pour attirer l’attention et créer de la confiance.', href: '/services#contenu', class: 'service--wide' },
+  { icon: 'globe', title: 'Intelligence artificielle', text: 'Intégrez l’IA là où elle améliore réellement vos processus marketing et commerciaux.', href: '/solutions#ia' },
+  { icon: 'automation', title: 'Automatisation & CRM', text: 'Connectez vos leads, vos emails et votre CRM pour réduire les tâches manuelles et améliorer le suivi.', href: '/solutions#crm', class: 'service--dark' },
+];
 ---
-<Layout><section class="home-hero"><div class="container hero-grid"><div><div class="eyebrow">Agence digitale suisse</div><h1>Transformez votre digital en <span class="gradient-text">moteur de croissance.</span></h1><p class="lead">Clicom aide les entreprises à attirer davantage de prospects, convertir davantage de clients et automatiser leur croissance.</p><div class="button-row"><Button href="/contact#audit">Demander un audit gratuit →</Button><Button href="/services" variant="secondary">Découvrir nos services</Button></div><p class="hero-note"><span class="motif">●────→</span> Stratégie. Créativité. Technologie. Performance.</p></div><div class="dashboard" aria-label="Illustration des leviers de croissance digitale"><div class="dash-top"><span>● Système d’acquisition</span><small>Leviers coordonnés</small></div><div class="metrics"><div><small>ATTIRER</small><strong>↑</strong><span>Visibilité qualifiée</span></div><div><small>CONVERTIR</small><strong>→</strong><span>Parcours cohérent</span></div></div><div class="chart"><span>Progression</span><svg viewBox="0 0 520 190" role="img" aria-label="Illustration d’une progression"><defs><linearGradient id="line"><stop stop-color="#2457FF"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs><path d="M0 45h520M0 95h520M0 145h520" class="gridline"/><path d="M0 158C65 154 86 128 130 134s78-28 120-21 61-47 108-39 83-48 162-59" class="curve"/><circle cx="358" cy="74" r="6"/><circle cx="520" cy="15" r="7"/></svg></div><div class="channels"><span>SEO<i></i></span><span>ADS<i></i></span><span>IA<i></i></span></div><div class="float"><Icon name="target"/><b>Objectif commercial</b></div></div></div></section>
-<section class="trust"><div class="container"><p>Votre marketing doit générer du business. <strong>Pas seulement des impressions.</strong></p><div><span>Stratégie sur mesure</span><span>Exécution rapide</span><span>Mesure claire</span></div></div></section>
-<section class="section"><div class="container"><div class="section-heading"><div class="eyebrow">Expertises</div><h2>Un système digital pensé pour <span class="accent">performer.</span></h2><p>Chaque levier a un rôle précis. Ensemble, ils transforment l’attention en opportunités commerciales.</p></div><div class="grid grid--3"><ServiceCard icon="code" title="Sites web & Landing Pages" text="Des expériences rapides, crédibles et conçues pour convertir." href="/services#web"/><ServiceCard icon="search" title="SEO, GEO & AEO" text="Une visibilité travaillée pour Google et les moteurs de réponse IA." href="/services#seo"/><ServiceCard icon="cursor" title="Google Ads & Social Ads" text="Des campagnes structurées autour de vos objectifs d’acquisition." href="/services#ads"/><ServiceCard icon="spark" title="Branding, social & contenus" text="Une identité cohérente et des contenus adaptés à chaque canal." href="/services#contenu"/><ServiceCard icon="automation" title="Automatisation & IA" text="Des processus connectés pour gagner en fluidité sans perdre l’humain." href="/solutions#ia"/><ServiceCard icon="chart" title="CRM & email marketing" text="Un suivi commercial clair et des communications utiles tout au long du parcours." href="/solutions#crm"/></div></div></section>
-<section class="section section--dark"><div class="container ai"><div><div class="eyebrow">Intelligence artificielle</div><h2>L’IA utile. Intégrée à votre <span class="gradient-text">croissance.</span></h2><p class="lead">Mieux répondre, mieux qualifier, produire plus vite et prendre de meilleures décisions.</p><div class="button-row"><Button href="/solutions#ia">Découvrir nos solutions IA →</Button></div></div><div class="nodes" aria-hidden="true"><span><Icon name="spark"/></span><b>CRM</b><b>LEADS</b><b>DATA</b><b>CONTENU</b></div></div></section>
-<section class="section section--white"><div class="container"><div class="section-heading"><div class="eyebrow">Méthode</div><h2>De la clarté à <span class="accent">l’accélération.</span></h2></div><div class="grid grid--4">{[['01','Comprendre'],['02','Construire'],['03','Activer'],['04','Accélérer']].map(([n,t])=><article class="step"><span>{n}</span><h3>{t}</h3></article>)}</div></div></section>
-<section class="section"><div class="container"><div class="case"><div><span class="tag">Notre engagement</span><h2>Des recommandations claires.<br/>Des priorités utiles.</h2><p>Nous partons de vos objectifs, de vos outils et de vos contraintes pour construire un plan d’action adapté à votre entreprise.</p><a class="text-link" href="/agence">Découvrir notre approche <span>→</span></a></div><span class="motif">●────→</span></div></div></section><CTA/></Layout>
-<style>.home-hero{overflow:hidden;padding-block:clamp(4.5rem,8vw,7.5rem)}.hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(50px,7vw,100px)}.hero-note{margin-top:40px;font-size:.82rem}.dashboard{position:relative;padding:22px;border:1px solid rgba(36,87,255,.16);border-radius:28px;background:white;box-shadow:0 30px 90px rgba(8,17,38,.12)}.dash-top{display:flex;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--color-border);font-size:.8rem;font-weight:750}.dash-top span{color:var(--color-primary)}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-block:16px}.metrics>div{display:grid;grid-template-columns:1fr auto;padding:16px;border:1px solid var(--color-border);border-radius:14px;background:var(--color-cloud)}.metrics small{color:var(--color-muted)}.metrics strong{grid-row:1/3;grid-column:2;color:var(--color-primary);font-size:1.5rem}.chart{padding:16px;border:1px solid var(--color-border);border-radius:16px;font-size:.8rem;font-weight:750}.gridline{fill:none;stroke:var(--color-border)}.curve{fill:none;stroke:url(#line);stroke-width:5;stroke-linecap:round}.chart circle{fill:white;stroke:var(--color-primary);stroke-width:4}.channels{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.channels span{color:var(--color-muted);font-size:.7rem;font-weight:750}.channels i{display:block;height:4px;margin-top:6px;border-radius:4px;background:var(--gradient-brand)}.float{position:absolute;right:-30px;bottom:18%;display:flex;gap:9px;padding:12px;border:1px solid var(--color-border);border-radius:14px;background:white;box-shadow:var(--shadow-featured);font-size:.72rem}.float svg{width:20px;color:var(--color-primary)}.trust{padding-block:28px;border-block:1px solid var(--color-border);background:white}.trust .container,.trust div div{display:flex;justify-content:space-between;gap:24px}.trust p{margin:0;color:var(--color-midnight)}.trust div div{color:var(--color-muted);font-size:.8rem}.ai{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:80px}.nodes{position:relative;min-height:380px;background:radial-gradient(circle,rgba(36,87,255,.2),transparent 65%)}.nodes span,.nodes b{position:absolute;display:grid;place-items:center;border:1px solid rgba(34,211,238,.3);border-radius:14px;color:var(--color-cyan);background:var(--color-midnight)}.nodes span{top:50%;left:50%;width:76px;height:76px;background:var(--color-primary);transform:translate(-50%,-50%)}.nodes span svg{width:30px;color:white}.nodes b{padding:12px;font-size:.7rem}.nodes b:nth-of-type(1){top:10%;left:12%}.nodes b:nth-of-type(2){top:17%;right:5%}.nodes b:nth-of-type(3){bottom:14%;left:5%}.nodes b:nth-of-type(4){right:8%;bottom:8%}.step{padding-top:24px;border-top:2px solid var(--color-border)}.step span{display:block;margin-bottom:42px;color:var(--color-primary);font-size:.78rem}.case{display:flex;align-items:flex-end;justify-content:space-between;min-height:320px;padding:clamp(32px,5vw,64px);border:1px solid var(--color-border);border-radius:28px;background:white;box-shadow:var(--shadow-card)}@media(max-width:950px){.hero-grid,.ai{grid-template-columns:1fr}.dashboard{max-width:680px}.trust .container{flex-direction:column}.float{display:none}}@media(max-width:600px){.metrics{grid-template-columns:1fr}.case{align-items:flex-start;flex-direction:column}}</style>
+
+<Layout {title} {description} {structuredData}>
+  <HomeHero />
+
+  <section class="expertise-strip" aria-label="Expertises Clicom">
+    <div class="container expertise-strip__track">
+      {['Web','SEO','Google Ads','Social Ads','IA','Automatisation','CRM'].map((item, index) => <><span>{item}</span>{index < 6 && <i aria-hidden="true"></i>}</>)}
+    </div>
+  </section>
+
+  <section class="section problem" aria-labelledby="problem-title">
+    <div class="container">
+      <div class="problem__heading"><div><div class="eyebrow">Le problème</div><h2 id="problem-title">Votre marketing doit générer du business.<br /><span class="accent">Pas seulement des impressions.</span></h2></div><p>Une présence digitale ne suffit pas lorsqu’elle ne relie ni la demande, ni la conversion, ni le suivi commercial.</p></div>
+      <div class="problem-system">
+        <div class="frictions">
+          {[
+            ['01','Site','Un site qui ne convertit pas'],['02','Visibilité','Une visibilité insuffisante'],['03','Campagnes','Des campagnes difficiles à rentabiliser'],
+            ['04','Suivi','Des leads mal suivis'],['05','Outils','Trop d’outils non connectés'],['06','Temps','Des tâches répétitives'],
+          ].map(([number,label,text]) => <article><span>{number}</span><small>{label}</small><p>{text}</p></article>)}
+        </div>
+        <div class="system-answer">
+          <div class="answer-mark" aria-hidden="true"><span></span><i></i><b>→</b></div>
+          <span class="tag">Système Clicom</span>
+          <h3>Relier les leviers pour créer un parcours cohérent.</h3>
+          <p>Clicom relie stratégie, acquisition, conversion et automatisation dans un seul système de croissance.</p>
+          <a class="text-link" href="/solutions">Découvrir les solutions <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white services" aria-labelledby="services-title">
+    <div class="container">
+      <div class="section-heading"><div class="eyebrow">Expertises</div><h2 id="services-title">Tout ce qu’il faut pour accélérer votre croissance digitale.</h2><p>Des expertises complémentaires, activées selon vos objectifs plutôt que selon une formule préétablie.</p></div>
+      <div class="services-bento">
+        {services.map((service) => (
+          <article class:list={['service-card', service.class]}>
+            <div class="service-card__top"><span class="icon-box"><Icon name={service.icon} /></span><span aria-hidden="true" class="service-card__number">0{services.indexOf(service) + 1}</span></div>
+            <h3>{service.title}</h3><p>{service.text}</p>
+            <a href={service.href}>Explorer ce service <span aria-hidden="true">→</span></a>
+            {service.class === 'service--wide' && <div class="service-signal" aria-hidden="true"><i></i><span></span><b>→</b></div>}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section growth" aria-labelledby="growth-title">
+    <div class="container">
+      <div class="growth__head"><div><div class="eyebrow">Méthode Clicom</div><h2 id="growth-title">Un système de croissance,<br />pas une collection de prestations.</h2></div><p>Chaque étape alimente la suivante. Le suivi permet ensuite d’identifier ce qui doit être conservé, corrigé ou renforcé.</p></div>
+      <div class="growth-pipeline">
+        {[
+          ['01','Attirer',['SEO','Ads','Social','Contenu']],['02','Convertir',['UX','Landing pages','Copywriting','Tracking']],
+          ['03','Automatiser',['CRM','Email','IA','Workflows']],['04','Accélérer',['Data','Tests','Optimisation','Scale']],
+        ].map(([number,title,items], index) => <article><div class="pipeline-index"><span>{number}</span>{index < 3 && <i aria-hidden="true">→</i>}</div><h3>{title}</h3><ul>{(items as string[]).map(item => <li>{item}</li>)}</ul></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark visibility" aria-labelledby="visibility-title">
+    <div class="container visibility__layout">
+      <div class="visibility__copy"><div class="eyebrow">Visibilité 2026</div><h2 id="visibility-title">La recherche change.<br />Votre visibilité doit évoluer avec elle.</h2><p class="lead">Le référencement ne concerne plus uniquement les résultats classiques de Google. Clicom combine SEO, contenu structuré et optimisation pour les nouvelles expériences de recherche générative.</p><div class="visibility-tags">{['SEO','GEO','AEO','Search','AI visibility','Structured content'].map(item => <span>{item}</span>)}</div><a class="text-link" href="/services#seo">Explorer le référencement <span>→</span></a></div>
+      <div class="search-orbit" role="img" aria-label="Illustration des sources de visibilité connectées à une marque">
+        <svg viewBox="0 0 600 520" aria-hidden="true"><path d="M300 260L108 105M300 260L490 101M300 260L538 276M300 260L467 435M300 260L117 426M300 260L65 270"/><circle cx="300" cy="260" r="118"/><circle cx="300" cy="260" r="205"/></svg>
+        <div class="orbit-core"><span><Icon name="search" /></span><strong>Votre marque</strong><small>Contenu · Autorité · Structure</small></div>
+        <span class="orbit-node node--google">Google</span><span class="orbit-node node--search">Search</span><span class="orbit-node node--ai">AI</span><span class="orbit-node node--content">Content</span><span class="orbit-node node--local">Local</span><span class="orbit-node node--authority">Authority</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section web-section" aria-labelledby="web-title">
+    <div class="container web-layout">
+      <div class="browser-mockup" role="img" aria-label="Illustration d’une landing page reliant un visiteur à une prise de contact">
+        <div class="browser-bar"><span><i></i><i></i><i></i></span><div>clicom.ch / landing-page</div></div>
+        <div class="browser-page"><div class="page-copy"><small>Proposition de valeur</small><span></span><span></span><button tabindex="-1">Call to action →</button></div><div class="page-visual"><div></div><i></i><i></i></div></div>
+        <div class="browser-flow"><span>Visiteur</span><i>→</i><span>Landing page</span><i>→</i><span>CTA</span><i>→</i><strong>Lead</strong></div>
+      </div>
+      <div class="web-copy"><div class="eyebrow">Sites web</div><h2 id="web-title">Votre site ne doit pas seulement être beau.<br /><span class="accent">Il doit convertir.</span></h2><p>La création web associe clarté du message, qualité de l’expérience et fondations techniques solides.</p><div class="feature-grid">{['Stratégie','UX','Responsive','Performance','SEO technique','Conversion','Tracking','Sécurité'].map(item => <span><i aria-hidden="true"></i>{item}</span>)}</div><Button href="/services#web" variant="dark">Découvrir les sites web <span aria-hidden="true">→</span></Button></div>
+    </div>
+  </section>
+
+  <section class="section section--white ads" aria-labelledby="ads-title">
+    <div class="container"><div class="ads__heading"><div><div class="eyebrow">Acquisition payante</div><h2 id="ads-title">Achetez de la visibilité.<br /><span class="accent">Mesurez de la performance.</span></h2></div><p>Chaque campagne doit relier une audience, une intention, une création, une page et un suivi exploitable.</p></div>
+      <div class="ads-grid">
+        <article><div class="ads-card__head"><span class="icon-box"><Icon name="search" /></span><div><small>Intention</small><h3>Google Ads</h3></div></div><ul><li>Search</li><li>Performance Max</li><li>Remarketing</li><li>Tracking</li><li>Optimisation</li></ul><a class="text-link" href="/services#ads">Google Ads <span>→</span></a></article>
+        <div class="funnel" aria-label="Parcours illustratif d’une campagne"><span>Campagne</span><i></i><span>Clic</span><i></i><span>Landing page</span><i></i><span>Lead</span><i></i><strong>CRM</strong></div>
+        <article><div class="ads-card__head"><span class="icon-box"><Icon name="cursor" /></span><div><small>Audience</small><h3>Social Ads</h3></div></div><ul><li>Meta</li><li>LinkedIn</li><li>Audiences</li><li>Créatives</li><li>Retargeting</li></ul><a class="text-link" href="/services#ads">Social Ads <span>→</span></a></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section automation" aria-labelledby="automation-title">
+    <div class="container automation__layout">
+      <div class="automation__copy"><div class="eyebrow">Automatisation</div><h2 id="automation-title">Votre marketing peut continuer à travailler pendant que vous faites autre chose.</h2><p class="lead">Les automatisations sont conçues selon les besoins réels, les outils disponibles et les contrôles humains nécessaires.</p><Button href="/solutions#ia">Explorer l’automatisation <span aria-hidden="true">→</span></Button></div>
+      <div class="workflow" role="img" aria-label="Exemple de workflow reliant formulaire, qualification, CRM, email, rendez-vous et suivi commercial">
+        {[
+          ['code','Formulaire'],['target','Lead'],['spark','Qualification IA'],['chart','CRM'],['automation','Email'],['globe','Rendez-vous'],['cursor','Suivi commercial'],
+        ].map(([icon,label], index) => <><div class="workflow-node"><span><Icon name={icon as 'code'} /></span><strong>{label}</strong><small>{index < 2 ? 'Entrée' : index < 5 ? 'Traitement' : 'Action'}</small></div>{index < 6 && <div class="workflow-line" aria-hidden="true"><i></i><b>→</b></div>}</>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white audiences" aria-labelledby="audience-title">
+    <div class="container"><div class="section-heading section-heading--center"><div class="eyebrow">Pour qui</div><h2 id="audience-title">Pensé pour les entreprises qui veulent accélérer.</h2><p>L’approche s’adapte au niveau de maturité, aux ressources et aux priorités de chaque organisation.</p></div><div class="audience-grid">{['PME','Indépendants','Entreprises locales','E-commerce','Immobilier','Services professionnels'].map((item,index) => <div><span>0{index+1}</span><strong>{item}</strong><i aria-hidden="true">→</i></div>)}</div></div>
+  </section>
+
+  <section class="section work" aria-labelledby="work-title">
+    <div class="container work__panel"><div><div class="eyebrow">Réalisations</div><h2 id="work-title">Des projets présentés avec contexte et transparence.</h2><p>Les réalisations Clicom sont partagées lorsque le contexte, l’approche et les informations publiables permettent de comprendre le travail effectué — sans résultat inventé.</p><div class="button-row"><Button href="/contact#audit">Parler de votre projet <span aria-hidden="true">→</span></Button><Button href="/realisations" variant="secondary">Notre approche des réalisations</Button></div></div><div class="work-graphic" aria-hidden="true"><span>Contexte</span><i></i><span>Approche</span><i></i><span>Projet</span></div></div>
+  </section>
+
+  <HomeFAQ />
+
+  <section class="final-cta" aria-labelledby="final-cta-title">
+    <div class="container final-cta__panel"><div class="final-cta__copy"><div class="eyebrow">Prochaine étape</div><h2 id="final-cta-title">Prêt à accélérer votre croissance ?</h2><p>Parlons de vos objectifs et identifions les leviers digitaux les plus pertinents pour votre entreprise.</p><Button href="/contact#audit">Demander mon audit gratuit <span aria-hidden="true">→</span></Button></div><div class="final-cta__contact"><div class="cta-motif" aria-hidden="true"><span></span><i></i><b>→</b></div><a href="tel:+41788238950"><small>Téléphone</small>+41 78 823 89 50</a><a href="mailto:hello@clicom.ch"><small>Email</small>hello@clicom.ch</a></div></div>
+  </section>
+</Layout>
+
+<style>
+  .expertise-strip { border-block: 1px solid var(--color-border); background: white; }
+  .expertise-strip__track { display: flex; min-height: 92px; align-items: center; justify-content: space-between; gap: 20px; overflow: hidden; }
+  .expertise-strip span { flex: 0 0 auto; color: var(--color-midnight); font-size: .72rem; font-weight: 760; letter-spacing: .1em; text-transform: uppercase; }
+  .expertise-strip i { width: 4px; height: 4px; flex: 0 0 auto; border-radius: 50%; background: var(--color-primary); }
+
+  .problem__heading, .growth__head, .ads__heading { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(280px,.65fr); align-items: end; gap: clamp(40px,8vw,110px); margin-bottom: clamp(48px,7vw,80px); }
+  .problem__heading h2, .growth__head h2, .ads__heading h2 { margin-bottom: 0; }
+  .problem__heading > p, .growth__head > p, .ads__heading > p { margin-bottom: 5px; }
+  .problem-system { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(320px,.65fr); gap: 24px; }
+  .frictions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border: 1px solid var(--color-border); border-radius: var(--radius-surface); overflow: hidden; background: var(--color-border); gap: 1px; }
+  .frictions article { position: relative; min-height: 175px; padding: 28px; background: white; }
+  .frictions article::after { position: absolute; top: 28px; right: 28px; width: 6px; height: 6px; border-radius: 50%; background: #f04438; box-shadow: 0 0 0 5px rgba(240,68,56,.07); content: ''; }
+  .frictions span { color: var(--color-border-strong); font-size: .7rem; font-weight: 760; }
+  .frictions small { display: block; margin-top: 22px; color: var(--color-text-muted); font-size: .65rem; font-weight: 740; letter-spacing: .12em; text-transform: uppercase; }
+  .frictions p { margin: 6px 0 0; color: var(--color-midnight); font-weight: 680; }
+  .system-answer { position: relative; display: flex; min-height: 100%; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: clamp(32px,4vw,48px); overflow: hidden; border-radius: var(--radius-surface); color: white; background: var(--gradient-dark); }
+  .system-answer::before { position: absolute; inset: 0; opacity: .2; background-image: radial-gradient(rgba(255,255,255,.3) 1px, transparent 1px); background-size: 18px 18px; content: ''; mask-image: linear-gradient(to bottom, black, transparent 75%); }
+  .system-answer > * { position: relative; z-index: 1; }
+  .answer-mark { position: absolute; top: 44px; right: 40px; left: 40px; display: flex; align-items: center; color: var(--color-cyan); }
+  .answer-mark span { width: 11px; height: 11px; border-radius: 50%; background: var(--color-cyan); }
+  .answer-mark i { height: 1px; flex: 1; background: linear-gradient(90deg,var(--color-cyan),transparent); }
+  .answer-mark b { font-size: 1.7rem; font-weight: 400; }
+  .system-answer .tag { margin-bottom: 24px; color: var(--color-cyan); border-color: rgba(34,211,238,.22); background: rgba(34,211,238,.08); }
+  .system-answer h3 { font-size: clamp(1.8rem,2.6vw,2.5rem); }
+  .system-answer p { color: var(--color-dark-muted); }
+  .system-answer .text-link { color: var(--color-cyan); }
+
+  .services-bento { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); grid-auto-flow: dense; gap: 20px; }
+  .service-card { position: relative; display: flex; min-height: 330px; flex-direction: column; padding: 30px; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-background); transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base); }
+  .service-card:hover { transform: translateY(-4px); border-color: rgba(36,87,255,.28); box-shadow: var(--shadow-card-hover); }
+  .service-card__top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .service-card__number { color: var(--color-border-strong); font-size: .68rem; font-weight: 760; }
+  .service-card h3 { margin-top: auto; }
+  .service-card p { font-size: .94rem; }
+  .service-card > a { display: inline-flex; align-items: center; gap: 8px; color: var(--color-primary); font-size: .82rem; font-weight: 720; }
+  .service-card > a::after { position: absolute; inset: 0; content: ''; }
+  .service-card > a span { transition: transform var(--transition-fast); }
+  .service-card:hover > a span { transform: translateX(4px); }
+  .service--wide { grid-column: span 2; }
+  .service--tall { grid-row: span 2; min-height: 680px; background: linear-gradient(155deg,var(--color-primary-soft),white 70%); }
+  .service--dark { grid-column: span 2; color: white; border-color: rgba(255,255,255,.1); background: var(--gradient-dark); }
+  .service--dark p { color: var(--color-dark-muted); }
+  .service--dark .service-card__number { color: rgba(255,255,255,.2); }
+  .service--dark > a { color: var(--color-cyan); }
+  .service-signal { position: absolute; top: 48px; right: 30px; display: flex; width: 100px; align-items: center; color: var(--color-primary); }
+  .service-signal i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .service-signal span { height: 1px; flex: 1; background: linear-gradient(90deg,currentColor,transparent); }
+  .service-signal b { font-weight: 400; }
+
+  .growth { overflow: hidden; }
+  .growth-pipeline { position: relative; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1px; padding: 1px; border: 1px solid var(--color-border); border-radius: var(--radius-surface); background: var(--color-border); }
+  .growth-pipeline article { min-height: 390px; padding: 32px; background: white; }
+  .growth-pipeline article:first-child { border-radius: 28px 0 0 28px; }
+  .growth-pipeline article:last-child { border-radius: 0 28px 28px 0; background: var(--color-midnight); }
+  .pipeline-index { display: flex; align-items: center; justify-content: space-between; margin-bottom: 90px; color: var(--color-primary); font-size: .7rem; font-weight: 760; }
+  .pipeline-index i { font-size: 1.3rem; font-style: normal; font-weight: 400; }
+  .growth-pipeline article:last-child .pipeline-index { color: var(--color-cyan); }
+  .growth-pipeline article:last-child h3 { color: white; }
+  .growth-pipeline ul { display: grid; gap: 8px; margin: 25px 0 0; padding: 0; list-style: none; }
+  .growth-pipeline li { color: var(--color-text-muted); font-size: .82rem; }
+  .growth-pipeline article:last-child li { color: var(--color-dark-muted); }
+
+  .visibility__layout, .web-layout, .automation__layout { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: center; gap: clamp(64px,9vw,130px); }
+  .visibility-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0 10px; }
+  .visibility-tags span { padding: 8px 12px; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; color: var(--color-dark-muted); background: rgba(255,255,255,.04); font-size: .72rem; }
+  .visibility .text-link { color: var(--color-cyan); }
+  .search-orbit { position: relative; min-height: 580px; }
+  .search-orbit svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .search-orbit path, .search-orbit circle { fill: none; stroke: rgba(34,211,238,.18); stroke-width: 1; stroke-dasharray: 6 8; }
+  .orbit-core { position: absolute; top: 50%; left: 50%; display: grid; width: 190px; height: 190px; place-items: center; align-content: center; border: 1px solid rgba(34,211,238,.24); border-radius: 50%; background: rgba(36,87,255,.14); box-shadow: 0 0 80px rgba(36,87,255,.2); transform: translate(-50%,-50%); }
+  .orbit-core span { display: grid; width: 46px; height: 46px; place-items: center; border-radius: 14px; color: white; background: var(--color-primary); }
+  .orbit-core :global(svg) { position: static; width: 21px; height: 21px; }
+  .orbit-core strong { margin-top: 10px; font-size: 1rem; }
+  .orbit-core small { color: var(--color-dark-muted); font-size: .57rem; }
+  .orbit-node { position: absolute; display: grid; min-width: 90px; min-height: 42px; place-items: center; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; color: var(--color-dark-muted); background: rgba(8,17,38,.82); font-size: .68rem; font-weight: 700; box-shadow: 0 12px 30px rgba(0,0,0,.15); }
+  .node--google { top: 8%; left: 8%; }.node--search { top: 7%; right: 4%; }.node--ai { top: 45%; right: -2%; }.node--content { right: 8%; bottom: 5%; }.node--local { bottom: 6%; left: 7%; }.node--authority { top: 45%; left: -3%; }
+
+  .browser-mockup { overflow: hidden; border: 1px solid var(--color-border); border-radius: 24px; background: white; box-shadow: var(--shadow-featured); }
+  .browser-bar { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 20px; padding: 14px 18px; border-bottom: 1px solid var(--color-border); background: var(--color-background); }
+  .browser-bar > span { display: flex; gap: 6px; }
+  .browser-bar i { width: 7px; height: 7px; border-radius: 50%; background: var(--color-border-strong); }
+  .browser-bar div { padding: 7px 12px; border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-muted); background: white; font-size: .58rem; }
+  .browser-page { display: grid; grid-template-columns: 1fr .85fr; gap: 24px; min-height: 350px; padding: 42px; }
+  .page-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+  .page-copy small { color: var(--color-primary); font-size: .6rem; font-weight: 760; letter-spacing: .1em; text-transform: uppercase; }
+  .page-copy > span { display: block; width: 92%; height: 15px; margin-top: 16px; border-radius: 4px; background: var(--color-midnight); }
+  .page-copy > span + span { width: 70%; height: 9px; margin-top: 9px; background: var(--color-border-strong); }
+  .page-copy button { margin-top: 27px; padding: 11px 15px; border: 0; border-radius: 9px; color: white; background: var(--color-primary); font-size: .62rem; font-weight: 700; }
+  .page-visual { position: relative; min-height: 230px; border-radius: 18px; background: linear-gradient(145deg,var(--color-primary),#2a7eff 65%,var(--color-cyan)); }
+  .page-visual div { position: absolute; inset: 22px; border: 1px solid rgba(255,255,255,.24); border-radius: 13px; background-image: radial-gradient(rgba(255,255,255,.35) 1px,transparent 1px); background-size: 14px 14px; }
+  .page-visual i { position: absolute; width: 74px; height: 48px; border: 1px solid rgba(255,255,255,.3); border-radius: 11px; background: rgba(255,255,255,.16); backdrop-filter: blur(6px); }
+  .page-visual i:nth-of-type(1) { top: 42px; left: 40px; }.page-visual i:nth-of-type(2) { right: 35px; bottom: 38px; }
+  .browser-flow { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px; border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: .6rem; font-weight: 680; }
+  .browser-flow i { color: var(--color-primary); font-style: normal; }.browser-flow strong { color: var(--color-primary); }
+  .feature-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 13px; margin: 32px 0 38px; }
+  .feature-grid span { display: flex; align-items: center; gap: 10px; color: var(--color-midnight); font-size: .83rem; font-weight: 660; }
+  .feature-grid i { width: 7px; height: 7px; border-radius: 50%; background: var(--color-primary); box-shadow: 0 0 0 4px rgba(36,87,255,.08); }
+
+  .ads-grid { display: grid; grid-template-columns: 1fr 190px 1fr; align-items: stretch; gap: 20px; }
+  .ads-grid article { padding: clamp(30px,4vw,46px); border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-background); }
+  .ads-card__head { display: flex; align-items: center; gap: 15px; }
+  .ads-card__head .icon-box { margin: 0; }.ads-card__head small { color: var(--color-text-muted); font-size: .64rem; font-weight: 740; letter-spacing: .1em; text-transform: uppercase; }.ads-card__head h3 { margin: 3px 0 0; }
+  .ads-grid ul { display: grid; grid-template-columns: repeat(2,1fr); gap: 11px; margin: 34px 0 20px; padding: 0; list-style: none; }
+  .ads-grid li { color: var(--color-text-muted); font-size: .78rem; }.ads-grid li::before { margin-right: 8px; color: var(--color-primary); content: '•'; }
+  .funnel { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 22px 14px; border-radius: var(--radius-card); color: white; background: var(--midnight, #081126); }
+  .funnel span, .funnel strong { width: 100%; padding: 10px 6px; border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: var(--color-dark-muted); background: rgba(255,255,255,.04); font-size: .62rem; text-align: center; }
+  .funnel strong { color: var(--color-cyan); }.funnel i { width: 1px; height: 22px; background: linear-gradient(var(--color-primary),var(--color-cyan)); }
+
+  .automation { overflow: hidden; color: white; background: var(--color-midnight); }
+  .automation::before { position: absolute; inset: 0; opacity: .3; background-image: radial-gradient(rgba(34,211,238,.22) 1px,transparent 1px); background-size: 22px 22px; content: ''; mask-image: linear-gradient(90deg,transparent,black); }
+  .automation > * { position: relative; z-index: 1; }.automation__copy p { color: var(--color-dark-muted); }.automation__copy .button { margin-top: 24px; }
+  .workflow { display: grid; width: min(100%,520px); grid-template-columns: 1fr; align-items: center; gap: 0; margin-inline: auto; }
+  .workflow-node { display: grid; min-height: 88px; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 16px 20px; border: 1px solid rgba(255,255,255,.12); border-radius: 15px; background: rgba(255,255,255,.055); }
+  .workflow-node span { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 10px; color: var(--color-cyan); background: rgba(34,211,238,.08); }.workflow-node :global(svg) { width: 18px; }.workflow-node strong { font-size: .76rem; }.workflow-node small { color: #78849b; font-size: .56rem; letter-spacing: .08em; text-transform: uppercase; }
+  .workflow-line { display: flex; height: 31px; flex-direction: column; align-items: center; justify-content: center; color: var(--color-cyan); }.workflow-line i { width: 1px; height: 20px; background: linear-gradient(var(--color-primary),var(--color-cyan)); }.workflow-line b { height: 11px; font-size: .9rem; font-weight: 400; line-height: 1; transform: rotate(90deg); }
+
+  .audience-grid { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--color-border); border-radius: var(--radius-surface); overflow: hidden; background: var(--color-border); gap: 1px; }
+  .audience-grid div { display: grid; grid-template-columns: auto 1fr auto; min-height: 130px; align-items: center; gap: 20px; padding: 25px; background: white; transition: background var(--transition-fast); }.audience-grid div:hover { background: var(--color-primary-soft); }.audience-grid span { color: var(--color-border-strong); font-size: .65rem; }.audience-grid strong { font-size: .92rem; }.audience-grid i { color: var(--color-primary); font-style: normal; }
+
+  .work__panel { position: relative; min-height: 490px; display: grid; grid-template-columns: 1fr .75fr; align-items: center; gap: 60px; padding: clamp(40px,6vw,76px); overflow: hidden; border-radius: var(--radius-surface); background: white; box-shadow: var(--shadow-card); }.work__panel > div:first-child { position: relative; z-index: 2; max-width: 730px; }.work-graphic { position: relative; display: flex; align-items: center; justify-content: center; color: var(--color-primary); }.work-graphic span { display: grid; width: 105px; height: 105px; place-items: center; border: 1px solid rgba(36,87,255,.18); border-radius: 50%; background: var(--color-primary-soft); font-size: .65rem; font-weight: 700; }.work-graphic span:last-child { color: white; background: var(--color-primary); box-shadow: var(--shadow-primary); }.work-graphic i { width: 55px; height: 1px; background: linear-gradient(90deg,var(--color-primary),var(--color-cyan)); }
+
+  .final-cta { padding: var(--space-section) 0; background: white; }.final-cta__panel { position: relative; display: grid; grid-template-columns: 1.2fr .8fr; align-items: end; gap: 60px; padding: clamp(42px,7vw,88px); overflow: hidden; border-radius: var(--radius-surface); color: white; background: var(--gradient-dark); box-shadow: var(--shadow-featured); }.final-cta__panel::before { position: absolute; inset: 0; opacity: .25; background-image: linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px); background-size: 48px 48px; content: ''; mask-image: linear-gradient(90deg,transparent,black); }.final-cta__panel > * { position: relative; z-index: 1; }.final-cta__copy p { max-width: 680px; color: var(--color-dark-muted); }.final-cta__copy .button { margin-top: 20px; }.final-cta__contact { display: grid; gap: 20px; justify-items: end; }.final-cta__contact a { color: white; font-size: clamp(1rem,1.7vw,1.25rem); font-weight: 680; }.final-cta__contact small { display: block; color: #78849b; font-size: .6rem; letter-spacing: .1em; text-align: right; text-transform: uppercase; }.cta-motif { display: flex; width: 100%; max-width: 260px; align-items: center; margin-bottom: 20px; color: var(--color-cyan); }.cta-motif span { width: 10px; height: 10px; border-radius: 50%; background: currentColor; }.cta-motif i { height: 1px; flex: 1; background: linear-gradient(90deg,currentColor,transparent); }.cta-motif b { font-size: 1.7rem; font-weight: 400; }
+
+  @media (max-width: 1100px) { .services-bento { grid-template-columns: repeat(2,1fr); }.service--tall { grid-row: span 1; min-height: 330px; }.growth-pipeline { grid-template-columns: repeat(2,1fr); }.growth-pipeline article:first-child,.growth-pipeline article:last-child { border-radius: 0; }.growth-pipeline article { min-height: 320px; }.pipeline-index { margin-bottom: 55px; }.ads-grid { grid-template-columns: 1fr 150px 1fr; }.workflow { grid-template-columns: 1fr auto 1fr; }.work__panel { grid-template-columns: 1fr; }.work-graphic { justify-content: flex-start; } }
+  @media (max-width: 800px) { .problem__heading,.growth__head,.ads__heading,.visibility__layout,.web-layout,.automation__layout,.final-cta__panel { grid-template-columns: 1fr; }.problem-system { grid-template-columns: 1fr; }.system-answer { min-height: 440px; }.search-orbit { min-height: 520px; }.web-copy { grid-row: 1; }.ads-grid { grid-template-columns: 1fr; }.funnel { min-height: 180px; flex-direction: row; }.funnel i { width: 24px; height: 1px; }.workflow { margin-top: 20px; }.audience-grid { grid-template-columns: repeat(2,1fr); }.final-cta__contact { justify-items: start; }.final-cta__contact small { text-align: left; } }
+  @media (max-width: 680px) { .expertise-strip__track { min-height: 78px; overflow-x: auto; scrollbar-width: none; }.expertise-strip span { font-size: .66rem; }.frictions,.services-bento,.growth-pipeline,.audience-grid { grid-template-columns: 1fr; }.service--wide,.service--dark { grid-column: auto; }.growth-pipeline article { min-height: 270px; }.pipeline-index { margin-bottom: 38px; }.pipeline-index i { transform: rotate(90deg); }.search-orbit { min-height: 430px; transform: scale(.88); }.orbit-core { width: 150px; height: 150px; }.browser-page { grid-template-columns: 1fr; padding: 28px; }.browser-flow { flex-wrap: wrap; }.feature-grid { grid-template-columns: 1fr; }.ads-grid ul { grid-template-columns: 1fr 1fr; }.workflow-node { min-height: 84px; }.work__panel { padding: 34px 24px; }.work-graphic { transform: scale(.78); transform-origin: left; }.final-cta__panel { padding: 36px 24px; }.final-cta__copy .button { width: 100%; } }
+  @media (max-width: 390px) { .search-orbit { margin-inline: -30px; }.ads-grid ul { grid-template-columns: 1fr; }.work-graphic { transform: scale(.66); } }
+  @media (prefers-reduced-motion: reduce) { .service-card { transition: none; } }
+</style>

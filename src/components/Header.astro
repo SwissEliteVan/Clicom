@@ -1,39 +1,189 @@
 ---
 import Button from './Button.astro';
+
 const path = Astro.url.pathname;
 const links = [
-  ['/services', 'Services'], ['/solutions', 'Solutions'], ['/realisations', 'Réalisations'],
-  ['/agence', 'Agence'], ['/ressources', 'Ressources'], ['/contact', 'Contact'],
+  ['/solutions', 'Solutions'],
+  ['/realisations', 'Réalisations'],
+  ['/agence', 'Agence'],
+  ['/ressources', 'Ressources'],
+  ['/contact', 'Contact'],
+];
+
+const serviceGroups = [
+  {
+    title: 'Acquisition',
+    links: [
+      ['/services#seo', 'SEO'],
+      ['/services#seo', 'Référencement IA'],
+      ['/services#ads', 'Google Ads'],
+      ['/services#ads', 'Social Ads'],
+    ],
+  },
+  {
+    title: 'Création',
+    links: [
+      ['/services#web', 'Sites web'],
+      ['/services#contenu', 'Contenu'],
+      ['/services#social', 'Réseaux sociaux'],
+      ['/services#branding', 'Branding'],
+    ],
+  },
+  {
+    title: 'Technologie',
+    links: [
+      ['/solutions#ia', 'Intelligence artificielle'],
+      ['/services#automation', 'Automatisation'],
+      ['/solutions#crm', 'CRM & Email'],
+      ['/services#hosting', 'Hébergement & sécurité'],
+    ],
+  },
 ];
 ---
-<header class="site-header">
+
+<header class="site-header" data-header>
   <div class="container header-inner">
-    <a class="wordmark" href="/" aria-label="Clicom, accueil">clicom<span>.</span></a>
-    <nav aria-label="Navigation principale">
-      {links.map(([href, label]) => <a class:list={{active: path.startsWith(href)}} href={href}>{label}</a>)}
+    <a class="brand" href="/" aria-label="Clicom, accueil">
+      <span class="brand__mark" aria-hidden="true"><i></i><b>→</b></span>
+      <span class="brand__name">clicom<span>.</span></span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navigation principale">
+      <details class="services-menu" data-menu>
+        <summary class:list={{ active: path.startsWith('/services') }} aria-haspopup="true" aria-expanded="false">
+          Services <span aria-hidden="true">⌄</span>
+        </summary>
+        <div class="mega-menu">
+          <div class="mega-menu__intro">
+            <span class="mega-menu__kicker">Expertises Clicom</span>
+            <strong>Attirer. Convertir.<br />Automatiser. Accélérer.</strong>
+            <a href="/services">Voir tous les services <span aria-hidden="true">→</span></a>
+          </div>
+          {serviceGroups.map((group) => (
+            <div class="mega-menu__group">
+              <span>{group.title}</span>
+              {group.links.map(([href, label]) => <a href={href}>{label}</a>)}
+            </div>
+          ))}
+        </div>
+      </details>
+      {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>)}
     </nav>
-    <Button href="/contact#audit">Audit gratuit <span aria-hidden="true">→</span></Button>
-    <details class="mobile-menu">
-      <summary aria-label="Ouvrir le menu"><span></span><span></span><span></span></summary>
+
+    <Button href="/contact#audit" class="header-cta">Audit gratuit <span aria-hidden="true">→</span></Button>
+
+    <details class="mobile-menu" data-menu>
+      <summary aria-label="Ouvrir la navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </summary>
       <div class="mobile-menu__panel">
-        {links.map(([href, label]) => <a href={href}>{label}</a>)}
-        <Button href="/contact#audit">Audit gratuit →</Button>
+        <div class="mobile-menu__top">
+          <span>Navigation</span>
+          <span class="brand__name">clicom<span>.</span></span>
+        </div>
+        <a class:list={{ active: path.startsWith('/services') }} href="/services" aria-current={path.startsWith('/services') ? 'page' : undefined}>Services <span>→</span></a>
+        {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}<span>→</span></a>)}
+        <div class="mobile-menu__services">
+          <span>Services prioritaires</span>
+          <div><a href="/services#web">Sites web</a><a href="/services#seo">SEO & IA</a><a href="/services#ads">Publicité</a><a href="/solutions#ia">Automatisation</a></div>
+        </div>
+        <Button href="/contact#audit">Demander un audit <span aria-hidden="true">→</span></Button>
       </div>
     </details>
   </div>
 </header>
 
+<script>
+  const menus = document.querySelectorAll<HTMLDetailsElement>('[data-menu]');
+
+  const closeMenu = (menu: HTMLDetailsElement) => {
+    menu.open = false;
+    menu.querySelector('summary')?.setAttribute('aria-expanded', 'false');
+  };
+
+  menus.forEach((menu) => {
+    const trigger = menu.querySelector('summary');
+    menu.addEventListener('toggle', () => {
+      trigger?.setAttribute('aria-expanded', String(menu.open));
+      if (menu.open) menus.forEach((other) => other !== menu && closeMenu(other));
+    });
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => closeMenu(menu)));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      const openMenu = Array.from(menus).find((menu) => menu.open);
+      menus.forEach(closeMenu);
+      openMenu?.querySelector<HTMLElement>('summary')?.focus();
+    }
+  });
+
+  document.addEventListener('pointerdown', (event) => {
+    if (event.target instanceof Node) menus.forEach((menu) => !menu.contains(event.target as Node) && closeMenu(menu));
+  });
+</script>
+
 <style>
-  .site-header { position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(228,232,240,.78); background: rgba(247,249,252,.88); backdrop-filter: blur(16px); }
-  .header-inner { display: flex; height: 80px; align-items: center; gap: 28px; }
-  .wordmark { margin-right: auto; font-size: 1.7rem; font-weight: 800; letter-spacing: -.065em; line-height: 1; }
-  .wordmark span { color: var(--color-primary); }
-  nav { display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); }
-  nav a { position: relative; color: var(--color-muted); font-size: .9rem; font-weight: 650; transition: color var(--transition-fast); }
-  nav a:hover, nav a.active { color: var(--color-midnight); }
-  nav a.active::after { position: absolute; right: 0; bottom: -11px; left: 0; height: 2px; border-radius: 2px; background: var(--color-primary); content: ''; }
-  .header-inner > .button { min-height: 46px; padding: 12px 18px; font-size: .9rem; }
+  .site-header { position: sticky; top: 0; z-index: var(--z-header); border-bottom: 1px solid rgba(228,232,240,.82); background: rgba(247,249,252,.86); backdrop-filter: blur(18px) saturate(140%); }
+  .header-inner { position: relative; display: flex; height: 82px; align-items: center; gap: clamp(20px, 2.4vw, 36px); }
+  .brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 11px; margin-right: auto; }
+  .brand__mark { position: relative; display: flex; width: 34px; align-items: center; color: var(--color-primary); }
+  .brand__mark i { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: var(--color-primary); box-shadow: 0 0 0 5px rgba(36,87,255,.09); }
+  .brand__mark::after { width: 13px; height: 1px; background: var(--color-primary); content: ''; }
+  .brand__mark b { font-size: 1rem; font-weight: 650; line-height: 1; }
+  .brand__name { font-size: 1.62rem; font-weight: 800; letter-spacing: -.07em; line-height: 1; }
+  .brand__name span { color: var(--color-primary); }
+  .desktop-nav { display: flex; height: 100%; align-items: center; gap: clamp(15px, 1.7vw, 25px); }
+  .desktop-nav > a, .services-menu > summary { position: relative; display: flex; min-height: 44px; align-items: center; color: var(--color-text-muted); font-size: .86rem; font-weight: 680; cursor: pointer; list-style: none; transition: color var(--transition-fast); }
+  .services-menu > summary::-webkit-details-marker { display: none; }
+  .services-menu > summary span { margin-left: 5px; font-size: .78rem; transition: transform var(--transition-fast); }
+  .services-menu[open] > summary span { transform: rotate(180deg); }
+  .desktop-nav > a::after, .services-menu > summary::after { position: absolute; right: 50%; bottom: -1px; left: 50%; height: 2px; border-radius: 2px; background: var(--color-primary); content: ''; transition: right var(--transition-fast), left var(--transition-fast); }
+  .desktop-nav > a:hover, .desktop-nav > a.active, .services-menu > summary:hover, .services-menu > summary.active, .services-menu[open] > summary { color: var(--color-midnight); }
+  .desktop-nav > a:hover::after, .desktop-nav > a.active::after, .services-menu > summary:hover::after, .services-menu > summary.active::after, .services-menu[open] > summary::after { right: 0; left: 0; }
+  .services-menu { height: 100%; }
+  .services-menu > summary { height: 100%; }
+  .mega-menu { position: absolute; top: calc(100% + 12px); right: 0; left: 0; display: grid; grid-template-columns: 1.25fr repeat(3, 1fr); gap: 1px; padding: 10px; overflow: hidden; border: 1px solid var(--color-border); border-radius: 24px; background: var(--color-border); box-shadow: var(--shadow-featured); }
+  .mega-menu::before { position: fixed; inset: 82px 0 0; z-index: -1; background: rgba(8,17,38,.08); content: ''; backdrop-filter: blur(2px); }
+  .mega-menu__intro, .mega-menu__group { min-width: 0; padding: 27px; background: white; }
+  .mega-menu__intro { border-radius: 15px 0 0 15px; background: var(--color-midnight); }
+  .mega-menu__kicker, .mega-menu__group > span { display: block; margin-bottom: 19px; color: var(--color-primary); font-size: .67rem; font-weight: 780; letter-spacing: .14em; text-transform: uppercase; }
+  .mega-menu__intro strong { display: block; margin-bottom: 24px; color: white; font-size: 1.24rem; line-height: 1.28; letter-spacing: -.035em; }
+  .mega-menu__intro a { display: inline-flex; gap: 8px; color: var(--color-cyan); font-size: .82rem; font-weight: 700; }
+  .mega-menu__group { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
+  .mega-menu__group:last-child { border-radius: 0 15px 15px 0; }
+  .mega-menu__group > span { color: var(--color-text-muted); }
+  .mega-menu__group a { width: 100%; padding: 7px 0; color: var(--color-midnight); font-size: .86rem; font-weight: 650; transition: color var(--transition-fast), transform var(--transition-fast); }
+  .mega-menu__group a:hover { color: var(--color-primary); transform: translateX(3px); }
+  .header-cta { min-height: 46px; padding: 12px 17px; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
   .mobile-menu { display: none; }
-  @media (max-width: 1050px) { nav, .header-inner > .button { display: none; } .mobile-menu { display: block; } .mobile-menu summary { display: grid; width: 44px; height: 44px; place-content: center; gap: 5px; border: 1px solid var(--color-border); border-radius: 12px; background: white; cursor: pointer; list-style: none; } .mobile-menu summary::-webkit-details-marker { display: none; } .mobile-menu summary span { display: block; width: 20px; height: 2px; background: var(--color-midnight); } .mobile-menu__panel { position: absolute; top: 72px; right: 16px; left: 16px; display: grid; gap: 4px; padding: 16px; border: 1px solid var(--color-border); border-radius: 18px; background: white; box-shadow: var(--shadow-featured); } .mobile-menu__panel > a:not(.button) { padding: 11px 12px; font-weight: 650; } .mobile-menu__panel .button { margin-top: 8px; } }
-  @media (max-width: 680px) { .header-inner { height: 70px; } }
+
+  @media (max-width: 1100px) {
+    .desktop-nav, .header-inner > :global(.header-cta) { display: none; }
+    .mobile-menu { display: block; }
+    .mobile-menu > summary { display: grid; width: 46px; height: 46px; place-content: center; gap: 5px; border: 1px solid var(--color-border-strong); border-radius: 12px; background: white; box-shadow: 0 4px 14px rgba(8,17,38,.05); cursor: pointer; list-style: none; }
+    .mobile-menu > summary::-webkit-details-marker { display: none; }
+    .mobile-menu > summary span { display: block; width: 20px; height: 2px; border-radius: 2px; background: var(--color-midnight); transition: transform var(--transition-fast), opacity var(--transition-fast); }
+    .mobile-menu[open] > summary span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .mobile-menu[open] > summary span:nth-child(2) { opacity: 0; }
+    .mobile-menu[open] > summary span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu__panel { position: absolute; top: calc(100% + 12px); right: 0; left: 0; display: grid; gap: 3px; max-height: calc(100vh - 112px); padding: 18px; overflow-y: auto; border: 1px solid var(--color-border); border-radius: 22px; background: rgba(255,255,255,.98); box-shadow: var(--shadow-featured); }
+    .mobile-menu__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 2px 8px 14px; border-bottom: 1px solid var(--color-border); color: var(--color-text-muted); font-size: .7rem; font-weight: 760; letter-spacing: .13em; text-transform: uppercase; }
+    .mobile-menu__top .brand__name { font-size: 1.3rem; text-transform: none; }
+    .mobile-menu__panel > a:not(.button) { display: flex; min-height: 48px; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: 10px; color: var(--color-midnight); font-size: 1rem; font-weight: 680; }
+    .mobile-menu__panel > a.active { color: var(--color-primary); background: var(--color-primary-soft); }
+    .mobile-menu__panel > a span { color: var(--color-primary); }
+    .mobile-menu__services { margin-block: 10px; padding: 16px 12px; border-block: 1px solid var(--color-border); }
+    .mobile-menu__services > span { display: block; margin-bottom: 12px; color: var(--color-text-muted); font-size: .68rem; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; }
+    .mobile-menu__services div { display: flex; flex-wrap: wrap; gap: 8px; }
+    .mobile-menu__services a { padding: 7px 10px; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-text-muted); font-size: .78rem; font-weight: 650; }
+    .mobile-menu__panel > :global(.button) { width: 100%; margin-top: 8px; }
+  }
+
+  @media (max-width: 680px) {
+    .header-inner { height: 72px; }
+    .brand__mark { width: 31px; }
+    .brand__name { font-size: 1.5rem; }
+    .mobile-menu__panel { right: -2px; left: -2px; border-radius: 18px; }
+  }
 </style>

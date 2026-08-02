@@ -7,12 +7,13 @@ interface Props {
   icon: 'search' | 'cursor' | 'chart' | 'globe' | 'automation' | 'target' | 'code' | 'spark';
   href?: string;
   id?: string;
+  variant?: 'standard' | 'highlighted';
 }
 
-const { title, text, icon, href, id } = Astro.props;
+const { title, text, icon, href, id, variant = 'standard' } = Astro.props;
 ---
 
-<article class="card" {id}>
+<article class:list={['card', `card--${variant}`, { 'card--interactive': href }]} {id}>
   <div class="icon-box"><Icon name={icon} /></div>
   <h3>{title}</h3>
   <p>{text}</p>

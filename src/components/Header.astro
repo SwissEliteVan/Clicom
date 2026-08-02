@@ -186,4 +186,47 @@ const serviceGroups = [
     .brand__name { font-size: 1.5rem; }
     .mobile-menu__panel { right: -2px; left: -2px; border-radius: 18px; }
   }
+
+  :global(body.home-page) .site-header {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    background: rgba(8, 17, 38, 0.2);
+    color: white;
+  }
+
+  :global(body.home-page) .brand__mark,
+  :global(body.home-page) .brand__name,
+  :global(body.home-page) .desktop-nav > a,
+  :global(body.home-page) .services-menu > summary {
+    color: rgba(247, 249, 252, 0.88);
+  }
+
+  :global(body.home-page) .desktop-nav > a:hover,
+  :global(body.home-page) .desktop-nav > a.active,
+  :global(body.home-page) .services-menu > summary:hover,
+  :global(body.home-page) .services-menu > summary.active,
+  :global(body.home-page) .services-menu[open] > summary {
+    color: white;
+  }
+
+  :global(body.home-page) .brand__mark i,
+  :global(body.home-page) .brand__mark::after,
+  :global(body.home-page) .desktop-nav > a::after,
+  :global(body.home-page) .services-menu > summary::after {
+    background: var(--color-cyan);
+  }
+
+  :global(body.home-page) .header-cta {
+    color: var(--color-midnight);
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  :global(body.home-page) .header-cta:hover {
+    background: white;
+  }
+
+  :global(body.home-page) .mobile-menu > summary {
+    border-color: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.9);
+  }
 </style>

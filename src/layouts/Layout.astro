@@ -42,10 +42,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
     <title>{title}</title>
     {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
   </head>
-  <body>
-    <a class="skip-link" href="#contenu">Aller au contenu</a>
-    <Header />
-    <main id="contenu"><slot /></main>
-    <Footer />
-  </body>
+<body class:list={{ 'home-page': Astro.url.pathname === '/' }}>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <Header />
+  <main id="contenu"><slot /></main>
+  <Footer />
+</body>
 </html>

@@ -41,7 +41,7 @@ import heroMotionUrl from '../../scripts/hero-motion.ts?url';
   </div>
 </div>
 
-<script type="module" src={heroMotionUrl}></script>
+<script is:inline type="module" src={heroMotionUrl}></script>
 
 <style>
   .home-hero { position: relative; min-height: 100svh; overflow: hidden; color: white; background: var(--color-midnight); isolation: isolate; }
@@ -79,7 +79,7 @@ import heroMotionUrl from '../../scripts/hero-motion.ts?url';
     .home-hero__inner { padding-top: 94px; padding-bottom: 26px; }
     .home-hero__topline span:last-child, .home-hero__footer > span:last-child { display: none; }
     .home-hero__content { justify-content: flex-end; padding-bottom: 9vh; }
-    .home-hero__title { font-size: clamp(3.25rem, 15.2vw, 5rem); line-height: .88; letter-spacing: -.07em; }
+    .home-hero__title { font-size: clamp(2.8rem, 11.8vw, 4rem); line-height: .88; letter-spacing: -.07em; }
     .home-hero__title-line--accent { -webkit-text-stroke-width: 1px; }
     .home-hero__support { grid-template-columns: 1fr; gap: 24px; margin-top: 34px; }
     .home-hero__support p { max-width: 31ch; font-size: .95rem; }

@@ -1,68 +1,82 @@
-const root = document.documentElement;
-root.classList.add('js');
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+import { initScrollReveals } from './scroll-motion';
 
+gsap.registerPlugin(ScrollTrigger);
+
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 const hero = document.querySelector<HTMLElement>('[data-hero]');
+const frame = document.querySelector<HTMLElement>('[data-hero-frame]');
 const media = document.querySelector<HTMLElement>('[data-hero-media]');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-canvas]');
+const bridge = document.querySelector<HTMLElement>('[data-hero-bridge]');
 
-let scrollFrame = 0;
-let pointerFrame = 0;
+if (!reduce.matches && hero && frame && media) {
+  const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
+  intro
+    .from(frame, { clipPath: 'inset(8% 7% 8% 7% round 28px)', scale: 1.08, duration: 1.45 })
+    .from('[data-hero-detail]', { opacity: 0, y: 18, duration: .8, stagger: .12 }, .18)
+    .from('.home-hero__title-line > span', { yPercent: 112, duration: 1.08, stagger: .1 }, .25)
+    .from('[data-hero-copy]', { opacity: 0, y: 24, duration: .8 }, .72)
+    .from('[data-hero-cta]', { opacity: 0, y: 24, scale: .96, duration: .8 }, .82);
 
-const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+  gsap.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .8 } })
+    .to(frame, { scale: .91, yPercent: 8, clipPath: 'inset(4% 3% 0% 3% round 34px)', ease: 'none' }, 0)
+    .to('.home-hero__title', { yPercent: -13, opacity: .18, ease: 'none' }, 0)
+    .to('.home-hero__support', { yPercent: -24, opacity: 0, ease: 'none' }, 0)
+    .to('.home-hero__wash', { opacity: .45, ease: 'none' }, 0);
 
-const setHeroProgress = () => {
-  if (!hero) return;
-  scrollFrame = 0;
-  const rect = hero.getBoundingClientRect();
-  const progress = clamp((-rect.top) / Math.max(rect.height * 0.62, 1), 0, 1);
-  hero.style.setProperty('--hero-scroll', progress.toFixed(3));
-};
+  if (bridge) gsap.to('.hero-bridge__track', { xPercent: -50, ease: 'none', scrollTrigger: { trigger: bridge, start: 'top bottom', end: 'bottom top', scrub: 1 } });
 
-const scheduleScroll = () => {
-  if (scrollFrame) return;
-  scrollFrame = window.requestAnimationFrame(setHeroProgress);
-};
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  if (finePointer) {
+    const layers = gsap.utils.toArray<HTMLElement>('[data-depth]');
+    const moveX = layers.map((el) => gsap.quickTo(el, 'x', { duration: 1.1, ease: 'power3.out' }));
+    const moveY = layers.map((el) => gsap.quickTo(el, 'y', { duration: 1.1, ease: 'power3.out' }));
+    hero.addEventListener('pointermove', (event) => {
+      const x = event.clientX / innerWidth - .5;
+      const y = event.clientY / innerHeight - .5;
+      layers.forEach((el, i) => { const depth = Number(el.dataset.depth || 1); moveX[i](x * 13 * depth); moveY[i](y * 10 * depth); });
+    }, { passive: true });
 
-const ready = () => {
-  if (!hero) return;
-  window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => {
-      hero?.classList.add('is-ready');
-      setHeroProgress();
+    document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((item) => {
+      const setX = gsap.quickTo(item, 'x', { duration: .45, ease: 'power3.out' });
+      const setY = gsap.quickTo(item, 'y', { duration: .45, ease: 'power3.out' });
+      item.addEventListener('pointermove', (event) => { const r = item.getBoundingClientRect(); setX((event.clientX-r.left-r.width/2)*.12); setY((event.clientY-r.top-r.height/2)*.12); });
+      item.addEventListener('pointerleave', () => { setX(0); setY(0); });
     });
-  });
-};
+  }
 
-if (hero && !reducedMotion) {
-  setHeroProgress();
-  window.addEventListener('scroll', scheduleScroll, { passive: true });
+  const lenis = new Lenis({ duration: 1.05, smoothWheel: true, wheelMultiplier: .9 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
 }
 
-ready();
-
-if (hero && !reducedMotion && media && window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 1024) {
-  const updatePointer = (x: number, y: number) => {
-    pointerFrame = 0;
-    const rect = media.getBoundingClientRect();
-    const mx = clamp(((x - rect.left) / rect.width - 0.5) * 2, -1, 1);
-    const my = clamp(((y - rect.top) / rect.height - 0.5) * 2, -1, 1);
-    hero.style.setProperty('--mx', mx.toFixed(3));
-    hero.style.setProperty('--my', my.toFixed(3));
-  };
-
-  media.addEventListener('pointermove', (event) => {
-    if (pointerFrame) return;
-    pointerFrame = window.requestAnimationFrame(() => updatePointer(event.clientX, event.clientY));
-  });
-
-  media.addEventListener('pointerleave', () => {
-    hero.style.setProperty('--mx', '0');
-    hero.style.setProperty('--my', '0');
-  });
+if (!reduce.matches && canvas && media) {
+  const ctx = canvas.getContext('2d', { alpha: true });
+  if (ctx) {
+    let width = 0, height = 0, raf = 0, time = 0;
+    let targetX = .62, targetY = .42, mouseX = targetX, mouseY = targetY;
+    const resize = () => { const dpr = Math.min(devicePixelRatio, 1.5); width = media.clientWidth; height = media.clientHeight; canvas.width = Math.round(width*dpr); canvas.height = Math.round(height*dpr); canvas.style.width=`${width}px`; canvas.style.height=`${height}px`; ctx.setTransform(dpr,0,0,dpr,0,0); };
+    const draw = () => {
+      time += .006; mouseX += (targetX-mouseX)*.025; mouseY += (targetY-mouseY)*.025;
+      ctx.clearRect(0,0,width,height);
+      const glow=ctx.createRadialGradient(mouseX*width,mouseY*height,0,mouseX*width,mouseY*height,width*.58);
+      glow.addColorStop(0,'rgba(36,87,255,.42)'); glow.addColorStop(.42,'rgba(18,55,137,.18)'); glow.addColorStop(1,'rgba(8,17,38,0)'); ctx.fillStyle=glow; ctx.fillRect(0,0,width,height);
+      for(let line=0;line<16;line++){
+        const offset=(line-8)*height*.041; ctx.beginPath();
+        for(let x=-40;x<=width+40;x+=22){ const p=x/width; const base=height*(.78-p*.48)+offset; const wave=Math.sin(p*7+time*5+line*.23)*18 + Math.sin(p*2.6-time*2)*24; const pull=Math.exp(-Math.pow((p-mouseX)*3.1,2))*(mouseY-.5)*72; const y=base+wave+pull; x===-40?ctx.moveTo(x,y):ctx.lineTo(x,y); }
+        const grad=ctx.createLinearGradient(0,0,width,0); grad.addColorStop(0,'rgba(36,87,255,0)'); grad.addColorStop(.48,`rgba(36,87,255,${.07+line*.004})`); grad.addColorStop(1,'rgba(34,211,238,.24)'); ctx.strokeStyle=grad; ctx.lineWidth=line===8?1.8:.72; ctx.stroke();
+      }
+      for(let i=0;i<34;i++){ const p=(i/34+time*.09)%1; const x=p*width; const y=height*(.78-p*.48)+Math.sin(p*7+time*5+8*.23)*18; ctx.fillStyle=i%5===0?'rgba(34,211,238,.82)':'rgba(255,255,255,.36)'; ctx.beginPath(); ctx.arc(x,y,i%5===0?2.3:1.1,0,Math.PI*2); ctx.fill(); }
+      raf=requestAnimationFrame(draw);
+    };
+    const observer=new ResizeObserver(resize); observer.observe(media); resize(); media.classList.add('is-canvas-ready'); draw();
+    hero?.addEventListener('pointermove',(event)=>{ targetX=event.clientX/innerWidth; targetY=event.clientY/innerHeight; },{passive:true});
+    document.addEventListener('astro:before-swap',()=>{ cancelAnimationFrame(raf); observer.disconnect(); },{once:true});
+  }
 }
 
-if (reducedMotion) {
-  hero?.style.setProperty('--hero-scroll', '0');
-  hero?.style.setProperty('--mx', '0');
-  hero?.style.setProperty('--my', '0');
-}
+initScrollReveals(reduce.matches);

@@ -208,12 +208,21 @@ const serviceGroups = [
   }
 
   :global(body.home-page) .site-header {
+    position: fixed;
+    right: 0;
+    left: 0;
     border-bottom-color: rgba(255, 255, 255, 0.08);
-    background: rgba(8, 17, 38, 0.2);
+    background: linear-gradient(180deg,rgba(8,17,38,.44),rgba(8,17,38,.05));
+    backdrop-filter: none;
     color: white;
   }
 
   :global(body.home-page) .site-header.is-scrolled {
+    top: 10px;
+    right: 16px;
+    left: 16px;
+    border: 1px solid rgba(228, 232, 240, 0.68);
+    border-radius: 18px;
     border-bottom-color: rgba(228, 232, 240, 0.68);
     background: rgba(247, 249, 252, 0.88);
     box-shadow: 0 10px 30px rgba(8, 17, 38, 0.08);
@@ -243,6 +252,12 @@ const serviceGroups = [
     color: white;
   }
 
+  :global(body.home-page) .site-header.is-scrolled .desktop-nav > a:hover,
+  :global(body.home-page) .site-header.is-scrolled .desktop-nav > a.active,
+  :global(body.home-page) .site-header.is-scrolled .services-menu > summary:hover,
+  :global(body.home-page) .site-header.is-scrolled .services-menu > summary.active,
+  :global(body.home-page) .site-header.is-scrolled .services-menu[open] > summary { color: var(--color-midnight); }
+
   :global(body.home-page) .brand__mark i,
   :global(body.home-page) .brand__mark::after,
   :global(body.home-page) .desktop-nav > a::after,
@@ -270,5 +285,9 @@ const serviceGroups = [
   :global(body.home-page) .mobile-menu > summary {
     border-color: rgba(255, 255, 255, 0.16);
     background: rgba(255, 255, 255, 0.9);
+  }
+
+  @media (max-width: 680px) {
+    :global(body.home-page) .site-header.is-scrolled { top: 8px; right: 8px; left: 8px; border-radius: 15px; }
   }
 </style>

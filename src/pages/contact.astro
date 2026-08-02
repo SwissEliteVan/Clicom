@@ -15,23 +15,36 @@ import Button from '../components/Button.astro';
         <p><a href="tel:+41788238950"><strong>078 823 89 50</strong></a><br /><a href="mailto:hello@clicom.ch"><strong>hello@clicom.ch</strong></a></p>
         <div class="motif">●────→</div>
       </div>
-      <form class="card form" action="mailto:hello@clicom.ch" method="post" enctype="text/plain">
+      <form class="card form" action="/api/contact" method="post" data-contact-form>
         <div class="form-grid">
-          <div class="field"><label for="nom">Nom</label><input id="nom" name="Nom" autocomplete="name" required /></div>
-          <div class="field"><label for="entreprise">Entreprise</label><input id="entreprise" name="Entreprise" autocomplete="organization" /></div>
-          <div class="field"><label for="site">Site internet</label><input id="site" name="Site" type="url" /></div>
-          <div class="field"><label for="email">Email</label><input id="email" name="Email" type="email" autocomplete="email" required /></div>
-          <div class="field field--full"><label for="tel">Téléphone</label><input id="tel" name="Téléphone" type="tel" autocomplete="tel" /></div>
-          <div class="field field--full"><label for="objectif">Objectif</label><textarea id="objectif" name="Objectif" required></textarea></div>
+          <div class="field"><label for="nom">Nom</label><input id="nom" name="nom" autocomplete="name" maxlength="100" required /></div>
+          <div class="field"><label for="entreprise">Entreprise</label><input id="entreprise" name="entreprise" autocomplete="organization" maxlength="120" /></div>
+          <div class="field"><label for="site">Site internet</label><input id="site" name="site" type="url" maxlength="300" /></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required /></div>
+          <div class="field field--full"><label for="tel">Téléphone</label><input id="tel" name="telephone" type="tel" autocomplete="tel" maxlength="40" /></div>
+          <div class="field field--full"><label for="objectif">Objectif</label><textarea id="objectif" name="objectif" minlength="10" maxlength="3000" required></textarea></div>
+          <div class="form-honeypot" aria-hidden="true"><label for="website">Ne pas remplir ce champ</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
         </div>
         <Button type="submit">Recevoir mon audit →</Button>
+        <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+        <p class="form-privacy">En envoyant ce formulaire, vous acceptez que CLICOM utilise vos informations uniquement pour répondre à votre demande. <a href="/politique-de-confidentialite/">Politique de confidentialité</a>.</p>
       </form>
     </div>
   </section>
 </Layout>
 
+<script>
+  import '../scripts/contact-form';
+</script>
+
 <style>
   .contact { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(50px, 8vw, 110px); }
   .form > .button { justify-self: start; }
+  .form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .form-status { min-height: 1.5em; margin: 0; font-size: .9rem; font-weight: 650; }
+  .form-status.is-success { color: #067647; }
+  .form-status.is-error { color: #b42318; }
+  .form-privacy { margin: 0; color: var(--color-text-muted); font-size: .78rem; line-height: 1.55; }
+  .form-privacy a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 850px) { .contact { grid-template-columns: 1fr; } .form > .button { width: 100%; } }
 </style>

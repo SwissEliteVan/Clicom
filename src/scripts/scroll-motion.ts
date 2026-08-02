@@ -1,7 +1,4 @@
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export const initScrollReveals = (reduced = false) => {
   const groups = gsap.utils.toArray<HTMLElement>('[data-reveal]');

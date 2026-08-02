@@ -1,7 +1,6 @@
 ---
 import Button from '../Button.astro';
 import HeroMedia from './HeroMedia.astro';
-import heroMotionUrl from '../../scripts/hero-motion.ts?url';
 ---
 
 <section class="home-hero" data-hero aria-labelledby="home-title">
@@ -41,7 +40,9 @@ import heroMotionUrl from '../../scripts/hero-motion.ts?url';
   </div>
 </div>
 
-<script is:inline type="module" src={heroMotionUrl}></script>
+<script>
+  import '../../scripts/hero-motion';
+</script>
 
 <style>
   .home-hero { position: relative; min-height: 100svh; overflow: hidden; color: white; background: var(--color-midnight); isolation: isolate; }

@@ -157,7 +157,9 @@ const poster = hasPoster ? '/images/hero-poster.webp' : undefined;
     min-width: 220px;
     min-height: 220px;
     background: rgba(36, 87, 255, 0.18);
-    transform: translate3d(calc(var(--mx) * 12px), calc(var(--my) * 10px), 0);
+    transform:
+      translate3d(calc(var(--mx) * 12px), calc(var(--my) * 10px), 0)
+      scale(calc(1 + var(--hero-scroll) * -0.015));
   }
 
   .hero-media__ambient--b {
@@ -168,7 +170,9 @@ const poster = hasPoster ? '/images/hero-poster.webp' : undefined;
     min-width: 180px;
     min-height: 180px;
     background: rgba(34, 211, 238, 0.12);
-    transform: translate3d(calc(var(--mx) * -10px), calc(var(--my) * 8px), 0);
+    transform:
+      translate3d(calc(var(--mx) * -10px), calc(var(--my) * 8px), 0)
+      scale(calc(1 + var(--hero-scroll) * -0.012));
   }
 
   .hero-media__ambient--c {
@@ -179,7 +183,9 @@ const poster = hasPoster ? '/images/hero-poster.webp' : undefined;
     min-width: 240px;
     min-height: 240px;
     background: rgba(255, 255, 255, 0.04);
-    transform: translate3d(calc(var(--mx) * 8px), calc(var(--my) * -8px), 0);
+    transform:
+      translate3d(calc(var(--mx) * 8px), calc(var(--my) * -8px), 0)
+      scale(calc(1 + var(--hero-scroll) * -0.01));
   }
 
   .hero-media__video,
@@ -189,7 +195,12 @@ const poster = hasPoster ? '/images/hero-poster.webp' : undefined;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.02);
+    transform:
+      translate3d(calc(var(--mx) * 6px), calc(var(--my) * 6px), 0)
+      scale(calc(1.02 - var(--hero-scroll) * 0.035))
+      rotate(calc(var(--mx) * 0.35deg));
+    transform-origin: center;
+    will-change: transform;
   }
 
   .hero-media__art {

@@ -95,6 +95,8 @@ const serviceGroups = [
 
 <script>
   const menus = document.querySelectorAll<HTMLDetailsElement>('[data-menu]');
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const isHome = document.body.classList.contains('home-page');
 
   const closeMenu = (menu: HTMLDetailsElement) => {
     menu.open = false;
@@ -121,10 +123,28 @@ const serviceGroups = [
   document.addEventListener('pointerdown', (event) => {
     if (event.target instanceof Node) menus.forEach((menu) => !menu.contains(event.target as Node) && closeMenu(menu));
   });
+
+  if (header && isHome) {
+    let scheduled = false;
+
+    const updateHeader = () => {
+      scheduled = false;
+      header.classList.toggle('is-scrolled', window.scrollY > 24);
+    };
+
+    const onScroll = () => {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(updateHeader);
+    };
+
+    updateHeader();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
 </script>
 
 <style>
-  .site-header { position: sticky; top: 0; z-index: var(--z-header); border-bottom: 1px solid rgba(228,232,240,.82); background: rgba(247,249,252,.86); backdrop-filter: blur(18px) saturate(140%); }
+  .site-header { position: sticky; top: 0; z-index: var(--z-header); border-bottom: 1px solid rgba(228,232,240,.82); background: rgba(247,249,252,.86); backdrop-filter: blur(18px) saturate(140%); transition: background-color var(--transition-base), border-color var(--transition-base), backdrop-filter var(--transition-base), box-shadow var(--transition-base); }
   .header-inner { position: relative; display: flex; height: 82px; align-items: center; gap: clamp(20px, 2.4vw, 36px); }
   .brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 11px; margin-right: auto; }
   .brand__mark { position: relative; display: flex; width: 34px; align-items: center; color: var(--color-primary); }
@@ -193,11 +213,26 @@ const serviceGroups = [
     color: white;
   }
 
+  :global(body.home-page) .site-header.is-scrolled {
+    border-bottom-color: rgba(228, 232, 240, 0.68);
+    background: rgba(247, 249, 252, 0.88);
+    box-shadow: 0 10px 30px rgba(8, 17, 38, 0.08);
+    backdrop-filter: blur(20px) saturate(140%);
+    color: var(--color-midnight);
+  }
+
   :global(body.home-page) .brand__mark,
   :global(body.home-page) .brand__name,
   :global(body.home-page) .desktop-nav > a,
   :global(body.home-page) .services-menu > summary {
     color: rgba(247, 249, 252, 0.88);
+  }
+
+  :global(body.home-page) .site-header.is-scrolled .brand__mark,
+  :global(body.home-page) .site-header.is-scrolled .brand__name,
+  :global(body.home-page) .site-header.is-scrolled .desktop-nav > a,
+  :global(body.home-page) .site-header.is-scrolled .services-menu > summary {
+    color: var(--color-text-muted);
   }
 
   :global(body.home-page) .desktop-nav > a:hover,
@@ -213,6 +248,13 @@ const serviceGroups = [
   :global(body.home-page) .desktop-nav > a::after,
   :global(body.home-page) .services-menu > summary::after {
     background: var(--color-cyan);
+  }
+
+  :global(body.home-page) .site-header.is-scrolled .brand__mark i,
+  :global(body.home-page) .site-header.is-scrolled .brand__mark::after,
+  :global(body.home-page) .site-header.is-scrolled .desktop-nav > a::after,
+  :global(body.home-page) .site-header.is-scrolled .services-menu > summary::after {
+    background: var(--color-primary);
   }
 
   :global(body.home-page) .header-cta {

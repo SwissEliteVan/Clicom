@@ -1,9 +1,10 @@
 ---
 import Button from '../Button.astro';
 import HeroMedia from './HeroMedia.astro';
+import heroMotionUrl from '../../scripts/hero-motion.ts?url';
 ---
 
-<section class="home-hero" aria-labelledby="home-title">
+<section class="home-hero" data-hero aria-labelledby="home-title">
   <HeroMedia />
 
   <div class="home-hero__shade" aria-hidden="true"></div>
@@ -11,10 +12,10 @@ import HeroMedia from './HeroMedia.astro';
   <div class="container home-hero__inner">
     <div class="home-hero__content">
       <div class="eyebrow home-hero__eyebrow">Agence digitale suisse</div>
-      <h1 id="home-title">
-        Transformez<br />
-        votre digital<br />
-        en croissance.
+      <h1 id="home-title" class="home-hero__title">
+        <span class="home-hero__title-line"><span>Transformez</span></span>
+        <span class="home-hero__title-line"><span>votre digital</span></span>
+        <span class="home-hero__title-line"><span>en croissance.</span></span>
       </h1>
       <p class="lead home-hero__lead">
         Sites web, SEO, publicité et intelligence artificielle au service de votre croissance.
@@ -35,6 +36,8 @@ import HeroMedia from './HeroMedia.astro';
   <div class="home-hero__transition" aria-hidden="true"></div>
 </section>
 
+<script type="module" src={heroMotionUrl}></script>
+
 <style>
   .home-hero {
     position: relative;
@@ -42,6 +45,7 @@ import HeroMedia from './HeroMedia.astro';
     min-height: max(760px, calc(100svh - 82px));
     color: white;
     background: var(--color-midnight);
+    --hero-scroll: 0;
   }
 
   .home-hero__shade {
@@ -69,6 +73,30 @@ import HeroMedia from './HeroMedia.astro';
     padding-right: clamp(0px, 6vw, 68px);
   }
 
+  .js .home-hero__content > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 900ms var(--ease-out),
+      transform 900ms var(--ease-out);
+  }
+
+  .js .home-hero.is-ready .home-hero__eyebrow,
+  .js .home-hero.is-ready .home-hero__lead,
+  .js .home-hero.is-ready .home-hero__actions,
+  .js .home-hero.is-ready .home-hero__meta {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 900ms var(--ease-out),
+      transform 900ms var(--ease-out);
+  }
+
+  .js .home-hero.is-ready .home-hero__eyebrow { transition-delay: 80ms; }
+  .js .home-hero.is-ready .home-hero__lead { transition-delay: 220ms; }
+  .js .home-hero.is-ready .home-hero__actions { transition-delay: 340ms; }
+  .js .home-hero.is-ready .home-hero__meta { transition-delay: 460ms; }
+
   .home-hero__eyebrow {
     margin-bottom: 22px;
     color: rgba(247, 249, 252, 0.9);
@@ -79,7 +107,7 @@ import HeroMedia from './HeroMedia.astro';
     box-shadow: 0 0 0 5px rgba(34, 211, 238, 0.1);
   }
 
-  h1 {
+  .home-hero__title {
     max-width: 10ch;
     margin-bottom: 22px;
     color: white;
@@ -87,6 +115,34 @@ import HeroMedia from './HeroMedia.astro';
     line-height: 0.9;
     letter-spacing: -0.08em;
     text-transform: uppercase;
+  }
+
+  .home-hero__title-line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .home-hero__title-line > span {
+    display: block;
+    transform: translateY(110%);
+    will-change: transform;
+    transition: transform 980ms var(--ease-out);
+  }
+
+  .js .home-hero.is-ready .home-hero__title-line > span {
+    transform: translateY(0);
+  }
+
+  .js .home-hero.is-ready .home-hero__title-line:nth-child(1) > span { transition-delay: 80ms; }
+  .js .home-hero.is-ready .home-hero__title-line:nth-child(2) > span { transition-delay: 180ms; }
+  .js .home-hero.is-ready .home-hero__title-line:nth-child(3) > span { transition-delay: 280ms; }
+
+  .home-hero__title-line:nth-child(2) {
+    margin-top: -0.06em;
+  }
+
+  .home-hero__title-line:nth-child(3) {
+    margin-top: -0.06em;
   }
 
   .home-hero__lead {
@@ -131,6 +187,11 @@ import HeroMedia from './HeroMedia.astro';
     justify-content: flex-end;
   }
 
+  .home-hero__title + .home-hero__lead,
+  .home-hero__lead + .home-hero__actions {
+    margin-top: 0;
+  }
+
   .home-hero__transition {
     position: absolute;
     right: 0;
@@ -139,12 +200,45 @@ import HeroMedia from './HeroMedia.astro';
     z-index: 2;
     height: 16vw;
     max-height: 180px;
-    background: linear-gradient(180deg, rgba(8, 17, 38, 0), var(--color-background));
+    background:
+      linear-gradient(180deg, rgba(8, 17, 38, 0), var(--color-background)),
+      linear-gradient(180deg, rgba(247, 249, 252, 0), rgba(247, 249, 252, 0.95));
+    transform: translateY(calc(var(--hero-scroll) * -10px));
     pointer-events: none;
   }
 
   .home-hero :global(.hero-media) {
     z-index: 0;
+    transform:
+      translate3d(calc(var(--hero-scroll) * 0px), calc(var(--hero-scroll) * -12px), 0)
+      scale(calc(1 - var(--hero-scroll) * 0.035));
+    opacity: calc(1 - var(--hero-scroll) * 0.12);
+    will-change: transform, opacity;
+    transition: transform 240ms var(--ease-out), opacity 240ms var(--ease-out);
+  }
+
+  .js .home-hero :global(.hero-media) {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+
+  .js .home-hero.is-ready :global(.hero-media) {
+    opacity: 1;
+    transform:
+      translate3d(calc(var(--hero-scroll) * 0px), calc(var(--hero-scroll) * -12px), 0)
+      scale(calc(1 - var(--hero-scroll) * 0.035));
+    transition:
+      opacity 1100ms var(--ease-out),
+      transform 1100ms var(--ease-out);
+  }
+
+  .home-hero__content {
+    transform:
+      translateY(calc(var(--hero-scroll) * -12px))
+      scale(calc(1 - var(--hero-scroll) * 0.01));
+    opacity: calc(1 - var(--hero-scroll) * 0.08);
+    will-change: transform, opacity;
+    transition: transform 240ms var(--ease-out), opacity 240ms var(--ease-out);
   }
 
   @media (max-width: 1100px) {
@@ -181,10 +275,14 @@ import HeroMedia from './HeroMedia.astro';
       padding-block: 72px 30px;
     }
 
-    h1 {
+    .home-hero__title {
       max-width: 9ch;
       font-size: clamp(3.25rem, 14vw, 4.35rem);
       line-height: 0.92;
+    }
+
+    .js .home-hero.is-ready .home-hero__content > * {
+      transform: translateY(0);
     }
 
     .home-hero__lead {

@@ -2,6 +2,8 @@
 import Button from './Button.astro';
 
 const path = Astro.url.pathname;
+const servicePaths = ['/services','/creation-site-web','/seo','/referencement-ia','/google-ads','/social-ads','/reseaux-sociaux','/creation-contenu','/branding','/intelligence-artificielle','/automatisation','/email-marketing-crm'];
+const serviceActive = servicePaths.some((href) => path.startsWith(href));
 const links = [
   ['/solutions', 'Solutions'],
   ['/methode', 'Méthode'],
@@ -49,7 +51,7 @@ const serviceGroups = [
 
     <nav class="desktop-nav" aria-label="Navigation principale">
       <details class="services-menu" data-menu>
-        <summary class:list={{ active: path.startsWith('/services') }} aria-haspopup="true" aria-expanded="false">
+        <summary class:list={{ active: serviceActive }} aria-haspopup="true" aria-expanded="false">
           Services <span aria-hidden="true">⌄</span>
         </summary>
         <div class="mega-menu">
@@ -80,7 +82,7 @@ const serviceGroups = [
           <span>Navigation</span>
           <span class="brand__name">clicom<span>.</span></span>
         </div>
-        <a class:list={{ active: path.startsWith('/services') }} href="/services" aria-current={path.startsWith('/services') ? 'page' : undefined}>Services <span>→</span></a>
+        <a class:list={{ active: serviceActive }} href="/services" aria-current={serviceActive ? 'page' : undefined}>Services <span>→</span></a>
         {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}<span>→</span></a>)}
         <div class="mobile-menu__services">
           <span>Services prioritaires</span>

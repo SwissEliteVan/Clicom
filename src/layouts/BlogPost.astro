@@ -1,0 +1,16 @@
+---
+import Layout from './Layout.astro';
+import Button from '../components/Button.astro';
+interface Props { title: string; description: string; date: Date; category: string }
+const { title, description, date, category } = Astro.props;
+---
+<Layout {title} {description}>
+  <article>
+    <header class="article-hero"><div class="container article-hero__inner"><a href="/blog/" class="back">← Tous les articles</a><div class="eyebrow">{category}</div><h1>{title}</h1><p>{description}</p><time datetime={date.toISOString()}>{date.toLocaleDateString('fr-CH',{day:'numeric',month:'long',year:'numeric'})}</time></div></header>
+    <div class="container article-layout"><div class="article-copy"><slot /></div><aside><strong>Un enjeu à clarifier ?</strong><p>Recevez une première lecture de votre présence digitale.</p><Button href="/audit-gratuit/">Demander un audit →</Button></aside></div>
+    <section class="section section--white"><div class="container article-cta"><div><h2>Transformons ces repères en plan d’action.</h2><p>Un audit permet de relier les recommandations à votre situation, vos objectifs et vos ressources.</p></div><Button href="/audit-gratuit/">Demander un audit gratuit →</Button></div></section>
+  </article>
+</Layout>
+<style>
+  .article-hero{padding-block:clamp(5rem,9vw,8rem);background:linear-gradient(180deg,#fff,var(--color-background))}.article-hero__inner{max-width:980px}.back{display:inline-flex;margin-bottom:38px;color:var(--color-text-muted);font-size:.85rem;font-weight:700}.article-hero h1{font-size:clamp(2.7rem,5vw,4.8rem)}.article-hero p{max-width:760px;font-size:1.18rem}.article-hero time{color:var(--color-text-muted);font-size:.82rem;font-weight:650}.article-layout{display:grid;grid-template-columns:minmax(0,760px) 280px;gap:clamp(50px,8vw,100px);align-items:start;padding-block:clamp(4rem,8vw,7rem)}.article-copy :global(h2){margin-top:3.5rem;font-size:clamp(2rem,3vw,2.8rem)}.article-copy :global(h3){margin-top:2.4rem}.article-copy :global(p),.article-copy :global(li){line-height:1.8}.article-copy :global(a){color:var(--color-primary);text-decoration:underline;text-underline-offset:3px}.article-layout aside{position:sticky;top:110px;padding:26px;border:1px solid var(--color-border);border-radius:var(--radius-card);background:white}.article-layout aside strong{font-size:1.1rem}.article-layout aside p{margin:10px 0 20px;font-size:.9rem}.article-cta{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;padding:clamp(36px,5vw,60px);border-radius:var(--radius-surface);background:var(--color-primary-soft)}.article-cta p{margin:0}@media(max-width:850px){.article-layout{grid-template-columns:1fr}.article-layout aside{position:static}.article-cta{grid-template-columns:1fr}} 
+</style>

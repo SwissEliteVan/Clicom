@@ -1,0 +1,14 @@
+---
+import type { CaseStudyResultItem } from '../data/case-studies';
+interface Props { result: CaseStudyResultItem }
+const { result } = Astro.props;
+---
+
+<article class="result"><span>{result.label}</span><strong>{result.value}</strong>{result.context && <p>{result.context}</p>}</article>
+
+<style>
+  .result { padding: clamp(24px,4vw,38px); border: 1px solid var(--color-dark-border); border-radius: var(--radius-card); background: rgba(255,255,255,.055); }
+  .result span { display: block; margin-bottom: 24px; color: var(--color-cyan); font-size: .7rem; font-weight: 760; letter-spacing: .1em; text-transform: uppercase; }
+  .result strong { display: block; color: white; font-size: clamp(1.45rem,3vw,2.5rem); line-height: 1.08; }
+  .result p { margin: 12px 0 0; color: var(--color-dark-muted); font-size: .9rem; }
+</style>

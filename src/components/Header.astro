@@ -4,9 +4,8 @@ import Button from './Button.astro';
 const path = Astro.url.pathname;
 const links = [
   ['/solutions', 'Solutions'],
-  ['/realisations', 'Réalisations'],
-  ['/agence', 'Agence'],
-  ['/ressources', 'Ressources'],
+  ['/methode', 'Méthode'],
+  ['/tarifs', 'Tarifs'],
   ['/contact', 'Contact'],
 ];
 
@@ -14,28 +13,28 @@ const serviceGroups = [
   {
     title: 'Acquisition',
     links: [
-      ['/services#seo', 'SEO'],
-      ['/services#seo', 'Référencement IA'],
-      ['/services#ads', 'Google Ads'],
-      ['/services#ads', 'Social Ads'],
+      ['/seo/', 'SEO'],
+      ['/referencement-ia/', 'Référencement IA'],
+      ['/google-ads/', 'Google Ads'],
+      ['/social-ads/', 'Social Ads'],
     ],
   },
   {
     title: 'Création',
     links: [
-      ['/services#web', 'Sites web'],
-      ['/services#contenu', 'Contenu'],
-      ['/services#social', 'Réseaux sociaux'],
-      ['/services#branding', 'Branding'],
+      ['/creation-site-web/', 'Sites web'],
+      ['/creation-contenu/', 'Contenu'],
+      ['/reseaux-sociaux/', 'Réseaux sociaux'],
+      ['/branding/', 'Branding'],
     ],
   },
   {
     title: 'Technologie',
     links: [
-      ['/solutions#ia', 'Intelligence artificielle'],
-      ['/services#automation', 'Automatisation'],
-      ['/solutions#crm', 'CRM & Email'],
-      ['/services#hosting', 'Hébergement & sécurité'],
+      ['/intelligence-artificielle/', 'Intelligence artificielle'],
+      ['/automatisation/', 'Automatisation'],
+      ['/email-marketing-crm/', 'CRM & Email'],
+      ['/faq/', 'FAQ'],
     ],
   },
 ];
@@ -70,7 +69,7 @@ const serviceGroups = [
       {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>)}
     </nav>
 
-    <Button href="/contact#audit" class="header-cta">Audit gratuit <span aria-hidden="true">→</span></Button>
+    <Button href="/audit-gratuit/" class="header-cta">Audit gratuit <span aria-hidden="true">→</span></Button>
 
     <details class="mobile-menu" data-menu>
       <summary aria-label="Ouvrir la navigation" aria-expanded="false">
@@ -85,9 +84,9 @@ const serviceGroups = [
         {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}<span>→</span></a>)}
         <div class="mobile-menu__services">
           <span>Services prioritaires</span>
-          <div><a href="/services#web">Sites web</a><a href="/services#seo">SEO & IA</a><a href="/services#ads">Publicité</a><a href="/solutions#ia">Automatisation</a></div>
+          <div><a href="/creation-site-web/">Sites web</a><a href="/seo/">SEO</a><a href="/google-ads/">Publicité</a><a href="/automatisation/">Automatisation</a></div>
         </div>
-        <Button href="/contact#audit">Demander un audit <span aria-hidden="true">→</span></Button>
+        <Button href="/audit-gratuit/">Demander un audit <span aria-hidden="true">→</span></Button>
       </div>
     </details>
   </div>

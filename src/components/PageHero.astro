@@ -7,9 +7,11 @@ interface Props {
   intro: string;
   secondary?: string;
   secondaryLabel?: string;
+  primary?: string;
+  primaryLabel?: string;
 }
 
-const { eyebrow, title, intro, secondary, secondaryLabel = 'Découvrir nos services' } = Astro.props;
+const { eyebrow, title, intro, secondary, secondaryLabel = 'Découvrir nos services', primary = '/contact#audit', primaryLabel = 'Parler de mon projet →' } = Astro.props;
 ---
 
 <section class="page-hero">
@@ -19,7 +21,7 @@ const { eyebrow, title, intro, secondary, secondaryLabel = 'Découvrir nos servi
       <h1 set:html={title}></h1>
       <p>{intro}</p>
       <div class="button-row">
-        <Button href="/contact#audit">Parler de mon projet →</Button>
+        <Button href={primary}>{primaryLabel}</Button>
         {secondary && <Button href={secondary} variant="secondary">{secondaryLabel}</Button>}
       </div>
     </div>

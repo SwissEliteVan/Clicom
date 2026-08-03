@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from './PageHero.astro';
+import CTA from './CTA.astro';
+
+interface Item { title: string; text: string }
+interface FAQ { question: string; answer: string }
+interface Link { href: string; label: string }
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  h1: string;
+  intro: string;
+  problems: Item[];
+  solution: string;
+  services: Item[];
+  process: Item[];
+  benefits: string[];
+  faq: FAQ[];
+  links: Link[];
+  variant?: 'standard' | 'reverse';
+}
+
+const { title, description, eyebrow, h1, intro, problems, solution, services, process, benefits, faq, links, variant = 'standard' } = Astro.props;
+---
+
+<Layout {title} {description}>
+  <PageHero {eyebrow} title={h1} {intro} secondary="/audit-gratuit/" secondaryLabel="Demander un audit gratuit" />
+
+  <section class="section section--white">
+    <div class:list={['container', 'split', { 'split--reverse': variant === 'reverse' }]}>
+      <div class="section-heading">
+        <div class="eyebrow">Vos enjeux</div>
+        <h2>Transformer les points de friction en <span class="accent">opportunités.</span></h2>
+        <p>{solution}</p>
+      </div>
+      <div class="issue-list">
+        {problems.map((item, index) => <article><span>0{index + 1}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-heading"><div class="eyebrow">Solution CLICOM</div><h2>Une expertise reliée à votre <span class="gradient-text">croissance.</span></h2></div>
+      <div class="grid grid--3 offer-grid">
+        {services.map((item) => <article class="card"><h3>{item.title}</h3><p>{item.text}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-heading"><div class="eyebrow">Processus</div><h2>De la stratégie à <span class="accent">l’amélioration continue.</span></h2></div>
+      <div class="process-grid">
+        {process.map((item, index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section benefits-section">
+    <div class="container benefits">
+      <div><div class="eyebrow">Bénéfices</div><h2>Un levier pensé pour <span class="accent">produire de la valeur.</span></h2></div>
+      <ul>{benefits.map((benefit) => <li><span>→</span>{benefit}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container faq-wrap">
+      <div class="section-heading"><div class="eyebrow">Questions fréquentes</div><h2>Les réponses <span class="accent">essentielles.</span></h2></div>
+      <div class="faq-list">{faq.map((item) => <details><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
+      <nav class="related" aria-label="Expertises associées"><strong>À découvrir aussi</strong>{links.map((link) => <a href={link.href}>{link.label} <span>→</span></a>)}</nav>
+    </div>
+  </section>
+
+  <CTA title="Faisons de cette expertise votre prochain accélérateur." text="Un premier audit permet d’identifier les priorités, les dépendances et les opportunités les plus pertinentes pour votre entreprise." />
+</Layout>
+
+<style>
+  .split { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(50px, 8vw, 110px); align-items: start; }
+  .split--reverse .section-heading { order: 2; }
+  .issue-list { display: grid; gap: 1px; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-border); }
+  .issue-list article { display: grid; grid-template-columns: auto 1fr; gap: 20px; padding: 28px; background: white; }
+  .issue-list article > span, .process-grid article > span { color: var(--color-primary); font-size: .75rem; font-weight: 780; letter-spacing: .12em; }
+  .issue-list h3 { margin-bottom: 8px; font-size: 1.25rem; }
+  .issue-list p { margin: 0; }
+  .offer-grid .card::before { background: var(--color-cyan); }
+  .process-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--color-border); }
+  .process-grid article { padding: 32px; border-right: 1px solid var(--color-border); }
+  .process-grid article:last-child { border-right: 0; }
+  .process-grid h3 { margin-top: 32px; }
+  .benefits-section { background: var(--color-primary-soft); }
+  .benefits { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(40px, 8vw, 100px); align-items: center; }
+  .benefits ul { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(36,87,255,.18); }
+  .benefits li { display: flex; gap: 15px; padding: 18px 0; border-bottom: 1px solid rgba(36,87,255,.18); font-weight: 650; }
+  .benefits li span { color: var(--color-primary); }
+  .faq-wrap { max-width: 980px; }
+  .faq-list { border-top: 1px solid var(--color-border); }
+  .faq-list details { border-bottom: 1px solid var(--color-border); }
+  .faq-list summary { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 24px; cursor: pointer; font-weight: 720; list-style: none; }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary span { color: var(--color-primary); font-size: 1.5rem; }
+  .faq-list details[open] summary span { transform: rotate(45deg); }
+  .faq-list p { max-width: 780px; padding: 0 40px 24px 0; }
+  .related { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--color-border); }
+  .related strong { width: 100%; margin-bottom: 6px; }
+  .related a { padding: 9px 13px; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-text-muted); font-size: .84rem; font-weight: 680; }
+  .related a span { color: var(--color-primary); }
+  @media (max-width: 900px) { .split, .benefits { grid-template-columns: 1fr; } .split--reverse .section-heading { order: initial; } .process-grid { grid-template-columns: repeat(2, 1fr); } .process-grid article:nth-child(2) { border-right: 0; } }
+  @media (max-width: 580px) { .process-grid { grid-template-columns: 1fr; } .process-grid article { border-right: 0; border-bottom: 1px solid var(--color-border); } }
+</style>

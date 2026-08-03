@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title="404 — Page introuvable | CLICOM" description="La page demandée n’existe pas ou a été déplacée." noindexFollow>
+  <section class="page-hero error-page" aria-labelledby="error-title">
+    <div class="container error-page__inner">
+      <p class="error-code" aria-hidden="true">404</p>
+      <div class="eyebrow">Page introuvable</div>
+      <h1 id="error-title">Cette page n’existe plus ou a été déplacée.</h1>
+      <p>Vous pouvez revenir à l’accueil ou poursuivre votre visite avec les liens ci-dessous.</p>
+      <div class="button-row">
+        <Button href="/">Retour à l’accueil <span aria-hidden="true">→</span></Button>
+        <Button href="/services/" variant="secondary">Services</Button>
+        <Button href="/contact/" variant="secondary">Contact</Button>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .error-page { min-height: 68vh; display: grid; align-items: center; }
+  .error-page__inner { position: relative; z-index: 1; max-width: 850px; }
+  .error-code { margin: 0 0 10px; color: var(--color-primary); font-size: clamp(5rem, 15vw, 10rem); font-weight: 800; letter-spacing: -.08em; line-height: .85; }
+  h1 { max-width: 760px; }
+  .error-page__inner > p:not(.error-code) { max-width: 650px; font-size: 1.1rem; }
+</style>

@@ -7,34 +7,63 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title?: string;
   description?: string;
-  structuredData?: Record<string, unknown>;
+  canonical?: string | URL;
+  ogImage?: string | URL;
+  noindex?: boolean;
+  noindexFollow?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title = 'Clicom — Agence digitale suisse orientée croissance',
-  description = 'Clicom aide les entreprises à attirer plus de prospects, convertir plus de clients et automatiser leur croissance.',
+  description: descriptionProp,
+  canonical: canonicalProp,
+  ogImage = '/og-clicom.png',
+  noindex = false,
+  noindexFollow = false,
   structuredData,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const descriptions: Record<string, string> = {
+  '/': 'CLICOM accompagne les entreprises suisses avec des sites web performants, du SEO, des campagnes Ads et des solutions d’automatisation par l’IA.',
+  '/services': 'Sites web, SEO, visibilité dans les moteurs IA, publicité, contenu et automatisation : les expertises CLICOM au service de votre croissance.',
+  '/solutions': 'CLICOM relie automatisation, CRM, acquisition et socle web pour créer des systèmes digitaux fiables, adaptés à vos objectifs commerciaux.',
+  '/realisations': 'Découvrez l’approche CLICOM pour concevoir des projets digitaux qui relient visibilité, acquisition, conversion et efficacité opérationnelle.',
+  '/agence': 'CLICOM réunit stratégie, création, technologie et acquisition pour aider les entreprises suisses à construire une croissance digitale plus lisible.',
+  '/ressources': 'Des ressources CLICOM pour mieux cadrer votre visibilité, votre acquisition digitale et les automatisations utiles à votre organisation.',
+  '/contact': 'Contactez CLICOM pour échanger sur votre site web, votre visibilité, vos campagnes ou vos automatisations et demander un premier audit digital.',
+};
+const routeKey = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/$/, '');
+const description = descriptions[routeKey] ?? descriptionProp ?? 'CLICOM accompagne les entreprises avec des solutions digitales conçues pour attirer, convertir, automatiser et accélérer leur croissance.';
+const siteOrigin = Astro.site ?? Astro.url.origin;
+const pathname = Astro.url.pathname === '/' ? '/' : `${Astro.url.pathname.replace(/\/$/, '')}/`;
+const canonical = canonicalProp ? new URL(canonicalProp, siteOrigin) : new URL(pathname, siteOrigin);
+const socialImage = new URL(ogImage, siteOrigin);
+const robots = noindexFollow ? 'noindex,follow' : noindex ? 'noindex,nofollow' : 'index,follow';
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="fr-CH">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_CH" />
-    <meta property="og:site_name" content="Clicom" />
+    <meta property="og:site_name" content="CLICOM" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="CLICOM — Agence digitale suisse" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
     <meta name="theme-color" content="#F7F9FC" />
     <script is:inline>document.documentElement.classList.add('js')</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

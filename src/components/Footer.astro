@@ -29,7 +29,10 @@ const services = [['Sites web','/services#web'],['SEO, GEO & AEO','/services#seo
 
     <div class="footer-bottom">
       <span>© {new Date().getFullYear()} Clicom</span>
-      <span>Swiss digital precision.</span>
+      <nav class="footer-legal" aria-label="Informations légales">
+        <a href="/mentions-legales/">Mentions légales</a>
+        <a href="/politique-de-confidentialite/">Politique de confidentialité</a>
+      </nav>
     </div>
   </div>
 </footer>
@@ -58,7 +61,10 @@ const services = [['Sites web','/services#web'],['SEO, GEO & AEO','/services#seo
   .footer-contact > a { color: white; font-size: .94rem; font-weight: 650; }
   .footer-contact > a span { display: block; margin-bottom: 3px; color: #78849b; font-size: .67rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
   .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-block: 24px 28px; border-top: 1px solid var(--color-dark-border); color: #78849b; font-size: .75rem; letter-spacing: .02em; }
+  .footer-legal { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 22px; }
+  .footer-legal a { transition: color var(--transition-fast); }
+  .footer-legal a:hover { color: white; }
 
   @media (max-width: 960px) { .footer-main { grid-template-columns: 1.4fr 1fr 1fr; } .footer-contact { grid-column: 2 / -1; } }
-  @media (max-width: 680px) { .footer-cta { align-items: stretch; flex-direction: column; } .footer-cta :global(.button) { width: 100%; } .footer-main { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } .footer-contact { grid-column: 1 / -1; } .footer-bottom { align-items: flex-start; flex-direction: column; } }
+  @media (max-width: 680px) { .footer-cta { align-items: stretch; flex-direction: column; } .footer-cta :global(.button) { width: 100%; } .footer-main { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } .footer-contact { grid-column: 1 / -1; } .footer-bottom { align-items: flex-start; flex-direction: column; } .footer-legal { justify-content: flex-start; } }
 </style>

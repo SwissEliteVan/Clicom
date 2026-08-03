@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<Layout title="Mentions légales — CLICOM" description="Mentions légales et coordonnées de contact du site CLICOM.">
+  <PageHero eyebrow="Informations légales" title="Mentions <span class='accent'>légales.</span>" intro="Informations relatives à l’éditeur et à l’exploitation du site clicom.ch." />
+  <section class="section section--white">
+    <div class="container legal-copy">
+      <p class="legal-notice"><strong>Document à finaliser :</strong> les mentions signalées ci-dessous doivent être complétées et validées avant la mise en production.</p>
+      <h2>Éditeur du site</h2>
+      <dl>
+        <div><dt>Nom commercial</dt><dd>CLICOM</dd></div>
+        <div><dt>Raison sociale exacte</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div>
+        <div><dt>Forme juridique</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div>
+        <div><dt>Adresse postale et coordonnées complètes</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div>
+        <div><dt>Siège</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div>
+        <div><dt>Numéro IDE</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div>
+        <div><dt>Numéro TVA, si applicable</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div>
+        <div><dt>Registre du commerce, si applicable</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div>
+      </dl>
+      <h2>Responsabilités</h2>
+      <dl>
+        <div><dt>Représentant légal</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div>
+        <div><dt>Responsable éditorial, si nécessaire</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div>
+      </dl>
+      <h2>Contact</h2>
+      <p>Email : <a href="mailto:hello@clicom.ch">hello@clicom.ch</a><br />Téléphone : <a href="tel:+41788238950">+41 78 823 89 50</a></p>
+      <h2>Hébergement</h2>
+      <dl><div><dt>Hébergeur et coordonnées complètes</dt><dd>À COMPLÉTER AVANT MISE EN PRODUCTION</dd></div></dl>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal-copy { max-width: 880px; }
+  .legal-copy h2 { margin-top: 2.8rem; font-size: clamp(1.45rem, 2.5vw, 2rem); }
+  .legal-notice { padding: 20px 22px; border-left: 3px solid var(--color-primary); background: var(--color-primary-soft); }
+  dl { display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+  dl div { display: grid; grid-template-columns: minmax(190px, .8fr) minmax(0, 1.2fr); gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--color-border); }
+  dt { font-weight: 720; }
+  dd { margin: 0; color: var(--color-text-muted); }
+  a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 620px) { dl div { grid-template-columns: 1fr; gap: 5px; } }
+</style>

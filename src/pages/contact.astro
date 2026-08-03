@@ -5,14 +5,15 @@ import Button from '../components/Button.astro';
 ---
 
 <Layout title="Contact & audit gratuit — Clicom">
-  <PageHero eyebrow="Contact" title="Parlons de votre prochain <span class='gradient-text'>accélérateur.</span>" intro="Expliquez-nous votre objectif. Nous reviendrons vers vous avec une première lecture claire." />
+  <PageHero eyebrow="Contact" title="Parlons de votre prochain <span class='gradient-text'>accélérateur.</span>" intro="Présentez-nous votre objectif, votre contexte et le principal défi à résoudre. Nous préparerons un échange ciblé." primary="#audit" primaryLabel="Parler de mon projet →" secondary="/audit-gratuit/" secondaryLabel="Découvrir l’audit gratuit" />
   <section class="section section--white" id="audit">
     <div class="container contact">
       <div>
-        <div class="eyebrow">Audit gratuit</div>
-        <h2>Commençons par le bon <span class="accent">diagnostic.</span></h2>
-        <p>Quelques informations suffisent pour préparer un échange utile.</p>
-        <p><a href="tel:+41788238950"><strong>078 823 89 50</strong></a><br /><a href="mailto:hello@clicom.ch"><strong>hello@clicom.ch</strong></a></p>
+        <div class="eyebrow">Votre projet</div>
+        <h2>Commençons par une discussion <span class="accent">utile.</span></h2>
+        <p>Indiquez ce que vous souhaitez améliorer, les actions déjà entreprises et votre priorité actuelle.</p>
+        <div class="next-step"><strong>Après votre envoi</strong><p>Nous examinons votre demande, préparons les premières questions puis revenons vers vous pour organiser la suite.</p></div>
+        <p class="direct-contact">Contact direct<br /><a href="tel:+41788238950"><strong>078 823 89 50</strong></a><br /><a href="mailto:hello@clicom.ch"><strong>hello@clicom.ch</strong></a></p>
         <div class="motif">●────→</div>
       </div>
       <form class="card form" action="/api/contact" method="post" data-contact-form>
@@ -22,12 +23,12 @@ import Button from '../components/Button.astro';
           <div class="field"><label for="site">Site internet</label><input id="site" name="site" type="url" maxlength="300" /></div>
           <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required /></div>
           <div class="field field--full"><label for="tel">Téléphone</label><input id="tel" name="telephone" type="tel" autocomplete="tel" maxlength="40" /></div>
-          <div class="field field--full"><label for="objectif">Objectif</label><textarea id="objectif" name="objectif" minlength="10" maxlength="3000" required></textarea></div>
+          <div class="field field--full"><label for="objectif">Votre objectif ou principal défi</label><textarea id="objectif" name="objectif" minlength="10" maxlength="3000" placeholder="Expliquez-nous brièvement votre besoin et votre priorité." required></textarea></div>
           <div class="form-honeypot" aria-hidden="true"><label for="website">Ne pas remplir ce champ</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
         </div>
-        <Button type="submit">Recevoir mon audit →</Button>
+        <Button type="submit">Envoyer ma demande →</Button>
         <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-        <p class="form-privacy">En envoyant ce formulaire, vous acceptez que CLICOM utilise vos informations uniquement pour répondre à votre demande. <a href="/politique-de-confidentialite/">Politique de confidentialité</a>.</p>
+        <p class="form-privacy">Vos informations sont utilisées uniquement pour étudier votre demande et vous répondre. <a href="/politique-de-confidentialite/">Politique de confidentialité</a>.</p>
       </form>
     </div>
   </section>
@@ -40,6 +41,9 @@ import Button from '../components/Button.astro';
 <style>
   .contact { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(50px, 8vw, 110px); }
   .form > .button { justify-self: start; }
+  .next-step { margin-block: 28px; padding: 20px 22px; border-left: 3px solid var(--color-primary); background: var(--color-primary-soft); }
+  .next-step p { margin: 7px 0 0; font-size: .92rem; }
+  .direct-contact { font-size: .94rem; }
   .form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
   .form-status { min-height: 1.5em; margin: 0; font-size: .9rem; font-weight: 650; }
   .form-status.is-success { color: #067647; }

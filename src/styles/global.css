@@ -107,6 +107,9 @@ p { color: var(--color-text-muted); }
 
 .button { position: relative; display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; overflow: hidden; border: 1px solid transparent; border-radius: var(--radius-button); font-size: .94rem; font-weight: 720; letter-spacing: -.015em; line-height: 1.2; cursor: pointer; isolation: isolate; transition: color var(--transition-fast), transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast); }
 .button:hover { transform: translateY(-2px); }
+.button:active { transform: translateY(0); }
+.button:focus-visible { outline: 3px solid rgba(36,87,255,.34); outline-offset: 4px; }
+.button:disabled, .button[aria-disabled="true"] { cursor: not-allowed; opacity: .58; transform: none; box-shadow: none; }
 .button :where(span:last-child) { transition: transform var(--transition-fast); }
 .button:hover :where(span:last-child) { transform: translateX(3px); }
 .button--primary { color: white; background: var(--color-primary); box-shadow: var(--shadow-primary); }
@@ -130,12 +133,25 @@ p { color: var(--color-text-muted); }
 .card--interactive:focus-within .text-link { outline: none; }
 .section--dark .card { color: white; border-color: var(--color-dark-border); background: rgba(255,255,255,.055); box-shadow: none; backdrop-filter: blur(8px); }
 .section--dark .card:hover { border-color: rgba(34,211,238,.28); background: rgba(255,255,255,.075); }
-.icon-box { display: inline-grid; width: 52px; height: 52px; place-items: center; margin-bottom: var(--space-4); border: 1px solid rgba(36,87,255,.1); border-radius: 15px; color: var(--color-primary); background: var(--color-primary-soft); }
+.icon-box { display: inline-grid; width: 52px; height: 52px; place-items: center; margin-bottom: var(--space-4); border: 1px solid rgba(36,87,255,.1); border-radius: 15px; color: var(--color-primary); background: var(--color-primary-soft); transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast); }
 .icon-box svg { width: 24px; height: 24px; }
 .section--dark .icon-box { color: var(--color-cyan); border-color: rgba(34,211,238,.18); background: rgba(34,211,238,.08); }
-.text-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 18px; color: var(--color-primary); font-size: .94rem; font-weight: 730; }
+.text-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 18px; color: var(--color-primary); background-image: linear-gradient(currentColor,currentColor); background-position: 0 100%; background-repeat: no-repeat; background-size: 0 1px; font-size: .94rem; font-weight: 730; transition: color var(--transition-fast), background-size var(--transition-fast); }
+.text-link:hover { color: var(--color-primary-dark); background-size: calc(100% - 27px) 1px; }
 .text-link span { transition: transform var(--transition-fast); }
 .text-link:hover span { transform: translateX(4px); }
+
+@media (hover:hover) and (pointer:fine) {
+  .card:hover .icon-box { transform: translateY(-3px) rotate(-2deg); border-color: rgba(36,87,255,.22); }
+}
+
+@media (hover:none) {
+  .button:hover, .card:hover, .text-link:hover span { transform: none; }
+  .button--primary:hover { background: var(--color-primary); box-shadow: var(--shadow-primary); }
+  .card:hover { border-color: var(--color-border); box-shadow: var(--shadow-card); }
+  .section--dark .card:hover { border-color: var(--color-dark-border); background: rgba(255,255,255,.055); box-shadow: none; }
+  .text-link:hover { color: var(--color-primary); background-size: 0 1px; }
+}
 .tag { display: inline-flex; align-items: center; min-height: 30px; padding: 6px 11px; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-text-muted); background: var(--color-background); font-size: .76rem; font-weight: 700; letter-spacing: .04em; }
 
 .page-hero { position: relative; overflow: hidden; padding-block: clamp(6rem, 10vw, 9rem); background: radial-gradient(circle at 82% 26%, rgba(36,87,255,.09), transparent 25%), linear-gradient(180deg, #fff 0%, var(--color-background) 100%); }

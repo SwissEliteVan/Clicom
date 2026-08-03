@@ -1,0 +1,59 @@
+---
+interface Props { type: 'web' | 'seo' | 'geo' | 'ads' | 'ai' }
+const { type } = Astro.props;
+const content = {
+  web: { eyebrow: 'Expérience digitale', title: 'Du premier regard à la prise de contact.', nodes: ['Message', 'Parcours', 'Interface', 'Conversion'] },
+  seo: { eyebrow: 'Système de visibilité', title: 'Cinq dimensions, une même direction.', nodes: ['Technique', 'Contenu', 'Autorité', 'Local', 'Mesure'] },
+  geo: { eyebrow: 'Compréhension générative', title: 'Structurer les signaux qui définissent votre expertise.', nodes: ['Entités', 'Questions', 'Sources', 'Structure', 'Marque'] },
+  ads: { eyebrow: 'Parcours d’acquisition', title: 'Chaque étape doit servir la suivante.', nodes: ['Recherche', 'Clic', 'Landing page', 'Conversion', 'Optimisation'] },
+  ai: { eyebrow: 'Chaîne de valeur IA', title: 'Relier le contexte à une action utile.', nodes: ['Données', 'IA', 'Automatisation', 'Action'] },
+}[type];
+---
+
+<section class:list={['visual-band', `visual-band--${type}`, { 'visual-band--dark': type === 'geo' || type === 'ai' }]} aria-labelledby={`visual-${type}`}>
+  <div class="container visual-band__layout">
+    <div class="visual-band__copy">
+      <div class="eyebrow">{content.eyebrow}</div>
+      <h2 id={`visual-${type}`}>{content.title}</h2>
+      <p>{type === 'seo' ? 'La performance vient de la cohérence entre les fondations, les contenus et les signaux de confiance.' : type === 'geo' ? 'Les moteurs génératifs recomposent des réponses à partir de connexions : le fond, la structure et la cohérence de marque comptent ensemble.' : type === 'ads' ? 'Une campagne ne s’arrête pas au clic : message, page, mesure et optimisation forment un seul parcours.' : type === 'ai' ? 'L’IA devient utile lorsqu’elle reçoit le bon contexte, s’insère dans un processus clair et débouche sur une action contrôlée.' : 'Hiérarchie, rythme et interactions guident le visiteur vers l’information puis l’action pertinente.'}</p>
+    </div>
+    <div class="visual" role="img" aria-label={content.nodes.join(' vers ')}>
+      <div class="visual__grid" aria-hidden="true"></div>
+      {content.nodes.map((node, index) => (
+        <>
+          <span class:list={['visual__node', { 'visual__node--core': (type === 'geo' || type === 'ai') && index === Math.floor(content.nodes.length / 2) }]}><i>{String(index + 1).padStart(2, '0')}</i><strong>{node}</strong></span>
+          {index < content.nodes.length - 1 && <b aria-hidden="true"><i></i></b>}
+        </>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .visual-band { padding-block: clamp(5rem, 9vw, 8rem); overflow: hidden; background: var(--color-primary-soft); }
+  .visual-band--dark { color: white; background: var(--color-midnight); }
+  .visual-band__layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(42px, 8vw, 110px); align-items: center; }
+  .visual-band__copy p { max-width: 580px; }
+  .visual-band--dark .visual-band__copy p { color: var(--color-dark-muted); }
+  .visual { position: relative; display: flex; min-width: 0; align-items: center; justify-content: center; gap: 10px; min-height: 310px; padding: clamp(22px, 4vw, 42px); overflow: hidden; border: 1px solid rgba(36,87,255,.16); border-radius: var(--radius-surface); background: rgba(255,255,255,.76); box-shadow: var(--shadow-card); isolation: isolate; }
+  .visual-band--dark .visual { border-color: rgba(34,211,238,.18); background: rgba(255,255,255,.045); box-shadow: inset 0 1px rgba(255,255,255,.08); }
+  .visual__grid { position: absolute; inset: 0; z-index: -1; opacity: .55; background-image: linear-gradient(rgba(36,87,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(36,87,255,.07) 1px,transparent 1px); background-size: 28px 28px; mask-image: radial-gradient(circle at center,#000 10%,transparent 76%); }
+  .visual__node { display: grid; min-width: 0; min-height: 92px; flex: 1 1 0; place-items: center; align-content: center; gap: 7px; padding: 14px 9px; border: 1px solid rgba(36,87,255,.18); border-radius: 16px; color: var(--color-midnight); background: white; text-align: center; box-shadow: 0 10px 24px rgba(8,17,38,.06); }
+  .visual__node i { color: var(--color-primary); font-size: .61rem; font-style: normal; font-weight: 780; letter-spacing: .12em; }
+  .visual__node strong { font-size: clamp(.72rem, 1vw, .88rem); line-height: 1.2; }
+  .visual > b { position: relative; width: clamp(14px, 2vw, 32px); height: 1px; flex: 0 1 32px; background: rgba(36,87,255,.28); }
+  .visual > b::after { position: absolute; top: 50%; right: -1px; width: 6px; height: 6px; border-top: 1px solid var(--color-primary); border-right: 1px solid var(--color-primary); content: ''; transform: translateY(-50%) rotate(45deg); }
+  .visual > b i { position: absolute; top: -2px; left: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--color-primary); }
+  .visual-band--dark .visual__node { color: white; border-color: rgba(34,211,238,.2); background: rgba(8,17,38,.78); box-shadow: 0 14px 32px rgba(0,0,0,.2); }
+  .visual-band--dark .visual__node i { color: var(--color-cyan); }
+  .visual-band--dark .visual > b { background: rgba(34,211,238,.32); }
+  .visual-band--dark .visual > b::after { border-color: var(--color-cyan); }
+  .visual-band--dark .visual > b i { background: var(--color-cyan); }
+  .visual-band--geo .visual { flex-wrap: wrap; align-content: center; }
+  .visual-band--geo .visual__node { flex: 0 1 28%; }
+  .visual-band--geo .visual > b { flex-basis: 18px; }
+  .visual-band--ai .visual__node--core { border-color: rgba(34,211,238,.55); background: linear-gradient(145deg,rgba(36,87,255,.32),rgba(34,211,238,.12)); box-shadow: 0 0 42px rgba(36,87,255,.2); }
+  .visual-band--web .visual__node:nth-of-type(even), .visual-band--seo .visual__node:nth-of-type(odd) { transform: translateY(14px); }
+  @media (max-width: 1024px) { .visual-band__layout { grid-template-columns: 1fr; } .visual { min-height: 260px; } }
+  @media (max-width: 680px) { .visual { display: grid; min-height: 0; grid-template-columns: 1fr; gap: 0; padding: 20px; } .visual__node, .visual-band--geo .visual__node { width: 100%; min-height: 68px; transform: none !important; } .visual > b, .visual-band--geo .visual > b { width: 1px; height: 22px; justify-self: center; background: rgba(36,87,255,.28); } .visual > b::after { top: auto; right: auto; bottom: 0; left: 50%; transform: translateX(-50%) rotate(135deg); } }
+</style>

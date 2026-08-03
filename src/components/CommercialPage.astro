@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from './PageHero.astro';
 import CTA from './CTA.astro';
+import CommercialVisual from './CommercialVisual.astro';
 
 interface Item { title: string; text: string }
 interface FAQ { question: string; answer: string }
@@ -23,6 +24,21 @@ interface Props {
 }
 
 const { title, description, eyebrow, h1, intro, problems, solution, services, process, benefits, faq, links, variant = 'standard' } = Astro.props;
+const visualByEyebrow: Record<string, 'web' | 'seo' | 'geo' | 'ads' | 'ai'> = {
+  'Création de site web': 'web',
+  'Référencement naturel': 'seo',
+  'GEO & AEO': 'geo',
+  'Google Ads': 'ads',
+  'Intelligence artificielle': 'ai',
+};
+const visual = visualByEyebrow[eyebrow];
+const sectionCopy = {
+  web: { issues: 'Faire du site un actif commercial, pas une simple vitrine.', offer: 'Concevoir chaque couche autour du même objectif.', process: 'Du cadrage au lancement, sans rupture entre design et technique.', benefits: 'Une expérience qui inspire confiance et facilite le passage à l’action.' },
+  seo: { issues: 'Concentrer l’effort SEO là où il peut créer de la valeur.', offer: 'Technique, contenu, autorité, local et mesure réunis.', process: 'Une progression lisible, fondée sur les priorités.', benefits: 'Une visibilité construite pour soutenir les objectifs commerciaux.' },
+  geo: { issues: 'Rendre une expertise claire, structurée et vérifiable.', offer: 'Préparer la marque aux nouveaux parcours de recherche.', process: 'Observer, structurer et publier avant de mesurer.', benefits: 'Des signaux plus cohérents pour les moteurs et les personnes.' },
+  ads: { issues: 'Transformer un budget média en système d’acquisition pilotable.', offer: 'Aligner l’intention, le message, la page et la mesure.', process: 'Un cycle court entre apprentissage et optimisation.', benefits: 'Des décisions publicitaires fondées sur la qualité des conversions.' },
+  ai: { issues: 'Passer des essais isolés à des usages réellement intégrés.', offer: 'Mettre l’IA au service des processus et des équipes.', process: 'Prototyper vite, intégrer avec méthode, encadrer durablement.', benefits: 'Une adoption pragmatique, contrôlée et évolutive.' },
+}[visual] ?? { issues: 'Transformer les points de friction en opportunités.', offer: 'Une expertise reliée à votre croissance.', process: 'De la stratégie à l’amélioration continue.', benefits: 'Un levier pensé pour produire de la valeur.' };
 ---
 
 <Layout {title} {description}>
@@ -32,7 +48,7 @@ const { title, description, eyebrow, h1, intro, problems, solution, services, pr
     <div class:list={['container', 'split', { 'split--reverse': variant === 'reverse' }]}>
       <div class="section-heading">
         <div class="eyebrow">Vos enjeux</div>
-        <h2>Transformer les points de friction en <span class="accent">opportunités.</span></h2>
+        <h2>{sectionCopy.issues}</h2>
         <p>{solution}</p>
       </div>
       <div class="issue-list">
@@ -41,9 +57,11 @@ const { title, description, eyebrow, h1, intro, problems, solution, services, pr
     </div>
   </section>
 
+  {visual && <CommercialVisual type={visual} />}
+
   <section class="section section--dark">
     <div class="container">
-      <div class="section-heading"><div class="eyebrow">Solution CLICOM</div><h2>Une expertise reliée à votre <span class="gradient-text">croissance.</span></h2></div>
+      <div class="section-heading"><div class="eyebrow">Solution CLICOM</div><h2>{sectionCopy.offer}</h2></div>
       <div class:list={['grid', 'grid--3', 'offer-grid', { 'offer-grid--featured': variant === 'reverse' }]}>
         {services.map((item) => <article class="card"><h3>{item.title}</h3><p>{item.text}</p></article>)}
       </div>
@@ -52,7 +70,7 @@ const { title, description, eyebrow, h1, intro, problems, solution, services, pr
 
   <section class="section section--white">
     <div class="container">
-      <div class="section-heading"><div class="eyebrow">Processus</div><h2>De la stratégie à <span class="accent">l’amélioration continue.</span></h2></div>
+      <div class="section-heading"><div class="eyebrow">Processus</div><h2>{sectionCopy.process}</h2></div>
       <div class="process-grid">
         {process.map((item, index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
       </div>
@@ -61,7 +79,7 @@ const { title, description, eyebrow, h1, intro, problems, solution, services, pr
 
   <section class="section benefits-section">
     <div class="container benefits">
-      <div><div class="eyebrow">Bénéfices</div><h2>Un levier pensé pour <span class="accent">produire de la valeur.</span></h2></div>
+      <div><div class="eyebrow">Bénéfices</div><h2>{sectionCopy.benefits}</h2></div>
       <ul>{benefits.map((benefit) => <li><span>→</span>{benefit}</li>)}</ul>
     </div>
   </section>

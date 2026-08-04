@@ -1,0 +1,7 @@
+---
+const labels=['SITE','SEO','ADS','SOCIAL','IA','CONVERSION'];
+const pts=[[450,48],[570,112],[570,248],[450,312],[330,248],[330,112]];
+---
+<div class="audit-scanner" data-visual-motion aria-hidden="true"><svg viewBox="0 0 900 360"><g class="rings"><circle cx="450" cy="180" r="132"/><circle cx="450" cy="180" r="88"/><circle cx="450" cy="180" r="42"/><path d="M450 35V325M305 180H595"/></g><path class="sweep" d="M450 180V48A132 132 0 0 1 568 239Z"/>{pts.map(([x,y],i)=><g class="point" data-visual-node><circle cx={x} cy={y} r="7"/><text x={x} y={y+22} text-anchor="middle">{labels[i]}</text></g>)}</svg></div>
+<script>import '../../scripts/visuals/svg-motion';</script>
+<style>.audit-scanner svg{width:100%;min-height:330px}.rings{fill:none;stroke:rgba(36,87,255,.15);stroke-dasharray:3 7}.sweep{fill:rgba(34,211,238,.08);stroke:#22d3ee;transform-origin:450px 180px;animation:sweep 8s linear infinite}.point circle{fill:#2457ff;stroke:white;stroke-width:3}.point text{fill:#58657a;font:700 9px Manrope,sans-serif;letter-spacing:.08em}@keyframes sweep{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sweep{animation:none}}@media(max-width:680px){.audit-scanner svg{min-height:240px}}</style>

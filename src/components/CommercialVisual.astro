@@ -1,6 +1,10 @@
 ---
 import AIField from './visuals/AIField.astro';
-import VisualSystem from './visuals/VisualSystem.astro';
+import KnowledgeGraph from './visuals/KnowledgeGraph.astro';
+import AutomationFlow from './visuals/AutomationFlow.astro';
+import SEOFlow from './visuals/SEOFlow.astro';
+import AdsJourney from './visuals/AdsJourney.astro';
+import WebExperience from './visuals/WebExperience.astro';
 interface Props { type: 'web' | 'seo' | 'geo' | 'ads' | 'ai' | 'automation' }
 const { type } = Astro.props;
 const content = {
@@ -21,7 +25,7 @@ const content = {
       <p>{type === 'seo' ? 'La performance vient de la cohérence entre les fondations, les contenus et les signaux de confiance.' : type === 'geo' ? 'Les moteurs génératifs recomposent des réponses à partir de connexions : le fond, la structure et la cohérence de marque comptent ensemble.' : type === 'ads' ? 'Une campagne ne s’arrête pas au clic : message, page, mesure et optimisation forment un seul parcours.' : type === 'ai' ? 'L’IA devient utile lorsqu’elle reçoit le bon contexte, s’insère dans un processus clair et débouche sur une action contrôlée.' : 'Hiérarchie, rythme et interactions guident le visiteur vers l’information puis l’action pertinente.'}</p>
     </div>
     <div class="visual" role="img" aria-label={content.nodes.join(' vers ')}>
-      {type === 'ai' ? <AIField /> : <VisualSystem type={type} />}
+      {type === 'ai' ? <AIField /> : type === 'geo' ? <KnowledgeGraph /> : type === 'automation' ? <AutomationFlow /> : type === 'seo' ? <SEOFlow /> : type === 'ads' ? <AdsJourney /> : <WebExperience />}
       <div class="visual__grid" aria-hidden="true"></div>
       {content.nodes.map((node, index) => (
         <>

@@ -40,6 +40,7 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
       uniform float uTime;
       uniform vec2 uResolution;
       uniform vec2 uPointer;
+      uniform vec2 uFrameScale;
 
       float hash(vec2 p) {
         p = fract(p * vec2(123.34, 456.21));
@@ -68,6 +69,7 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
       void main() {
         vec2 uv = vUv;
         vec2 p = (gl_FragCoord.xy * 2.0 - uResolution.xy) / min(uResolution.x, uResolution.y);
+        p *= uFrameScale;
         float t = uTime * .16;
         vec2 pointer = (uPointer - .5) * vec2(.16, .1);
 
@@ -105,23 +107,29 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
       uTime: { value: 0 },
       uResolution: { value: [1, 1] },
       uPointer: { value: [.68, .38] },
+      uFrameScale: { value: [1, 1] },
     },
   });
 
   const mesh = new Mesh(gl, { geometry, program });
-  const pointer = { x: .68, y: .38 };
-  const target = { x: .68, y: .38 };
+  const mobileOrigin = mobileScene ? { x: .58, y: .48 } : { x: .68, y: .38 };
+  const pointer = { ...mobileOrigin };
+  const target = { ...mobileOrigin };
   let raf = 0;
   let inViewport = false;
   let disposed = false;
   let start = performance.now();
 
   const resize = () => {
-    const width = Math.max(1, host.clientWidth);
-    const height = Math.max(1, host.clientHeight);
+    const bounds = host.getBoundingClientRect();
+    const width = Math.max(1, bounds.width);
+    const height = Math.max(1, bounds.height);
     renderer.dpr = Math.min(window.devicePixelRatio, dprLimit);
     renderer.setSize(width, height);
     program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height];
+    program.uniforms.uFrameScale.value = mobileScene
+      ? (width <= 480 ? [.92, .52] : [.98, .76])
+      : [1, 1];
   };
 
   const render = (now: number) => {
@@ -129,8 +137,8 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
     if (!inViewport || document.hidden || disposed) return;
     if (mobileScene) {
       const elapsed = (now - start) / 1000;
-      target.x = .68 + Math.sin(elapsed * .18) * .045;
-      target.y = .38 + Math.cos(elapsed * .14) * .03;
+      target.x = mobileOrigin.x + Math.sin(elapsed * .18) * .045;
+      target.y = mobileOrigin.y + Math.cos(elapsed * .14) * .03;
     }
     pointer.x += (target.x - pointer.x) * .025;
     pointer.y += (target.y - pointer.y) * .025;

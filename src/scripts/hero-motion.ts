@@ -10,7 +10,6 @@ const hero = document.querySelector<HTMLElement>('[data-hero]');
 const frame = document.querySelector<HTMLElement>('[data-hero-frame]');
 const media = document.querySelector<HTMLElement>('[data-hero-media]');
 const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-canvas]');
-const bridge = document.querySelector<HTMLElement>('[data-hero-bridge]');
 
 if (!reduce.matches && hero && frame && media) {
   const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
@@ -26,8 +25,6 @@ if (!reduce.matches && hero && frame && media) {
     .to('.home-hero__title', { yPercent: -13, opacity: .18, ease: 'none' }, 0)
     .to('.home-hero__support', { yPercent: -24, opacity: 0, ease: 'none' }, 0)
     .to('.home-hero__wash', { opacity: .45, ease: 'none' }, 0);
-
-  if (bridge) gsap.to('.hero-bridge__track', { xPercent: -50, ease: 'none', scrollTrigger: { trigger: bridge, start: 'top bottom', end: 'bottom top', scrub: 1 } });
 
   const finePointer = window.matchMedia('(pointer: fine)').matches;
   if (finePointer) {

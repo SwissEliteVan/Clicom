@@ -36,8 +36,12 @@ import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
 
 <div class="hero-bridge" data-hero-bridge aria-hidden="true">
   <div class="hero-bridge__track">
-    <span>STRATÉGIE</span><i>✦</i><span>ACQUISITION</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>CROISSANCE</span><i>✦</i>
-    <span>STRATÉGIE</span><i>✦</i><span>ACQUISITION</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>CROISSANCE</span><i>✦</i>
+    <div class="hero-bridge__sequence">
+      <span>STRATÉGIE</span><i>✦</i><span>ACQUISITION</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>CROISSANCE</span><i>✦</i>
+    </div>
+    <div class="hero-bridge__sequence" aria-hidden="true">
+      <span>STRATÉGIE</span><i>✦</i><span>ACQUISITION</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>CROISSANCE</span><i>✦</i>
+    </div>
   </div>
 </div>
 
@@ -66,11 +70,13 @@ import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
   .home-hero__scroll i::after { position: absolute; inset: 0; background: var(--color-cyan); content: ''; animation: scroll-pulse 2s ease-in-out infinite; }
   .hero-bridge { position: relative; z-index: 3; width: 100%; overflow: hidden; margin-top: -1px; padding-block: clamp(18px, 2.2vw, 30px); color: var(--color-midnight); background: var(--color-background); transform-origin: top; }
   .hero-bridge::before { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(36,87,255,.08), transparent 28%, rgba(34,211,238,.08)); content: ''; }
-  .hero-bridge__track { display: flex; width: max-content; align-items: center; gap: clamp(24px, 3vw, 52px); font-size: clamp(2.1rem, 4vw, 5rem); font-weight: 800; line-height: .9; letter-spacing: -.06em; white-space: nowrap; }
-  .hero-bridge__track span { color: transparent; -webkit-text-stroke: 1px rgba(8,17,38,.28); }
-  .hero-bridge__track span:nth-of-type(2n) { color: var(--color-midnight); -webkit-text-stroke: 0; }
-  .hero-bridge__track i { color: var(--color-primary); font-size: .28em; font-style: normal; }
+  .hero-bridge__track { --bridge-gap: clamp(24px, 3vw, 52px); display: flex; width: max-content; align-items: center; gap: var(--bridge-gap); font-size: clamp(2.1rem, 4vw, 5rem); font-weight: 800; line-height: .9; letter-spacing: -.06em; white-space: nowrap; animation: bridge-marquee 28s linear infinite; will-change: transform; }
+  .hero-bridge__sequence { display: flex; flex-shrink: 0; align-items: center; gap: var(--bridge-gap); }
+  .hero-bridge__sequence span { color: transparent; -webkit-text-stroke: 1px rgba(8,17,38,.28); }
+  .hero-bridge__sequence span:nth-of-type(2n) { color: var(--color-midnight); -webkit-text-stroke: 0; }
+  .hero-bridge__sequence i { color: var(--color-primary); font-size: .28em; font-style: normal; }
   @keyframes scroll-pulse { 0% { transform: translateX(-105%); } 55%,100% { transform: translateX(105%); } }
+  @keyframes bridge-marquee { to { transform: translateX(calc(-50% - var(--bridge-gap) / 2)); } }
 
   @media (max-width: 900px) {
     .home-hero__title { font-size: clamp(4rem, 11vw, 7rem); white-space: normal; }
@@ -91,5 +97,5 @@ import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
     .home-hero__actions :global(.button) { min-height: 54px; }
     .hero-bridge { padding-block: 17px; }
   }
-  @media (prefers-reduced-motion: reduce) { .home-hero__scroll i::after { animation: none; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .home-hero__scroll i::after, .hero-bridge__track { animation: none; transform: none; } }
 </style>

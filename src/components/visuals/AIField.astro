@@ -1,0 +1,12 @@
+<div class=ai-field data-ai-field aria-hidden=true>
+  <canvas data-ai-canvas tabindex="-1"></canvas>
+  <svg viewBox="0 0 900 430"><defs><linearGradient id="af"><stop stop-color="#2457FF"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs>
+    <g><path d="M40 310C180 80 280 370 420 190S650 80 860 170"/><path d="M40 350C200 150 310 395 470 240S700 155 860 210"/></g>
+    <path class="hot" d="M40 310C180 80 280 370 420 190S650 80 860 170"/><g class="dots"><circle cx="40" cy="310" r="4"/><circle cx="420" cy="190" r="6"/><circle cx="860" cy="170" r="4"/></g>
+  </svg>
+  <div class="labels"><span>DONNÉES</span><span>COMPRÉHENSION</span><span>AUTOMATISATION</span><span>ACTION</span></div>
+</div>
+<script>import '../../scripts/visuals/ai-field';</script>
+<style>
+  .ai-field{position:relative;width:100%;min-height:390px;overflow:hidden;border-radius:24px;background:#081126}.ai-field canvas,.ai-field svg{position:absolute;inset:0;width:100%;height:100%}.ai-field canvas{z-index:1;opacity:0;transition:opacity .7s}.ai-field.is-ready canvas{opacity:1}.ai-field.is-ready svg{opacity:0}.ai-field svg g{fill:none;stroke:rgba(34,211,238,.22)}.ai-field svg .hot{fill:none;stroke:url(#af);stroke-width:3}.ai-field svg .dots{fill:#22D3EE;stroke:none}.labels{position:absolute;right:5%;bottom:7%;left:5%;z-index:2;display:flex;justify-content:space-between;color:rgba(255,255,255,.65);font-size:.58rem;font-weight:750;letter-spacing:.12em}.labels span+span::before{margin-right:10px;color:#22D3EE;content:'→'}@media(max-width:768px){.ai-field{min-height:280px}.ai-field canvas{display:none}.labels{display:grid;grid-template-columns:1fr 1fr;gap:10px}}@media(prefers-reduced-motion:reduce){.ai-field canvas{display:none}}
+</style>

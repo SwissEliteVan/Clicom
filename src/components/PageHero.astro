@@ -1,5 +1,6 @@
 ---
 import Button from './Button.astro';
+import VisualBand from './visuals/VisualBand.astro';
 
 interface Props {
   eyebrow: string;
@@ -12,6 +13,13 @@ interface Props {
 }
 
 const { eyebrow, title, intro, secondary, secondaryLabel = 'Découvrir nos services', primary = '/contact#audit', primaryLabel = 'Parler de mon projet →' } = Astro.props;
+const bands = {
+  Services: { type: 'services' as const, eyebrow: 'Système CLICOM', title: 'Trois forces, une même trajectoire.', text: 'Acquisition, création et technologie deviennent un système cohérent.' },
+  'Audit gratuit': { type: 'audit' as const, eyebrow: 'Diagnostic visuel', title: 'Six signaux observés comme un seul système.', text: 'Site, visibilité, acquisition, social, IA et conversion sont reliés sans score artificiel.' },
+  Blog: { type: 'editorial' as const, eyebrow: 'Lecture structurée', title: 'Des signaux transformés en décisions.', text: 'Une grille éditoriale légère relie les sujets, les analyses et les prochaines actions.' },
+  Ressources: { type: 'editorial' as const, eyebrow: 'Cartographie éditoriale', title: 'Trouver le bon point d’entrée.', text: 'Les contenus sont reliés par intention plutôt qu’empilés comme une bibliothèque générique.' },
+};
+const band = bands[eyebrow as keyof typeof bands];
 ---
 
 <section class="page-hero">
@@ -34,3 +42,4 @@ const { eyebrow, title, intro, secondary, secondaryLabel = 'Découvrir nos servi
     </div>
   </div>
 </section>
+{band && <VisualBand {...band} />}

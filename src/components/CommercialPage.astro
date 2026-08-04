@@ -24,12 +24,13 @@ interface Props {
 }
 
 const { title, description, eyebrow, h1, intro, problems, solution, services, process, benefits, faq, links, variant = 'standard' } = Astro.props;
-const visualByEyebrow: Record<string, 'web' | 'seo' | 'geo' | 'ads' | 'ai'> = {
+const visualByEyebrow: Record<string, 'web' | 'seo' | 'geo' | 'ads' | 'ai' | 'automation'> = {
   'Création de site web': 'web',
   'Référencement naturel': 'seo',
   'GEO & AEO': 'geo',
   'Google Ads': 'ads',
   'Intelligence artificielle': 'ai',
+  'Automatisation': 'automation',
 };
 const visual = visualByEyebrow[eyebrow];
 const sectionCopy = {
@@ -37,6 +38,7 @@ const sectionCopy = {
   seo: { issues: 'Concentrer l’effort SEO là où il peut créer de la valeur.', offer: 'Technique, contenu, autorité, local et mesure réunis.', process: 'Une progression lisible, fondée sur les priorités.', benefits: 'Une visibilité construite pour soutenir les objectifs commerciaux.' },
   geo: { issues: 'Rendre une expertise claire, structurée et vérifiable.', offer: 'Préparer la marque aux nouveaux parcours de recherche.', process: 'Observer, structurer et publier avant de mesurer.', benefits: 'Des signaux plus cohérents pour les moteurs et les personnes.' },
   ads: { issues: 'Transformer un budget média en système d’acquisition pilotable.', offer: 'Aligner l’intention, le message, la page et la mesure.', process: 'Un cycle court entre apprentissage et optimisation.', benefits: 'Des décisions publicitaires fondées sur la qualité des conversions.' },
+  automation: { issues: 'Supprimer les frictions répétitives.', offer: 'Relier les outils autour de décisions claires.', process: 'Cartographier, simplifier, connecter et superviser.', benefits: 'Des flux fiables qui libèrent du temps.' },
   ai: { issues: 'Passer des essais isolés à des usages réellement intégrés.', offer: 'Mettre l’IA au service des processus et des équipes.', process: 'Prototyper vite, intégrer avec méthode, encadrer durablement.', benefits: 'Une adoption pragmatique, contrôlée et évolutive.' },
 }[visual] ?? { issues: 'Transformer les points de friction en opportunités.', offer: 'Une expertise reliée à votre croissance.', process: 'De la stratégie à l’amélioration continue.', benefits: 'Un levier pensé pour produire de la valeur.' };
 ---

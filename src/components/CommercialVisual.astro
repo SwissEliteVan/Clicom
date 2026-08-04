@@ -1,5 +1,7 @@
 ---
-interface Props { type: 'web' | 'seo' | 'geo' | 'ads' | 'ai' }
+import AIField from './visuals/AIField.astro';
+import VisualSystem from './visuals/VisualSystem.astro';
+interface Props { type: 'web' | 'seo' | 'geo' | 'ads' | 'ai' | 'automation' }
 const { type } = Astro.props;
 const content = {
   web: { eyebrow: 'Expérience digitale', title: 'Du premier regard à la prise de contact.', nodes: ['Message', 'Parcours', 'Interface', 'Conversion'] },
@@ -7,6 +9,7 @@ const content = {
   geo: { eyebrow: 'Compréhension générative', title: 'Structurer les signaux qui définissent votre expertise.', nodes: ['Entités', 'Questions', 'Sources', 'Structure', 'Marque'] },
   ads: { eyebrow: 'Parcours d’acquisition', title: 'Chaque étape doit servir la suivante.', nodes: ['Recherche', 'Clic', 'Landing page', 'Conversion', 'Optimisation'] },
   ai: { eyebrow: 'Chaîne de valeur IA', title: 'Relier le contexte à une action utile.', nodes: ['Données', 'IA', 'Automatisation', 'Action'] },
+  automation: { eyebrow: 'Workflow connecte', title: 'Un flux vivant et supervise.', nodes: ['Trigger', 'Traitement', 'Decision', 'Action'] },
 }[type];
 ---
 
@@ -18,6 +21,7 @@ const content = {
       <p>{type === 'seo' ? 'La performance vient de la cohérence entre les fondations, les contenus et les signaux de confiance.' : type === 'geo' ? 'Les moteurs génératifs recomposent des réponses à partir de connexions : le fond, la structure et la cohérence de marque comptent ensemble.' : type === 'ads' ? 'Une campagne ne s’arrête pas au clic : message, page, mesure et optimisation forment un seul parcours.' : type === 'ai' ? 'L’IA devient utile lorsqu’elle reçoit le bon contexte, s’insère dans un processus clair et débouche sur une action contrôlée.' : 'Hiérarchie, rythme et interactions guident le visiteur vers l’information puis l’action pertinente.'}</p>
     </div>
     <div class="visual" role="img" aria-label={content.nodes.join(' vers ')}>
+      {type === 'ai' ? <AIField /> : <VisualSystem type={type} />}
       <div class="visual__grid" aria-hidden="true"></div>
       {content.nodes.map((node, index) => (
         <>
@@ -54,6 +58,8 @@ const content = {
   .visual-band--geo .visual > b { flex-basis: 18px; }
   .visual-band--ai .visual__node--core { border-color: rgba(34,211,238,.55); background: linear-gradient(145deg,rgba(36,87,255,.32),rgba(34,211,238,.12)); box-shadow: 0 0 42px rgba(36,87,255,.2); }
   .visual-band--web .visual__node:nth-of-type(even), .visual-band--seo .visual__node:nth-of-type(odd) { transform: translateY(14px); }
+  .visual > .visual__grid, .visual > .visual__node, .visual > b { display: none; }
+  .visual:has(.ai-field) { padding: 0; border: 0; background: transparent; box-shadow: none; }
   @media (max-width: 1024px) { .visual-band__layout { grid-template-columns: 1fr; } .visual { min-height: 260px; } }
   @media (max-width: 680px) { .visual { display: grid; min-height: 0; grid-template-columns: 1fr; gap: 0; padding: 20px; } .visual__node, .visual-band--geo .visual__node { width: 100%; min-height: 68px; transform: none !important; } .visual > b, .visual-band--geo .visual > b { width: 1px; height: 22px; justify-self: center; background: rgba(36,87,255,.28); } .visual > b::after { top: auto; right: auto; bottom: 0; left: 50%; transform: translateX(-50%) rotate(135deg); } }
 </style>

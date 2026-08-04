@@ -48,6 +48,8 @@ const sectionCopy = {
 <Layout {title} {description}>
   <PageHero {eyebrow} title={h1} {intro} primary="/audit-gratuit/" primaryLabel="Demander un audit gratuit →" secondary="/services/" secondaryLabel="Découvrir nos services" />
 
+  {visual && editorialImage && <CommercialVisual type={visual} media={editorialImage} />}
+
   <section class="section section--white">
     <div class:list={['container', 'split', { 'split--reverse': variant === 'reverse' }]}>
       <div class="section-heading">
@@ -61,7 +63,7 @@ const sectionCopy = {
     </div>
   </section>
 
-  {visual && <CommercialVisual type={visual} media={editorialImage} />}
+  {visual && !editorialImage && <CommercialVisual type={visual} />}
 
   <section class="section section--dark">
     <div class="container">

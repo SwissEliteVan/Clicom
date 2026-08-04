@@ -1,21 +1,9 @@
 ---
-interface Props { kind: 'knowledge'|'automation'|'seo'|'ads'; labels: string[] }
-const { kind, labels } = Astro.props;
-const count = labels.length;
-const points = labels.map((_, i) => ({ x: 82 + i * (736 / (count - 1)), y: kind === 'knowledge' ? [255,125,215,105,205][i] : kind === 'ads' ? [215,135,225,125,195][i] : kind === 'seo' ? [230,145,220,120,205][i] : [220,120,225,145][i] }));
-const line = points.map((p, i) => `${i ? 'L' : 'M'}${p.x} ${p.y}`).join(' ');
+interface Props { kind: 'automation'; labels: string[] }
+const { labels } = Astro.props;
+const points = labels.map((_,i)=>({x:105+i*230,y:i===2?215:165}));
+const line=points.map((p,i)=>`${i?'L':'M'}${p.x} ${p.y}`).join(' ');
 ---
-<div class:list={['flow-visual', `flow-visual--${kind}`]} data-visual-motion aria-hidden="true">
-  <svg viewBox="0 0 900 360" focusable="false">
-    <defs><linearGradient id={`flow-${kind}`}><stop stop-color="#2457ff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient><filter id={`glow-${kind}`}><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-    <g class="flow-grid"><path d="M35 70H865M35 180H865M35 290H865"/><path d="M120 30V330M340 30V330M560 30V330M780 30V330"/></g>
-    {kind === 'knowledge' && <g class="context-links"><path d="M82 255L450 215L818 205M266 125L634 105M266 125L450 215M450 215L634 105"/></g>}
-    <path class="flow-track" d={line}/><path class="flow-route" data-visual-path d={line} stroke={`url(#flow-${kind})`}/>
-    <circle class="flow-signal" r="5" fill="#22d3ee"><animateMotion dur={`${5 + count}s`} repeatCount="indefinite" path={line}/></circle>
-    {points.map((p, i) => <g class:list={['flow-node', { 'flow-node--core': i === Math.floor(count / 2) }]} data-visual-node><circle cx={p.x} cy={p.y} r={kind === 'knowledge' ? 29 : 24}/><circle class="flow-dot" cx={p.x} cy={p.y} r="4"/><text x={p.x} y={p.y + 54} text-anchor="middle">{labels[i]}</text><text class="flow-index" x={p.x} y={p.y + 4} text-anchor="middle">{String(i + 1).padStart(2,'0')}</text></g>)}
-  </svg>
-</div>
+<div class="flow-visual" data-visual-motion aria-hidden="true"><svg viewBox="0 0 900 360" focusable="false"><defs><linearGradient id="automation-route"><stop stop-color="#2457ff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><g class="lanes"><path d="M40 90H860M40 270H860"/></g><path class="track" d={line}/><path class="route" data-visual-path d={line}/><circle class="signal" r="5" style={`--signal-path:path('${line}')`}/>{points.map((p,i)=><g class:list={['step',{'decision':i===2}]} data-visual-node><rect x={p.x-70} y={p.y-38} width="140" height="76" rx="14"/><text class="index" x={p.x} y={p.y-7} text-anchor="middle">{String(i+1).padStart(2,'0')}</text><text x={p.x} y={p.y+14} text-anchor="middle">{labels[i]}</text>{i===2&&<path class="branch" d={`M${p.x} ${p.y+38}v46h92`}/>}</g>)}</svg></div>
 <script>import '../../scripts/visuals/svg-motion';</script>
-<style>
-  .flow-visual{width:100%;min-height:330px}.flow-visual svg{width:100%;min-height:330px}.flow-grid path,.context-links path{fill:none;stroke:rgba(36,87,255,.08);stroke-width:1}.context-links path{stroke:rgba(34,211,238,.16);stroke-dasharray:3 8}.flow-track,.flow-route{fill:none;stroke:rgba(36,87,255,.16);stroke-width:2}.flow-route{stroke-width:2.5;stroke-linecap:round}.flow-node circle{fill:rgba(255,255,255,.94);stroke:rgba(36,87,255,.34)}.flow-node--core circle:first-child{fill:rgba(36,87,255,.13);stroke:#22d3ee;filter:url(#glow-knowledge)}.flow-dot{fill:#2457ff!important;stroke:none!important}.flow-node--core .flow-dot{fill:#22d3ee!important}.flow-node text{fill:#58657a;font:700 10px Manrope,sans-serif;letter-spacing:.08em}.flow-node .flow-index{fill:#2457ff;font-size:9px}.flow-signal{filter:drop-shadow(0 0 6px #22d3ee)}:global(.visual-band--dark) .flow-node circle{fill:#0b1833}:global(.visual-band--dark) .flow-node text{fill:rgba(255,255,255,.7)}:global(.visual-band--dark) .flow-grid path{stroke:rgba(255,255,255,.06)}@media(max-width:680px){.flow-visual,.flow-visual svg{min-height:240px}.flow-node text{font-size:8px}.flow-signal{display:none}}@media(prefers-reduced-motion:reduce){.flow-signal{display:none}}
-</style>
+<style>.flow-visual,.flow-visual svg{width:100%;min-height:330px}.lanes path{stroke:rgba(36,87,255,.07);stroke-width:var(--visual-line-secondary)}.track,.route,.branch{fill:none;stroke:rgba(36,87,255,.18);stroke-width:var(--visual-line-primary)}.route{stroke:url(#automation-route);stroke-width:var(--visual-line-active)}.step rect{fill:white;stroke:rgba(36,87,255,.32);stroke-width:var(--visual-line-primary)}.step.decision rect{fill:rgba(36,87,255,.1);stroke:#22d3ee}.step text{fill:#58657a;font:700 10px Manrope,sans-serif;letter-spacing:.08em}.step .index{fill:#2457ff;font-size:9px}.signal{fill:#22d3ee;offset-path:var(--signal-path);filter:drop-shadow(0 0 6px #22d3ee)}.is-visual-active .signal{animation:flow-signal var(--visual-loop) linear infinite}@keyframes flow-signal{to{offset-distance:100%}}@media(max-width:680px){.flow-visual,.flow-visual svg{min-height:240px}.step text{font-size:8px}.signal{display:none}}@media(prefers-reduced-motion:reduce){.signal{animation:none}}</style>

@@ -54,6 +54,11 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --transition-fast: 180ms var(--ease-out);
   --transition-base: 280ms var(--ease-out);
+  --visual-line-secondary: 1px;
+  --visual-line-primary: 1.5px;
+  --visual-line-active: 2px;
+  --visual-reveal: 800ms;
+  --visual-loop: 8s;
   --z-header: 100;
   --z-menu: 110;
   --z-skip: 1000;

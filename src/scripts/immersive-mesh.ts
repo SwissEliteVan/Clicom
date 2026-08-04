@@ -1,9 +1,8 @@
 const host = document.querySelector<HTMLElement>('[data-immersive-mesh]');
 const canvas = host?.querySelector<HTMLCanvasElement>('[data-immersive-canvas]');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const desktopScene = window.matchMedia('(min-width: 769px)');
 
-if (host && canvas && !reduceMotion.matches && desktopScene.matches) {
+if (host && canvas && !reduceMotion.matches) {
   void initialiseMesh(host, canvas).catch(() => {
     host.classList.remove('is-ready');
   });
@@ -11,9 +10,12 @@ if (host && canvas && !reduceMotion.matches && desktopScene.matches) {
 
 async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
   const { Renderer, Geometry, Program, Mesh } = await import('ogl');
-  if (!host.isConnected || reduceMotion.matches || !desktopScene.matches) return;
+  if (!host.isConnected || reduceMotion.matches) return;
 
-  const renderer = new Renderer({ canvas, alpha: true, antialias: false, dpr: Math.min(window.devicePixelRatio, 1.5) });
+  const mobileScene = window.matchMedia('(max-width: 768px)').matches;
+  const dprLimit = mobileScene ? 1 : 1.5;
+
+  const renderer = new Renderer({ canvas, alpha: true, antialias: false, dpr: Math.min(window.devicePixelRatio, dprLimit) });
   const gl = renderer.gl;
   gl.clearColor(0.031, 0.067, 0.149, 1);
 
@@ -56,7 +58,7 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
       float flow(vec2 p, float t) {
         float value = 0.0;
         mat2 turn = mat2(.82, -.57, .57, .82);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < ${mobileScene ? 3 : 4}; i++) {
           value += noise(p + vec2(t * .11, -t * .07)) / exp2(float(i) + 1.0);
           p = turn * p * 2.03 + 1.7;
         }
@@ -110,26 +112,38 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
   const pointer = { x: .68, y: .38 };
   const target = { x: .68, y: .38 };
   let raf = 0;
-  let visible = false;
+  let inViewport = false;
   let disposed = false;
   let start = performance.now();
 
   const resize = () => {
     const width = Math.max(1, host.clientWidth);
     const height = Math.max(1, host.clientHeight);
-    renderer.dpr = Math.min(window.devicePixelRatio, 1.5);
+    renderer.dpr = Math.min(window.devicePixelRatio, dprLimit);
     renderer.setSize(width, height);
     program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height];
   };
 
   const render = (now: number) => {
-    if (!visible || disposed) return;
+    raf = 0;
+    if (!inViewport || document.hidden || disposed) return;
+    if (mobileScene) {
+      const elapsed = (now - start) / 1000;
+      target.x = .68 + Math.sin(elapsed * .18) * .045;
+      target.y = .38 + Math.cos(elapsed * .14) * .03;
+    }
     pointer.x += (target.x - pointer.x) * .025;
     pointer.y += (target.y - pointer.y) * .025;
     program.uniforms.uPointer.value = [pointer.x, pointer.y];
     program.uniforms.uTime.value = (now - start) / 1000;
     renderer.render({ scene: mesh });
     raf = requestAnimationFrame(render);
+  };
+
+  const updateRendering = () => {
+    cancelAnimationFrame(raf);
+    raf = 0;
+    if (inViewport && !document.hidden && !disposed) raf = requestAnimationFrame(render);
   };
 
   const onPointerMove = (event: PointerEvent) => {
@@ -139,17 +153,12 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
   };
 
   const visibility = new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting && !document.hidden;
-    cancelAnimationFrame(raf);
-    if (visible) raf = requestAnimationFrame(render);
+    inViewport = entry.isIntersecting;
+    updateRendering();
   }, { rootMargin: '80px' });
 
   const resizeObserver = new ResizeObserver(resize);
-  const onVisibilityChange = () => {
-    visible = !document.hidden && host.getBoundingClientRect().bottom > 0;
-    cancelAnimationFrame(raf);
-    if (visible) raf = requestAnimationFrame(render);
-  };
+  const onVisibilityChange = updateRendering;
 
   const cleanup = () => {
     if (disposed) return;
@@ -157,7 +166,7 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
     cancelAnimationFrame(raf);
     visibility.disconnect();
     resizeObserver.disconnect();
-    host.removeEventListener('pointermove', onPointerMove);
+    if (!mobileScene) host.removeEventListener('pointermove', onPointerMove);
     document.removeEventListener('visibilitychange', onVisibilityChange);
     Object.values(geometry.attributes).forEach((attribute) => {
       if (attribute.buffer) gl.deleteBuffer(attribute.buffer);
@@ -168,7 +177,7 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
 
   resizeObserver.observe(host);
   visibility.observe(host);
-  host.addEventListener('pointermove', onPointerMove, { passive: true });
+  if (!mobileScene) host.addEventListener('pointermove', onPointerMove, { passive: true });
   document.addEventListener('visibilitychange', onVisibilityChange);
   document.addEventListener('astro:before-swap', cleanup, { once: true });
   resize();

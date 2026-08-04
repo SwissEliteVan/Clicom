@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
@@ -9,16 +8,16 @@ const topics=[{title:'Blog',text:'Guides et analyses pour cadrer vos décisions 
 ---
 <Layout title="Ressources marketing numérique — CLICOM Suisse" description="Guides CLICOM sur le SEO, l’intelligence artificielle, Google Ads, les sites web et l’optimisation de la conversion.">
   <PageHero eyebrow="Ressources" title="Des repères utiles pour décider et <span class='accent'>agir.</span>" intro="Explorez les principaux leviers de croissance en ligne et approfondissez les sujets qui comptent pour votre entreprise." primary="/blog/" primaryLabel="Lire le blog →" secondary="/audit-gratuit/" secondaryLabel="Demander un audit" showBand={false} />
-  <section class="resources-editorial" aria-hidden="true"><div class="container"><div class="resources-editorial__frame"><Image src={resourcesImage} alt="" widths={[640,960,1280,1600,1920]} sizes="(max-width:680px) calc(100vw - 32px), min(1280px, calc(100vw - 48px))" format="webp" quality={86} loading="lazy" decoding="async" /></div></div></section>
+  <section class="resources-editorial" aria-hidden="true"><div class="container"><div class="resources-editorial__frame"><img src={resourcesImage.src} alt="" width={resourcesImage.width} height={resourcesImage.height} loading="eager" fetchpriority="high" decoding="async" /></div></div></section>
   <section class="section section--white"><div class="container"><div class="section-heading"><div class="eyebrow">Hub de ressources</div><h2>De la visibilité à la <span class="accent">conversion.</span></h2><p>Chaque ressource relie les principes essentiels aux expertises et aux prochaines étapes possibles.</p></div><div class="grid grid--3">{topics.map(topic=><ServiceCard title={topic.title} text={topic.text} href={topic.href} icon={topic.icon}/>)}</div></div></section>
   <section class="section section--dark"><div class="container resource-path"><div><div class="eyebrow">Par où commencer ?</div><h2>Attirer. Convertir. Automatiser. <span class="gradient-text">Accélérer.</span></h2></div><p>Commencez par le frein le plus important de votre parcours actuel. Un audit permet ensuite de vérifier les dépendances entre les différents leviers.</p></div></section>
   <CTA title="Besoin d’un diagnostic adapté à votre entreprise ?"/>
 </Layout>
 <style>
-  .resources-editorial{padding-block:clamp(2.25rem,4vw,3.75rem);overflow:hidden;background:var(--color-background)}
-  .resources-editorial__frame{position:relative;overflow:hidden;border:1px solid rgba(36,87,255,.12);border-radius:var(--radius-surface);box-shadow:0 24px 70px rgba(8,17,38,.09);aspect-ratio:15/4;background:var(--color-midnight)}
-  .resources-editorial__frame::after{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,17,38,.28),transparent 35%,rgba(34,211,238,.06));content:'';pointer-events:none}
-  .resources-editorial__frame :global(img){position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:cover;opacity:1}
+  .resources-editorial{position:relative;z-index:20;width:100%;max-width:none;min-height:420px;overflow:visible;background:white}
+  .resources-editorial__frame{position:relative;z-index:20;width:100%;max-width:none;min-height:420px;overflow:visible;border:0;border-radius:0;background:white;box-shadow:none}
+
+  .resources-editorial__frame :global(img){position:relative;z-index:20;display:block;width:100%;max-width:none;height:420px;min-height:420px;object-fit:cover;opacity:1;visibility:visible;filter:none;clip-path:none;transform:none}
   .resource-path{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,100px);align-items:center}.resource-path p{font-size:1.12rem}
-  @media(max-width:700px){.resources-editorial{padding-block:1.75rem 3rem}.resources-editorial__frame{aspect-ratio:2/1;border-radius:20px}.resource-path{grid-template-columns:1fr}}
+  @media(max-width:700px){.resources-editorial,.resources-editorial__frame,.resources-editorial__frame :global(img){height:240px;min-height:240px}.resource-path{grid-template-columns:1fr}}
 </style>

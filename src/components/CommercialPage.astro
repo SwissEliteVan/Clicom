@@ -48,7 +48,7 @@ const sectionCopy = {
 <Layout {title} {description}>
   <PageHero {eyebrow} title={h1} {intro} primary="/audit-gratuit/" primaryLabel="Demander un audit gratuit →" secondary="/services/" secondaryLabel="Découvrir nos services" />
 
-  {visual && editorialImage && <CommercialVisual type={visual} media={editorialImage} />}
+  {editorialImage && <section class="commercial-editorial" aria-hidden="true"><img src={editorialImage.src} alt="" width={editorialImage.width} height={editorialImage.height} loading="eager" fetchpriority="high" decoding="async" /></section>}
 
   <section class="section section--white">
     <div class:list={['container', 'split', { 'split--reverse': variant === 'reverse' }]}>
@@ -63,7 +63,7 @@ const sectionCopy = {
     </div>
   </section>
 
-  {visual && !editorialImage && <CommercialVisual type={visual} />}
+  {visual && <CommercialVisual type={visual} />}
 
   <section class="section section--dark">
     <div class="container">
@@ -102,6 +102,8 @@ const sectionCopy = {
 </Layout>
 
 <style>
+  .commercial-editorial { position: relative; z-index: 20; width: 100%; max-width: none; min-height: 420px; overflow: visible; background: white; }
+  .commercial-editorial :global(img) { position: relative; z-index: 20; display: block; width: 100%; max-width: none; height: 420px; min-height: 420px; object-fit: cover; opacity: 1; visibility: visible; filter: none; clip-path: none; transform: none; }
   .split { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(50px, 8vw, 110px); align-items: start; }
   .split--reverse .section-heading { order: 2; }
   .issue-list { display: grid; gap: 1px; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-border); }
@@ -133,5 +135,5 @@ const sectionCopy = {
   .related a { padding: 9px 13px; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-text-muted); font-size: .84rem; font-weight: 680; }
   .related a span { color: var(--color-primary); }
   @media (max-width: 900px) { .split, .benefits { grid-template-columns: 1fr; } .split--reverse .section-heading { order: initial; } .process-grid { grid-template-columns: repeat(2, 1fr); } .process-grid article:nth-child(2) { border-right: 0; } .offer-grid--featured .card:first-child { grid-column: auto; } }
-  @media (max-width: 580px) { .process-grid { grid-template-columns: 1fr; } .process-grid article { border-right: 0; border-bottom: 1px solid var(--color-border); padding-inline: 0; } .faq-list p { padding-right: 0; } }
+  @media (max-width: 580px) { .commercial-editorial, .commercial-editorial :global(img) { height: 240px; min-height: 240px; } .process-grid { grid-template-columns: 1fr; } .process-grid article { border-right: 0; border-bottom: 1px solid var(--color-border); padding-inline: 0; } .faq-list p { padding-right: 0; } }
 </style>

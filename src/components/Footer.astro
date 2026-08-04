@@ -2,20 +2,20 @@
 import Button from './Button.astro';
 
 const navigation = [['Services','/services'],['Secteurs','/secteurs/'],['Blog','/blog/'],['Ressources','/ressources/'],['Méthode','/methode/'],['Contact','/contact']];
-const services = [['Sites web','/creation-site-web/'],['SEO & référencement IA','/seo/'],['Google & Social Ads','/google-ads/'],['Contenu & réseaux sociaux','/creation-contenu/'],['Automatisation IA','/automatisation/'],['CRM & email','/email-marketing-crm/']];
+const services = [['Sites web','/creation-site-web/'],['Référencement & visibilité IA','/seo/'],['Google Ads & publicité sur les réseaux sociaux','/google-ads/'],['Contenu & réseaux sociaux','/creation-contenu/'],['Automatisation IA','/automatisation/'],['CRM & e-mail marketing','/email-marketing-crm/']];
 ---
 
 <footer class="site-footer">
   <div class="container">
     <div class="footer-cta">
       <div><span>Votre prochain levier de croissance</span><h2>Prêt à accélérer ?</h2></div>
-      <Button href="/audit-gratuit/">Demander un audit <span aria-hidden="true">→</span></Button>
+      <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">→</span></Button>
     </div>
 
     <div class="footer-main">
       <div class="footer-brand">
         <a class="wordmark" href="/" aria-label="Clicom, accueil">clicom<span>.</span></a>
-        <p>Agence digitale suisse<br />nouvelle génération.</p>
+        <p>Agence numérique suisse.<br />Sites, visibilité et automatisation.</p>
         <div class="brand-line" aria-hidden="true"><i></i><span></span><b>→</b></div>
       </div>
       <div class="footer-column"><h2>Navigation</h2>{navigation.map(([label,href]) => <a href={href}>{label}</a>)}</div>
@@ -23,7 +23,7 @@ const services = [['Sites web','/creation-site-web/'],['SEO & référencement IA
       <div class="footer-column footer-contact">
         <h2>Contact</h2>
         <a href="tel:+41788238950"><span>Téléphone</span>+41 78 823 89 50</a>
-        <a href="mailto:hello@clicom.ch"><span>Email</span>hello@clicom.ch</a>
+        <a href="mailto:hello@clicom.ch"><span>E-mail</span>hello@clicom.ch</a>
       </div>
     </div>
 

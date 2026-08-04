@@ -9,34 +9,35 @@ import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
 
   <div class="container home-hero__inner">
     <div class="home-hero__topline" data-hero-detail>
-      <span>Agence digitale suisse</span><span>46.8182° N · 8.2275° E</span>
+      <span>Agence numérique suisse</span><span>Suisse romande</span>
     </div>
 
     <div class="home-hero__content">
       <h1 id="home-title" class="home-hero__title">
-        <span class="home-hero__title-line"><span>Transformez</span></span>
-        <span class="home-hero__title-line home-hero__title-line--shift"><span>votre digital</span></span>
-        <span class="home-hero__title-line home-hero__title-line--accent"><span>en croissance.</span></span>
+        <span class="home-hero__title-line"><span>Plus de visibilité.</span></span>
+        <span class="home-hero__title-line home-hero__title-line--shift"><span>Plus de prospects.</span></span>
+        <span class="home-hero__title-line home-hero__title-line--accent"><span>Plus de croissance.</span></span>
       </h1>
       <div class="home-hero__support">
-        <p data-hero-copy>Nous relions stratégie, création et technologie pour faire du digital un véritable moteur de croissance.</p>
+        <p data-hero-copy>Clicom réunit site web, référencement, publicité et intelligence artificielle pour transformer votre présence en ligne en véritable outil d’acquisition.</p>
         <div class="home-hero__actions" data-hero-cta data-magnetic>
-          <Button href="/contact#audit">Démarrer un projet <span aria-hidden="true">↗</span></Button>
+          <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">↗</span></Button>
+          <Button href="/services/" variant="secondary">Découvrir nos services</Button>
         </div>
       </div>
     </div>
 
     <div class="home-hero__footer" data-hero-detail>
       <span class="home-hero__scroll"><i></i>Défiler pour explorer</span>
-      <span>Web · SEO · Ads · IA</span>
+      <span>Sites web · SEO · Publicité · IA</span>
     </div>
   </div>
 </section>
 
 <div class="hero-bridge" data-hero-bridge aria-hidden="true">
   <div class="hero-bridge__track">
-    <span>DIGITAL</span><i>✦</i><span>GROWTH</span><i>✦</i><span>TECHNOLOGY</span><i>✦</i><span>SWISS MADE</span><i>✦</i>
-    <span>DIGITAL</span><i>✦</i><span>GROWTH</span><i>✦</i><span>TECHNOLOGY</span><i>✦</i><span>SWISS MADE</span><i>✦</i>
+    <span>STRATÉGIE</span><i>✦</i><span>ACQUISITION</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>CROISSANCE</span><i>✦</i>
+    <span>STRATÉGIE</span><i>✦</i><span>ACQUISITION</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>CROISSANCE</span><i>✦</i>
   </div>
 </div>
 
@@ -51,7 +52,7 @@ import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
   .home-hero__inner { display: grid; min-height: 100svh; grid-template-rows: auto 1fr auto; padding-top: clamp(108px, 12vh, 144px); padding-bottom: clamp(34px, 5vh, 56px); }
   .home-hero__topline, .home-hero__footer { display: flex; align-items: center; justify-content: space-between; color: rgba(247,249,252,.72); font-size: .66rem; font-weight: 720; letter-spacing: .16em; text-transform: uppercase; }
   .home-hero__content { display: flex; flex-direction: column; justify-content: center; padding-block: clamp(30px, 7vh, 86px); }
-  .home-hero__title { width: 100%; max-width: none; margin: 0; color: white; font-size: clamp(4.5rem, 8.55vw, 10rem); font-weight: 800; line-height: .86; letter-spacing: -.078em; text-transform: uppercase; text-wrap: nowrap; }
+  .home-hero__title { width: 100%; max-width: none; margin: 0; color: white; font-size: clamp(4.2rem, 7.2vw, 8.6rem); font-weight: 800; line-height: .86; letter-spacing: -.078em; text-transform: uppercase; text-wrap: nowrap; }
   .home-hero__title-line { display: block; overflow: hidden; padding-bottom: .07em; margin-bottom: -.09em; }
   .home-hero__title-line > span { display: block; will-change: transform; }
   .home-hero__title-line--shift { padding-left: clamp(5vw, 11vw, 170px); }
@@ -80,7 +81,7 @@ import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
     .home-hero__inner { padding-top: 94px; padding-bottom: 26px; }
     .home-hero__topline span:last-child, .home-hero__footer > span:last-child { display: none; }
     .home-hero__content { justify-content: flex-end; padding-bottom: 9vh; }
-    .home-hero__title { max-width: 100%; font-size: clamp(2.55rem, 10.9vw, 4rem); line-height: .9; letter-spacing: -.065em; overflow-wrap: anywhere; }
+    .home-hero__title { max-width: 100%; font-size: clamp(2rem, 8.4vw, 3rem); line-height: .9; letter-spacing: -.065em; overflow-wrap: anywhere; }
     .home-hero__title-line { overflow: visible; }
     .home-hero__title-line--accent { -webkit-text-stroke-width: 1px; }
     .home-hero__support { grid-template-columns: 1fr; gap: 24px; margin-top: 34px; }

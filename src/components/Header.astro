@@ -18,7 +18,7 @@ const serviceGroups = [
       ['/seo/', 'SEO'],
       ['/referencement-ia/', 'Référencement IA'],
       ['/google-ads/', 'Google Ads'],
-      ['/social-ads/', 'Social Ads'],
+      ['/social-ads/', 'Publicité sur les réseaux sociaux'],
     ],
   },
   {
@@ -35,7 +35,7 @@ const serviceGroups = [
     links: [
       ['/intelligence-artificielle/', 'Intelligence artificielle'],
       ['/automatisation/', 'Automatisation'],
-      ['/email-marketing-crm/', 'CRM & Email'],
+      ['/email-marketing-crm/', 'CRM & e-mail'],
       ['/faq/', 'FAQ'],
     ],
   },
@@ -71,7 +71,7 @@ const serviceGroups = [
       {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>)}
     </nav>
 
-    <Button href="/audit-gratuit/" class="header-cta">Audit gratuit <span aria-hidden="true">→</span></Button>
+    <Button href="/audit-gratuit/" class="header-cta">Demander un audit gratuit <span aria-hidden="true">→</span></Button>
 
     <details class="mobile-menu" data-menu>
       <summary aria-label="Ouvrir la navigation" aria-expanded="false">
@@ -88,7 +88,7 @@ const serviceGroups = [
           <span>Services prioritaires</span>
           <div><a href="/creation-site-web/">Sites web</a><a href="/seo/">SEO</a><a href="/google-ads/">Publicité</a><a href="/automatisation/">Automatisation</a></div>
         </div>
-        <Button href="/audit-gratuit/">Demander un audit <span aria-hidden="true">→</span></Button>
+        <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">→</span></Button>
       </div>
     </details>
   </div>

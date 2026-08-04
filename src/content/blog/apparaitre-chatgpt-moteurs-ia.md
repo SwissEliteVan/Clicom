@@ -31,4 +31,4 @@ Une marque devient plus compréhensible lorsqu’elle publie régulièrement sur
 
 Les réponses génératives évoluent rapidement et varient selon les requêtes. Le suivi doit donc servir à comprendre les écarts et à améliorer les contenus, pas à promettre une position stable.
 
-Pour cadrer votre visibilité sur Google et les moteurs génératifs, demandez un [audit digital gratuit](/audit-gratuit/) ou découvrez nos solutions d’[intelligence artificielle](/intelligence-artificielle/).
+Pour cadrer votre visibilité sur Google et les moteurs génératifs, demandez un [audit numérique gratuit](/audit-gratuit/) ou découvrez nos solutions d’[intelligence artificielle](/intelligence-artificielle/).

@@ -31,4 +31,4 @@ Une annonce promet une réponse précise. La page de destination doit poursuivre
 
 Les données quantitatives montrent où les utilisateurs abandonnent. Les retours commerciaux aident à comprendre pourquoi. Chaque test doit partir d’une hypothèse et observer un indicateur utile, sans conclure trop vite lorsque le volume est faible.
 
-Pour identifier les priorités de conversion de votre site, demandez un [audit digital gratuit](/audit-gratuit/).
+Pour identifier les priorités de conversion de votre site, demandez un [audit numérique gratuit](/audit-gratuit/).

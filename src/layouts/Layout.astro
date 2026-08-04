@@ -15,7 +15,7 @@ interface Props {
 }
 
 const {
-  title = 'Clicom — Agence digitale suisse orientée croissance',
+  title = 'Clicom — Agence numérique suisse orientée croissance',
   description: descriptionProp,
   canonical: canonicalProp,
   ogImage = '/og-clicom.png',
@@ -27,14 +27,14 @@ const {
 const descriptions: Record<string, string> = {
   '/': 'CLICOM accompagne les entreprises suisses avec des sites web performants, du SEO, des campagnes Ads et des solutions d’automatisation par l’IA.',
   '/services': 'Sites web, SEO, visibilité dans les moteurs IA, publicité, contenu et automatisation : les expertises CLICOM au service de votre croissance.',
-  '/solutions': 'CLICOM relie automatisation, CRM, acquisition et socle web pour créer des systèmes digitaux fiables, adaptés à vos objectifs commerciaux.',
-  '/realisations': 'Découvrez l’approche CLICOM pour concevoir des projets digitaux qui relient visibilité, acquisition, conversion et efficacité opérationnelle.',
-  '/agence': 'CLICOM réunit stratégie, création, technologie et acquisition pour aider les entreprises suisses à construire une croissance digitale plus lisible.',
-  '/ressources': 'Des ressources CLICOM pour mieux cadrer votre visibilité, votre acquisition digitale et les automatisations utiles à votre organisation.',
-  '/contact': 'Contactez CLICOM pour échanger sur votre site web, votre visibilité, vos campagnes ou vos automatisations et demander un premier audit digital.',
+  '/solutions': 'CLICOM relie automatisation, CRM, acquisition et socle web pour créer des systèmes numériques fiables, adaptés à vos objectifs commerciaux.',
+  '/realisations': 'Découvrez l’approche CLICOM pour concevoir des projets numériques qui relient visibilité, acquisition, conversion et efficacité opérationnelle.',
+  '/agence': 'CLICOM réunit stratégie, création, technologie et acquisition pour aider les entreprises suisses à construire une croissance en ligne plus lisible.',
+  '/ressources': 'Des ressources CLICOM pour mieux cadrer votre visibilité, votre acquisition en ligne et les automatisations utiles à votre organisation.',
+  '/contact': 'Contactez CLICOM pour échanger sur votre site web, votre visibilité, vos campagnes ou vos automatisations et demander un premier audit numérique.',
 };
 const routeKey = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/$/, '');
-const description = descriptions[routeKey] ?? descriptionProp ?? 'CLICOM accompagne les entreprises avec des solutions digitales conçues pour attirer, convertir, automatiser et accélérer leur croissance.';
+const description = descriptions[routeKey] ?? descriptionProp ?? 'CLICOM accompagne les entreprises avec des solutions numériques conçues pour attirer, convertir, automatiser et accélérer leur croissance.';
 const siteOrigin = Astro.site ?? Astro.url.origin;
 const pathname = Astro.url.pathname === '/' ? '/' : `${Astro.url.pathname.replace(/\/$/, '')}/`;
 const canonical = canonicalProp ? new URL(canonicalProp, siteOrigin) : new URL(pathname, siteOrigin);
@@ -59,7 +59,7 @@ const robots = noindexFollow ? 'noindex,follow' : noindex ? 'noindex,nofollow' :
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="CLICOM — Agence digitale suisse" />
+    <meta property="og:image:alt" content="CLICOM — Agence numérique suisse" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />

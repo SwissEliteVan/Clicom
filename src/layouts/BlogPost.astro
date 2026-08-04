@@ -7,7 +7,7 @@ const { title, description, date, category } = Astro.props;
 <Layout {title} {description}>
   <article>
     <header class="article-hero"><div class="container article-hero__inner"><a href="/blog/" class="back">← Tous les articles</a><div class="eyebrow">{category}</div><h1>{title}</h1><p>{description}</p><time datetime={date.toISOString()}>{date.toLocaleDateString('fr-CH',{day:'numeric',month:'long',year:'numeric'})}</time></div></header>
-    <div class="container article-layout"><div class="article-copy"><slot /></div><aside aria-label="Prochaine étape"><strong>Un enjeu à clarifier ?</strong><p>Recevez une première lecture de votre présence digitale.</p><Button href="/audit-gratuit/">Demander un audit →</Button></aside></div>
+    <div class="container article-layout"><div class="article-copy"><slot /></div><aside aria-label="Prochaine étape"><strong>Un enjeu à clarifier ?</strong><p>Recevez une première lecture de votre présence en ligne.</p><Button href="/audit-gratuit/">Demander un audit →</Button></aside></div>
     <section class="section section--white"><div class="container article-cta"><div><h2>Transformons ces repères en plan d’action.</h2><p>Un audit permet de relier les recommandations à votre situation, vos objectifs et vos ressources.</p></div><Button href="/audit-gratuit/">Demander un audit gratuit →</Button></div></section>
   </article>
 </Layout>

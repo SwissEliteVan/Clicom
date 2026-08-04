@@ -29,4 +29,4 @@ Les bons contenus expliquent les choix, les méthodes, les coûts, les délais e
 
 Les positions et le trafic donnent des indications. La vraie question reste leur contribution aux prises de contact, appels et opportunités. Une stratégie SEO de PME doit évoluer selon ces signaux et les capacités de l’équipe.
 
-Découvrez notre approche [SEO pour les PME suisses](/secteurs/pme/) ou demandez un [audit digital gratuit](/audit-gratuit/).
+Découvrez notre approche [SEO pour les PME suisses](/secteurs/pme/) ou demandez un [audit numérique gratuit](/audit-gratuit/).

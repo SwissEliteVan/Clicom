@@ -5,7 +5,7 @@ date: 2026-07-13
 category: "Sites web"
 ---
 
-Le coût d’un site internet professionnel en Suisse ne peut pas être résumé par un montant universel. Une landing page, un site vitrine et une plateforme corporate ne répondent ni aux mêmes objectifs ni au même niveau de complexité.
+Le coût d’un site internet professionnel en Suisse ne peut pas être résumé par un montant universel. Une page de conversion, un site vitrine et une plateforme corporate ne répondent ni aux mêmes objectifs ni au même niveau de complexité.
 
 ## Le périmètre fonctionnel
 
@@ -21,7 +21,7 @@ Une identité existante et bien documentée simplifie certaines décisions. À l
 
 ## La performance et le SEO technique
 
-La vitesse, l’accessibilité, le responsive, le balisage et l’architecture SEO doivent être intégrés dès le départ. Les corriger tardivement coûte souvent plus cher que de les prévoir dans la [création du site](/creation-site-web/).
+La vitesse, l’accessibilité, le adapté à tous les écrans, le balisage et l’architecture SEO doivent être intégrés dès le départ. Les corriger tardivement coûte souvent plus cher que de les prévoir dans la [création du site](/creation-site-web/).
 
 ## La maintenance après le lancement
 
@@ -29,6 +29,6 @@ Il faut enfin considérer les mises à jour, l’hébergement, les sauvegardes, 
 
 ## Obtenir un budget utile
 
-Une proposition sérieuse commence par un cadrage : objectifs, pages, contenus, intégrations, responsabilités et planning. Les niveaux [Starter, Growth et Scale](/tarifs/) donnent un cadre conceptuel, sans inventer de prix déconnecté du besoin.
+Une proposition sérieuse commence par un cadrage : objectifs, pages, contenus, intégrations, responsabilités et planning. Les niveaux [Essentiel, Croissance et Accélération](/tarifs/) donnent un cadre conceptuel, sans inventer de prix déconnecté du besoin.
 
 Demandez un [audit gratuit](/audit-gratuit/) pour clarifier le périmètre adapté à votre entreprise.

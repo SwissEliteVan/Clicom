@@ -15,7 +15,7 @@ Le [référencement naturel](/seo/) améliore progressivement la capacité du si
 
 [Google Ads](/google-ads/) permet de positionner des annonces sur des requêtes sélectionnées et d’obtenir rapidement des données. Ce levier est particulièrement utile pour tester une offre, soutenir une priorité commerciale ou capter une demande très concurrentielle.
 
-La rapidité ne dispense pas d’un bon tracking, d’annonces précises et de pages de destination cohérentes. Acheter un clic ne garantit jamais sa transformation.
+La rapidité ne dispense pas d’un bon suivi des conversions, d’annonces précises et de pages de destination cohérentes. Acheter un clic ne garantit jamais sa transformation.
 
 ## Les critères de décision
 

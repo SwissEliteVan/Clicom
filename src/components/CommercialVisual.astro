@@ -8,12 +8,12 @@ import WebExperience from './visuals/WebExperience.astro';
 interface Props { type: 'web' | 'seo' | 'geo' | 'ads' | 'ai' | 'automation' }
 const { type } = Astro.props;
 const content = {
-  web: { eyebrow: 'Expérience digitale', title: 'Du premier regard à la prise de contact.', nodes: ['Message', 'Parcours', 'Interface', 'Conversion'] },
+  web: { eyebrow: 'Expérience en ligne', title: 'Du premier regard à la prise de contact.', nodes: ['Message', 'Parcours', 'Interface', 'Conversion'] },
   seo: { eyebrow: 'Système de visibilité', title: 'Cinq dimensions, une même direction.', nodes: ['Technique', 'Contenu', 'Autorité', 'Local', 'Mesure'] },
   geo: { eyebrow: 'Compréhension générative', title: 'Structurer les signaux qui définissent votre expertise.', nodes: ['Entités', 'Questions', 'Sources', 'Structure', 'Marque'] },
-  ads: { eyebrow: 'Parcours d’acquisition', title: 'Chaque étape doit servir la suivante.', nodes: ['Recherche', 'Clic', 'Landing page', 'Conversion', 'Optimisation'] },
+  ads: { eyebrow: 'Parcours d’acquisition', title: 'Chaque étape doit servir la suivante.', nodes: ['Recherche', 'Annonce', 'Page de conversion', 'Conversion', 'Optimisation'] },
   ai: { eyebrow: 'Chaîne de valeur IA', title: 'Relier le contexte à une action utile.', nodes: ['Données', 'IA', 'Automatisation', 'Action'] },
-  automation: { eyebrow: 'Workflow connecte', title: 'Un flux vivant et supervise.', nodes: ['Trigger', 'Traitement', 'Decision', 'Action'] },
+  automation: { eyebrow: 'Automatisation connectée', title: 'Un parcours vivant et supervisé.', nodes: ['Déclencheur', 'Traitement', 'Décision', 'Action'] },
 }[type];
 ---
 

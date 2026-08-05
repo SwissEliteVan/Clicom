@@ -65,9 +65,9 @@ const isServicePage = servicePaths.includes(pathname);
       trackCalendly('open');
       hidePopup(true);
       if (CALENDLY_URL) {
-        const popupBtn = document.querySelector('[data-calendly-popup]') as HTMLButtonElement;
-        if (popupBtn) { popupBtn.click(); }
-        else { window.open(CALENDLY_URL, '_blank', 'noopener'); }
+        import('../../scripts/calendly').then(mod => mod.openCalendlyPopup()).catch(() => {
+          window.open(CALENDLY_URL, '_blank', 'noopener');
+        });
       } else {
         window.location.href = '/contact/';
       }

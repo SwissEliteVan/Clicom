@@ -172,9 +172,9 @@ async function renderChoices(nodeKey) {
       } else if (choice.action === 'calendly') {
         if (analytics) safeTrack(analytics.trackChatbot, 'lead', 'calendly');
         if (calendlyUrl) {
-          const popupBtn = document.querySelector('[data-calendly-popup]');
-          if (popupBtn) { popupBtn.click(); }
-          else { window.open(calendlyUrl, '_blank', 'noopener'); }
+          import('../../scripts/calendly').then(mod => mod.openCalendlyPopup()).catch(() => {
+            window.open(calendlyUrl, '_blank', 'noopener');
+          });
         } else {
           window.location.href = '/contact/';
         }

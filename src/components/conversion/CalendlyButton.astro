@@ -1,5 +1,7 @@
 ---
 // CalendlyButton.astro
+// Utilise l'utilitaire centralisé src/scripts/calendly.ts
+// pour charger le widget Calendly lazy.
 interface Props {
   mode?: 'popup' | 'inline';
   label?: string;
@@ -53,67 +55,23 @@ const isDisabled = !calendlyUrl;
 )}
 
 <script>
-  import { trackCalendly } from '../../scripts/analytics';
+  import { openCalendlyPopup, initCalendlyInline } from '../../scripts/calendly';
 
-  const CALENDLY_URL = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
-
-  function loadCalendlyScript(): Promise<void> {
-    return new Promise((resolve) => {
-      if (document.getElementById('calendly-script')) { resolve(); return; }
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'https://assets.calendly.com/assets/external/widget.css';
-      document.head.appendChild(link);
-      const script = document.createElement('script');
-      script.id = 'calendly-script';
-      script.src = 'https://assets.calendly.com/assets/external/widget.js';
-      script.async = true;
-      script.onload = () => resolve();
-      document.head.appendChild(script);
-    });
-  }
-
-  // Popup buttons
-  document.querySelectorAll('[data-calendly-popup]').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      if (!CALENDLY_URL) return;
-      trackCalendly('open');
-      await loadCalendlyScript();
-      // @ts-ignore
-      if (window.Calendly) window.Calendly.initPopupWidget({ url: CALENDLY_URL });
+  // ── Boutons popup ───────────────────────────────────────────────────
+  document.querySelectorAll('[data-calendly-popup]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openCalendlyPopup();
     });
   });
 
-  // Inline trigger buttons
-  document.querySelectorAll('[data-calendly-inline-trigger]').forEach(btn => {
+  // ── Bouton déclencheur inline ───────────────────────────────────────────────────
+  document.querySelectorAll('[data-calendly-inline-trigger]').forEach((btn) => {
     btn.addEventListener('click', async () => {
-      if (!CALENDLY_URL) return;
-      trackCalendly('open');
-      const container = btn.closest('[data-calendly-inline]');
+      const container = btn.closest('[data-calendly-inline]') as HTMLElement | null;
       if (!container) return;
-      await loadCalendlyScript();
-      // Replace placeholder with inline widget
-      container.innerHTML = '';
-      container.style.minHeight = '700px';
-      // @ts-ignore
-      if (window.Calendly) {
-        // @ts-ignore
-        window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: container, prefill: {}, utm: {} });
-      }
+      initCalendlyInline(container);
     });
-  });
-
-  // Track Calendly postMessage events
-  window.addEventListener('message', (e) => {
-    if (e.origin !== 'https://calendly.com') return;
-    try {
-      const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
-      if (data?.event === 'calendly.event_scheduled') {
-        trackCalendly('scheduled');
-        // Mark as converted so popups don't reappear
-        try { sessionStorage.setItem('clicom_converted', '1'); } catch {}
-      }
-    } catch {}
   });
 </script>
 

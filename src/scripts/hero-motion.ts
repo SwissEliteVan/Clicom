@@ -8,10 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 const hero = document.querySelector<HTMLElement>('[data-hero]');
 const frame = document.querySelector<HTMLElement>('[data-hero-frame]');
-const media = document.querySelector<HTMLElement>('[data-hero-media]');
-const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-canvas]');
 
-if (!reduce.matches && hero && frame && media) {
+if (!reduce.matches && hero && frame) {
   const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
   intro
     .from(frame, { clipPath: 'inset(8% 7% 8% 7% round 28px)', scale: 1.08, duration: 1.45 })
@@ -49,31 +47,6 @@ if (!reduce.matches && hero && frame && media) {
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
-}
-
-if (!reduce.matches && canvas && media) {
-  const ctx = canvas.getContext('2d', { alpha: true });
-  if (ctx) {
-    let width = 0, height = 0, raf = 0, time = 0;
-    let targetX = .62, targetY = .42, mouseX = targetX, mouseY = targetY;
-    const resize = () => { const dpr = Math.min(devicePixelRatio, 1.5); width = media.clientWidth; height = media.clientHeight; canvas.width = Math.round(width*dpr); canvas.height = Math.round(height*dpr); canvas.style.width=`${width}px`; canvas.style.height=`${height}px`; ctx.setTransform(dpr,0,0,dpr,0,0); };
-    const draw = () => {
-      time += .006; mouseX += (targetX-mouseX)*.025; mouseY += (targetY-mouseY)*.025;
-      ctx.clearRect(0,0,width,height);
-      const glow=ctx.createRadialGradient(mouseX*width,mouseY*height,0,mouseX*width,mouseY*height,width*.58);
-      glow.addColorStop(0,'rgba(36,87,255,.42)'); glow.addColorStop(.42,'rgba(18,55,137,.18)'); glow.addColorStop(1,'rgba(8,17,38,0)'); ctx.fillStyle=glow; ctx.fillRect(0,0,width,height);
-      for(let line=0;line<16;line++){
-        const offset=(line-8)*height*.041; ctx.beginPath();
-        for(let x=-40;x<=width+40;x+=22){ const p=x/width; const base=height*(.78-p*.48)+offset; const wave=Math.sin(p*7+time*5+line*.23)*18 + Math.sin(p*2.6-time*2)*24; const pull=Math.exp(-Math.pow((p-mouseX)*3.1,2))*(mouseY-.5)*72; const y=base+wave+pull; x===-40?ctx.moveTo(x,y):ctx.lineTo(x,y); }
-        const grad=ctx.createLinearGradient(0,0,width,0); grad.addColorStop(0,'rgba(36,87,255,0)'); grad.addColorStop(.48,`rgba(36,87,255,${.07+line*.004})`); grad.addColorStop(1,'rgba(34,211,238,.24)'); ctx.strokeStyle=grad; ctx.lineWidth=line===8?1.8:.72; ctx.stroke();
-      }
-      for(let i=0;i<34;i++){ const p=(i/34+time*.09)%1; const x=p*width; const y=height*(.78-p*.48)+Math.sin(p*7+time*5+8*.23)*18; ctx.fillStyle=i%5===0?'rgba(34,211,238,.82)':'rgba(255,255,255,.36)'; ctx.beginPath(); ctx.arc(x,y,i%5===0?2.3:1.1,0,Math.PI*2); ctx.fill(); }
-      raf=requestAnimationFrame(draw);
-    };
-    const observer=new ResizeObserver(resize); observer.observe(media); resize(); media.classList.add('is-canvas-ready'); draw();
-    hero?.addEventListener('pointermove',(event)=>{ targetX=event.clientX/innerWidth; targetY=event.clientY/innerHeight; },{passive:true});
-    document.addEventListener('astro:before-swap',()=>{ cancelAnimationFrame(raf); observer.disconnect(); },{once:true});
-  }
 }
 
 initScrollReveals(reduce.matches);

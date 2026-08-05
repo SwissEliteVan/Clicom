@@ -1,10 +1,8 @@
 import type { APIRoute } from 'astro';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 export const prerender = false;
 
-const EMAIL_TO = 'hello@clicom.ch';
-const EMAIL_FROM = 'CLICOM <formulaire@clicom.ch>';
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 5;
 const requests = new Map<string, number[]>();
@@ -83,34 +81,56 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
   }
 
-  const apiKey = import.meta.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error('RESEND_API_KEY is not configured.');
+  // Read SMTP configuration exclusively from environment variables
+  const smtpHost = import.meta.env.SMTP_HOST;
+  const smtpPort = import.meta.env.SMTP_PORT;
+  const smtpSecure = import.meta.env.SMTP_SECURE;
+  const smtpUser = import.meta.env.SMTP_USER;
+  const smtpPass = import.meta.env.SMTP_PASSWORD;
+  const emailFrom = import.meta.env.EMAIL_FROM;
+  const emailTo = import.meta.env.EMAIL_TO;
+
+  if (!smtpHost || !smtpPort || !smtpUser || !smtpPass || !emailFrom || !emailTo) {
+    console.error('Contact API: missing required SMTP environment variables.');
     return json({ success: false, message: 'Service temporairement indisponible.' }, 503);
   }
 
-  const fields = [
-    ['Nom', nom], ['Entreprise', entreprise || 'Non renseignée'], ['Site', site || 'Non renseigné'],
-    ['Email', email], ['Téléphone', telephone || 'Non renseigné'], ['Objectif', objectif],
+  const fields: [string, string][] = [
+    ['Nom', nom],
+    ['Entreprise', entreprise || 'Non renseignée'],
+    ['Site', site || 'Non renseigné'],
+    ['Email', email],
+    ['Téléphone', telephone || 'Non renseigné'],
+    ['Objectif', objectif],
   ];
+
   const html = `<h1>Nouvelle demande CLICOM</h1>${fields.map(([label, value]) => `<p><strong>${label}</strong><br>${escapeHtml(value)}</p>`).join('')}`;
   const text = fields.map(([label, value]) => `${label}\n${value}`).join('\n\n');
 
   try {
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from: EMAIL_FROM,
-      to: EMAIL_TO,
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: Number(smtpPort),
+      secure: smtpSecure === 'true',
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
+      },
+    });
+
+    await transporter.sendMail({
+      from: emailFrom,
+      to: emailTo,
       replyTo: email,
       subject: `Nouvelle demande CLICOM — ${nom}`,
       html,
       text,
     });
-    if (error) throw error;
+
     return json({ success: true, message: 'Merci. Votre demande a bien été envoyée.' }, 200);
   } catch (error) {
-    console.error('Contact email failed:', error instanceof Error ? error.message : 'Unknown provider error');
-    return json({ success: false, message: 'Une erreur est survenue lors de l’envoi.' }, 502);
+    console.error('Contact email failed:', error instanceof Error ? error.message : 'Unknown SMTP error');
+    return json({ success: false, message: 'Une erreur est survenue lors de l\'envoi.' }, 502);
   }
 };
 

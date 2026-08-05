@@ -46,6 +46,7 @@ const tree = {
       { label: 'ðŸ“£ Lancer de la publicitÃ©', next: 'ads' },
       { label: 'âš™ï¸ Automatisation / CRM', next: 'auto' },
       { label: 'ðŸŽ¯ Obtenir un audit gratuit', next: 'audit' },
+      { label: '❓ Poser une question', next: 'question' },
       { label: 'ðŸ“… Prendre rendez-vous', next: 'rdv' },
     ],
   },
@@ -110,6 +111,14 @@ const tree = {
       { label: 'â† Autre besoin', next: 'root' },
     ],
   },
+  question: {
+    msg: 'Pour une question précise, vous pouvez nous écrire sur WhatsApp ou nous envoyer votre demande.',
+    choices: [
+      { label: '💬 Poser ma question sur WhatsApp', action: 'whatsapp' },
+      { label: 'Écrire via le formulaire →', href: '/contact/' },
+      { label: '← Autre besoin', next: 'root' },
+    ],
+  },
 };
 
 // â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -123,12 +132,7 @@ function safeTrack(fn, ...args) {
   try { fn(...args); } catch {}
 }
 
-async function getAnalytics() {
-  try {
-    const mod = await import('/src/scripts/analytics.ts');
-    return mod;
-  } catch { return null; }
-}
+async function getAnalytics() { return import('../../scripts/analytics'); }
 
 // â”€â”€ Render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 

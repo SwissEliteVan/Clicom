@@ -16,34 +16,14 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID ?? '';
 <ScrollPopup />
 
 <script define:vars={{ gtmId }}>
-  import { initAnalytics, initScrollDepth } from "../../scripts/analytics";
+  import { initAnalytics } from "../../scripts/analytics";
 
   // Reopen consent event for footer link
   document.addEventListener("clicom:reopen-consent", () => {
-    const banner = document.getElementById("cookie-banner");
-    if (banner) {
-      banner.hidden = false;
-      const customize = document.getElementById("cookie-customize");
-      if (customize) customize.click();
-    }
+      window.dispatchEvent(new Event("clicom:open-consent"));
   });
 
-  // Listen for consent to init scroll depth
-  function handleConsent() {
-    try {
-      const raw = localStorage.getItem("clicom_consent");
-      if (raw) {
-        const data = JSON.parse(raw);
-        if (data?.analytics) {
-          initScrollDepth();
-        }
-      }
-    } catch {}
-  }
-  handleConsent();
-  window.addEventListener("clicom:consent", () => {
-    setTimeout(handleConsent, 100);
-  });
+  initAnalytics(gtmId);
   
 </script>
 

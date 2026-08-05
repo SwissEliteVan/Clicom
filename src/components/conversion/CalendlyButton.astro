@@ -1,97 +1,16 @@
 ﻿---
-// CalendlyButton.astro
-// Utilise l'utilitaire centralisé src/scripts/calendly.ts
-// pour charger le widget Calendly lazy.
-interface Props {
-  mode?: 'popup' | 'inline';
-  label?: string;
-  variant?: 'primary' | 'secondary' | 'ghost';
-  class?: string;
-}
-
-const {
-  mode = 'popup',
-  label = 'Réserver un rendez-vous',
-  variant = 'primary',
-  class: className = '',
-} = Astro.props;
-
+interface Props { mode?: 'popup' | 'inline'; label?: string; variant?: 'primary' | 'secondary' | 'ghost'; class?: string; }
+const { mode = 'popup', label = 'Réserver un rendez-vous', variant = 'primary', class: className = '' } = Astro.props;
 const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
-const isDisabled = !calendlyUrl;
 ---
-
-{!isDisabled && (
-  <div class={calendly-wrap calendly-wrap-- } data-calendly-mode={mode}>
-    {mode === 'popup' && (
-      <button
-        type="button"
-        class={utton button--}
-        data-calendly-popup
-        aria-label={label}
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <rect x="3" y="4" width="18" height="18" rx="2"/>
-          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
-          <line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
-        {label}
-      </button>
-    )}
-    {mode === 'inline' && (
-      <div class="calendly-inline-container" data-calendly-inline aria-label="Calendrier de réservation">
-        <div class="calendly-inline-placeholder">
-          <button type="button" class="button button--primary" data-calendly-inline-trigger>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="18" rx="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-            {label}
-          </button>
-        </div>
-      </div>
-    )}
+{calendlyUrl && (
+  <div class:list={['calendly-wrap', `calendly-wrap--${mode}`, className]} data-calendly-mode={mode}>
+    {mode === 'popup' ? <button type="button" class={`button button--${variant}`} data-calendly-popup>{label}</button> : <div class="calendly-inline-container" data-calendly-inline aria-label="Calendrier de réservation"><button type="button" class={`button button--${variant}`} data-calendly-inline-trigger>{label}</button></div>}
   </div>
 )}
-
 <script>
-  import { openCalendlyPopup, initCalendlyInline } from '../../scripts/calendly';
-
-  // ── Boutons popup ───────────────────────────────────────────────────
-  document.querySelectorAll('[data-calendly-popup]').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openCalendlyPopup();
-    });
-  });
-
-  // ── Bouton déclencheur inline ───────────────────────────────────────────────────
-  document.querySelectorAll('[data-calendly-inline-trigger]').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      const container = btn.closest('[data-calendly-inline]') as HTMLElement | null;
-      if (!container) return;
-      initCalendlyInline(container);
-    });
-  });
+  import { initCalendlyInline, openCalendlyPopup } from '../../scripts/calendly';
+  document.querySelectorAll<HTMLButtonElement>('[data-calendly-popup]').forEach((button) => button.addEventListener('click', () => void openCalendlyPopup()));
+  document.querySelectorAll<HTMLButtonElement>('[data-calendly-inline-trigger]').forEach((button) => button.addEventListener('click', () => { const container = button.closest<HTMLElement>('[data-calendly-inline]'); if (container) void initCalendlyInline(container); }));
 </script>
-
-<style>
-  .calendly-wrap { display: inline-flex; }
-  .calendly-wrap--inline { display: block; width: 100%; }
-  .calendly-inline-container {
-    width: 100%;
-    min-width: 320px;
-  }
-  .calendly-inline-placeholder {
-    display: flex;
-    justify-content: flex-start;
-  }
-  @media (max-width: 480px) {
-    .calendly-inline-container {
-      min-width: 0;
-    }
-    .calendly-wrap--inline {
-      width: 100%;
-    }
-  }
-</style>
+<style>.calendly-wrap{display:inline-flex}.calendly-wrap--inline{display:block;width:100%}.calendly-inline-container{width:100%;min-width:0}</style>

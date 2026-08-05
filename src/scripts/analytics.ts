@@ -84,7 +84,9 @@ export function trackChatbot(action: 'open' | 'path' | 'lead', path?: string) {
 // ── Scroll depth tracking ────────────────────────────────────────────────────
 
 export function initScrollDepth() {
+  if ((window as Window & { __clicomScrollDepth?: boolean }).__clicomScrollDepth) return;
   if (!hasAnalyticsConsent()) return;
+  (window as Window & { __clicomScrollDepth?: boolean }).__clicomScrollDepth = true;
   const milestones = [25, 50, 75, 90];
   const fired = new Set<number>();
 

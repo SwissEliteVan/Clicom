@@ -1,9 +1,16 @@
+﻿import { trackForm } from './analytics';
+
 const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
 
 if (form) {
   const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
   const status = form.querySelector<HTMLElement>('[data-form-status]');
-  const idleLabel = button?.textContent ?? 'Recevoir mon audit →';
+  const idleLabel = button?.textContent ?? 'Envoyer';
+  let started = false;
+
+  form.addEventListener('focusin', () => {
+    if (!started) { started = true; trackForm('start', form.id || undefined); }
+  }, { once: true });
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -28,9 +35,12 @@ if (form) {
       form.reset();
       status.textContent = 'Merci. Votre demande a bien été envoyée.';
       status.classList.add('is-success');
+      trackForm('submit', form.id || undefined);
+      try { sessionStorage.setItem('clicom_converted', '1'); } catch {}
     } catch {
       status.textContent = 'Une erreur est survenue. Vous pouvez aussi nous écrire à hello@clicom.ch.';
       status.classList.add('is-error');
+      trackForm('error', form.id || undefined);
     } finally {
       button.disabled = false;
       button.textContent = idleLabel;

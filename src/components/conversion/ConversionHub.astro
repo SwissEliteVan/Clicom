@@ -1,0 +1,51 @@
+﻿---
+// ConversionHub.astro â€” Centralise tous les widgets de conversion
+import CookieBanner from './CookieBanner.astro';
+import WhatsAppButton from './WhatsAppButton.astro';
+import ChatbotWidget from './ChatbotWidget.astro';
+import ExitPopup from './ExitPopup.astro';
+import ScrollPopup from './ScrollPopup.astro';
+
+const gtmId = import.meta.env.PUBLIC_GTM_ID ?? '';
+---
+
+<CookieBanner />
+<WhatsAppButton />
+<ChatbotWidget />
+<ExitPopup />
+<ScrollPopup />
+
+<script define:vars={{ gtmId }}>
+  import { initAnalytics, initScrollDepth } from "../../scripts/analytics";
+
+  // Reopen consent event for footer link
+  document.addEventListener("clicom:reopen-consent", () => {
+    const banner = document.getElementById("cookie-banner");
+    if (banner) {
+      banner.hidden = false;
+      const customize = document.getElementById("cookie-customize");
+      if (customize) customize.click();
+    }
+  });
+
+  // Listen for consent to init scroll depth
+  function handleConsent() {
+    try {
+      const raw = localStorage.getItem("clicom_consent");
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (data?.analytics) {
+          initScrollDepth();
+        }
+      }
+    } catch {}
+  }
+  handleConsent();
+  window.addEventListener("clicom:consent", () => {
+    setTimeout(handleConsent, 100);
+  });
+  
+</script>
+
+
+

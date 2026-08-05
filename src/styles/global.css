@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   color-scheme: light;
 
   /* Color system */
@@ -60,6 +60,13 @@
   --visual-reveal: 800ms;
   --visual-loop: 8s;
   --z-header: 100;
+  --z-chatbot: 200;
+  --z-whatsapp: 190;
+  --z-scroll-popup: 800;
+  --z-exit-popup: 900;
+  --z-cookie-banner: 950;
+  --z-cookie-prefs: 960;
+  --z-modal: 950;
   --z-menu: 110;
   --z-skip: 1000;
 }
@@ -223,3 +230,5 @@ p { color: var(--color-text-muted); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+

@@ -1,0 +1,196 @@
+﻿---
+// ExitPopup.astro
+---
+
+<div id="exit-popup" class="exit-popup" role="dialog" aria-modal="true" aria-label="Avant de partir" hidden>
+  <div class="exit-popup__backdrop" id="exit-popup-backdrop"></div>
+  <div class="exit-popup__panel">
+    <button type="button" class="exit-popup__close" id="exit-popup-close" aria-label="Fermer">âœ•</button>
+    <div class="exit-popup__eyebrow">Avant de partir</div>
+    <h2 class="exit-popup__title">Un audit gratuit pour identifier vos <span class="accent">vraies opportunitÃ©s.</span></h2>
+    <p class="exit-popup__text">30 minutes d'analyse de votre prÃ©sence en ligne. Aucun engagement, aucun discours commercial.</p>
+    <div class="exit-popup__actions">
+      <a href="/audit-gratuit/" class="button button--primary" id="exit-popup-cta">Demander mon audit gratuit â†’</a>
+      <button type="button" class="exit-popup__skip" id="exit-popup-skip">Non merci</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { trackPopup } from '../../scripts/analytics';
+
+  const STORAGE_KEY = 'clicom_exit_popup';
+  const DAYS = 7;
+
+  const noPopupPaths = [
+    '/politique-de-confidentialite/', '/mentions-legales/', '/404/',
+    '/cgu/', '/confidentialite/',
+  ];
+
+  function shouldShow(): boolean {
+    const path = window.location.pathname;
+    if (noPopupPaths.some(p => path.includes(p.replace('/', '')))) return false;
+    try {
+      const ts = localStorage.getItem(STORAGE_KEY);
+      if (!ts) return true;
+      const diff = Date.now() - parseInt(ts, 10);
+      return diff > DAYS * 24 * 60 * 60 * 1000;
+    } catch { return true; }
+  }
+
+  function hasConverted(): boolean {
+    try { return sessionStorage.getItem('clicom_converted') === '1'; } catch { return false; }
+  }
+
+  function hasSessionPopup(): boolean {
+    try { return sessionStorage.getItem('clicom_popup_shown') === '1'; } catch { return false; }
+  }
+
+  function markShown() {
+    try {
+      localStorage.setItem(STORAGE_KEY, String(Date.now()));
+      sessionStorage.setItem('clicom_popup_shown', '1');
+    } catch {}
+  }
+
+  const popup = document.getElementById('exit-popup');
+
+  function showPopup() {
+    if (!popup || !shouldShow() || hasConverted() || hasSessionPopup()) return;
+    popup.hidden = false;
+    markShown();
+    trackPopup('exit', 'view');
+    popup.querySelector<HTMLElement>('.exit-popup__panel')?.focus?.();
+    // Dispatch so other popups don't show
+    window.dispatchEvent(new CustomEvent('clicom:popup-opened', { detail: 'exit' }));
+  }
+
+  function hidePopup(converted = false) {
+    if (!popup) return;
+    popup.hidden = true;
+    if (!converted) trackPopup('exit', 'dismiss');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('exit-popup-close')?.addEventListener('click', () => hidePopup());
+  document.getElementById('exit-popup-backdrop')?.addEventListener('click', () => hidePopup());
+  document.getElementById('exit-popup-skip')?.addEventListener('click', () => hidePopup());
+  document.getElementById('exit-popup-cta')?.addEventListener('click', () => {
+    trackPopup('exit', 'convert');
+    hidePopup(true);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popup && !popup.hidden) hidePopup();
+  });
+
+  // Desktop: mouseleave to top
+  let triggered = false;
+  let scrolled = false;
+  window.addEventListener('scroll', () => { scrolled = true; }, { passive: true, once: true });
+
+  document.addEventListener('mouseleave', (e) => {
+    if (triggered || !scrolled) return;
+    if (e.clientY <= 20) {
+      triggered = true;
+      setTimeout(showPopup, 200);
+    }
+  });
+</script>
+
+<style>
+  .exit-popup {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-exit-popup);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .exit-popup__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(8,17,38,.72);
+    backdrop-filter: blur(4px);
+  }
+  .exit-popup__panel {
+    position: relative;
+    width: min(520px, 100%);
+    padding: clamp(32px, 5vw, 52px);
+    border-radius: var(--radius-surface);
+    background: white;
+    box-shadow: var(--shadow-featured);
+    animation: popup-in .28s var(--ease-out);
+  }
+  .exit-popup__close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    border: none;
+    border-radius: 8px;
+    background: var(--color-background);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    font-size: .85rem;
+    transition: background var(--transition-fast), color var(--transition-fast);
+  }
+  .exit-popup__close:hover { background: var(--color-border); color: var(--color-midnight); }
+  .exit-popup__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    color: var(--color-primary);
+    font-size: .74rem;
+    font-weight: 760;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .exit-popup__eyebrow::before {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    content: '';
+  }
+  .exit-popup__title {
+    margin-bottom: 14px;
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+    line-height: 1.1;
+    letter-spacing: -.05em;
+  }
+  .exit-popup__text {
+    margin-bottom: 28px;
+    color: var(--color-text-muted);
+    font-size: .96rem;
+    line-height: 1.6;
+  }
+  .exit-popup__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .exit-popup__actions .button--primary { width: 100%; justify-content: center; min-height: 52px; }
+  .exit-popup__skip {
+    border: none;
+    background: none;
+    color: var(--color-text-muted);
+    font-size: .82rem;
+    cursor: pointer;
+    text-align: center;
+    padding: 4px;
+    transition: color var(--transition-fast);
+  }
+  .exit-popup__skip:hover { color: var(--color-midnight); }
+
+  @keyframes popup-in {
+    from { opacity: 0; transform: scale(.95) translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+</style>
+

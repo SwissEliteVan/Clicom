@@ -1,0 +1,404 @@
+﻿---
+// ChatbotWidget.astro â€” Arbre de dÃ©cision natif (sans LLM)
+const waNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '41788238950';
+const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
+---
+
+<div id="chatbot" class="chatbot" aria-live="polite" hidden>
+  <div class="chatbot__window" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
+    <header class="chatbot__header">
+      <div class="chatbot__avatar" aria-hidden="true">
+        <span>C</span>
+      </div>
+      <div>
+        <strong id="chatbot-title">Assistant CLICOM</strong>
+        <span class="chatbot__status">Guide de navigation</span>
+      </div>
+      <button type="button" class="chatbot__close" id="chatbot-close" aria-label="Fermer">âœ•</button>
+    </header>
+    <div class="chatbot__body" id="chatbot-body" role="log" aria-label="Messages"></div>
+    <div class="chatbot__choices" id="chatbot-choices" aria-label="Choix disponibles"></div>
+  </div>
+</div>
+
+<button type="button" id="chatbot-trigger" class="chatbot__trigger" aria-label="Ouvrir l'assistant CLICOM" aria-expanded="false">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.546 21.5l4.43-.868A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 2a8 8 0 110 16A8 8 0 0112 4z" opacity=".15"/>
+    <path d="M20 12c0 4.418-3.582 8-8 8a7.96 7.96 0 01-3.764-.94L4 20l.936-4.126A7.96 7.96 0 014 12C4 7.582 7.582 4 12 4s8 3.582 8 8z"/>
+    <circle cx="9" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="15" cy="12" r="1.2"/>
+  </svg>
+  <span class="chatbot__trigger-badge" id="chatbot-badge" hidden>1</span>
+</button>
+
+<script define:vars={{ waNumber, calendlyUrl }}>
+
+// â”€â”€ Tree structure â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+const WA_URL = `https://wa.me/${waNumber}?text=${encodeURIComponent('Bonjour, j\'aimerais en savoir plus sur vos services CLICOM.')}`;
+
+const tree = {
+  root: {
+    msg: 'Bonjour ðŸ‘‹ Je peux vous guider vers les bonnes ressources. Quel est votre besoin principal ?',
+    choices: [
+      { label: 'ðŸŒ CrÃ©er ou refaire mon site web', next: 'web' },
+      { label: 'ðŸ” AmÃ©liorer ma visibilitÃ© Google', next: 'seo' },
+      { label: 'ðŸ¤– RÃ©fÃ©rencement IA (GEO / AEO)', next: 'geo' },
+      { label: 'ðŸ“£ Lancer de la publicitÃ©', next: 'ads' },
+      { label: 'âš™ï¸ Automatisation / CRM', next: 'auto' },
+      { label: 'ðŸŽ¯ Obtenir un audit gratuit', next: 'audit' },
+      { label: 'ðŸ“… Prendre rendez-vous', next: 'rdv' },
+    ],
+  },
+  web: {
+    msg: 'Site web, refonte UX/UI, conversion, performance â€” CLICOM conÃ§oit des sites orientÃ©s rÃ©sultats.',
+    choices: [
+      { label: 'Voir la page crÃ©ation de site â†’', href: '/creation-site-web/' },
+      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
+      { label: 'ðŸ’¬ Discuter sur WhatsApp', action: 'whatsapp', waMsg: 'Bonjour, je souhaite crÃ©er ou refaire mon site web avec CLICOM.' },
+      { label: 'â† Autre besoin', next: 'root' },
+    ],
+  },
+  seo: {
+    msg: 'SEO technique, contenu, local et mesure : une stratÃ©gie fondÃ©e sur les intentions rÃ©elles de vos prospects.',
+    choices: [
+      { label: 'Voir la page SEO â†’', href: '/seo/' },
+      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
+      { label: 'ðŸ’¬ Discuter sur WhatsApp', action: 'whatsapp', waMsg: 'Bonjour, je m\'intÃ©resse aux services SEO de CLICOM.' },
+      { label: 'â† Autre besoin', next: 'root' },
+    ],
+  },
+  geo: {
+    msg: 'RÃ©fÃ©rencement IA (GEO / AEO) : structurer votre marque pour Ãªtre comprise par les moteurs gÃ©nÃ©ratifs.',
+    choices: [
+      { label: 'Voir la page rÃ©fÃ©rencement IA â†’', href: '/referencement-ia/' },
+      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
+      { label: 'ðŸ’¬ Discuter sur WhatsApp', action: 'whatsapp', waMsg: 'Bonjour, je voudrais en savoir plus sur le rÃ©fÃ©rencement IA.' },
+      { label: 'â† Autre besoin', next: 'root' },
+    ],
+  },
+  ads: {
+    msg: 'Google Ads ou publicitÃ© rÃ©seaux sociaux ? Quel canal souhaitez-vous activer ?',
+    choices: [
+      { label: 'Google Ads â†’', href: '/google-ads/' },
+      { label: 'PublicitÃ© rÃ©seaux sociaux â†’', href: '/social-ads/' },
+      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
+      { label: 'â† Autre besoin', next: 'root' },
+    ],
+  },
+  auto: {
+    msg: 'Automatisation de processus, CRM, e-mail marketing : connecter vos outils pour gagner du temps.',
+    choices: [
+      { label: 'Automatisation â†’', href: '/automatisation/' },
+      { label: 'CRM & E-mail â†’', href: '/email-marketing-crm/' },
+      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
+      { label: 'â† Autre besoin', next: 'root' },
+    ],
+  },
+  audit: {
+    msg: 'L\'audit gratuit CLICOM analyse votre site, votre visibilitÃ©, vos campagnes et vos opportunitÃ©s. Aucun engagement.',
+    choices: [
+      { label: 'Demander un audit â†’', href: '/audit-gratuit/' },
+      { label: 'ðŸ“… RÃ©server directement', action: 'calendly' },
+      { label: 'â† Autre besoin', next: 'root' },
+    ],
+  },
+  rdv: {
+    msg: 'RÃ©servez un crÃ©neau directement dans notre agenda. Ã‰change de 30 minutes, sans engagement.',
+    choices: [
+      { label: 'ðŸ“… Voir les disponibilitÃ©s', action: 'calendly' },
+      { label: 'ðŸ’¬ WhatsApp si urgent', action: 'whatsapp' },
+      { label: 'â† Autre besoin', next: 'root' },
+    ],
+  },
+};
+
+// â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+let isOpen = false;
+let badgeShown = false;
+
+// â”€â”€ Analytics (best-effort) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function safeTrack(fn, ...args) {
+  try { fn(...args); } catch {}
+}
+
+async function getAnalytics() {
+  try {
+    const mod = await import('/src/scripts/analytics.ts');
+    return mod;
+  } catch { return null; }
+}
+
+// â”€â”€ Render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+const chatbot = document.getElementById('chatbot');
+const body = document.getElementById('chatbot-body');
+const choicesEl = document.getElementById('chatbot-choices');
+const trigger = document.getElementById('chatbot-trigger');
+const badge = document.getElementById('chatbot-badge');
+
+function addMessage(text, role = 'bot') {
+  if (!body) return;
+  const msg = document.createElement('div');
+  msg.className = `chatbot__msg chatbot__msg--${role}`;
+  msg.textContent = text;
+  body.appendChild(msg);
+  body.scrollTop = body.scrollHeight;
+}
+
+async function renderChoices(nodeKey) {
+  if (!choicesEl) return;
+  const node = tree[nodeKey];
+  if (!node) return;
+  choicesEl.innerHTML = '';
+  addMessage(node.msg);
+
+  node.choices.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chatbot__choice';
+    btn.textContent = choice.label;
+
+    btn.addEventListener('click', async () => {
+      const analytics = await getAnalytics();
+      if (choice.href) {
+        if (analytics) safeTrack(analytics.trackChatbot, 'lead', choice.label);
+        window.location.href = choice.href;
+      } else if (choice.next) {
+        if (analytics) safeTrack(analytics.trackChatbot, 'path', choice.next);
+        addMessage(choice.label, 'user');
+        setTimeout(() => renderChoices(choice.next), 200);
+      } else if (choice.action === 'calendly') {
+        if (analytics) safeTrack(analytics.trackChatbot, 'lead', 'calendly');
+        if (calendlyUrl) {
+          const popupBtn = document.querySelector('[data-calendly-popup]');
+          if (popupBtn) { popupBtn.click(); }
+          else { window.open(calendlyUrl, '_blank', 'noopener'); }
+        } else {
+          window.location.href = '/contact/';
+        }
+      } else if (choice.action === 'whatsapp') {
+        if (analytics) safeTrack(analytics.trackChatbot, 'lead', 'whatsapp');
+        const msg = choice.waMsg ?? 'Bonjour, j\'aimerais en savoir plus sur vos services CLICOM.';
+        window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+      }
+    });
+
+    choicesEl.appendChild(btn);
+  });
+}
+
+// â”€â”€ Open / Close â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+async function openChatbot() {
+  if (!chatbot) return;
+  isOpen = true;
+  chatbot.hidden = false;
+  if (trigger) trigger.setAttribute('aria-expanded', 'true');
+  if (badge) badge.hidden = true;
+  if (body && body.children.length === 0) renderChoices('root');
+  chatbot.querySelector('.chatbot__window')?.focus?.();
+  const analytics = await getAnalytics();
+  if (analytics) safeTrack(analytics.trackChatbot, 'open');
+}
+
+function closeChatbot() {
+  if (!chatbot) return;
+  isOpen = false;
+  chatbot.hidden = true;
+  if (trigger) {
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.focus();
+  }
+}
+
+trigger?.addEventListener('click', () => {
+  if (isOpen) closeChatbot(); else openChatbot();
+});
+
+document.getElementById('chatbot-close')?.addEventListener('click', closeChatbot);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && isOpen) closeChatbot();
+});
+
+// Show badge after 30s if not yet opened
+setTimeout(() => {
+  if (!isOpen && badge && !badgeShown) {
+    badge.hidden = false;
+    badgeShown = true;
+  }
+}, 30000);
+
+// Listen for external open trigger
+window.addEventListener('clicom:open-chatbot', () => openChatbot());
+</script>
+
+<style>
+  .chatbot__trigger {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: var(--z-chatbot);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 20px rgba(36,87,255,.38);
+    cursor: pointer;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+  .chatbot__trigger:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 28px rgba(36,87,255,.48);
+  }
+  .chatbot__trigger-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ef4444;
+    color: white;
+    font-size: .65rem;
+    font-weight: 780;
+    display: grid;
+    place-items: center;
+    border: 2px solid white;
+  }
+
+  .chatbot {
+    position: fixed;
+    bottom: 88px;
+    left: 24px;
+    z-index: var(--z-chatbot);
+    width: min(360px, calc(100vw - 32px));
+  }
+
+  .chatbot__window {
+    display: flex;
+    flex-direction: column;
+    max-height: min(520px, calc(100vh - 120px));
+    border-radius: var(--radius-surface);
+    background: white;
+    box-shadow: 0 8px 48px rgba(8,17,38,.18);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  .chatbot__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--color-midnight);
+    color: white;
+  }
+  .chatbot__avatar {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-primary);
+    font-size: .9rem;
+    font-weight: 780;
+    flex-shrink: 0;
+  }
+  .chatbot__header strong { display: block; font-size: .9rem; }
+  .chatbot__status { font-size: .72rem; color: rgba(255,255,255,.55); }
+  .chatbot__close {
+    margin-left: auto;
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255,255,255,.1);
+    color: rgba(255,255,255,.8);
+    cursor: pointer;
+    font-size: .8rem;
+    transition: background var(--transition-fast);
+  }
+  .chatbot__close:hover { background: rgba(255,255,255,.2); }
+
+  .chatbot__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+  }
+  .chatbot__msg {
+    max-width: 88%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: .87rem;
+    line-height: 1.45;
+  }
+  .chatbot__msg--bot {
+    align-self: flex-start;
+    background: var(--color-primary-soft);
+    color: var(--color-midnight);
+    border-bottom-left-radius: 4px;
+  }
+  .chatbot__msg--user {
+    align-self: flex-end;
+    background: var(--color-primary);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+
+  .chatbot__choices {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 16px 16px;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-background);
+    max-height: 220px;
+    overflow-y: auto;
+  }
+  .chatbot__choice {
+    text-align: left;
+    padding: 9px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: white;
+    color: var(--color-midnight);
+    font-size: .83rem;
+    font-weight: 640;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+    line-height: 1.3;
+  }
+  .chatbot__choice:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-soft);
+    transform: translateX(2px);
+  }
+  .chatbot__choice:focus-visible {
+    outline: 3px solid rgba(36,87,255,.4);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 480px) {
+    .chatbot {
+      bottom: 80px;
+      left: 12px;
+      width: calc(100vw - 24px);
+    }
+    .chatbot__trigger { left: 16px; bottom: 20px; width: 48px; height: 48px; }
+  }
+</style>
+

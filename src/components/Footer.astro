@@ -1,4 +1,4 @@
----
+﻿---
 const currentYear = new Date().getFullYear();
 ---
 
@@ -55,6 +55,7 @@ const currentYear = new Date().getFullYear();
         <span class="footer-heading">Légal</span>
         <a href="/mentions-legales/">Mentions légales</a>
         <a href="/politique-de-confidentialite/">Politique de confidentialité</a>
+        <button type="button" class="footer-cookie-btn" id="footer-reopen-cookies">Gérer mes cookies</button>
       </div>
     </div>
 
@@ -69,6 +70,12 @@ const currentYear = new Date().getFullYear();
   </div>
 </footer>
 
+<script>
+  document.getElementById('footer-reopen-cookies')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('clicom:reopen-consent'));
+  });
+</script>
+
 <style>
   .site-footer {
     margin-top: auto;
@@ -76,171 +83,15 @@ const currentYear = new Date().getFullYear();
     background: var(--color-midnight);
     color: rgba(247, 249, 252, 0.75);
   }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1.5fr repeat(4, 1fr);
-    gap: 40px;
-    padding-bottom: 60px;
-    border-bottom: 1px solid rgba(247, 249, 252, 0.1);
-  }
-
-  .footer-brand .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 11px;
-    margin-bottom: 16px;
-  }
-
-  .footer-brand .brand__mark {
-    position: relative;
-    display: flex;
-    width: 34px;
-    align-items: center;
-    color: var(--color-cyan);
-  }
-
-  .footer-brand .brand__mark i {
-    width: 8px;
-    height: 8px;
-    flex: 0 0 auto;
-    border-radius: 50%;
-    background: var(--color-cyan);
-    box-shadow: 0 0 0 5px rgba(0, 200, 255, 0.12);
-  }
-
-  .footer-brand .brand__mark::after {
-    width: 13px;
-    height: 1px;
-    background: var(--color-cyan);
-    content: '';
-  }
-
-  .footer-brand .brand__mark b {
-    font-size: 1rem;
-    font-weight: 650;
-    line-height: 1;
-  }
-
-  .footer-brand .brand__name {
-    font-size: 1.62rem;
-    font-weight: 800;
-    letter-spacing: -.07em;
-    line-height: 1;
-    color: white;
-  }
-
-  .footer-brand .brand__name span {
-    color: var(--color-cyan);
-  }
-
-  .footer-tagline {
-    margin-bottom: 24px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-
-  .footer-cta .button {
-    display: inline-flex;
-    gap: 8px;
-    padding: 12px 20px;
-    border-radius: 12px;
-    background: var(--color-cyan);
-    color: var(--color-midnight);
-    font-size: 0.82rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    transition: background var(--transition-fast), transform var(--transition-fast);
-  }
-
-  .footer-cta .button:hover {
-    background: white;
-    transform: translateY(-1px);
-  }
-
-  .footer-heading {
-    display: block;
-    margin-bottom: 20px;
-    color: white;
-    font-size: 0.78rem;
-    font-weight: 780;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .footer-col {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .footer-col a {
-    color: rgba(247, 249, 252, 0.7);
-    font-size: 0.86rem;
-    font-weight: 600;
-    transition: color var(--transition-fast), transform var(--transition-fast);
-  }
-
-  .footer-col a:hover {
-    color: white;
-    transform: translateX(3px);
-  }
-
-  .footer-col--legal a {
-    font-size: 0.8rem;
-    color: rgba(247, 249, 252, 0.5);
-  }
-
-  .footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 0;
-    font-size: 0.8rem;
-    color: rgba(247, 249, 252, 0.45);
-  }
-
-  .footer-bottom__links {
-    display: flex;
-    gap: 8px;
-  }
-
-  .footer-bottom__links a {
-    color: rgba(247, 249, 252, 0.5);
-    transition: color var(--transition-fast);
-  }
-
-  .footer-bottom__links a:hover {
-    color: white;
-  }
-
-  @media (max-width: 1100px) {
-    .footer-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
-
-    .footer-brand {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media (max-width: 680px) {
-    .site-footer {
-      padding: 60px 0 0;
-    }
-
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 28px;
-      padding-bottom: 40px;
-    }
-
-    .footer-bottom {
-      flex-direction: column;
-      gap: 8px;
-      text-align: center;
-    }
-  }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 40px; padding-bottom: 60px; border-bottom: 1px solid rgba(247, 249, 252, 0.1); }
+  .footer-brand .brand { display: inline-flex; align-items: center; gap: 11px; margin-bottom: 16px; }
+  .footer-col { display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a, .footer-cookie-btn { color: rgba(247, 249, 252, 0.7); font-size: 0.86rem; font-weight: 600; transition: color var(--transition-fast), transform var(--transition-fast); }
+  .footer-col a:hover, .footer-cookie-btn:hover { color: white; transform: translateX(3px); }
+  .footer-col--legal a, .footer-cookie-btn { font-size: 0.8rem; color: rgba(247, 249, 252, 0.5); }
+  .footer-cookie-btn { background: none; border: none; cursor: pointer; text-align: left; padding: 0; font-family: inherit; }
+  .footer-cookie-btn:hover { color: white; }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; font-size: 0.8rem; color: rgba(247, 249, 252, 0.45); }
+  @media (max-width: 1100px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
+  @media (max-width: 680px) { .footer-grid { grid-template-columns: 1fr; gap: 28px; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
 </style>

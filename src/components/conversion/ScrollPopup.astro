@@ -1,0 +1,173 @@
+﻿---
+// ScrollPopup.astro â€” dÃ©clenchÃ© Ã  70% scroll sur pages services
+const servicePaths = [
+  '/creation-site-web/',
+  '/seo/',
+  '/google-ads/',
+  '/referencement-ia/',
+  '/intelligence-artificielle/',
+  '/automatisation/',
+];
+const pathname = Astro.url.pathname;
+const isServicePage = servicePaths.includes(pathname);
+---
+
+{isServicePage && (
+<div id="scroll-popup" class="scroll-popup" role="dialog" aria-modal="true" aria-label="Question rapide" hidden>
+  <div class="scroll-popup__inner">
+    <button type="button" id="scroll-popup-close" class="scroll-popup__close" aria-label="Fermer">âœ•</button>
+    <div class="scroll-popup__content">
+      <p class="scroll-popup__question">Des questions sur ce service ?</p>
+      <p class="scroll-popup__sub">Un Ã©change de 15 min suffit souvent Ã  clarifier les prioritÃ©s.</p>
+    </div>
+    <div class="scroll-popup__actions">
+      <button type="button" class="button button--primary scroll-popup-calendly" id="scroll-popup-rdv">ðŸ“… RÃ©server 15 min</button>
+      <a href="/audit-gratuit/" class="button button--secondary" id="scroll-popup-audit">Audit gratuit</a>
+    </div>
+  </div>
+</div>
+)}
+
+<script>
+  import { trackPopup, trackCalendly } from '../../scripts/analytics';
+
+  const popup = document.getElementById('scroll-popup');
+  if (!popup) { /* Not a service page, nothing to do */ }
+  else {
+    const CALENDLY_URL = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
+    let shown = false;
+
+    function hasSessionPopup(): boolean {
+      try { return sessionStorage.getItem('clicom_popup_shown') === '1'; } catch { return false; }
+    }
+    function hasConverted(): boolean {
+      try { return sessionStorage.getItem('clicom_converted') === '1'; } catch { return false; }
+    }
+
+    function showPopup() {
+      if (shown || hasSessionPopup() || hasConverted()) return;
+      shown = true;
+      popup.hidden = false;
+      trackPopup('scroll', 'view');
+      try { sessionStorage.setItem('clicom_popup_shown', '1'); } catch {}
+      window.dispatchEvent(new CustomEvent('clicom:popup-opened', { detail: 'scroll' }));
+    }
+
+    function hidePopup(converted = false) {
+      popup.hidden = true;
+      if (!converted) trackPopup('scroll', 'dismiss');
+    }
+
+    document.getElementById('scroll-popup-close')?.addEventListener('click', () => hidePopup());
+
+    document.getElementById('scroll-popup-rdv')?.addEventListener('click', () => {
+      trackPopup('scroll', 'convert');
+      trackCalendly('open');
+      hidePopup(true);
+      if (CALENDLY_URL) {
+        const popupBtn = document.querySelector('[data-calendly-popup]') as HTMLButtonElement;
+        if (popupBtn) { popupBtn.click(); }
+        else { window.open(CALENDLY_URL, '_blank', 'noopener'); }
+      } else {
+        window.location.href = '/contact/';
+      }
+    });
+
+    document.getElementById('scroll-popup-audit')?.addEventListener('click', () => {
+      trackPopup('scroll', 'convert');
+      hidePopup(true);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !popup.hidden) hidePopup();
+    });
+
+    // Scroll trigger at 70%
+    let fired = false;
+    window.addEventListener('scroll', () => {
+      if (fired) return;
+      const scrolled = window.scrollY + window.innerHeight;
+      const total = document.documentElement.scrollHeight;
+      if (scrolled / total >= 0.70) {
+        fired = true;
+        setTimeout(showPopup, 400);
+      }
+    }, { passive: true });
+
+    // Don't show if exit popup just appeared
+    window.addEventListener('clicom:popup-opened', (e) => {
+      if ((e as CustomEvent).detail !== 'scroll' && !popup.hidden) hidePopup(false);
+    });
+  }
+</script>
+
+<style>
+  .scroll-popup {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: var(--z-scroll-popup);
+    width: min(400px, calc(100vw - 32px));
+    border-radius: var(--radius-card);
+    background: white;
+    box-shadow: 0 8px 48px rgba(8,17,38,.18);
+    border: 1px solid var(--color-border);
+    animation: slide-up .3s var(--ease-out);
+    overflow: hidden;
+  }
+  .scroll-popup__inner {
+    padding: 24px;
+    position: relative;
+  }
+  .scroll-popup__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border: none;
+    border-radius: 6px;
+    background: var(--color-background);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    font-size: .78rem;
+    transition: background var(--transition-fast);
+  }
+  .scroll-popup__close:hover { background: var(--color-border); }
+  .scroll-popup__question {
+    margin-bottom: 6px;
+    color: var(--color-midnight);
+    font-size: 1.05rem;
+    font-weight: 730;
+    letter-spacing: -.02em;
+    padding-right: 32px;
+  }
+  .scroll-popup__sub {
+    margin-bottom: 20px;
+    color: var(--color-text-muted);
+    font-size: .86rem;
+    line-height: 1.5;
+  }
+  .scroll-popup__actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .scroll-popup__actions .button {
+    flex: 1 1 140px;
+    min-height: 44px;
+    font-size: .85rem;
+    justify-content: center;
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (max-width: 480px) {
+    .scroll-popup { bottom: 80px; right: 12px; left: 12px; width: auto; }
+    .scroll-popup__actions { flex-direction: column; }
+  }
+</style>
+

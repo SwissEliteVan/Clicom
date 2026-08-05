@@ -4,14 +4,8 @@ import Button from './Button.astro';
 const path = Astro.url.pathname;
 const servicePaths = ['/services','/creation-site-web','/seo','/referencement-ia','/google-ads','/social-ads','/reseaux-sociaux','/creation-contenu','/branding','/intelligence-artificielle','/automatisation','/email-marketing-crm'];
 const serviceActive = servicePaths.some((href) => path.startsWith(href));
-const resourcePaths = ['/blog','/ressources','/faq','/tarifs','/methode'];
-const resourceActive = resourcePaths.some((href) => path.startsWith(href));
-const links = [
-  ['/solutions', 'Solutions'],
-  ['/realisations', 'Réalisations'],
-  ['/secteurs/', 'Secteurs'],
-  ['/contact', 'Contact'],
-];
+const clicomPaths = ['/agence','/methode','/solutions','/secteurs','/ressources','/tarifs','/faq'];
+const clicomActive = clicomPaths.some((href) => path.startsWith(href));
 
 const serviceGroups = [
   {
@@ -38,6 +32,26 @@ const serviceGroups = [
       ['/intelligence-artificielle/', 'Intelligence artificielle'],
       ['/automatisation/', 'Automatisation'],
       ['/email-marketing-crm/', 'CRM & e-mail'],
+    ],
+  },
+];
+
+const clicomGroups = [
+  {
+    title: 'Découvrir CLICOM',
+    links: [
+      ['/agence/', "L'agence", 'Présentation de CLICOM'],
+      ['/methode/', 'Notre méthode', 'Notre manière de travailler'],
+      ['/solutions/', 'Solutions', 'Découvrir les solutions proposées'],
+      ['/secteurs/', 'Secteurs', 'Solutions adaptées à chaque profil'],
+    ],
+  },
+  {
+    title: 'Informations',
+    links: [
+      ['/ressources/', 'Ressources', 'Guides et contenus utiles'],
+      ['/tarifs/', 'Tarifs', 'Comprendre notre approche tarifaire'],
+      ['/faq/', 'FAQ', 'Questions fréquentes'],
     ],
   },
 ];
@@ -69,23 +83,31 @@ const serviceGroups = [
           ))}
         </div>
       </details>
-      {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>)}
+      <a class:list={{ active: path.startsWith('/realisations') }} href="/realisations/" aria-current={path.startsWith('/realisations') ? 'page' : undefined}>Réalisations</a>
+      <a class:list={{ active: path.startsWith('/blog') }} href="/blog/" aria-current={path.startsWith('/blog') ? 'page' : undefined}>Blog</a>
 
-      <details class="resources-menu" data-menu>
-        <summary class:list={{ active: resourceActive }} aria-haspopup="true" aria-expanded="false">
-          Ressources <span aria-hidden="true">⌄</span>
+      <details class="clicom-menu" data-menu>
+        <summary class:list={{ active: clicomActive }} aria-haspopup="true" aria-expanded="false">
+          CLICOM <span aria-hidden="true">⌄</span>
         </summary>
-        <div class="dropdown">
-          <a href="/blog/">Blog</a>
-          <a href="/ressources/">Ressources</a>
-          <a href="/faq/">FAQ</a>
-          <a href="/tarifs/">Tarifs</a>
-          <a href="/methode/">Méthode</a>
+        <div class="clicom-dropdown">
+          {clicomGroups.map((group) => (
+            <div class="clicom-dropdown__group">
+              <span>{group.title}</span>
+              {group.links.map(([href, label, desc]) => (
+                <a href={href}>
+                  <strong>{label}</strong>
+                  <small>{desc}</small>
+                </a>
+              ))}
+            </div>
+          ))}
         </div>
       </details>
+      <a class:list={{ active: path.startsWith('/contact') }} href="/contact/" aria-current={path.startsWith('/contact') ? 'page' : undefined}>Contact</a>
     </nav>
 
-    <Button href="/audit-gratuit/" class="header-cta">Demander un audit gratuit <span aria-hidden="true">→</span></Button>
+    <Button href="/audit-gratuit/" class="header-cta">Demander un audit <span aria-hidden="true">→</span></Button>
 
     <details class="mobile-menu" data-menu>
       <summary aria-label="Ouvrir la navigation" aria-expanded="false">
@@ -115,23 +137,24 @@ const serviceGroups = [
           </div>
         </details>
 
+        <a class:list={{ active: path.startsWith('/realisations') }} href="/realisations/" aria-current={path.startsWith('/realisations') ? 'page' : undefined}>Réalisations <span>→</span></a>
+        <a class:list={{ active: path.startsWith('/blog') }} href="/blog/" aria-current={path.startsWith('/blog') ? 'page' : undefined}>Blog <span>→</span></a>
+
         <details class="mobile-menu__accordion" data-mobile-accordion>
-          <summary aria-expanded="false">Ressources <span aria-hidden="true">+</span></summary>
+          <summary aria-expanded="false">CLICOM <span aria-hidden="true">+</span></summary>
           <div class="mobile-menu__sublinks">
-            <a href="/blog/">Blog</a>
+            <a href="/agence/">L'agence</a>
+            <a href="/methode/">Notre méthode</a>
+            <a href="/solutions/">Solutions</a>
+            <a href="/secteurs/">Secteurs</a>
             <a href="/ressources/">Ressources</a>
-            <a href="/faq/">FAQ</a>
             <a href="/tarifs/">Tarifs</a>
-            <a href="/methode/">Méthode</a>
+            <a href="/faq/">FAQ</a>
           </div>
         </details>
 
-        <a href="/solutions">Solutions <span>→</span></a>
-        <a href="/realisations">Réalisations <span>→</span></a>
-        <a href="/secteurs/">Secteurs <span>→</span></a>
-        <a href="/agence">Agence <span>→</span></a>
-        <a href="/contact">Contact <span>→</span></a>
-        <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">→</span></Button>
+        <a class:list={{ active: path.startsWith('/contact') }} href="/contact/" aria-current={path.startsWith('/contact') ? 'page' : undefined}>Contact <span>→</span></a>
+        <Button href="/audit-gratuit/">Demander un audit <span aria-hidden="true">→</span></Button>
       </div>
     </details>
   </div>
@@ -207,15 +230,15 @@ const serviceGroups = [
   .brand__name { font-size: 1.62rem; font-weight: 800; letter-spacing: -.07em; line-height: 1; }
   .brand__name span { color: var(--color-primary); }
   .desktop-nav { display: flex; height: 100%; align-items: center; gap: clamp(15px, 1.7vw, 25px); }
-  .desktop-nav > a, .services-menu > summary, .resources-menu > summary { position: relative; display: flex; min-height: 44px; align-items: center; color: var(--color-text-muted); font-size: .86rem; font-weight: 680; cursor: pointer; list-style: none; transition: color var(--transition-fast); }
-  .services-menu > summary::-webkit-details-marker, .resources-menu > summary::-webkit-details-marker { display: none; }
-  .services-menu > summary span, .resources-menu > summary span { margin-left: 5px; font-size: .78rem; transition: transform var(--transition-fast); }
-  .services-menu[open] > summary span, .resources-menu[open] > summary span { transform: rotate(180deg); }
-  .desktop-nav > a::after, .services-menu > summary::after, .resources-menu > summary::after { position: absolute; right: 50%; bottom: -1px; left: 50%; height: 2px; border-radius: 2px; background: var(--color-primary); content: ''; transition: right var(--transition-fast), left var(--transition-fast); }
-  .desktop-nav > a:hover, .desktop-nav > a.active, .services-menu > summary:hover, .services-menu > summary.active, .services-menu[open] > summary, .resources-menu > summary:hover, .resources-menu > summary.active, .resources-menu[open] > summary { color: var(--color-midnight); }
-  .desktop-nav > a:hover::after, .desktop-nav > a.active::after, .services-menu > summary:hover::after, .services-menu > summary.active::after, .services-menu[open] > summary::after, .resources-menu > summary:hover::after, .resources-menu > summary.active::after, .resources-menu[open] > summary::after { right: 0; left: 0; }
-  .services-menu, .resources-menu { position: relative; height: 100%; }
-  .services-menu > summary, .resources-menu > summary { height: 100%; }
+  .desktop-nav > a, .services-menu > summary, .clicom-menu > summary { position: relative; display: flex; min-height: 44px; align-items: center; color: var(--color-text-muted); font-size: .86rem; font-weight: 680; cursor: pointer; list-style: none; transition: color var(--transition-fast); }
+  .services-menu > summary::-webkit-details-marker, .clicom-menu > summary::-webkit-details-marker { display: none; }
+  .services-menu > summary span, .clicom-menu > summary span { margin-left: 5px; font-size: .78rem; transition: transform var(--transition-fast); }
+  .services-menu[open] > summary span, .clicom-menu[open] > summary span { transform: rotate(180deg); }
+  .desktop-nav > a::after, .services-menu > summary::after, .clicom-menu > summary::after { position: absolute; right: 50%; bottom: -1px; left: 50%; height: 2px; border-radius: 2px; background: var(--color-primary); content: ''; transition: right var(--transition-fast), left var(--transition-fast); }
+  .desktop-nav > a:hover, .desktop-nav > a.active, .services-menu > summary:hover, .services-menu > summary.active, .services-menu[open] > summary, .clicom-menu > summary:hover, .clicom-menu > summary.active, .clicom-menu[open] > summary { color: var(--color-midnight); }
+  .desktop-nav > a:hover::after, .desktop-nav > a.active::after, .services-menu > summary:hover::after, .services-menu > summary.active::after, .services-menu[open] > summary::after, .clicom-menu > summary:hover::after, .clicom-menu > summary.active::after, .clicom-menu[open] > summary::after { right: 0; left: 0; }
+  .services-menu, .clicom-menu { position: relative; height: 100%; }
+  .services-menu > summary, .clicom-menu > summary { height: 100%; }
   .mega-menu { position: absolute; top: calc(100% + 12px); right: 0; left: 0; display: grid; grid-template-columns: 1.25fr repeat(3, 1fr); gap: 1px; padding: 10px; overflow: hidden; border: 1px solid var(--color-border); border-radius: 24px; background: var(--color-border); box-shadow: var(--shadow-featured); }
   .mega-menu::before { position: fixed; inset: 82px 0 0; z-index: -1; background: rgba(8,17,38,.08); content: ''; backdrop-filter: blur(2px); }
   .mega-menu__intro, .mega-menu__group { min-width: 0; padding: 27px; background: white; }
@@ -228,10 +251,17 @@ const serviceGroups = [
   .mega-menu__group > span { color: var(--color-text-muted); }
   .mega-menu__group a { width: 100%; padding: 7px 0; color: var(--color-midnight); font-size: .86rem; font-weight: 650; transition: color var(--transition-fast), transform var(--transition-fast); }
   .mega-menu__group a:hover { color: var(--color-primary); transform: translateX(3px); }
-  .dropdown { position: absolute; top: calc(100% + 12px); right: 0; min-width: 220px; display: flex; flex-direction: column; gap: 1px; padding: 8px; overflow: hidden; border: 1px solid var(--color-border); border-radius: 16px; background: var(--color-border); box-shadow: var(--shadow-featured); }
-  .dropdown::before { position: fixed; inset: 82px 0 0; z-index: -1; background: rgba(8,17,38,.08); content: ''; backdrop-filter: blur(2px); }
-  .dropdown a { padding: 12px 16px; border-radius: 10px; background: white; color: var(--color-midnight); font-size: .86rem; font-weight: 650; transition: color var(--transition-fast), background var(--transition-fast); }
-  .dropdown a:hover { color: var(--color-primary); background: var(--color-primary-soft); }
+  .clicom-dropdown { position: absolute; top: calc(100% + 12px); right: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; width: 520px; padding: 10px; overflow: hidden; border: 1px solid var(--color-border); border-radius: 20px; background: var(--color-border); box-shadow: var(--shadow-featured); }
+  .clicom-dropdown::before { position: fixed; inset: 82px 0 0; z-index: -1; background: rgba(8,17,38,.08); content: ''; backdrop-filter: blur(2px); }
+  .clicom-dropdown__group { min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 22px; background: white; }
+  .clicom-dropdown__group:first-child { border-radius: 11px 0 0 11px; }
+  .clicom-dropdown__group:last-child { border-radius: 0 11px 11px 0; }
+  .clicom-dropdown__group > span { display: block; margin-bottom: 12px; color: var(--color-text-muted); font-size: .65rem; font-weight: 780; letter-spacing: .14em; text-transform: uppercase; }
+  .clicom-dropdown__group a { display: flex; flex-direction: column; gap: 2px; padding: 9px 10px; border-radius: 10px; color: var(--color-midnight); transition: color var(--transition-fast), background var(--transition-fast); }
+  .clicom-dropdown__group a strong { font-size: .86rem; font-weight: 680; }
+  .clicom-dropdown__group a small { font-size: .74rem; font-weight: 550; color: var(--color-text-muted); line-height: 1.4; }
+  .clicom-dropdown__group a:hover { color: var(--color-primary); background: var(--color-primary-soft); }
+  .clicom-dropdown__group a:hover small { color: var(--color-text-muted); }
   .header-cta { min-height: 46px; padding: 12px 17px; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
   .mobile-menu { display: none; }
 
@@ -298,7 +328,7 @@ const serviceGroups = [
   :global(body.home-page) .brand__name,
   :global(body.home-page) .desktop-nav > a,
   :global(body.home-page) .services-menu > summary,
-  :global(body.home-page) .resources-menu > summary {
+  :global(body.home-page) .clicom-menu > summary {
     color: rgba(247, 249, 252, 0.88);
   }
 
@@ -306,7 +336,7 @@ const serviceGroups = [
   :global(body.home-page) .site-header.is-scrolled .brand__name,
   :global(body.home-page) .site-header.is-scrolled .desktop-nav > a,
   :global(body.home-page) .site-header.is-scrolled .services-menu > summary,
-  :global(body.home-page) .site-header.is-scrolled .resources-menu > summary {
+  :global(body.home-page) .site-header.is-scrolled .clicom-menu > summary {
     color: var(--color-text-muted);
   }
 
@@ -315,9 +345,9 @@ const serviceGroups = [
   :global(body.home-page) .services-menu > summary:hover,
   :global(body.home-page) .services-menu > summary.active,
   :global(body.home-page) .services-menu[open] > summary,
-  :global(body.home-page) .resources-menu > summary:hover,
-  :global(body.home-page) .resources-menu > summary.active,
-  :global(body.home-page) .resources-menu[open] > summary {
+  :global(body.home-page) .clicom-menu > summary:hover,
+  :global(body.home-page) .clicom-menu > summary.active,
+  :global(body.home-page) .clicom-menu[open] > summary {
     color: white;
   }
 
@@ -326,15 +356,15 @@ const serviceGroups = [
   :global(body.home-page) .site-header.is-scrolled .services-menu > summary:hover,
   :global(body.home-page) .site-header.is-scrolled .services-menu > summary.active,
   :global(body.home-page) .site-header.is-scrolled .services-menu[open] > summary,
-  :global(body.home-page) .site-header.is-scrolled .resources-menu > summary:hover,
-  :global(body.home-page) .site-header.is-scrolled .resources-menu > summary.active,
-  :global(body.home-page) .site-header.is-scrolled .resources-menu[open] > summary { color: var(--color-midnight); }
+  :global(body.home-page) .site-header.is-scrolled .clicom-menu > summary:hover,
+  :global(body.home-page) .site-header.is-scrolled .clicom-menu > summary.active,
+  :global(body.home-page) .site-header.is-scrolled .clicom-menu[open] > summary { color: var(--color-midnight); }
 
   :global(body.home-page) .brand__mark i,
   :global(body.home-page) .brand__mark::after,
   :global(body.home-page) .desktop-nav > a::after,
   :global(body.home-page) .services-menu > summary::after,
-  :global(body.home-page) .resources-menu > summary::after {
+  :global(body.home-page) .clicom-menu > summary::after {
     background: var(--color-cyan);
   }
 
@@ -342,7 +372,7 @@ const serviceGroups = [
   :global(body.home-page) .site-header.is-scrolled .brand__mark::after,
   :global(body.home-page) .site-header.is-scrolled .desktop-nav > a::after,
   :global(body.home-page) .site-header.is-scrolled .services-menu > summary::after,
-  :global(body.home-page) .site-header.is-scrolled .resources-menu > summary::after {
+  :global(body.home-page) .site-header.is-scrolled .clicom-menu > summary::after {
     background: var(--color-primary);
   }
 

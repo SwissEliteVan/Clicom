@@ -1,4 +1,4 @@
----
+﻿---
 // CalendlyButton.astro
 // Utilise l'utilitaire centralisé src/scripts/calendly.ts
 // pour charger le widget Calendly lazy.
@@ -21,11 +21,11 @@ const isDisabled = !calendlyUrl;
 ---
 
 {!isDisabled && (
-  <div class={`calendly-wrap calendly-wrap--${mode} ${className}`} data-calendly-mode={mode}>
+  <div class={calendly-wrap calendly-wrap-- } data-calendly-mode={mode}>
     {mode === 'popup' && (
       <button
         type="button"
-        class={`button button--${variant}`}
+        class={utton button--}
         data-calendly-popup
         aria-label={label}
       >
@@ -77,7 +77,21 @@ const isDisabled = !calendlyUrl;
 
 <style>
   .calendly-wrap { display: inline-flex; }
-  .calendly-wrap--inline { display: block; }
-  .calendly-inline-container { width: 100%; }
-  .calendly-inline-placeholder { display: flex; justify-content: flex-start; }
+  .calendly-wrap--inline { display: block; width: 100%; }
+  .calendly-inline-container {
+    width: 100%;
+    min-width: 320px;
+  }
+  .calendly-inline-placeholder {
+    display: flex;
+    justify-content: flex-start;
+  }
+  @media (max-width: 480px) {
+    .calendly-inline-container {
+      min-width: 0;
+    }
+    .calendly-wrap--inline {
+      width: 100%;
+    }
+  }
 </style>

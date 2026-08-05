@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CLICOM Calendly Centralized Utility
  *
  * Charge le widget Calendly une seule fois (lazy) et expose
@@ -89,9 +89,11 @@ export async function openCalendlyPopup(): Promise<void> {
 
 export async function initCalendlyInline(container: HTMLElement): Promise<void> {
   if (!CALENDLY_URL) return;
-  trackCalendly('open');
+  // On ne tracke pas 'open' ici car l'affichage inline n'est pas une action
+  // volontaire de l'utilisateur — le tracking calendly_scheduled reste actif via postMessage.
   await ensureCalendly();
   container.innerHTML = '';
+  // Hauteur minimale Calendly recommandée ; le widget s'adapte automatiquement
   container.style.minHeight = '700px';
   if (window.Calendly) {
     window.Calendly.initInlineWidget({

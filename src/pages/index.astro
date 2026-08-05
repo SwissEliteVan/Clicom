@@ -425,8 +425,8 @@ const services: HomeService[] = [
   .services-bento { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); grid-auto-flow: dense; gap: 20px; }
   .service-card { position: relative; display: flex; min-height: 330px; flex-direction: column; padding: 30px; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-background); transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base); }
   .service-card:hover { transform: translateY(-4px); border-color: rgba(36,87,255,.28); box-shadow: var(--shadow-card-hover); }
-  .service-card__bg { position: absolute; inset: 0; opacity: .06; background-image: var(--service-bg); background-size: cover; background-position: center; transition: opacity var(--transition-base); }
-  .service-card:hover .service-card__bg { opacity: .1; }
+  .service-card__bg { position: absolute; inset: 0; opacity: .12; background-image: var(--service-bg); background-size: cover; background-position: center; transition: opacity var(--transition-base); }
+  .service-card:hover .service-card__bg { opacity: .22; }
   .service-card > *:not(.service-card__bg) { position: relative; z-index: 1; }
   .service-card__top { display: flex; align-items: flex-start; justify-content: space-between; }
   .service-card__number { color: var(--color-border-strong); font-size: .68rem; font-weight: 760; }
@@ -439,7 +439,8 @@ const services: HomeService[] = [
   .service--wide { grid-column: span 2; }
   .service--tall { grid-row: span 2; min-height: 680px; background: linear-gradient(155deg,var(--color-primary-soft),white 70%); }
   .service--dark { grid-column: span 2; color: white; border-color: rgba(255,255,255,.1); background: var(--gradient-dark); }
-  .service--dark .service-card__bg { opacity: .08; }
+  .service--dark .service-card__bg { opacity: .15; }
+  .service--dark:hover .service-card__bg { opacity: .25; }
   .service--dark p { color: var(--color-dark-muted); }
   .service--dark .service-card__number { color: rgba(255,255,255,.2); }
   .service--dark > a { color: var(--color-cyan); }
@@ -539,7 +540,7 @@ const services: HomeService[] = [
   .final-cta__panel { position: relative; display: grid; grid-template-columns: 1.2fr .8fr; align-items: end; gap: 60px; padding: clamp(42px,7vw,88px); overflow: hidden; border-radius: var(--radius-surface); color: white; background: var(--gradient-dark); box-shadow: var(--shadow-featured); }
   .final-cta__panel::before { position: absolute; inset: 0; opacity: .25; background-image: linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px); background-size: 48px 48px; content: ''; mask-image: linear-gradient(90deg,transparent,black); }
   .final-cta__panel > * { position: relative; z-index: 1; }
-  .final-cta__bg { position: absolute; inset: 0; opacity: .08; z-index: 0; }
+  .final-cta__bg { position: absolute; inset: 0; opacity: .15; z-index: 0; }
   .final-cta__bg :global(.editorial-image) { width: 100%; height: 100%; border-radius: 0; }
   .final-cta__copy p { max-width: 680px; color: var(--color-dark-muted); }
   .final-cta__copy .button { margin-top: 20px; }

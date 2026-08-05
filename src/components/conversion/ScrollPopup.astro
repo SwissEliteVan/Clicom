@@ -47,14 +47,14 @@ const isServicePage = servicePaths.includes(pathname);
     function showPopup() {
       if (shown || hasSessionPopup() || hasConverted()) return;
       shown = true;
-      popup.hidden = false;
+      popup!.hidden = false;
       trackPopup('scroll', 'view');
       try { sessionStorage.setItem('clicom_popup_shown', '1'); } catch {}
       window.dispatchEvent(new CustomEvent('clicom:popup-opened', { detail: 'scroll' }));
     }
 
     function hidePopup(converted = false) {
-      popup.hidden = true;
+      popup!.hidden = true;
       if (!converted) trackPopup('scroll', 'dismiss');
     }
 

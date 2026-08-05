@@ -1,10 +1,10 @@
-﻿---
+---
 interface Props { mode?: 'popup' | 'inline'; label?: string; variant?: 'primary' | 'secondary' | 'ghost'; class?: string; }
 const { mode = 'popup', label = 'Réserver un rendez-vous', variant = 'primary', class: className = '' } = Astro.props;
 const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
 ---
 {calendlyUrl && (
-  <div class:list={['calendly-wrap', `calendly-wrap--${mode}`, className]} data-calendly-mode={mode}>
+  <div class={`calendly-wrap calendly-wrap--${mode} ${className}`} data-calendly-mode={mode}>
     {mode === 'popup' ? <button type="button" class={`button button--${variant}`} data-calendly-popup>{label}</button> : <div class="calendly-inline-container" data-calendly-inline aria-label="Calendrier de réservation"><button type="button" class={`button button--${variant}`} data-calendly-inline-trigger>{label}</button></div>}
   </div>
 )}

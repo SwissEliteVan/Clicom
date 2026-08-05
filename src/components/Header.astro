@@ -4,10 +4,12 @@ import Button from './Button.astro';
 const path = Astro.url.pathname;
 const servicePaths = ['/services','/creation-site-web','/seo','/referencement-ia','/google-ads','/social-ads','/reseaux-sociaux','/creation-contenu','/branding','/intelligence-artificielle','/automatisation','/email-marketing-crm'];
 const serviceActive = servicePaths.some((href) => path.startsWith(href));
+const resourcePaths = ['/blog','/ressources','/faq','/tarifs','/methode'];
+const resourceActive = resourcePaths.some((href) => path.startsWith(href));
 const links = [
   ['/solutions', 'Solutions'],
-  ['/methode', 'Méthode'],
-  ['/tarifs', 'Tarifs'],
+  ['/realisations', 'Réalisations'],
+  ['/secteurs/', 'Secteurs'],
   ['/contact', 'Contact'],
 ];
 
@@ -26,7 +28,7 @@ const serviceGroups = [
     links: [
       ['/creation-site-web/', 'Sites web'],
       ['/creation-contenu/', 'Contenu'],
-      ['/reseaux-sociaux/', 'Réseaux sociaux'],
+      ['/reseaux-sociaux/', 'Gestion des réseaux sociaux'],
       ['/branding/', 'Branding'],
     ],
   },
@@ -36,7 +38,6 @@ const serviceGroups = [
       ['/intelligence-artificielle/', 'Intelligence artificielle'],
       ['/automatisation/', 'Automatisation'],
       ['/email-marketing-crm/', 'CRM & e-mail'],
-      ['/faq/', 'FAQ'],
     ],
   },
 ];
@@ -69,6 +70,19 @@ const serviceGroups = [
         </div>
       </details>
       {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>)}
+
+      <details class="resources-menu" data-menu>
+        <summary class:list={{ active: resourceActive }} aria-haspopup="true" aria-expanded="false">
+          Ressources <span aria-hidden="true">⌄</span>
+        </summary>
+        <div class="dropdown">
+          <a href="/blog/">Blog</a>
+          <a href="/ressources/">Ressources</a>
+          <a href="/faq/">FAQ</a>
+          <a href="/tarifs/">Tarifs</a>
+          <a href="/methode/">Méthode</a>
+        </div>
+      </details>
     </nav>
 
     <Button href="/audit-gratuit/" class="header-cta">Demander un audit gratuit <span aria-hidden="true">→</span></Button>
@@ -82,12 +96,41 @@ const serviceGroups = [
           <span>Navigation</span>
           <span class="brand__name">clicom<span>.</span></span>
         </div>
-        <a class:list={{ active: serviceActive }} href="/services" aria-current={serviceActive ? 'page' : undefined}>Services <span>→</span></a>
-        {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}<span>→</span></a>)}
-        <div class="mobile-menu__services">
-          <span>Services prioritaires</span>
-          <div><a href="/creation-site-web/">Sites web</a><a href="/seo/">SEO</a><a href="/google-ads/">Publicité</a><a href="/automatisation/">Automatisation</a></div>
-        </div>
+
+        <details class="mobile-menu__accordion" data-mobile-accordion>
+          <summary aria-expanded="false">Services <span aria-hidden="true">+</span></summary>
+          <div class="mobile-menu__sublinks">
+            <a href="/services">Tous les services <span>→</span></a>
+            <a href="/creation-site-web/">Sites web</a>
+            <a href="/seo/">SEO</a>
+            <a href="/referencement-ia/">Référencement IA</a>
+            <a href="/google-ads/">Google Ads</a>
+            <a href="/social-ads/">Publicité sur les réseaux sociaux</a>
+            <a href="/reseaux-sociaux/">Gestion des réseaux sociaux</a>
+            <a href="/creation-contenu/">Création de contenu</a>
+            <a href="/branding/">Branding</a>
+            <a href="/intelligence-artificielle/">Intelligence artificielle</a>
+            <a href="/automatisation/">Automatisation</a>
+            <a href="/email-marketing-crm/">CRM & e-mail</a>
+          </div>
+        </details>
+
+        <details class="mobile-menu__accordion" data-mobile-accordion>
+          <summary aria-expanded="false">Ressources <span aria-hidden="true">+</span></summary>
+          <div class="mobile-menu__sublinks">
+            <a href="/blog/">Blog</a>
+            <a href="/ressources/">Ressources</a>
+            <a href="/faq/">FAQ</a>
+            <a href="/tarifs/">Tarifs</a>
+            <a href="/methode/">Méthode</a>
+          </div>
+        </details>
+
+        <a href="/solutions">Solutions <span>→</span></a>
+        <a href="/realisations">Réalisations <span>→</span></a>
+        <a href="/secteurs/">Secteurs <span>→</span></a>
+        <a href="/agence">Agence <span>→</span></a>
+        <a href="/contact">Contact <span>→</span></a>
         <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">→</span></Button>
       </div>
     </details>
@@ -111,6 +154,15 @@ const serviceGroups = [
       if (menu.open) menus.forEach((other) => other !== menu && closeMenu(other));
     });
     menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => closeMenu(menu)));
+  });
+
+  // Mobile accordions
+  const accordions = document.querySelectorAll<HTMLDetailsElement>('[data-mobile-accordion]');
+  accordions.forEach((acc) => {
+    const trigger = acc.querySelector('summary');
+    acc.addEventListener('toggle', () => {
+      trigger?.setAttribute('aria-expanded', String(acc.open));
+    });
   });
 
   document.addEventListener('keydown', (event) => {
@@ -155,15 +207,15 @@ const serviceGroups = [
   .brand__name { font-size: 1.62rem; font-weight: 800; letter-spacing: -.07em; line-height: 1; }
   .brand__name span { color: var(--color-primary); }
   .desktop-nav { display: flex; height: 100%; align-items: center; gap: clamp(15px, 1.7vw, 25px); }
-  .desktop-nav > a, .services-menu > summary { position: relative; display: flex; min-height: 44px; align-items: center; color: var(--color-text-muted); font-size: .86rem; font-weight: 680; cursor: pointer; list-style: none; transition: color var(--transition-fast); }
-  .services-menu > summary::-webkit-details-marker { display: none; }
-  .services-menu > summary span { margin-left: 5px; font-size: .78rem; transition: transform var(--transition-fast); }
-  .services-menu[open] > summary span { transform: rotate(180deg); }
-  .desktop-nav > a::after, .services-menu > summary::after { position: absolute; right: 50%; bottom: -1px; left: 50%; height: 2px; border-radius: 2px; background: var(--color-primary); content: ''; transition: right var(--transition-fast), left var(--transition-fast); }
-  .desktop-nav > a:hover, .desktop-nav > a.active, .services-menu > summary:hover, .services-menu > summary.active, .services-menu[open] > summary { color: var(--color-midnight); }
-  .desktop-nav > a:hover::after, .desktop-nav > a.active::after, .services-menu > summary:hover::after, .services-menu > summary.active::after, .services-menu[open] > summary::after { right: 0; left: 0; }
-  .services-menu { height: 100%; }
-  .services-menu > summary { height: 100%; }
+  .desktop-nav > a, .services-menu > summary, .resources-menu > summary { position: relative; display: flex; min-height: 44px; align-items: center; color: var(--color-text-muted); font-size: .86rem; font-weight: 680; cursor: pointer; list-style: none; transition: color var(--transition-fast); }
+  .services-menu > summary::-webkit-details-marker, .resources-menu > summary::-webkit-details-marker { display: none; }
+  .services-menu > summary span, .resources-menu > summary span { margin-left: 5px; font-size: .78rem; transition: transform var(--transition-fast); }
+  .services-menu[open] > summary span, .resources-menu[open] > summary span { transform: rotate(180deg); }
+  .desktop-nav > a::after, .services-menu > summary::after, .resources-menu > summary::after { position: absolute; right: 50%; bottom: -1px; left: 50%; height: 2px; border-radius: 2px; background: var(--color-primary); content: ''; transition: right var(--transition-fast), left var(--transition-fast); }
+  .desktop-nav > a:hover, .desktop-nav > a.active, .services-menu > summary:hover, .services-menu > summary.active, .services-menu[open] > summary, .resources-menu > summary:hover, .resources-menu > summary.active, .resources-menu[open] > summary { color: var(--color-midnight); }
+  .desktop-nav > a:hover::after, .desktop-nav > a.active::after, .services-menu > summary:hover::after, .services-menu > summary.active::after, .services-menu[open] > summary::after, .resources-menu > summary:hover::after, .resources-menu > summary.active::after, .resources-menu[open] > summary::after { right: 0; left: 0; }
+  .services-menu, .resources-menu { position: relative; height: 100%; }
+  .services-menu > summary, .resources-menu > summary { height: 100%; }
   .mega-menu { position: absolute; top: calc(100% + 12px); right: 0; left: 0; display: grid; grid-template-columns: 1.25fr repeat(3, 1fr); gap: 1px; padding: 10px; overflow: hidden; border: 1px solid var(--color-border); border-radius: 24px; background: var(--color-border); box-shadow: var(--shadow-featured); }
   .mega-menu::before { position: fixed; inset: 82px 0 0; z-index: -1; background: rgba(8,17,38,.08); content: ''; backdrop-filter: blur(2px); }
   .mega-menu__intro, .mega-menu__group { min-width: 0; padding: 27px; background: white; }
@@ -176,6 +228,10 @@ const serviceGroups = [
   .mega-menu__group > span { color: var(--color-text-muted); }
   .mega-menu__group a { width: 100%; padding: 7px 0; color: var(--color-midnight); font-size: .86rem; font-weight: 650; transition: color var(--transition-fast), transform var(--transition-fast); }
   .mega-menu__group a:hover { color: var(--color-primary); transform: translateX(3px); }
+  .dropdown { position: absolute; top: calc(100% + 12px); right: 0; min-width: 220px; display: flex; flex-direction: column; gap: 1px; padding: 8px; overflow: hidden; border: 1px solid var(--color-border); border-radius: 16px; background: var(--color-border); box-shadow: var(--shadow-featured); }
+  .dropdown::before { position: fixed; inset: 82px 0 0; z-index: -1; background: rgba(8,17,38,.08); content: ''; backdrop-filter: blur(2px); }
+  .dropdown a { padding: 12px 16px; border-radius: 10px; background: white; color: var(--color-midnight); font-size: .86rem; font-weight: 650; transition: color var(--transition-fast), background var(--transition-fast); }
+  .dropdown a:hover { color: var(--color-primary); background: var(--color-primary-soft); }
   .header-cta { min-height: 46px; padding: 12px 17px; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
   .mobile-menu { display: none; }
 
@@ -194,10 +250,17 @@ const serviceGroups = [
     .mobile-menu__panel > a:not(.button) { display: flex; min-height: 48px; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: 10px; color: var(--color-midnight); font-size: 1rem; font-weight: 680; }
     .mobile-menu__panel > a.active { color: var(--color-primary); background: var(--color-primary-soft); }
     .mobile-menu__panel > a span { color: var(--color-primary); }
-    .mobile-menu__services { margin-block: 10px; padding: 16px 12px; border-block: 1px solid var(--color-border); }
-    .mobile-menu__services > span { display: block; margin-bottom: 12px; color: var(--color-text-muted); font-size: .68rem; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; }
-    .mobile-menu__services div { display: flex; flex-wrap: wrap; gap: 8px; }
-    .mobile-menu__services a { padding: 7px 10px; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-text-muted); font-size: .78rem; font-weight: 650; }
+    .mobile-menu__accordion { border-radius: 10px; }
+    .mobile-menu__accordion summary { display: flex; min-height: 48px; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: 10px; color: var(--color-midnight); font-size: 1rem; font-weight: 680; cursor: pointer; list-style: none; }
+    .mobile-menu__accordion summary::-webkit-details-marker { display: none; }
+    .mobile-menu__accordion summary span { color: var(--color-primary); font-size: 1.3rem; transition: transform var(--transition-fast); }
+    .mobile-menu__accordion[open] summary span { transform: rotate(45deg); }
+    .mobile-menu__accordion[open] { background: var(--color-primary-soft); }
+    .mobile-menu__accordion[open] > summary { border-bottom: 1px solid var(--color-border); }
+    .mobile-menu__sublinks { display: grid; gap: 2px; padding: 4px 12px 12px; }
+    .mobile-menu__sublinks a { display: flex; min-height: 40px; align-items: center; justify-content: space-between; padding: 6px 8px 6px 16px; border-radius: 8px; color: var(--color-text-muted); font-size: .9rem; font-weight: 650; }
+    .mobile-menu__sublinks a:first-child { color: var(--color-primary); font-weight: 720; }
+    .mobile-menu__sublinks a span { color: var(--color-primary); font-size: .85rem; }
     .mobile-menu__panel > :global(.button) { width: 100%; margin-top: 8px; }
   }
 
@@ -234,14 +297,16 @@ const serviceGroups = [
   :global(body.home-page) .brand__mark,
   :global(body.home-page) .brand__name,
   :global(body.home-page) .desktop-nav > a,
-  :global(body.home-page) .services-menu > summary {
+  :global(body.home-page) .services-menu > summary,
+  :global(body.home-page) .resources-menu > summary {
     color: rgba(247, 249, 252, 0.88);
   }
 
   :global(body.home-page) .site-header.is-scrolled .brand__mark,
   :global(body.home-page) .site-header.is-scrolled .brand__name,
   :global(body.home-page) .site-header.is-scrolled .desktop-nav > a,
-  :global(body.home-page) .site-header.is-scrolled .services-menu > summary {
+  :global(body.home-page) .site-header.is-scrolled .services-menu > summary,
+  :global(body.home-page) .site-header.is-scrolled .resources-menu > summary {
     color: var(--color-text-muted);
   }
 
@@ -249,7 +314,10 @@ const serviceGroups = [
   :global(body.home-page) .desktop-nav > a.active,
   :global(body.home-page) .services-menu > summary:hover,
   :global(body.home-page) .services-menu > summary.active,
-  :global(body.home-page) .services-menu[open] > summary {
+  :global(body.home-page) .services-menu[open] > summary,
+  :global(body.home-page) .resources-menu > summary:hover,
+  :global(body.home-page) .resources-menu > summary.active,
+  :global(body.home-page) .resources-menu[open] > summary {
     color: white;
   }
 
@@ -257,19 +325,24 @@ const serviceGroups = [
   :global(body.home-page) .site-header.is-scrolled .desktop-nav > a.active,
   :global(body.home-page) .site-header.is-scrolled .services-menu > summary:hover,
   :global(body.home-page) .site-header.is-scrolled .services-menu > summary.active,
-  :global(body.home-page) .site-header.is-scrolled .services-menu[open] > summary { color: var(--color-midnight); }
+  :global(body.home-page) .site-header.is-scrolled .services-menu[open] > summary,
+  :global(body.home-page) .site-header.is-scrolled .resources-menu > summary:hover,
+  :global(body.home-page) .site-header.is-scrolled .resources-menu > summary.active,
+  :global(body.home-page) .site-header.is-scrolled .resources-menu[open] > summary { color: var(--color-midnight); }
 
   :global(body.home-page) .brand__mark i,
   :global(body.home-page) .brand__mark::after,
   :global(body.home-page) .desktop-nav > a::after,
-  :global(body.home-page) .services-menu > summary::after {
+  :global(body.home-page) .services-menu > summary::after,
+  :global(body.home-page) .resources-menu > summary::after {
     background: var(--color-cyan);
   }
 
   :global(body.home-page) .site-header.is-scrolled .brand__mark i,
   :global(body.home-page) .site-header.is-scrolled .brand__mark::after,
   :global(body.home-page) .site-header.is-scrolled .desktop-nav > a::after,
-  :global(body.home-page) .site-header.is-scrolled .services-menu > summary::after {
+  :global(body.home-page) .site-header.is-scrolled .services-menu > summary::after,
+  :global(body.home-page) .site-header.is-scrolled .resources-menu > summary::after {
     background: var(--color-primary);
   }
 

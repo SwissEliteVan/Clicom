@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://clicom.ch',
   integrations: [sitemap({ filter: (page) => page !== 'https://clicom.ch/404/' })],
-  output: 'static',
+  output: 'server',
   adapter: node({
     mode: 'standalone',
     bodySizeLimit: 16384,

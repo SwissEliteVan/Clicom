@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
@@ -594,6 +594,9 @@ const services: HomeService[] = [
     .home-intro__image-row :global(.editorial-image) { max-height: 280px; }
     .frictions,.services-bento,.growth-pipeline,.audience-grid { grid-template-columns: 1fr; }
     .service--wide,.service--dark { grid-column: auto; }
+    .service-card__bg { opacity: .18; }
+    .service--dark .service-card__bg { opacity: .24; }
+    .final-cta__bg { opacity: .22; }
     .growth-pipeline article { min-height: 270px; }
     .pipeline-index { margin-bottom: 38px; }
     .pipeline-index i { transform: rotate(90deg); }

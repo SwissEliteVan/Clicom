@@ -1,21 +1,21 @@
-﻿---
+---
 // WhatsAppButton.astro
 const waNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '41788238950';
 const pathname = Astro.url.pathname;
 
 const pageMessages: Record<string, string> = {
-  '/creation-site-web/': 'Bonjour, je suis intÃ©ressÃ© par la crÃ©ation d\'un site web avec CLICOM.',
+  '/creation-site-web/': 'Bonjour, je suis intéressé par la création d\'un site web avec CLICOM.',
   '/seo/': 'Bonjour, j\'aimerais en savoir plus sur vos services SEO.',
-  '/referencement-ia/': 'Bonjour, je voudrais discuter du rÃ©fÃ©rencement IA avec CLICOM.',
+  '/referencement-ia/': 'Bonjour, je voudrais discuter du référencement IA avec CLICOM.',
   '/google-ads/': 'Bonjour, je souhaite en savoir plus sur Google Ads avec CLICOM.',
-  '/intelligence-artificielle/': 'Bonjour, je m\'intÃ©resse Ã  vos solutions d\'intelligence artificielle.',
+  '/intelligence-artificielle/': 'Bonjour, je m\'intéresse à vos solutions d\'intelligence artificielle.',
   '/automatisation/': 'Bonjour, je voudrais discuter d\'automatisation avec CLICOM.',
-  '/social-ads/': 'Bonjour, je souhaite en savoir plus sur la publicitÃ© rÃ©seaux sociaux.',
+  '/social-ads/': 'Bonjour, je souhaite en savoir plus sur la publicité réseaux sociaux.',
   '/audit-gratuit/': 'Bonjour, je souhaite demander un audit gratuit de mon site.',
   '/contact/': 'Bonjour, j\'aimerais prendre contact avec CLICOM.',
 };
 
-const defaultMessage = 'Bonjour, j\'aimerais en savoir plus sur vos services numÃ©riques.';
+const defaultMessage = 'Bonjour, j\'aimerais en savoir plus sur vos services numériques.';
 const message = pageMessages[pathname] ?? defaultMessage;
 const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 ---
@@ -46,7 +46,7 @@ const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 <style>
   .wa-btn {
     position: fixed;
-    bottom: 88px;
+    bottom: calc(88px + env(safe-area-inset-bottom));
     right: 24px;
     z-index: var(--z-whatsapp);
     display: flex;
@@ -75,11 +75,10 @@ const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 
   @media (max-width: 680px) {
     .wa-btn {
-      bottom: 20px;
+      bottom: calc(20px + env(safe-area-inset-bottom));
       right: 16px;
       padding: 11px 14px;
     }
     .wa-btn__label { display: none; }
   }
 </style>
-

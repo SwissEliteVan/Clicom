@@ -1,4 +1,4 @@
-﻿import { trackForm } from './analytics';
+import { trackForm } from './analytics';
 
 const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
 
@@ -23,11 +23,15 @@ if (form) {
 
     try {
       const payload = Object.fromEntries(new FormData(form).entries());
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 15_000);
       const response = await fetch(form.action, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
+      window.clearTimeout(timeout);
       const result = await response.json().catch(() => null) as { success?: boolean; message?: string } | null;
 
       if (!response.ok || !result?.success) throw new Error(result?.message || 'Request failed');
@@ -37,8 +41,10 @@ if (form) {
       status.classList.add('is-success');
       trackForm('submit', form.id || undefined);
       try { sessionStorage.setItem('clicom_converted', '1'); } catch {}
-    } catch {
-      status.textContent = 'Une erreur est survenue. Vous pouvez aussi nous écrire à hello@clicom.ch.';
+    } catch (error) {
+      status.textContent = error instanceof DOMException && error.name === 'AbortError'
+        ? 'Le délai d’envoi est dépassé. Réessayez ou écrivez-nous à hello@clicom.ch.'
+        : 'Une erreur est survenue. Vous pouvez aussi nous écrire à hello@clicom.ch.';
       status.classList.add('is-error');
       trackForm('error', form.id || undefined);
     } finally {

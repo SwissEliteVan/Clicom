@@ -1,16 +1,16 @@
-﻿---
+---
 // ExitPopup.astro
 ---
 
 <div id="exit-popup" class="exit-popup" role="dialog" aria-modal="true" aria-label="Avant de partir" hidden>
   <div class="exit-popup__backdrop" id="exit-popup-backdrop"></div>
   <div class="exit-popup__panel">
-    <button type="button" class="exit-popup__close" id="exit-popup-close" aria-label="Fermer">âœ•</button>
+    <button type="button" class="exit-popup__close" id="exit-popup-close" aria-label="Fermer">✕</button>
     <div class="exit-popup__eyebrow">Avant de partir</div>
-    <h2 class="exit-popup__title">Un audit gratuit pour identifier vos <span class="accent">vraies opportunitÃ©s.</span></h2>
-    <p class="exit-popup__text">30 minutes d'analyse de votre prÃ©sence en ligne. Aucun engagement, aucun discours commercial.</p>
+    <h2 class="exit-popup__title">Un audit gratuit pour identifier vos <span class="accent">vraies opportunités.</span></h2>
+    <p class="exit-popup__text">Un court échange pour identifier les opportunités de votre présence en ligne. Aucun engagement.</p>
     <div class="exit-popup__actions">
-      <a href="/audit-gratuit/" class="button button--primary" id="exit-popup-cta">Demander mon audit gratuit â†’</a>
+      <a href="/audit-gratuit/" class="button button--primary" id="exit-popup-cta">Demander mon audit gratuit →</a>
       <button type="button" class="exit-popup__skip" id="exit-popup-skip">Non merci</button>
     </div>
   </div>
@@ -54,13 +54,18 @@
   }
 
   const popup = document.getElementById('exit-popup');
+  let restoreFocus: HTMLElement | null = null;
+
+  function setScrollLock(locked: boolean) { document.body.style.overflow = locked ? 'hidden' : ''; }
 
   function showPopup() {
     if (!popup || !shouldShow() || hasConverted() || hasSessionPopup()) return;
     popup.hidden = false;
+    restoreFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setScrollLock(true);
     markShown();
     trackPopup('exit', 'view');
-    popup.querySelector<HTMLElement>('.exit-popup__panel')?.focus?.();
+    popup.querySelector<HTMLButtonElement>('.exit-popup__close')?.focus();
     // Dispatch so other popups don't show
     window.dispatchEvent(new CustomEvent('clicom:popup-opened', { detail: 'exit' }));
   }
@@ -69,12 +74,15 @@
     if (!popup) return;
     popup.hidden = true;
     if (!converted) trackPopup('exit', 'dismiss');
-    document.body.style.overflow = '';
+    setScrollLock(false);
+    restoreFocus?.focus();
+    restoreFocus = null;
   }
 
   document.getElementById('exit-popup-close')?.addEventListener('click', () => hidePopup());
   document.getElementById('exit-popup-backdrop')?.addEventListener('click', () => hidePopup());
   document.getElementById('exit-popup-skip')?.addEventListener('click', () => hidePopup());
+  window.addEventListener('clicom:close-overlays', () => hidePopup(true));
   document.getElementById('exit-popup-cta')?.addEventListener('click', () => {
     trackPopup('exit', 'convert');
     hidePopup(true);
@@ -82,6 +90,13 @@
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && popup && !popup.hidden) hidePopup();
+    if (e.key !== 'Tab' || !popup || popup.hidden) return;
+    const focusable = [...popup.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
 
   // Desktop: mouseleave to top
@@ -106,7 +121,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
   }
   .exit-popup__backdrop {
     position: absolute;
@@ -122,6 +137,8 @@
     background: white;
     box-shadow: var(--shadow-featured);
     animation: popup-in .28s var(--ease-out);
+    max-height: calc(100dvh - 48px);
+    overflow-y: auto;
   }
   .exit-popup__close {
     position: absolute;
@@ -193,4 +210,3 @@
     to { opacity: 1; transform: none; }
   }
 </style>
-

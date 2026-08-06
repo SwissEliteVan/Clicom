@@ -1,9 +1,8 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Button from '../components/Button.astro';
 import CalendlyButton from '../components/conversion/CalendlyButton.astro';
-const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
 ---
 
 <Layout title="Contact & audit gratuit — Clicom">
@@ -13,7 +12,7 @@ const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
     <div class="container contact-contact">
       <div>
         <div class="eyebrow">Rendez-vous</div>
-        <h2>Un échange de 30 minutes <span class="accent">sans engagement.</span></h2>
+        <h2>Un court échange <span class="accent">sans engagement.</span></h2>
         <p>Présentez votre contexte, vos objectifs et le principal défi à résoudre. Nous préparons un échange ciblé.</p>
         <div class="next-step"><strong>Au programme</strong><p>Nous écoutons votre situation, partageons une première lecture et identifions ensemble les prochaines étapes pertinentes.</p></div>
       </div>
@@ -34,7 +33,7 @@ const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
         <p class="direct-contact"><a href="mailto:hello@clicom.ch"><strong>hello@clicom.ch</strong></a><br /><a href="tel:+41788238950">078 823 89 50</a></p>
         <div class="motif">●────→</div>
       </div>
-      <form class="card form" action="/api/contact" method="post" data-contact-form>
+      <form id="contact-form" class="card form" action="/api/contact" method="post" data-contact-form>
         <div class="form-grid">
           <div class="field"><label for="nom">Nom</label><input id="nom" name="nom" autocomplete="name" maxlength="100" required /></div>
           <div class="field"><label for="entreprise">Entreprise</label><input id="entreprise" name="entreprise" autocomplete="organization" maxlength="120" /></div>

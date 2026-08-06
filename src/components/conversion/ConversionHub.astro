@@ -1,5 +1,5 @@
-﻿---
-// ConversionHub.astro â€” Centralise tous les widgets de conversion
+---
+// ConversionHub.astro — Centralise tous les widgets de conversion
 import CookieBanner from './CookieBanner.astro';
 import WhatsAppButton from './WhatsAppButton.astro';
 import ChatbotWidget from './ChatbotWidget.astro';
@@ -15,17 +15,15 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID ?? '';
 <ExitPopup />
 <ScrollPopup />
 
-<script define:vars={{ gtmId }}>
-  import { initAnalytics } from "../../scripts/analytics";
+<script>
+  import { initAnalytics } from '../../scripts/analytics';
 
   // Reopen consent event for footer link
   document.addEventListener("clicom:reopen-consent", () => {
       window.dispatchEvent(new Event("clicom:open-consent"));
   });
 
-  initAnalytics(gtmId);
+  initAnalytics(document.documentElement.dataset.gtmId ?? '');
   
 </script>
-
-
-
+<script is:inline define:vars={{ gtmId }}>document.documentElement.dataset.gtmId = gtmId;</script>

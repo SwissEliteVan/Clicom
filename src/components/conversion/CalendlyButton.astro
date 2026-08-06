@@ -10,7 +10,7 @@ const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
 )}
 <script>
   import { initCalendlyInline, openCalendlyPopup } from '../../scripts/calendly';
-  document.querySelectorAll<HTMLButtonElement>('[data-calendly-popup]').forEach((button) => button.addEventListener('click', () => void openCalendlyPopup()));
-  document.querySelectorAll<HTMLButtonElement>('[data-calendly-inline-trigger]').forEach((button) => button.addEventListener('click', () => { const container = button.closest<HTMLElement>('[data-calendly-inline]'); if (container) void initCalendlyInline(container); }));
+  document.querySelectorAll<HTMLButtonElement>('[data-calendly-popup]:not([data-calendly-bound])').forEach((button) => { button.dataset.calendlyBound = 'true'; button.addEventListener('click', () => void openCalendlyPopup()); });
+  document.querySelectorAll<HTMLButtonElement>('[data-calendly-inline-trigger]:not([data-calendly-bound])').forEach((button) => { button.dataset.calendlyBound = 'true'; button.addEventListener('click', () => { const container = button.closest<HTMLElement>('[data-calendly-inline]'); if (container) void initCalendlyInline(container); }); });
 </script>
 <style>.calendly-wrap{display:inline-flex}.calendly-wrap--inline{display:block;width:100%}.calendly-inline-container{width:100%;min-width:0}</style>

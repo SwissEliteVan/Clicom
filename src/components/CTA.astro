@@ -53,7 +53,8 @@ const isCalendly = variant === 'calendly';
 
 <script>
   import { trackCTA } from '../scripts/analytics';
-  document.querySelectorAll('[data-cta-label]').forEach(el => {
+  document.querySelectorAll<HTMLElement>('[data-cta-label]:not([data-cta-bound])').forEach(el => {
+    el.dataset.ctaBound = 'true';
     el.addEventListener('click', () => {
       const label = el.getAttribute('data-cta-label') ?? '';
       const href = el.getAttribute('href') ?? '';

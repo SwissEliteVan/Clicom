@@ -6,6 +6,7 @@ export const prerender = false;
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 5;
 const requests = new Map<string, number[]>();
+const MAX_TRACKED_IPS = 2_000;
 
 const limits = {
   nom: 100,
@@ -34,6 +35,9 @@ const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val
 
 const isRateLimited = (ip: string) => {
   const now = Date.now();
+  if (requests.size > MAX_TRACKED_IPS) {
+    for (const [key, timestamps] of requests) if (!timestamps.some((time) => now - time < WINDOW_MS)) requests.delete(key);
+  }
   const recent = (requests.get(ip) ?? []).filter((time) => now - time < WINDOW_MS);
   recent.push(now);
   requests.set(ip, recent);
@@ -116,20 +120,23 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         user: smtpUser,
         pass: smtpPass,
       },
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 15_000,
     });
 
-    await transporter.sendMail({
+    await Promise.race([transporter.sendMail({
       from: emailFrom,
       to: emailTo,
       replyTo: email,
       subject: `Nouvelle demande CLICOM — ${nom}`,
       html,
       text,
-    });
+    }), new Promise<never>((_, reject) => setTimeout(() => reject(new Error('SMTP timeout')), 20_000))]);
 
     return json({ success: true, message: 'Merci. Votre demande a bien été envoyée.' }, 200);
   } catch (error) {
-    console.error('Contact email failed:', error instanceof Error ? error.message : 'Unknown SMTP error');
+    console.error('Contact email failed.');
     return json({ success: false, message: 'Une erreur est survenue lors de l\'envoi.' }, 502);
   }
 };

@@ -30,15 +30,6 @@ function hasAnalyticsConsent(): boolean {
   } catch { return false; }
 }
 
-function hasMarketingConsent(): boolean {
-  try {
-    const raw = localStorage.getItem('clicom_consent');
-    if (!raw) return false;
-    const data: ConsentData = JSON.parse(raw);
-    return data?.marketing === true;
-  } catch { return false; }
-}
-
 // ── DataLayer push ────────────────────────────────────────────────────────────
 
 function pushToDataLayer(event: string, params: EventParams = {}) {

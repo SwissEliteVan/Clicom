@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   color-scheme: light;
 
   /* Color system */
@@ -232,5 +232,3 @@ p { color: var(--color-text-muted); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
-
-

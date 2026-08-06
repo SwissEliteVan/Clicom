@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
@@ -53,18 +53,6 @@ const structuredData = {
   ],
 };
 
-type ServiceIcon = 'search' | 'cursor' | 'chart' | 'globe' | 'automation' | 'target' | 'code' | 'spark';
-interface HomeService { icon: ServiceIcon; title: string; text: string; href: string; class?: string; }
-
-const services: HomeService[] = [
-  { icon: 'code', title: 'Sites web', text: 'Des expériences rapides et convaincantes pensées pour transformer les visiteurs en prospects.', href: '/services#web', class: 'service--wide' },
-  { icon: 'search', title: 'SEO & Référencement IA', text: 'Renforcez votre visibilité sur Google et dans les nouveaux environnements de recherche générative.', href: '/services#seo', class: 'service--tall' },
-  { icon: 'cursor', title: 'Google Ads', text: 'Captez la demande existante avec des campagnes orientées acquisition et rentabilité.', href: '/services#ads' },
-  { icon: 'target', title: 'Publicité sur les réseaux sociaux', text: 'Touchez les bonnes audiences avec des campagnes Meta, LinkedIn et autres plateformes pertinentes.', href: '/services#ads' },
-  { icon: 'spark', title: 'Réseaux sociaux & contenu', text: 'Construisez une présence cohérente avec des contenus pensés pour attirer l\'attention et créer de la confiance.', href: '/services#contenu', class: 'service--wide' },
-  { icon: 'globe', title: 'Intelligence artificielle', text: 'Intégrez l\'IA là où elle améliore réellement vos processus marketing et commerciaux.', href: '/solutions#ia' },
-  { icon: 'automation', title: 'Automatisation & CRM', text: 'Connectez vos prospects, vos e-mails et votre CRM pour réduire les tâches manuelles et améliorer le suivi.', href: '/solutions#crm', class: 'service--dark' },
-];
 ---
 
 <Layout {title} {description} {structuredData}>
@@ -138,7 +126,7 @@ const services: HomeService[] = [
           </div>
           <h3>Sites web</h3>
           <p>Des expériences rapides et convaincantes pensées pour transformer les visiteurs en prospects.</p>
-          <a href="/services#web">Explorer ce service <span aria-hidden="true">→</span></a>
+          <a href="/creation-site-web/">Explorer ce service <span aria-hidden="true">→</span></a>
           <div class="service-signal" aria-hidden="true"><i></i><span></span><b>→</b></div>
         </article>
         <!-- SEO & Référencement IA -->
@@ -150,7 +138,7 @@ const services: HomeService[] = [
           </div>
           <h3>SEO & Référencement IA</h3>
           <p>Renforcez votre visibilité sur Google et dans les nouveaux environnements de recherche générative.</p>
-          <a href="/services#seo">Explorer ce service <span aria-hidden="true">→</span></a>
+          <a href="/seo/">Explorer ce service <span aria-hidden="true">→</span></a>
         </article>
         <!-- Google Ads -->
         <article class="service-card" style={`--service-bg: url(${dashboardCroissance.src})`}>
@@ -161,7 +149,7 @@ const services: HomeService[] = [
           </div>
           <h3>Google Ads</h3>
           <p>Captez la demande existante avec des campagnes orientées acquisition et rentabilité.</p>
-          <a href="/services#ads">Explorer ce service <span aria-hidden="true">→</span></a>
+          <a href="/google-ads/">Explorer ce service <span aria-hidden="true">→</span></a>
         </article>
         <!-- Publicité sur les réseaux sociaux -->
         <article class="service-card" style={`--service-bg: url(${dashboardHolographique.src})`}>
@@ -172,7 +160,7 @@ const services: HomeService[] = [
           </div>
           <h3>Publicité sur les réseaux sociaux</h3>
           <p>Touchez les bonnes audiences avec des campagnes Meta, LinkedIn et autres plateformes pertinentes.</p>
-          <a href="/services#ads">Explorer ce service <span aria-hidden="true">→</span></a>
+          <a href="/google-ads/">Explorer ce service <span aria-hidden="true">→</span></a>
         </article>
         <!-- Réseaux sociaux & contenu -->
         <article class="service-card service--wide" style={`--service-bg: url(${marketingDigital.src})`}>
@@ -183,7 +171,7 @@ const services: HomeService[] = [
           </div>
           <h3>Réseaux sociaux & contenu</h3>
           <p>Construisez une présence cohérente avec des contenus pensés pour attirer l'attention et créer de la confiance.</p>
-          <a href="/services#contenu">Explorer ce service <span aria-hidden="true">→</span></a>
+          <a href="/reseaux-sociaux/">Explorer ce service <span aria-hidden="true">→</span></a>
           <div class="service-signal" aria-hidden="true"><i></i><span></span><b>→</b></div>
         </article>
         <!-- Intelligence artificielle -->
@@ -195,7 +183,7 @@ const services: HomeService[] = [
           </div>
           <h3>Intelligence artificielle</h3>
           <p>Intégrez l'IA là où elle améliore réellement vos processus marketing et commerciaux.</p>
-          <a href="/solutions#ia">Explorer ce service <span aria-hidden="true">→</span></a>
+          <a href="/intelligence-artificielle/">Explorer ce service <span aria-hidden="true">→</span></a>
         </article>
         <!-- Automatisation & CRM -->
         <article class="service-card service--dark" style={`--service-bg: url(${gainTempsAdmin.src})`}>
@@ -206,7 +194,7 @@ const services: HomeService[] = [
           </div>
           <h3>Automatisation & CRM</h3>
           <p>Connectez vos prospects, vos e-mails et votre CRM pour réduire les tâches manuelles et améliorer le suivi.</p>
-          <a href="/solutions#crm">Explorer ce service <span aria-hidden="true">→</span></a>
+          <a href="/automatisation/">Explorer ce service <span aria-hidden="true">→</span></a>
         </article>
       </div>
     </div>
@@ -244,7 +232,7 @@ const services: HomeService[] = [
         <h2 id="visibility-title">La recherche change.<br />Votre visibilité doit évoluer avec elle.</h2>
         <p class="lead">Le SEO améliore votre référencement sur les moteurs de recherche. Le GEO et l'AEO optimisent vos contenus pour les nouvelles réponses générées par l'intelligence artificielle.</p>
         <div class="visibility-tags">{['SEO','GEO','AEO','Recherche','Visibilité IA','Contenu structuré'].map(item => <span>{item}</span>)}</div>
-        <a class="text-link" href="/services#seo">Découvrir le référencement <span>→</span></a>
+        <a class="text-link" href="/seo/">Découvrir le référencement <span>→</span></a>
       </div>
       <div class="visibility__visual">
         <EditorialImage src={referencementVisibilite} alt="Référencement et visibilité web — SEO, GEO, AEO" ratio="3/2" ratioMobile="4/3" position="center" />
@@ -262,7 +250,7 @@ const services: HomeService[] = [
         <div class="feature-grid">
           {['Stratégie','Expérience utilisateur','Adapté à tous les écrans','Performance','SEO technique','Conversion','Suivi des conversions','Sécurité'].map(item => <span><i aria-hidden="true"></i>{item}</span>)}
         </div>
-        <Button href="/services#web" variant="dark">Découvrir les sites web <span aria-hidden="true">→</span></Button>
+        <Button href="/creation-site-web/" variant="dark">Découvrir les sites web <span aria-hidden="true">→</span></Button>
       </div>
       <div class="web-visual">
         <EditorialImage src={creationSiteWeb} alt="Création de site web performant et responsive" ratio="3/2" ratioMobile="4/3" position="center" />
@@ -287,7 +275,7 @@ const services: HomeService[] = [
             <div><small>Intention</small><h3>Google Ads</h3></div>
           </div>
           <ul><li>Réseau de recherche</li><li>Performance Max</li><li>Reciblage</li><li>Suivi des conversions</li><li>Optimisation</li></ul>
-          <a class="text-link" href="/services#ads">Découvrir Google Ads <span>→</span></a>
+          <a class="text-link" href="/google-ads/">Découvrir Google Ads <span>→</span></a>
         </article>
         <div class="funnel" aria-label="Parcours illustratif d'une campagne">
           <span>Campagne</span><i></i><span>Clic</span><i></i><span>Page de conversion</span><i></i><span>Prospect</span><i></i><strong>CRM</strong>
@@ -298,7 +286,7 @@ const services: HomeService[] = [
             <div><small>Audience</small><h3>Publicité sur les réseaux sociaux</h3></div>
           </div>
           <ul><li>Meta Ads</li><li>LinkedIn Ads</li><li>Audiences</li><li>Créations publicitaires</li><li>Reciblage</li></ul>
-          <a class="text-link" href="/services#ads">Découvrir la publicité sociale <span>→</span></a>
+          <a class="text-link" href="/google-ads/">Découvrir la publicité sociale <span>→</span></a>
         </article>
       </div>
     </div>
@@ -311,7 +299,7 @@ const services: HomeService[] = [
         <div class="eyebrow">Automatisation</div>
         <h2 id="automation-title">Votre marketing peut continuer à travailler pendant que vous faites autre chose.</h2>
         <p class="lead">Les automatisations sont conçues selon les besoins réels, les outils disponibles et les contrôles humains nécessaires.</p>
-        <Button href="/solutions#ia">Découvrir l'automatisation <span aria-hidden="true">→</span></Button>
+        <Button href="/intelligence-artificielle/">Découvrir l'automatisation <span aria-hidden="true">→</span></Button>
       </div>
       <div class="automation__visual">
         <EditorialImage src={ecosystemeNumerique} alt="Écosystème numérique connecté — automatisation et CRM" ratio="1/1" ratioMobile="1/1" position="center" />
@@ -344,7 +332,7 @@ const services: HomeService[] = [
         <h2 id="work-title">Des projets présentés avec contexte et transparence.</h2>
         <p>Les réalisations Clicom sont partagées lorsque le contexte, l'approche et les informations publiables permettent de comprendre le travail effectué — sans résultat inventé.</p>
         <div class="button-row">
-          <Button href="/contact#audit">Parler de votre projet <span aria-hidden="true">↗</span></Button>
+          <Button href="/contact/#form">Parler de votre projet <span aria-hidden="true">↗</span></Button>
           <Button href="/realisations" variant="secondary">Notre approche des réalisations</Button>
         </div>
       </div>
@@ -367,7 +355,7 @@ const services: HomeService[] = [
         <div class="eyebrow">Prochaine étape</div>
         <h2 id="final-cta-title">Prêt à accélérer votre croissance ?</h2>
         <p>Parlons de vos objectifs et identifions les leviers numériques les plus pertinents pour votre entreprise.</p>
-        <Button href="/contact#audit">Demander un audit gratuit <span aria-hidden="true">↗</span></Button>
+        <Button href="/contact/#form">Demander un audit gratuit <span aria-hidden="true">↗</span></Button>
       </div>
       <div class="final-cta__contact">
         <div class="cta-motif" aria-hidden="true"><span></span><i></i><b>→</b></div>

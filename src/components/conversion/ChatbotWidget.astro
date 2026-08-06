@@ -1,11 +1,11 @@
-﻿---
-// ChatbotWidget.astro â€” Arbre de dÃ©cision natif (sans LLM)
+---
+// ChatbotWidget.astro — Arbre de décision natif (sans LLM)
 const waNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '41788238950';
 const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
 ---
 
 <div id="chatbot" class="chatbot" aria-live="polite" hidden>
-  <div class="chatbot__window" role="dialog" aria-modal="true" aria-labelledby="chatbot-title">
+  <div class="chatbot__window" role="dialog" aria-labelledby="chatbot-title" tabindex="-1">
     <header class="chatbot__header">
       <div class="chatbot__avatar" aria-hidden="true">
         <span>C</span>
@@ -14,7 +14,7 @@ const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
         <strong id="chatbot-title">Assistant CLICOM</strong>
         <span class="chatbot__status">Guide de navigation</span>
       </div>
-      <button type="button" class="chatbot__close" id="chatbot-close" aria-label="Fermer">âœ•</button>
+      <button type="button" class="chatbot__close" id="chatbot-close" aria-label="Fermer">✕</button>
     </header>
     <div class="chatbot__body" id="chatbot-body" role="log" aria-label="Messages"></div>
     <div class="chatbot__choices" id="chatbot-choices" aria-label="Choix disponibles"></div>
@@ -30,13 +30,23 @@ const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
   <span class="chatbot__trigger-badge" id="chatbot-badge" hidden>1</span>
 </button>
 
-<script define:vars={{ waNumber, calendlyUrl }}>
+<script is:inline define:vars={{ waNumber, calendlyUrl }}>window.__clicomChatbotConfig = { waNumber, calendlyUrl };</script>
+<script>
+
+declare global {
+  interface Window {
+    __clicomChatbotConfig: { waNumber: string; calendlyUrl: string };
+  }
+}
+
+type Choice = { label: string; next?: string; href?: string; action?: 'calendly' | 'whatsapp'; waMsg?: string };
+type ChatNode = { msg: string; choices: Choice[] };
 
 // â”€â”€ Tree structure â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-const WA_URL = `https://wa.me/${waNumber}?text=${encodeURIComponent('Bonjour, j\'aimerais en savoir plus sur vos services CLICOM.')}`;
+const { waNumber, calendlyUrl } = window.__clicomChatbotConfig;
 
-const tree = {
+const tree: Record<string, ChatNode> = {
   root: {
     msg: 'Bonjour ðŸ‘‹ Je peux vous guider vers les bonnes ressources. Quel est votre besoin principal ?',
     choices: [
@@ -128,8 +138,8 @@ let badgeShown = false;
 
 // â”€â”€ Analytics (best-effort) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-function safeTrack(fn, ...args) {
-  try { fn(...args); } catch {}
+function safeTrack(fn: ((action: 'open' | 'path' | 'lead', path?: string) => void) | undefined, action: 'open' | 'path' | 'lead', path?: string) {
+  try { fn?.(action, path); } catch {}
 }
 
 async function getAnalytics() { return import('../../scripts/analytics'); }
@@ -142,7 +152,7 @@ const choicesEl = document.getElementById('chatbot-choices');
 const trigger = document.getElementById('chatbot-trigger');
 const badge = document.getElementById('chatbot-badge');
 
-function addMessage(text, role = 'bot') {
+function addMessage(text: string, role = 'bot') {
   if (!body) return;
   const msg = document.createElement('div');
   msg.className = `chatbot__msg chatbot__msg--${role}`;
@@ -151,7 +161,7 @@ function addMessage(text, role = 'bot') {
   body.scrollTop = body.scrollHeight;
 }
 
-async function renderChoices(nodeKey) {
+async function renderChoices(nodeKey: string) {
   if (!choicesEl) return;
   const node = tree[nodeKey];
   if (!node) return;
@@ -172,7 +182,7 @@ async function renderChoices(nodeKey) {
       } else if (choice.next) {
         if (analytics) safeTrack(analytics.trackChatbot, 'path', choice.next);
         addMessage(choice.label, 'user');
-        setTimeout(() => renderChoices(choice.next), 200);
+        setTimeout(() => renderChoices(choice.next!), 200);
       } else if (choice.action === 'calendly') {
         if (analytics) safeTrack(analytics.trackChatbot, 'lead', 'calendly');
         if (calendlyUrl) {
@@ -202,7 +212,7 @@ async function openChatbot() {
   if (trigger) trigger.setAttribute('aria-expanded', 'true');
   if (badge) badge.hidden = true;
   if (body && body.children.length === 0) renderChoices('root');
-  chatbot.querySelector('.chatbot__window')?.focus?.();
+  chatbot.querySelector<HTMLElement>('.chatbot__close')?.focus();
   const analytics = await getAnalytics();
   if (analytics) safeTrack(analytics.trackChatbot, 'open');
 }
@@ -226,6 +236,7 @@ document.getElementById('chatbot-close')?.addEventListener('click', closeChatbot
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && isOpen) closeChatbot();
 });
+window.addEventListener('clicom:close-overlays', closeChatbot);
 
 // Show badge after 30s if not yet opened
 setTimeout(() => {
@@ -242,7 +253,7 @@ window.addEventListener('clicom:open-chatbot', () => openChatbot());
 <style>
   .chatbot__trigger {
     position: fixed;
-    bottom: 24px;
+    bottom: calc(24px + env(safe-area-inset-bottom));
     left: 24px;
     z-index: var(--z-chatbot);
     display: flex;
@@ -280,7 +291,7 @@ window.addEventListener('clicom:open-chatbot', () => openChatbot());
 
   .chatbot {
     position: fixed;
-    bottom: 88px;
+    bottom: calc(88px + env(safe-area-inset-bottom));
     left: 24px;
     z-index: var(--z-chatbot);
     width: min(360px, calc(100vw - 32px));
@@ -398,11 +409,10 @@ window.addEventListener('clicom:open-chatbot', () => openChatbot());
 
   @media (max-width: 480px) {
     .chatbot {
-      bottom: 80px;
+      bottom: calc(80px + env(safe-area-inset-bottom));
       left: 12px;
       width: calc(100vw - 24px);
     }
-    .chatbot__trigger { left: 16px; bottom: 20px; width: 48px; height: 48px; }
+    .chatbot__trigger { left: 16px; bottom: calc(20px + env(safe-area-inset-bottom)); width: 48px; height: 48px; }
   }
 </style>
-

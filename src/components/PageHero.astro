@@ -13,7 +13,7 @@ interface Props {
   showBand?: boolean;
 }
 
-const { eyebrow, title, intro, secondary, secondaryLabel = 'Découvrir nos services', primary = '/contact#audit', primaryLabel = 'Parler de mon projet →', showBand = true } = Astro.props;
+const { eyebrow, title, intro, secondary, secondaryLabel = 'Découvrir nos services', primary = '/contact/#form', primaryLabel = 'Parler de mon projet →', showBand = true } = Astro.props;
 const bands = {
   Services: { type: 'services' as const, eyebrow: 'Système CLICOM', title: 'Trois forces, une même trajectoire.', text: 'Acquisition, création et technologie deviennent un système cohérent.' },
   'Audit gratuit': { type: 'audit' as const, eyebrow: 'Diagnostic visuel', title: 'Six signaux observés comme un seul système.', text: 'Site, visibilité, acquisition, social, IA et conversion sont reliés sans score artificiel.' },

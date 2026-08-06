@@ -1,11 +1,11 @@
-﻿---
-// CookieBanner.astro â€” Gestion du consentement cookies
+---
+// CookieBanner.astro — Gestion du consentement cookies
 ---
 
 <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-label="Gestion des cookies" hidden>
   <div class="cookie-banner__inner">
     <div class="cookie-banner__text">
-      <p><strong>Cookies et prÃ©fÃ©rences</strong> â€” Ce site utilise des cookies essentiels pour fonctionner. Vous pouvez accepter les cookies d'analyse et de marketing, ou les refuser. Votre choix est enregistrÃ© et peut Ãªtre modifiÃ© Ã  tout moment.</p>
+      <p><strong>Cookies et préférences</strong> — Ce site utilise des cookies essentiels pour fonctionner. Vous pouvez accepter les cookies d'analyse et de marketing, ou les refuser. Votre choix est enregistré et peut être modifié à tout moment.</p>
     </div>
     <div class="cookie-banner__actions">
       <button id="cookie-accept" class="cookie-btn cookie-btn--primary" type="button">Accepter tout</button>
@@ -15,25 +15,25 @@
   </div>
 </div>
 
-<div id="cookie-preferences" class="cookie-prefs" role="dialog" aria-modal="true" aria-label="PrÃ©fÃ©rences de cookies" hidden>
+<div id="cookie-preferences" class="cookie-prefs" role="dialog" aria-modal="true" aria-label="Préférences de cookies" hidden>
   <div class="cookie-prefs__backdrop"></div>
   <div class="cookie-prefs__panel">
     <div class="cookie-prefs__header">
-      <strong>PrÃ©fÃ©rences de cookies</strong>
-      <button class="cookie-prefs__close" id="cookie-prefs-close" aria-label="Fermer" type="button">âœ•</button>
+      <strong>Préférences de cookies</strong>
+      <button class="cookie-prefs__close" id="cookie-prefs-close" aria-label="Fermer" type="button">✕</button>
     </div>
     <div class="cookie-prefs__body">
       <div class="cookie-pref-item">
         <div class="cookie-pref-item__info">
           <strong>Essentiels</strong>
-          <p>Formulaires, sÃ©curitÃ© et navigation de base. Toujours actifs.</p>
+          <p>Formulaires, sécurité et navigation de base. Toujours actifs.</p>
         </div>
-        <div class="cookie-toggle cookie-toggle--locked" aria-label="Toujours actif">âœ“</div>
+        <div class="cookie-toggle cookie-toggle--locked" aria-label="Toujours actif">✓</div>
       </div>
       <div class="cookie-pref-item">
         <div class="cookie-pref-item__info">
           <strong>Analyse</strong>
-          <p>Mesure d'audience anonymisÃ©e pour amÃ©liorer le site (Google Analytics 4).</p>
+          <p>Mesure d'audience anonymisée pour améliorer le site (Google Analytics 4).</p>
         </div>
         <label class="cookie-toggle" aria-label="Cookies d'analyse">
           <input type="checkbox" id="pref-analytics" />
@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="cookie-prefs__footer">
-      <button id="cookie-save-prefs" class="cookie-btn cookie-btn--primary" type="button">Enregistrer mes prÃ©fÃ©rences</button>
+      <button id="cookie-save-prefs" class="cookie-btn cookie-btn--primary" type="button">Enregistrer mes préférences</button>
       <button id="cookie-accept-all-prefs" class="cookie-btn cookie-btn--secondary" type="button">Tout accepter</button>
     </div>
   </div>
@@ -75,11 +75,20 @@ function getConsent(): ConsentData | null {
   } catch { return null; }
 }
 
+let restoreFocus: HTMLElement | null = null;
+let lockedScroll = false;
+
+function setScrollLock(locked: boolean) {
+  if (locked === lockedScroll) return;
+  lockedScroll = locked;
+  document.body.style.overflow = locked ? 'hidden' : '';
+}
+
 function saveConsent(analytics: boolean, marketing: boolean) {
   const data: ConsentData = { essential: true, analytics, marketing, timestamp: Date.now() };
   try { localStorage.setItem(CONSENT_KEY, JSON.stringify(data)); } catch {}
   hideBanner();
-  hidePrefs();
+  hidePrefs(false);
   window.dispatchEvent(new CustomEvent('clicom:consent', { detail: data }));
 }
 
@@ -93,10 +102,13 @@ function showBanner() {
   if (el) el.hidden = false;
 }
 
-function hidePrefs() {
+function hidePrefs(restoreBanner = true) {
   const el = document.getElementById('cookie-preferences');
   if (el) el.hidden = true;
-  document.body.style.overflow = '';
+  setScrollLock(false);
+  restoreFocus?.focus();
+  restoreFocus = null;
+  if (restoreBanner && !getConsent()) showBanner();
 }
 
 function showPrefs() {
@@ -107,8 +119,9 @@ function showPrefs() {
   const marketingBox = el.querySelector<HTMLInputElement>('#pref-marketing');
   if (analyticsBox) analyticsBox.checked = consent?.analytics ?? false;
   if (marketingBox) marketingBox.checked = consent?.marketing ?? false;
+  restoreFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   el.hidden = false;
-  document.body.style.overflow = 'hidden';
+  setScrollLock(true);
   el.querySelector<HTMLButtonElement>('#cookie-prefs-close')?.focus();
 }
 
@@ -120,7 +133,7 @@ function init() {
   document.getElementById('cookie-accept')?.addEventListener('click', () => saveConsent(true, true));
   document.getElementById('cookie-refuse')?.addEventListener('click', () => saveConsent(false, false));
   document.getElementById('cookie-customize')?.addEventListener('click', () => { hideBanner(); showPrefs(); });
-  document.getElementById('cookie-prefs-close')?.addEventListener('click', hidePrefs);
+  document.getElementById('cookie-prefs-close')?.addEventListener('click', () => hidePrefs());
   document.getElementById('cookie-accept-all-prefs')?.addEventListener('click', () => saveConsent(true, true));
   document.getElementById('cookie-save-prefs')?.addEventListener('click', () => {
     const analytics = (document.getElementById('pref-analytics') as HTMLInputElement)?.checked ?? false;
@@ -128,10 +141,10 @@ function init() {
     saveConsent(analytics, marketing);
   });
 
-  document.getElementById('cookie-preferences')?.querySelector('.cookie-prefs__backdrop')?.addEventListener('click', hidePrefs);
+  document.getElementById('cookie-preferences')?.querySelector('.cookie-prefs__backdrop')?.addEventListener('click', () => hidePrefs());
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') hidePrefs();
+    if (e.key === 'Escape' && !document.getElementById('cookie-preferences')?.hidden) hidePrefs();
   });
 
   // Rouvrir depuis footer ou lien externe
@@ -152,7 +165,7 @@ if (document.readyState === 'loading') {
     left: 0;
     right: 0;
     z-index: var(--z-cookie-banner);
-    padding: 18px 24px;
+    padding: 18px 24px calc(18px + env(safe-area-inset-bottom));
     background: var(--color-midnight);
     border-top: 1px solid rgba(255,255,255,.1);
     box-shadow: 0 -8px 32px rgba(0,0,0,.18);
@@ -218,6 +231,9 @@ if (document.readyState === 'loading') {
   .cookie-prefs__panel {
     position: relative;
     width: min(560px, calc(100vw - 32px));
+    max-height: min(720px, calc(100dvh - 32px));
+    display: flex;
+    flex-direction: column;
     border-radius: var(--radius-surface);
     background: white;
     box-shadow: var(--shadow-featured);
@@ -246,7 +262,7 @@ if (document.readyState === 'loading') {
     transition: background var(--transition-fast), color var(--transition-fast);
   }
   .cookie-prefs__close:hover { background: var(--color-border); color: var(--color-midnight); }
-  .cookie-prefs__body { padding: 16px 28px; display: grid; gap: 4px; }
+  .cookie-prefs__body { padding: 16px 28px; display: grid; gap: 4px; overflow-y: auto; }
   .cookie-pref-item {
     display: flex;
     align-items: center;
@@ -303,7 +319,7 @@ if (document.readyState === 'loading') {
   .cookie-prefs__footer {
     display: flex;
     gap: 12px;
-    padding: 20px 28px;
+    padding: 20px 28px calc(20px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--color-border);
     background: var(--color-background);
   }
@@ -322,6 +338,3 @@ if (document.readyState === 'loading') {
     .cookie-prefs__footer .cookie-btn { width: 100%; }
   }
 </style>
-
-
-

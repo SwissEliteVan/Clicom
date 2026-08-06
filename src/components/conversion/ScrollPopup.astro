@@ -1,5 +1,5 @@
-﻿---
-// ScrollPopup.astro â€” dÃ©clenchÃ© Ã  70% scroll sur pages services
+---
+// ScrollPopup.astro — déclenché à 70% scroll sur pages services
 const servicePaths = [
   '/creation-site-web/',
   '/seo/',
@@ -13,15 +13,15 @@ const isServicePage = servicePaths.includes(pathname);
 ---
 
 {isServicePage && (
-<div id="scroll-popup" class="scroll-popup" role="dialog" aria-modal="true" aria-label="Question rapide" hidden>
+<div id="scroll-popup" class="scroll-popup" role="region" aria-label="Question rapide" hidden>
   <div class="scroll-popup__inner">
-    <button type="button" id="scroll-popup-close" class="scroll-popup__close" aria-label="Fermer">âœ•</button>
+    <button type="button" id="scroll-popup-close" class="scroll-popup__close" aria-label="Fermer">✕</button>
     <div class="scroll-popup__content">
       <p class="scroll-popup__question">Des questions sur ce service ?</p>
-      <p class="scroll-popup__sub">Un Ã©change de 15 min suffit souvent Ã  clarifier les prioritÃ©s.</p>
+      <p class="scroll-popup__sub">Un échange de 15 min suffit souvent à clarifier les priorités.</p>
     </div>
     <div class="scroll-popup__actions">
-      <button type="button" class="button button--primary scroll-popup-calendly" id="scroll-popup-rdv">ðŸ“… RÃ©server 15 min</button>
+      <button type="button" class="button button--primary scroll-popup-calendly" id="scroll-popup-rdv">📅 Réserver 15 min</button>
       <a href="/audit-gratuit/" class="button button--secondary" id="scroll-popup-audit">Audit gratuit</a>
     </div>
   </div>
@@ -29,7 +29,7 @@ const isServicePage = servicePaths.includes(pathname);
 )}
 
 <script>
-  import { trackPopup, trackCalendly } from '../../scripts/analytics';
+  import { trackPopup } from '../../scripts/analytics';
 
   const popup = document.getElementById('scroll-popup');
   if (!popup) { /* Not a service page, nothing to do */ }
@@ -62,7 +62,6 @@ const isServicePage = servicePaths.includes(pathname);
 
     document.getElementById('scroll-popup-rdv')?.addEventListener('click', () => {
       trackPopup('scroll', 'convert');
-      trackCalendly('open');
       hidePopup(true);
       if (CALENDLY_URL) {
         import('../../scripts/calendly').then(mod => mod.openCalendlyPopup()).catch(() => {
@@ -81,6 +80,7 @@ const isServicePage = servicePaths.includes(pathname);
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !popup.hidden) hidePopup();
     });
+    window.addEventListener('clicom:close-overlays', () => { if (!popup.hidden) hidePopup(true); });
 
     // Scroll trigger at 70%
     let fired = false;
@@ -104,7 +104,7 @@ const isServicePage = servicePaths.includes(pathname);
 <style>
   .scroll-popup {
     position: fixed;
-    bottom: 24px;
+    bottom: calc(24px + env(safe-area-inset-bottom));
     right: 24px;
     z-index: var(--z-scroll-popup);
     width: min(400px, calc(100vw - 32px));
@@ -166,8 +166,7 @@ const isServicePage = servicePaths.includes(pathname);
     to { opacity: 1; transform: none; }
   }
   @media (max-width: 480px) {
-    .scroll-popup { bottom: 80px; right: 12px; left: 12px; width: auto; }
+    .scroll-popup { bottom: calc(80px + env(safe-area-inset-bottom)); right: 12px; left: 12px; width: auto; }
     .scroll-popup__actions { flex-direction: column; }
   }
 </style>
-

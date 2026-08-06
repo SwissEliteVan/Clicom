@@ -5,7 +5,7 @@ interface Props {
   type?: 'button' | 'submit';
   class?: string;
 }
-const { href, variant = 'primary', type = 'button', class: className = '' } = Astro.props;
+const { href, variant = 'primary', type = 'button', class: className = '', ...attributes } = Astro.props;
 const classes = `button button--${variant} ${className}`;
 ---
-{href ? <a class={classes} href={href}><slot /></a> : <button class={classes} type={type}><slot /></button>}
+{href ? <a {...attributes} class={classes} href={href}><slot /></a> : <button {...attributes} class={classes} type={type}><slot /></button>}

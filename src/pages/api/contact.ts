@@ -94,7 +94,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const emailFrom = import.meta.env.EMAIL_FROM;
   const emailTo = import.meta.env.EMAIL_TO;
 
-  if (!smtpHost || !smtpPort || !smtpUser || !smtpPass || !emailFrom || !emailTo) {
+  if (!smtpHost || !smtpPort || !smtpSecure || !smtpUser || !smtpPass || !emailFrom || !emailTo) {
     console.error('Contact API: missing required SMTP environment variables.');
     return json({ success: false, message: 'Service temporairement indisponible.' }, 503);
   }

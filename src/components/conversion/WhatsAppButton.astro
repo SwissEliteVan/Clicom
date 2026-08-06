@@ -1,6 +1,6 @@
 ---
 // WhatsAppButton.astro
-const waNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '41788238950';
+const waNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '';
 const pathname = Astro.url.pathname;
 
 const pageMessages: Record<string, string> = {

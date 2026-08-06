@@ -8,9 +8,9 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
-    "validate": "astro check && tsc --noEmit && astro build",
-    "build": "astro build",
-    "start": "node ./dist/server/entry.mjs",
+    "validate": "astro check && tsc --noEmit && npm run build",
+    "build": "astro build && node ./scripts/create-hostinger-entry.mjs",
+    "start": "node ./dist/entry.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

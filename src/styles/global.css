@@ -71,6 +71,8 @@
   --z-skip: 1000;
 }
 
+[hidden] { display: none !important; }
+
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 96px; background: var(--color-background); font-family: 'Manrope Variable', Arial, sans-serif; }
 body { margin: 0; min-width: 320px; overflow-x: clip; color: var(--color-text); background: var(--color-background); font-family: inherit; font-size: clamp(1rem, .96rem + .15vw, 1.125rem); line-height: 1.68; letter-spacing: -.01em; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }

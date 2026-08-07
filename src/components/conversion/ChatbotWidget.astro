@@ -407,12 +407,14 @@ window.addEventListener('clicom:open-chatbot', () => openChatbot());
     outline-offset: 2px;
   }
 
-  @media (max-width: 480px) {
+  /* Mobile : le chatbot occupe seul le coin bas droit (WhatsApp flottant est masqué). */
+  @media (max-width: 680px) {
     .chatbot {
-      bottom: calc(80px + env(safe-area-inset-bottom));
-      left: 12px;
+      bottom: calc(76px + env(safe-area-inset-bottom));
+      left: auto;
+      right: 12px;
       width: calc(100vw - 24px);
     }
-    .chatbot__trigger { left: 16px; bottom: calc(20px + env(safe-area-inset-bottom)); width: 48px; height: 48px; }
+    .chatbot__trigger { left: auto; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); width: 52px; height: 52px; }
   }
 </style>

@@ -73,12 +73,8 @@ const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
     overflow: hidden;
   }
 
+  /* Mobile : un seul coin occupé — le chatbot reste seul, WhatsApp est proposé à l'intérieur. */
   @media (max-width: 680px) {
-    .wa-btn {
-      bottom: calc(20px + env(safe-area-inset-bottom));
-      right: 16px;
-      padding: 11px 14px;
-    }
-    .wa-btn__label { display: none; }
+    .wa-btn { display: none; }
   }
 </style>

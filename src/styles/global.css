@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   color-scheme: light;
 
   /* Color system */
@@ -210,22 +210,47 @@ p { color: var(--color-text-muted); }
   .cta-panel { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 900px) {
+  h1 { font-size: clamp(2.2rem, 6vw, 3rem); }
+  h2 { font-size: clamp(1.85rem, 4.4vw, 2.6rem); }
+}
+
 @media (max-width: 680px) {
-  :root { --space-section: clamp(4.5rem, 20vw, 6rem); }
-  html { scroll-padding-top: 78px; }
-  body { font-size: 1rem; }
+  :root { --space-section: clamp(3.25rem, 11vw, 4.5rem); --space-3: 1.25rem; --space-4: 1.5rem; }
+  html { scroll-padding-top: 72px; }
+  body { font-size: 1rem; line-height: 1.6; }
   .container { width: min(calc(100% - 32px), var(--container)); }
   .grid--4, .grid--3, .grid--2, .form-grid { grid-template-columns: 1fr; }
-  h1 { font-size: clamp(2.625rem, 12vw, 3.25rem); }
-  h2 { font-size: clamp(2.25rem, 10vw, 2.8rem); }
+  h1 { margin-bottom: 1.25rem; font-size: clamp(2rem, 8.4vw, 2.45rem); line-height: 1.06; }
+  h2 { margin-bottom: 1rem; font-size: clamp(1.6rem, 6.8vw, 2rem); line-height: 1.1; }
+  h3 { margin-bottom: .625rem; font-size: 1.12rem; }
+  .lead { font-size: 1rem; }
+  .eyebrow { margin-bottom: 1rem; font-size: .7rem; }
+  .section-heading { margin-bottom: 1.75rem; }
+  .section-heading p { font-size: 1rem; }
+  .section--compact { padding-block: 3rem; }
+  .card { padding: 20px; border-radius: 18px; }
+  .icon-box { width: 44px; height: 44px; margin-bottom: 1rem; border-radius: 13px; }
+  .icon-box svg { width: 21px; height: 21px; }
+  .button { min-height: 50px; padding: 13px 20px; }
   .button-row { flex-direction: column; }
   .button-row .button { width: 100%; }
-  .page-hero { padding-block: 4.5rem 5rem; }
-  .page-hero__inner { gap: 42px; }
-  .hero-mark { min-height: 230px; border-radius: 24px; }
-  .hero-mark::before { inset: 18px; }
-  .cta-panel { padding: 34px 24px; border-radius: 24px; }
+  .page-hero { padding-block: 3.5rem 3.75rem; }
+  .page-hero__inner { gap: 26px; }
+  .page-hero__copy p { font-size: 1rem; }
+  .hero-mark { min-height: 180px; border-radius: 20px; }
+  .hero-mark::before { inset: 14px; }
+  .cta-panel { gap: 20px; padding: 26px 20px; border-radius: 20px; }
   .cta-panel .button { width: 100%; }
+  .field input, .field textarea { min-height: 50px; }
+  .field textarea { min-height: 118px; }
+}
+
+@media (max-width: 400px) {
+  .container { width: calc(100% - 28px); }
+  h1 { font-size: 1.92rem; }
+  h2 { font-size: 1.52rem; }
+  .card { padding: 18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

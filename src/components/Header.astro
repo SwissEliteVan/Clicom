@@ -124,37 +124,19 @@ const clicomGroups = [
           <div class="mobile-menu__sublinks">
             <a href="/services">Tous les services <span>→</span></a>
             <a href="/creation-site-web/">Sites web</a>
-            <a href="/seo/">SEO</a>
-            <a href="/referencement-ia/">Référencement IA</a>
+            <a href="/seo/">SEO & référencement IA</a>
             <a href="/google-ads/">Google Ads</a>
-            <a href="/social-ads/">Publicité sur les réseaux sociaux</a>
-            <a href="/reseaux-sociaux/">Gestion des réseaux sociaux</a>
-            <a href="/creation-contenu/">Création de contenu</a>
-            <a href="/branding/">Branding</a>
-            <a href="/intelligence-artificielle/">Intelligence artificielle</a>
-            <a href="/automatisation/">Automatisation</a>
-            <a href="/email-marketing-crm/">CRM & e-mail</a>
+            <a href="/social-ads/">Publicité sociale</a>
+            <a href="/automatisation/">IA & automatisation</a>
           </div>
         </details>
 
         <a class:list={{ active: path.startsWith('/realisations') }} href="/realisations/" aria-current={path.startsWith('/realisations') ? 'page' : undefined}>Réalisations <span>→</span></a>
+        <a class:list={{ active: path.startsWith('/tarifs') }} href="/tarifs/" aria-current={path.startsWith('/tarifs') ? 'page' : undefined}>Tarifs <span>→</span></a>
+        <a class:list={{ active: path.startsWith('/agence') }} href="/agence/" aria-current={path.startsWith('/agence') ? 'page' : undefined}>L'agence <span>→</span></a>
         <a class:list={{ active: path.startsWith('/blog') }} href="/blog/" aria-current={path.startsWith('/blog') ? 'page' : undefined}>Blog <span>→</span></a>
-
-        <details class="mobile-menu__accordion" data-mobile-accordion>
-          <summary aria-expanded="false">CLICOM <span aria-hidden="true">+</span></summary>
-          <div class="mobile-menu__sublinks">
-            <a href="/agence/">L'agence</a>
-            <a href="/methode/">Notre méthode</a>
-            <a href="/solutions/">Solutions</a>
-            <a href="/secteurs/">Secteurs</a>
-            <a href="/ressources/">Ressources</a>
-            <a href="/tarifs/">Tarifs</a>
-            <a href="/faq/">FAQ</a>
-          </div>
-        </details>
-
         <a class:list={{ active: path.startsWith('/contact') }} href="/contact/" aria-current={path.startsWith('/contact') ? 'page' : undefined}>Contact <span>→</span></a>
-        <Button href="/audit-gratuit/">Demander un audit <span aria-hidden="true">→</span></Button>
+        <Button href="/audit-gratuit/">Obtenir mon audit gratuit <span aria-hidden="true">→</span></Button>
       </div>
     </details>
   </div>
@@ -295,10 +277,18 @@ const clicomGroups = [
   }
 
   @media (max-width: 680px) {
-    .header-inner { height: 72px; }
-    .brand__mark { width: 31px; }
-    .brand__name { font-size: 1.5rem; }
-    .mobile-menu__panel { right: -2px; left: -2px; border-radius: 18px; }
+    .header-inner { height: 66px; }
+    .brand__mark { width: 28px; }
+    .brand__name { font-size: 1.35rem; }
+    .mobile-menu > summary { width: 42px; height: 42px; border-radius: 11px; }
+    .mobile-menu__panel { right: -2px; left: -2px; gap: 2px; max-height: calc(100svh - 92px); padding: 12px; border-radius: 18px; }
+    .mobile-menu__top { margin-bottom: 6px; padding: 0 6px 10px; }
+    .mobile-menu__top .brand__name { font-size: 1.15rem; }
+    .mobile-menu__panel > a:not(.button),
+    .mobile-menu__accordion summary { min-height: 44px; padding: 8px 10px; font-size: .97rem; }
+    .mobile-menu__sublinks { padding: 2px 10px 8px; }
+    .mobile-menu__sublinks a { min-height: 38px; font-size: .88rem; }
+    .mobile-menu__panel > :global(.button) { margin-top: 10px; }
   }
 
   :global(body.home-page) .site-header {

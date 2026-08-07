@@ -59,11 +59,12 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
   <!-- Section 1 — Positionnement / Pourquoi Clicom -->
   <section class="home-intro" aria-labelledby="intro-title">
     <div class="container home-intro__grid" data-reveal>
-      <div class="home-intro__index" data-reveal-item><span>01</span><i></i><span>Pourquoi Clicom</span></div>
-      <h2 id="intro-title" data-reveal-item>Le numérique ne devrait pas être une suite d'actions isolées.</h2>
+      <div class="home-intro__index" data-reveal-item><span>01</span><i></i><span>L'agence</span></div>
+      <h2 id="intro-title" data-reveal-item>Une agence, un interlocuteur, un système complet.</h2>
       <div class="home-intro__copy" data-reveal-item>
-        <p>Votre marketing doit générer des clients, pas seulement de la visibilité. Nous concevons des systèmes où chaque point de contact attire, convertit et nourrit le suivant.</p>
-        <a class="text-link" href="/agence">Découvrir Clicom <span>↗</span></a>
+        <p>Site web, référencement, publicité et automatisation sont pilotés au même endroit. Vous gardez un seul contact et une vision claire de ce qui produit des demandes.</p>
+        <p class="home-intro__for"><strong>Pour qui&nbsp;:</strong> PME, indépendants, commerces et services en Suisse romande.</p>
+        <a class="text-link" href="/agence">Découvrir l'agence <span>↗</span></a>
       </div>
     </div>
     <div class="home-intro__visual" data-reveal>
@@ -76,20 +77,20 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
       <div class="problem-system" data-reveal-item>
         <div class="frictions">
           {[
-            ['01','Site internet','Un site qui reçoit des visiteurs mais génère peu de demandes.'],
-            ['02','Visibilité','Des concurrents plus visibles sur Google.'],
-            ['03','Publicité','Des campagnes dont la rentabilité est difficile à mesurer.'],
-            ['04','Prospects','Des demandes qui ne sont pas suivies suffisamment rapidement.'],
-            ['05','Outils','Des outils qui ne communiquent pas entre eux.'],
-            ['06','Temps','Trop de tâches marketing répétitives.'],
+            ['01','Site web','Beaucoup de visites, très peu de demandes.'],
+            ['02','Google','Vos concurrents sortent avant vous.'],
+            ['03','Publicité','Un budget dépensé sans retour mesurable.'],
+            ['04','Suivi','Des demandes traitées trop tard.'],
+            ['05','Outils','Des outils qui ne se parlent pas.'],
+            ['06','Temps','Des tâches répétitives chaque semaine.'],
           ].map(([number,label,text]) => <article><span>{number}</span><small>{label}</small><p>{text}</p></article>)}
         </div>
         <div class="system-answer">
           <div class="answer-mark" aria-hidden="true"><span></span><i></i><b>→</b></div>
-          <span class="tag">Système Clicom</span>
-          <h3>Relier les leviers pour créer un parcours cohérent.</h3>
-          <p>Clicom relie stratégie, acquisition, conversion et automatisation dans un seul système de croissance.</p>
-          <a class="text-link" href="/solutions">Découvrir les solutions <span>→</span></a>
+          <span class="tag">Notre approche</span>
+          <h3>Un parcours continu, de la visite au client.</h3>
+          <p>Nous relions acquisition, conversion et suivi commercial pour que chaque levier alimente le suivant.</p>
+          <a class="text-link" href="/solutions">Voir nos solutions <span>→</span></a>
         </div>
       </div>
     </div>
@@ -99,9 +100,9 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
   <section class="section section--white services" aria-labelledby="services-title">
     <div class="container">
       <div class="section-heading">
-        <div class="eyebrow">Expertises</div>
-        <h2 id="services-title">Tout ce qu'il faut pour accélérer votre croissance en ligne.</h2>
-        <p>Des expertises complémentaires, activées selon vos objectifs plutôt que selon une formule préétablie.</p>
+        <div class="eyebrow">Nos services</div>
+        <h2 id="services-title">Ce que nous faisons pour vous.</h2>
+        <p>Sept expertises activées selon vos objectifs, jamais sous forme de forfait imposé.</p>
       </div>
       <div class="services-bento">
         <!-- Sites web -->
@@ -112,8 +113,8 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
             <span aria-hidden="true" class="service-card__number">01</span>
           </div>
           <h3>Sites web</h3>
-          <p>Des expériences rapides et convaincantes pensées pour transformer les visiteurs en prospects.</p>
-          <a href="/creation-site-web/">Explorer ce service <span aria-hidden="true">→</span></a>
+          <p>Un site rapide, clair et pensé pour transformer vos visiteurs en demandes de contact.</p>
+          <a href="/creation-site-web/">En savoir plus <span aria-hidden="true">→</span></a>
           <div class="service-signal" aria-hidden="true"><i></i><span></span><b>→</b></div>
         </article>
         <!-- SEO & Référencement IA -->
@@ -124,8 +125,8 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
             <span aria-hidden="true" class="service-card__number">02</span>
           </div>
           <h3>SEO & Référencement IA</h3>
-          <p>Renforcez votre visibilité sur Google et dans les nouveaux environnements de recherche générative.</p>
-          <a href="/seo/">Explorer ce service <span aria-hidden="true">→</span></a>
+          <p>Être trouvé sur Google et cité par les moteurs de recherche IA, sur les requêtes qui comptent.</p>
+          <a href="/seo/">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
         <!-- Google Ads -->
         <article class="service-card" style={`--service-bg: url(${dashboardCroissance.src})`}>
@@ -135,8 +136,8 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
             <span aria-hidden="true" class="service-card__number">03</span>
           </div>
           <h3>Google Ads</h3>
-          <p>Captez la demande existante avec des campagnes orientées acquisition et rentabilité.</p>
-          <a href="/google-ads/">Explorer ce service <span aria-hidden="true">→</span></a>
+          <p>Capter la demande déjà existante, avec un coût par demande suivi de près.</p>
+          <a href="/google-ads/">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
         <!-- Publicité sur les réseaux sociaux -->
         <article class="service-card" style={`--service-bg: url(${dashboardHolographique.src})`}>
@@ -145,9 +146,9 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
             <span class="icon-box"><Icon name="target" /></span>
             <span aria-hidden="true" class="service-card__number">04</span>
           </div>
-          <h3>Publicité sur les réseaux sociaux</h3>
-          <p>Touchez les bonnes audiences avec des campagnes Meta, LinkedIn et autres plateformes pertinentes.</p>
-          <a href="/google-ads/">Explorer ce service <span aria-hidden="true">→</span></a>
+          <h3>Publicité sociale</h3>
+          <p>Aller chercher vos futurs clients sur Meta et LinkedIn, avant qu'ils ne cherchent.</p>
+          <a href="/google-ads/">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
         <!-- Réseaux sociaux & contenu -->
         <article class="service-card service--wide" style={`--service-bg: url(${marketingDigital.src})`}>
@@ -157,8 +158,8 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
             <span aria-hidden="true" class="service-card__number">05</span>
           </div>
           <h3>Réseaux sociaux & contenu</h3>
-          <p>Construisez une présence cohérente avec des contenus pensés pour attirer l'attention et créer de la confiance.</p>
-          <a href="/reseaux-sociaux/">Explorer ce service <span aria-hidden="true">→</span></a>
+          <p>Une présence régulière et cohérente qui installe la confiance avant le premier contact.</p>
+          <a href="/reseaux-sociaux/">En savoir plus <span aria-hidden="true">→</span></a>
           <div class="service-signal" aria-hidden="true"><i></i><span></span><b>→</b></div>
         </article>
         <!-- Intelligence artificielle -->
@@ -169,8 +170,8 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
             <span aria-hidden="true" class="service-card__number">06</span>
           </div>
           <h3>Intelligence artificielle</h3>
-          <p>Intégrez l'IA là où elle améliore réellement vos processus marketing et commerciaux.</p>
-          <a href="/intelligence-artificielle/">Explorer ce service <span aria-hidden="true">→</span></a>
+          <p>L'IA appliquée là où elle fait gagner du temps : réponses, contenus, qualification.</p>
+          <a href="/intelligence-artificielle/">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
         <!-- Automatisation & CRM -->
         <article class="service-card service--dark" style={`--service-bg: url(${gainTempsAdmin.src})`}>
@@ -180,11 +181,11 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
             <span aria-hidden="true" class="service-card__number">07</span>
           </div>
           <h3>Automatisation & CRM</h3>
-          <p>Connectez vos prospects, vos e-mails et votre CRM pour réduire les tâches manuelles et améliorer le suivi.</p>
-          <a href="/automatisation/">Explorer ce service <span aria-hidden="true">→</span></a>
+          <p>Chaque demande arrive au bon endroit, relancée automatiquement, sans saisie manuelle.</p>
+          <a href="/automatisation/">En savoir plus <span aria-hidden="true">→</span></a>
         </article>
       </div>
-      <p class="services-audiences"><strong>Pour qui :</strong> PME · Indépendants · Entreprises locales · E-commerce · Immobilier · Services professionnels — <a href="/secteurs/">Voir les secteurs <span>→</span></a></p>
+      <p class="services-audiences"><strong>Secteurs :</strong> commerce local · immobilier · santé · services B2B · e-commerce · artisanat — <a href="/secteurs/">Voir les secteurs <span>→</span></a></p>
     </div>
   </section>
 
@@ -193,20 +194,20 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
     <div class="container">
       <div class="growth__head">
         <div>
-          <div class="eyebrow">Méthode Clicom</div>
-          <h2 id="growth-title">Un système de croissance,<br />pas une collection de prestations.</h2>
+          <div class="eyebrow">Méthode</div>
+          <h2 id="growth-title">Comment nous travaillons.</h2>
         </div>
-        <p>Chaque étape alimente la suivante. Le suivi permet ensuite d'identifier ce qui doit être conservé, corrigé ou renforcé.</p>
+        <p>Quatre étapes, dans cet ordre. Chacune produit un livrable concret et des chiffres que vous pouvez vérifier.</p>
       </div>
       <div class="growth__media" data-reveal>
         <EditorialImage src={expertMarketing} alt="Expert marketing digital analysant des données de performance" ratio="21/9" ratioMobile="4/3" position="center 30%" />
       </div>
       <div class="growth-pipeline">
         {[
-          ['01','Attirer',['Référencement','Publicité','Réseaux sociaux','Contenu']],
-          ['02','Convertir',['Expérience utilisateur','Pages de conversion','Rédaction persuasive','Suivi des conversions']],
-          ['03','Automatiser',['CRM','E-mail','Intelligence artificielle','Automatisations']],
-          ['04','Accélérer',['Données','Tests','Optimisation','Développement']],
+          ['01','Cadrer',['Objectifs chiffrés','Analyse du marché','Audit de l\'existant','Plan d\'action']],
+          ['02','Construire',['Site ou refonte','Pages de conversion','Contenus','Suivi des demandes']],
+          ['03','Diffuser',['SEO','Google Ads','Publicité sociale','Réseaux sociaux']],
+          ['04','Optimiser',['Rapports mensuels','Tests A/B','Automatisation','Ajustements']],
         ].map(([number,title,items], index) => <article><div class="pipeline-index"><span>{number}</span>{index < 3 && <i aria-hidden="true">→</i>}</div><h3>{title}</h3><ul>{(items as string[]).map(item => <li>{item}</li>)}</ul></article>)}
       </div>
     </div>
@@ -217,11 +218,10 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
     <div class="container work__panel">
       <div>
         <div class="eyebrow">Réalisations</div>
-        <h2 id="work-title">Des projets présentés avec contexte et transparence.</h2>
-        <p>Les réalisations Clicom sont partagées lorsque le contexte, l'approche et les informations publiables permettent de comprendre le travail effectué — sans résultat inventé.</p>
+        <h2 id="work-title">Nos projets récents.</h2>
+        <p>Chaque réalisation est présentée avec son contexte, les choix retenus et ce qui a été livré. Nous publions uniquement ce que nos clients nous autorisent à montrer.</p>
         <div class="button-row">
-          <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">↗</span></Button>
-          <Button href="/realisations" variant="secondary">Voir les réalisations</Button>
+          <Button href="/realisations">Voir les projets <span aria-hidden="true">↗</span></Button>
         </div>
       </div>
       <div class="work-gallery">
@@ -235,9 +235,9 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
   <section class="section section--white home-blog" aria-labelledby="blog-title">
     <div class="container">
       <div class="section-heading">
-        <div class="eyebrow">Blog</div>
-        <h2 id="blog-title">Comprendre avant d’accélérer.</h2>
-        <p>SEO, publicité, IA, sites web et conversion : des articles conçus pour passer des questions aux actions utiles.</p>
+        <div class="eyebrow">Ressources</div>
+        <h2 id="blog-title">Ressources utiles.</h2>
+        <p>Nos articles sur le SEO, la publicité, l'IA et la conversion — écrits pour être appliqués.</p>
       </div>
       <div class="home-blog__grid">
         {posts.map((post) => (
@@ -263,9 +263,9 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
       </div>
       <div class="final-cta__copy">
         <div class="eyebrow">Prochaine étape</div>
-        <h2 id="final-cta-title">Prêt à accélérer votre croissance ?</h2>
-        <p>Parlons de vos objectifs et identifions les leviers numériques les plus pertinents pour votre entreprise.</p>
-        <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">↗</span></Button>
+        <h2 id="final-cta-title">Parlons de votre projet.</h2>
+        <p>Décrivez-nous votre situation en quelques lignes. Nous analysons votre présence en ligne et vous indiquons les deux ou trois actions les plus rentables à engager.</p>
+        <Button href="/audit-gratuit/">Obtenir mon audit gratuit <span aria-hidden="true">↗</span></Button>
       </div>
       <div class="final-cta__contact">
         <div class="cta-motif" aria-hidden="true"><span></span><i></i><b>→</b></div>
@@ -396,6 +396,8 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
      INTRO SYSTEM / AUDIENCES STRIP / BLOG
      ============================================= */
   .home-intro__system { margin-top: clamp(48px,7vw,88px); }
+  .home-intro__for { margin-top: 14px; font-size: .94rem; }
+  .home-intro__for strong { color: var(--color-midnight); }
   .services-audiences { margin: 30px 0 0; color: var(--color-text-muted); font-size: .94rem; }
   .services-audiences strong { color: var(--color-midnight); }
   .services-audiences a { color: var(--color-primary); font-weight: 720; }
@@ -434,24 +436,45 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
   }
 
   @media (max-width: 680px) {
-    .home-intro { padding-block: 5.5rem; }
-    .home-intro__grid { grid-template-columns: 1fr; gap: 28px; }
+    .home-intro { padding-block: 3.25rem; }
+    .home-intro__grid { grid-template-columns: 1fr; gap: 16px; }
     .home-intro__copy { grid-column: auto; }
-    .home-intro h2 { font-size: clamp(2.7rem,12vw,4rem); }
-    .home-intro__image-row { grid-template-columns: 1fr; gap: 16px; }
-    .home-intro__image-row :global(.editorial-image) { max-height: 280px; }
-    .frictions,.services-bento,.growth-pipeline { grid-template-columns: 1fr; }
-    .service--wide,.service--dark { grid-column: auto; }
+    .home-intro h2 { font-size: clamp(1.6rem,6.8vw,2rem); }
+    .home-intro__index { margin-bottom: 0; }
+    .home-intro__system { margin-top: 2.25rem; }
+    .home-intro__visual { margin-block: 1.75rem; }
+    .home-intro__image-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .home-intro__image-row :global(.editorial-image) { max-height: 190px; }
+    .frictions,.services-bento,.growth-pipeline { grid-template-columns: 1fr 1fr; }
+    .service--wide,.service--dark,.service--tall { grid-column: auto; grid-row: auto; }
+    .services-bento { gap: 12px; }
+    .service-card { min-height: 0; padding: 18px; border-radius: 16px; }
+    .service-card p { font-size: .88rem; line-height: 1.45; }
+    .service-signal { display: none; }
     .service-card__bg { opacity: .18; }
     .service--dark .service-card__bg { opacity: .24; }
     .final-cta__bg { opacity: .22; }
-    .growth-pipeline article { min-height: 270px; }
-    .pipeline-index { margin-bottom: 38px; }
-    .pipeline-index i { transform: rotate(90deg); }
-    .work__panel { padding: 34px 24px; }
-    .work-gallery { grid-template-columns: 1fr; }
-    .final-cta__panel { padding: 36px 24px; }
+    .frictions article { min-height: 0; padding: 16px; }
+    .frictions article p { font-size: .85rem; line-height: 1.4; }
+    .growth-pipeline article { min-height: 0; padding: 18px; }
+    .growth-pipeline ul { margin-top: 12px; }
+    .growth__head { gap: 14px; margin-bottom: 1.75rem; }
+    .growth__media { margin-block: 1.5rem; }
+    .pipeline-index { margin-bottom: 14px; }
+    .pipeline-index i { display: none; }
+    .system-answer { min-height: 0; padding: 24px 20px; }
+    .work__panel { gap: 22px; padding: 24px 20px; border-radius: 20px; }
+    .work-gallery { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .services-audiences { margin-top: 20px; font-size: .87rem; }
+    .home-blog__more { margin-top: 22px; }
+    .final-cta__panel { gap: 24px; padding: 26px 20px; border-radius: 20px; }
     .final-cta__copy .button { width: 100%; }
+  }
+
+  @media (max-width: 400px) {
+    .services-bento,.frictions,.growth-pipeline { grid-template-columns: 1fr; }
+    .service-card { padding: 16px; }
+    .home-intro__image-row :global(.editorial-image) { max-height: 160px; }
   }
 
 

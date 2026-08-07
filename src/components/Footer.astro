@@ -1,98 +1,119 @@
-﻿---
+---
 const currentYear = new Date().getFullYear();
+
+const servicePillars = [
+  {
+    title: "Cr\u00e9er & convertir",
+    links: [
+      ["/creation-site-web/", "Sites web"],
+      ["/branding/", "Identit\u00e9 de marque"],
+      ["/creation-contenu/", "Cr\u00e9ation de contenu"],
+    ],
+  },
+  {
+    title: "Acqu\u00e9rir",
+    links: [
+      ["/seo/", "SEO & visibilit\u00e9 IA"],
+      ["/google-ads/", "Google Ads"],
+      ["/reseaux-sociaux/", "R\u00e9seaux sociaux"],
+    ],
+  },
+  {
+    title: "Automatiser",
+    links: [
+      ["/automatisation/", "Automatisation & IA"],
+      ["/email-marketing-crm/", "CRM & e-mail"],
+      ["/intelligence-artificielle/", "Intelligence artificielle"],
+    ],
+  },
+];
+
+const clicomLinks = [
+  ["/agence/", "L\u2019agence"],
+  ["/methode/", "Notre m\u00e9thode"],
+  ["/ressources/", "Ressources"],
+  ["/blog/", "Blog"],
+  ["/realisations/", "R\u00e9alisations"],
+  ["/faq/", "FAQ"],
+  ["/tarifs/", "Tarifs"],
+];
 ---
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-grid">
+    <div class="footer-top">
       <div class="footer-brand">
         <a class="brand" href="/" aria-label="Clicom, accueil">
-          <span class="brand__mark" aria-hidden="true"><i></i><b>→</b></span>
+          <span class="brand__mark" aria-hidden="true"><i></i><b>&#8594;</b></span>
           <span class="brand__name">clicom<span>.</span></span>
         </a>
-        <p class="footer-tagline">Agence digitale indépendante.<br />Stratégie, création, performance.</p>
-        <div class="footer-cta">
-          <a href="/audit-gratuit/" class="button">Demander un audit gratuit <span aria-hidden="true">→</span></a>
-        </div>
+        <p class="footer-tagline">Agence digitale ind&eacute;pendante.<br />Strat&eacute;gie, cr&eacute;ation, performance.</p>
+        <a href="/audit-gratuit/" class="button footer-cta">Demander un audit gratuit <span aria-hidden="true">&#8594;</span></a>
       </div>
+    </div>
 
-      <div class="footer-col">
+    <div class="footer-grid">
+      <div class="footer-col footer-col--services">
         <span class="footer-heading">Services</span>
-        <a href="/services/">Tous les services</a>
-        <a href="/creation-site-web/">Création de sites web</a>
-        <a href="/seo/">SEO</a>
-        <a href="/referencement-ia/">Référencement IA</a>
-        <a href="/google-ads/">Google Ads</a>
-        <a href="/social-ads/">Publicité sur les réseaux sociaux</a>
-        <a href="/reseaux-sociaux/">Gestion des réseaux sociaux</a>
-        <a href="/creation-contenu/">Création de contenu</a>
-        <a href="/branding/">Branding</a>
-        <a href="/intelligence-artificielle/">Intelligence artificielle</a>
-        <a href="/automatisation/">Automatisation</a>
-        <a href="/email-marketing-crm/">CRM & e-mail</a>
-      </div>
-
-      <div class="footer-col">
-        <span class="footer-heading">Contenu</span>
-        <a href="/blog/">Blog</a>
-        <a href="/ressources/">Ressources</a>
-        <a href="/faq/">FAQ</a>
-        <a href="/tarifs/">Tarifs</a>
+        <a href="/services/" class="footer-all">Tous les services <span aria-hidden="true">&#8594;</span></a>
+        {servicePillars.map((pillar) => (
+          <div class="footer-pillar">
+            <span class="footer-pillar__title">{pillar.title}</span>
+            {pillar.links.map(([href, label]) => <a href={href}>{label}</a>)}
+          </div>
+        ))}
       </div>
 
       <div class="footer-col">
         <span class="footer-heading">CLICOM</span>
-        <a href="/agence/">L'agence</a>
-        <a href="/methode/">Notre méthode</a>
-        <a href="/solutions/">Solutions</a>
-        <a href="/realisations/">Réalisations</a>
-        <a href="/secteurs/">Secteurs</a>
-        <a href="/contact/">Contact</a>
-        <a href="/audit-gratuit/">Audit gratuit</a>
+        {clicomLinks.map(([href, label]) => <a href={href}>{label}</a>)}
       </div>
 
-      <div class="footer-col footer-col--legal">
-        <span class="footer-heading">Légal</span>
-        <a href="/mentions-legales/">Mentions légales</a>
-        <a href="/politique-de-confidentialite/">Politique de confidentialité</a>
-        <button type="button" class="footer-cookie-btn" id="footer-reopen-cookies">Gérer mes cookies</button>
+      <div class="footer-col footer-col--contact">
+        <span class="footer-heading">Contact</span>
+        <a href="/contact/">Nous contacter</a>
         <a href="https://wa.me/41788238950" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <button type="button" class="footer-cookie-btn" id="footer-reopen-cookies">G&eacute;rer mes cookies</button>
+        <a href="/mentions-legales/">Mentions l&eacute;gales</a>
+        <a href="/politique-de-confidentialite/">Politique de confidentialit&eacute;</a>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; {currentYear} Clicom. Tous droits réservés.</p>
+      <p>&copy; {currentYear} Clicom. Tous droits r&eacute;serv&eacute;s.</p>
       <p class="footer-bottom__links">
-        <a href="/mentions-legales/">Mentions légales</a>
-        <span aria-hidden="true">·</span>
-        <a href="/politique-de-confidentialite/">Politique de confidentialité</a>
+        <a href="/mentions-legales/">Mentions l&eacute;gales</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="/politique-de-confidentialite/">Politique de confidentialit&eacute;</a>
       </p>
     </div>
   </div>
 </footer>
 
 <script>
-  document.getElementById('footer-reopen-cookies')?.addEventListener('click', () => {
-    window.dispatchEvent(new CustomEvent('clicom:reopen-consent'));
+  document.getElementById("footer-reopen-cookies")?.addEventListener("click", () => {
+    window.dispatchEvent(new CustomEvent("clicom:reopen-consent"));
   });
 </script>
 
 <style>
-  .site-footer {
-    margin-top: auto;
-    padding: 80px 0 0;
-    background: var(--color-midnight);
-    color: rgba(247, 249, 252, 0.75);
-  }
-  .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 40px; padding-bottom: 60px; border-bottom: 1px solid rgba(247, 249, 252, 0.1); }
-  .footer-brand .brand { display: inline-flex; align-items: center; gap: 11px; margin-bottom: 16px; }
+  .site-footer { margin-top: auto; padding: 72px 0 0; background: var(--color-midnight); color: rgba(247, 249, 252, 0.75); }
+  .footer-top { padding-bottom: 40px; border-bottom: 1px solid rgba(247, 249, 252, 0.1); }
+  .footer-brand { display: flex; flex-direction: column; gap: 16px; max-width: 440px; }
+  .footer-brand .brand { display: inline-flex; align-items: center; gap: 11px; }
+  .footer-tagline { margin: 0; color: rgba(247, 249, 252, 0.6); font-size: .95rem; line-height: 1.5; }
+  .footer-cta { align-self: flex-start; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px 40px; padding: 52px 0 56px; }
   .footer-col { display: flex; flex-direction: column; gap: 10px; }
-  .footer-col a, .footer-cookie-btn { color: rgba(247, 249, 252, 0.7); font-size: 0.86rem; font-weight: 600; transition: color var(--transition-fast), transform var(--transition-fast); }
+  .footer-heading { display: block; margin-bottom: 4px; color: rgba(247, 249, 252, 0.5); font-size: .68rem; font-weight: 780; letter-spacing: .14em; text-transform: uppercase; }
+  .footer-col a, .footer-cookie-btn { color: rgba(247, 249, 252, 0.72); font-size: .86rem; font-weight: 600; transition: color var(--transition-fast), transform var(--transition-fast); }
   .footer-col a:hover, .footer-cookie-btn:hover { color: white; transform: translateX(3px); }
-  .footer-col--legal a, .footer-cookie-btn { font-size: 0.8rem; color: rgba(247, 249, 252, 0.5); }
+  .footer-all { color: var(--color-cyan); font-weight: 720; }
+  .footer-pillar { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; }
+  .footer-pillar__title { display: block; margin-bottom: 2px; color: rgba(247, 249, 252, 0.55); font-size: .72rem; font-weight: 720; letter-spacing: .1em; text-transform: uppercase; }
   .footer-cookie-btn { background: none; border: none; cursor: pointer; text-align: left; padding: 0; font-family: inherit; }
-  .footer-cookie-btn:hover { color: white; }
-  .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; font-size: 0.8rem; color: rgba(247, 249, 252, 0.45); }
-  @media (max-width: 1100px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
-  @media (max-width: 680px) { .footer-grid { grid-template-columns: 1fr; gap: 28px; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-top: 1px solid rgba(247, 249, 252, 0.1); font-size: .8rem; color: rgba(247, 249, 252, 0.45); }
+  .footer-bottom__links { display: flex; gap: 10px; }
+  @media (max-width: 1100px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-col--services { grid-column: 1 / -1; } }
+  @media (max-width: 680px) { .footer-grid { grid-template-columns: 1fr; gap: 28px; } .footer-bottom { flex-direction: column; gap: 8px; text-align: center; } .footer-bottom__links { justify-content: center; } }
 </style>

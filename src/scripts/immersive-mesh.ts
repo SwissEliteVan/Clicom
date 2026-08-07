@@ -74,6 +74,7 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
         vec2 pointer = (uPointer - .5) * vec2(.16, .1);
 
         p.x += p.y * .31;
+        ${mobileScene ? 'p.y -= .42;' : ''}
         float field = flow(p * 1.12 + pointer, t);
         float ripple = sin(p.x * 6.4 - t * 2.1 + p.y * 3.1) * .5 + .5;
         float surface = field * .84 + ripple * .16;
@@ -95,11 +96,11 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
 
         float highlight = pow(max(0.0, 1.0 - abs(ribbonAxis + .12 - surface * .42) * 5.5), 14.0);
         color += mix(cyan, vec3(1.0), .5) * highlight * .92;
-        float halo = exp(-length(p - vec2(.74 + pointer.x * .5, .34 + pointer.y * .5)) * 1.45);
-        color += mix(electric, cyan, .35) * halo * .26;
+        float halo = exp(-length(p - vec2(${mobileScene ? '.28' : '.74'} + pointer.x * .5, ${mobileScene ? '.52' : '.34'} + pointer.y * .5)) * ${mobileScene ? '1.15' : '1.45'});
+        color += mix(electric, cyan, .35) * halo * ${mobileScene ? '.34' : '.26'};
 
-        float calmZone = smoothstep(-1.35, -.05, p.x);
-        color = mix(lift, color, .34 + .66 * calmZone);
+        float calmZone = ${mobileScene ? 'smoothstep(-1.6, -.9, p.y)' : 'smoothstep(-1.35, -.05, p.x)'};
+        color = mix(lift, color, ${mobileScene ? '.62 + .38' : '.34 + .66'} * calmZone);
         color *= .985 + hash(gl_FragCoord.xy + uTime) * .03;
         gl_FragColor = vec4(color, 1.0);
       }
@@ -132,8 +133,8 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
     renderer.setSize(width, height);
     resolutionUniform[0] = gl.canvas.width;
     resolutionUniform[1] = gl.canvas.height;
-    frameScaleUniform[0] = mobileScene ? (width <= 480 ? .86 : .94) : 1;
-    frameScaleUniform[1] = mobileScene ? (width <= 480 ? .48 : .72) : 1;
+    frameScaleUniform[0] = mobileScene ? (width <= 480 ? .62 : .78) : 1;
+    frameScaleUniform[1] = mobileScene ? (width <= 480 ? .74 : .82) : 1;
   };
 
   const render = (now: number) => {
@@ -141,8 +142,8 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
     if (!inViewport || document.hidden || disposed) return;
     if (mobileScene) {
       const elapsed = (now - start) / 1000;
-      target.x = mobileOrigin.x + Math.sin(elapsed * .18) * .045;
-      target.y = mobileOrigin.y + Math.cos(elapsed * .14) * .03;
+      target.x = mobileOrigin.x + Math.sin(elapsed * .26) * .11;
+      target.y = mobileOrigin.y + Math.cos(elapsed * .21) * .08;
     }
     pointer.x += (target.x - pointer.x) * .025;
     pointer.y += (target.y - pointer.y) * .025;

@@ -4,7 +4,6 @@ import CookieBanner from './CookieBanner.astro';
 import WhatsAppButton from './WhatsAppButton.astro';
 import ChatbotWidget from './ChatbotWidget.astro';
 import ExitPopup from './ExitPopup.astro';
-import ScrollPopup from './ScrollPopup.astro';
 
 const gtmId = import.meta.env.PUBLIC_GTM_ID ?? '';
 ---
@@ -13,7 +12,6 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID ?? '';
 <WhatsAppButton />
 <ChatbotWidget />
 <ExitPopup />
-<ScrollPopup />
 
 <script>
   import { initAnalytics } from '../../scripts/analytics';

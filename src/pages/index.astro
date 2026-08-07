@@ -4,6 +4,7 @@ import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 import HomeHero from '../components/home/HomeHero.astro';
 import HomeFAQ from '../components/home/HomeFAQ.astro';
+import { getCollection } from 'astro:content';
 import EditorialImage from '../components/EditorialImage.astro';
 
 // Images pour la homepage
@@ -19,11 +20,7 @@ import aiEditorial from '../assets/editorial/ai-editorial.webp';
 import portfolioNatPatoune from '../assets/editorial/portfolio-nat-patoune.webp';
 import portfolioRikunali from '../assets/editorial/portfolio-rikunali.webp';
 import bureauFlatlay from '../assets/editorial/bureau-flatlay-document.png';
-import ecosystemeNumerique from '../assets/editorial/ecosysteme-numerique.png';
-import referencementVisibilite from '../assets/editorial/referencement-visibilite-web.png';
-import creationSiteWeb from '../assets/editorial/creation-site-web-performant.png';
 import marketingDigital from '../assets/editorial/marketing-digital-strategie.jpg';
-import avisPositif from '../assets/editorial/avis-positif-boutique-geneve-augmentation-ventes-nfc.png';
 
 const title = 'Clicom | Agence numérique suisse — Web, SEO, Ads & IA';
 const description = 'Clicom accompagne les entreprises avec des sites web performants, du SEO, Google Ads, Publicité sur les réseaux sociaux et des solutions d\'intelligence artificielle et d\'automatisation.';
@@ -53,18 +50,19 @@ const structuredData = {
   ],
 };
 
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
 ---
 
 <Layout {title} {description} {structuredData}>
   <HomeHero />
 
-  <!-- Section 1 — Introduction / Approche -->
+  <!-- Section 1 — Positionnement / Pourquoi Clicom -->
   <section class="home-intro" aria-labelledby="intro-title">
     <div class="container home-intro__grid" data-reveal>
-      <div class="home-intro__index" data-reveal-item><span>01</span><i></i><span>Notre approche</span></div>
+      <div class="home-intro__index" data-reveal-item><span>01</span><i></i><span>Pourquoi Clicom</span></div>
       <h2 id="intro-title" data-reveal-item>Le numérique ne devrait pas être une suite d'actions isolées.</h2>
       <div class="home-intro__copy" data-reveal-item>
-        <p>Nous concevons des systèmes où chaque point de contact attire, convertit et nourrit le suivant.</p>
+        <p>Votre marketing doit générer des clients, pas seulement de la visibilité. Nous concevons des systèmes où chaque point de contact attire, convertit et nourrit le suivant.</p>
         <a class="text-link" href="/agence">Découvrir Clicom <span>↗</span></a>
       </div>
     </div>
@@ -74,18 +72,7 @@ const structuredData = {
         <EditorialImage src={consultantStrategie} alt="Consultant digital en stratégie de croissance" ratio="3/2" ratioMobile="4/3" position="center" />
       </div>
     </div>
-  </section>
-
-  <!-- Section 2 — Problème / Système Clicom -->
-  <section class="section problem" aria-labelledby="problem-title">
-    <div class="container" data-reveal>
-      <div class="problem__heading" data-reveal-item>
-        <div>
-          <div class="eyebrow">Le problème</div>
-          <h2 id="problem-title">Votre marketing doit générer des clients.<br /><span class="accent">Pas seulement de la visibilité.</span></h2>
-        </div>
-        <p>Une présence en ligne ne suffit pas si elle n'attire pas les bonnes personnes, ne transforme pas les visiteurs en prospects et ne permet pas de suivre les opportunités commerciales.</p>
-      </div>
+    <div class="container home-intro__system" data-reveal>
       <div class="problem-system" data-reveal-item>
         <div class="frictions">
           {[
@@ -108,7 +95,7 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Section 3 — Expertises / Services (Bento Grid) -->
+  <!-- Section 2 — Services (Bento Grid) -->
   <section class="section section--white services" aria-labelledby="services-title">
     <div class="container">
       <div class="section-heading">
@@ -197,10 +184,11 @@ const structuredData = {
           <a href="/automatisation/">Explorer ce service <span aria-hidden="true">→</span></a>
         </article>
       </div>
+      <p class="services-audiences"><strong>Pour qui :</strong> PME · Indépendants · Entreprises locales · E-commerce · Immobilier · Services professionnels — <a href="/secteurs/">Voir les secteurs <span>→</span></a></p>
     </div>
   </section>
 
-  <!-- Section 4 — Méthode Clicom -->
+  <!-- Section 3 — Méthode Clicom -->
   <section class="section growth" aria-labelledby="growth-title">
     <div class="container">
       <div class="growth__head">
@@ -224,107 +212,7 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Section 5 — SEO / Visibilité IA -->
-  <section class="section section--dark visibility" aria-labelledby="visibility-title">
-    <div class="container visibility__layout">
-      <div class="visibility__copy">
-        <div class="eyebrow">Visibilité 2026</div>
-        <h2 id="visibility-title">La recherche change.<br />Votre visibilité doit évoluer avec elle.</h2>
-        <p class="lead">Le SEO améliore votre référencement sur les moteurs de recherche. Le GEO et l'AEO optimisent vos contenus pour les nouvelles réponses générées par l'intelligence artificielle.</p>
-        <div class="visibility-tags">{['SEO','GEO','AEO','Recherche','Visibilité IA','Contenu structuré'].map(item => <span>{item}</span>)}</div>
-        <a class="text-link" href="/seo/">Découvrir le référencement <span>→</span></a>
-      </div>
-      <div class="visibility__visual">
-        <EditorialImage src={referencementVisibilite} alt="Référencement et visibilité web — SEO, GEO, AEO" ratio="3/2" ratioMobile="4/3" position="center" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 6 — Sites web -->
-  <section class="section web-section" aria-labelledby="web-title">
-    <div class="container web-layout">
-      <div class="web-copy">
-        <div class="eyebrow">Sites web</div>
-        <h2 id="web-title">Votre site ne doit pas seulement être beau.<br /><span class="accent">Il doit convertir.</span></h2>
-        <p>La création web associe clarté du message, qualité de l'expérience et fondations techniques solides.</p>
-        <div class="feature-grid">
-          {['Stratégie','Expérience utilisateur','Adapté à tous les écrans','Performance','SEO technique','Conversion','Suivi des conversions','Sécurité'].map(item => <span><i aria-hidden="true"></i>{item}</span>)}
-        </div>
-        <Button href="/creation-site-web/" variant="dark">Découvrir les sites web <span aria-hidden="true">→</span></Button>
-      </div>
-      <div class="web-visual">
-        <EditorialImage src={creationSiteWeb} alt="Création de site web performant et responsive" ratio="3/2" ratioMobile="4/3" position="center" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 7 — Google Ads / Acquisition -->
-  <section class="section section--white ads" aria-labelledby="ads-title">
-    <div class="container">
-      <div class="ads__heading">
-        <div>
-          <div class="eyebrow">Acquisition payante</div>
-          <h2 id="ads-title">Achetez de la visibilité.<br /><span class="accent">Mesurez de la performance.</span></h2>
-        </div>
-        <p>Chaque campagne doit relier une audience, une intention, une création, une page et un suivi exploitable.</p>
-      </div>
-      <div class="ads-grid">
-        <article>
-          <div class="ads-card__head">
-            <span class="icon-box"><Icon name="search" /></span>
-            <div><small>Intention</small><h3>Google Ads</h3></div>
-          </div>
-          <ul><li>Réseau de recherche</li><li>Performance Max</li><li>Reciblage</li><li>Suivi des conversions</li><li>Optimisation</li></ul>
-          <a class="text-link" href="/google-ads/">Découvrir Google Ads <span>→</span></a>
-        </article>
-        <div class="funnel" aria-label="Parcours illustratif d'une campagne">
-          <span>Campagne</span><i></i><span>Clic</span><i></i><span>Page de conversion</span><i></i><span>Prospect</span><i></i><strong>CRM</strong>
-        </div>
-        <article>
-          <div class="ads-card__head">
-            <span class="icon-box"><Icon name="cursor" /></span>
-            <div><small>Audience</small><h3>Publicité sur les réseaux sociaux</h3></div>
-          </div>
-          <ul><li>Meta Ads</li><li>LinkedIn Ads</li><li>Audiences</li><li>Créations publicitaires</li><li>Reciblage</li></ul>
-          <a class="text-link" href="/google-ads/">Découvrir la publicité sociale <span>→</span></a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 8 — Automatisation -->
-  <section class="section automation" aria-labelledby="automation-title">
-    <div class="container automation__layout">
-      <div class="automation__copy">
-        <div class="eyebrow">Automatisation</div>
-        <h2 id="automation-title">Votre marketing peut continuer à travailler pendant que vous faites autre chose.</h2>
-        <p class="lead">Les automatisations sont conçues selon les besoins réels, les outils disponibles et les contrôles humains nécessaires.</p>
-        <Button href="/intelligence-artificielle/">Découvrir l'automatisation <span aria-hidden="true">→</span></Button>
-      </div>
-      <div class="automation__visual">
-        <EditorialImage src={ecosystemeNumerique} alt="Écosystème numérique connecté — automatisation et CRM" ratio="1/1" ratioMobile="1/1" position="center" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 9 — Pour qui (Audiences) -->
-  <section class="section section--white audiences" aria-labelledby="audience-title">
-    <div class="container">
-      <div class="section-heading section-heading--center">
-        <div class="eyebrow">Pour qui</div>
-        <h2 id="audience-title">Pensé pour les entreprises qui veulent accélérer.</h2>
-        <p>L'approche s'adapte au niveau de maturité, aux ressources et aux priorités de chaque organisation.</p>
-      </div>
-      <div class="audience-grid">
-        {['PME','Indépendants','Entreprises locales','E-commerce','Immobilier','Services professionnels'].map((item,index) => <div><span>0{index+1}</span><strong>{item}</strong><i aria-hidden="true">→</i></div>)}
-      </div>
-      <div class="audience-visual" data-reveal>
-        <EditorialImage src={avisPositif} alt="Avis positif d'une boutique genevoise — augmentation des ventes" ratio="21/9" ratioMobile="4/3" position="center" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 10 — Réalisations -->
+  <!-- Section 4 — Réalisations -->
   <section class="section work" aria-labelledby="work-title">
     <div class="container work__panel">
       <div>
@@ -332,8 +220,8 @@ const structuredData = {
         <h2 id="work-title">Des projets présentés avec contexte et transparence.</h2>
         <p>Les réalisations Clicom sont partagées lorsque le contexte, l'approche et les informations publiables permettent de comprendre le travail effectué — sans résultat inventé.</p>
         <div class="button-row">
-          <Button href="/contact/#form">Parler de votre projet <span aria-hidden="true">↗</span></Button>
-          <Button href="/realisations" variant="secondary">Notre approche des réalisations</Button>
+          <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">↗</span></Button>
+          <Button href="/realisations" variant="secondary">Voir les réalisations</Button>
         </div>
       </div>
       <div class="work-gallery">
@@ -343,9 +231,31 @@ const structuredData = {
     </div>
   </section>
 
+  <!-- Section 5 — Blog / Expertise -->
+  <section class="section section--white home-blog" aria-labelledby="blog-title">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Blog</div>
+        <h2 id="blog-title">Comprendre avant d’accélérer.</h2>
+        <p>SEO, publicité, IA, sites web et conversion : des articles conçus pour passer des questions aux actions utiles.</p>
+      </div>
+      <div class="home-blog__grid">
+        {posts.map((post) => (
+          <article class="card card--interactive">
+            <div class="post-meta"><span>{post.data.category}</span><time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('fr-CH', { day: 'numeric', month: 'short', year: 'numeric' })}</time></div>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <a class="text-link" href={'/blog/' + post.id + '/'}>Lire l’article <span>→</span></a>
+          </article>
+        ))}
+      </div>
+      <p class="home-blog__more"><a class="text-link" href="/blog/">Voir tous les articles <span>→</span></a></p>
+    </div>
+  </section>
+
   <HomeFAQ />
 
-  <!-- Section 11 — CTA Final -->
+  <!-- Section 6 — CTA Final -->
   <section class="final-cta" aria-labelledby="final-cta-title">
     <div class="container final-cta__panel">
       <div class="final-cta__bg" aria-hidden="true">
@@ -355,7 +265,7 @@ const structuredData = {
         <div class="eyebrow">Prochaine étape</div>
         <h2 id="final-cta-title">Prêt à accélérer votre croissance ?</h2>
         <p>Parlons de vos objectifs et identifions les leviers numériques les plus pertinents pour votre entreprise.</p>
-        <Button href="/contact/#form">Demander un audit gratuit <span aria-hidden="true">↗</span></Button>
+        <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">↗</span></Button>
       </div>
       <div class="final-cta__contact">
         <div class="cta-motif" aria-hidden="true"><span></span><i></i><b>→</b></div>
@@ -385,9 +295,9 @@ const structuredData = {
   /* =============================================
      PROBLEM
      ============================================= */
-  .problem__heading, .growth__head, .ads__heading { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(280px,.65fr); align-items: end; gap: clamp(40px,8vw,110px); margin-bottom: clamp(48px,7vw,80px); }
-  .problem__heading h2, .growth__head h2, .ads__heading h2 { margin-bottom: 0; }
-  .problem__heading > p, .growth__head > p, .ads__heading > p { margin-bottom: 5px; }
+  .growth__head { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(280px,.65fr); align-items: end; gap: clamp(40px,8vw,110px); margin-bottom: clamp(48px,7vw,80px); }
+  .growth__head h2 { margin-bottom: 0; }
+  .growth__head > p { margin-bottom: 5px; }
   .problem-system { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(320px,.65fr); gap: 24px; }
   .frictions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border: 1px solid var(--color-border); border-radius: var(--radius-surface); overflow: hidden; background: var(--color-border); gap: 1px; }
   .frictions article { position: relative; min-height: 175px; padding: 28px; background: white; }
@@ -456,64 +366,6 @@ const structuredData = {
   .growth-pipeline article:last-child li { color: var(--color-dark-muted); }
 
   /* =============================================
-     VISIBILITY
-     ============================================= */
-  .visibility__layout, .web-layout, .automation__layout { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: center; gap: clamp(64px,9vw,130px); }
-  .visibility-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0 10px; }
-  .visibility-tags span { padding: 8px 12px; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; color: var(--color-dark-muted); background: rgba(255,255,255,.04); font-size: .72rem; }
-  .visibility .text-link { color: var(--color-cyan); }
-  .visibility__visual :global(.editorial-image) { border-radius: var(--radius-surface); }
-
-  /* =============================================
-     WEB SECTION
-     ============================================= */
-  .web-section { position: relative; overflow: hidden; }
-  .web-copy { position: relative; z-index: 1; }
-  .feature-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 13px; margin: 32px 0 38px; }
-  .feature-grid span { display: flex; align-items: center; gap: 10px; color: var(--color-midnight); font-size: .83rem; font-weight: 660; }
-  .feature-grid i { width: 7px; height: 7px; border-radius: 50%; background: var(--color-primary); box-shadow: 0 0 0 4px rgba(36,87,255,.08); }
-  .web-visual :global(.editorial-image) { border-radius: var(--radius-surface); box-shadow: var(--shadow-featured); }
-
-  /* =============================================
-     ADS
-     ============================================= */
-  .ads-grid { display: grid; grid-template-columns: 1fr 190px 1fr; align-items: stretch; gap: 20px; }
-  .ads-grid article { padding: clamp(30px,4vw,46px); border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-background); }
-  .ads-card__head { display: flex; align-items: center; gap: 15px; }
-  .ads-card__head .icon-box { margin: 0; }
-  .ads-card__head small { color: var(--color-text-muted); font-size: .64rem; font-weight: 740; letter-spacing: .1em; text-transform: uppercase; }
-  .ads-card__head h3 { margin: 3px 0 0; }
-  .ads-grid ul { display: grid; grid-template-columns: repeat(2,1fr); gap: 11px; margin: 34px 0 20px; padding: 0; list-style: none; }
-  .ads-grid li { color: var(--color-text-muted); font-size: .78rem; }
-  .ads-grid li::before { margin-right: 8px; color: var(--color-primary); content: '•'; }
-  .funnel { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 22px 14px; border-radius: var(--radius-card); color: white; background: var(--midnight, #081126); }
-  .funnel span, .funnel strong { width: 100%; padding: 10px 6px; border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: var(--color-dark-muted); background: rgba(255,255,255,.04); font-size: .62rem; text-align: center; }
-  .funnel strong { color: var(--color-cyan); }
-  .funnel i { width: 1px; height: 22px; background: linear-gradient(var(--color-primary),var(--color-cyan)); }
-
-  /* =============================================
-     AUTOMATION
-     ============================================= */
-  .automation { overflow: hidden; color: white; background: var(--color-midnight); }
-  .automation::before { position: absolute; inset: 0; opacity: .3; background-image: radial-gradient(rgba(34,211,238,.22) 1px,transparent 1px); background-size: 22px 22px; content: ''; mask-image: linear-gradient(90deg,transparent,black); }
-  .automation > * { position: relative; z-index: 1; }
-  .automation__copy p { color: var(--color-dark-muted); }
-  .automation__copy .button { margin-top: 24px; }
-  .automation__visual :global(.editorial-image) { border-radius: var(--radius-surface); }
-
-  /* =============================================
-     AUDIENCES
-     ============================================= */
-  .audience-grid { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--color-border); border-radius: var(--radius-surface); overflow: hidden; background: var(--color-border); gap: 1px; }
-  .audience-grid div { display: grid; grid-template-columns: auto 1fr auto; min-height: 130px; align-items: center; gap: 20px; padding: 25px; background: white; transition: background var(--transition-fast); }
-  .audience-grid div:hover { background: var(--color-primary-soft); }
-  .audience-grid span { color: var(--color-border-strong); font-size: .65rem; }
-  .audience-grid strong { font-size: .92rem; }
-  .audience-grid i { color: var(--color-primary); font-style: normal; }
-  .audience-visual { margin-top: clamp(32px,5vw,56px); }
-  .audience-visual :global(.editorial-image) { border-radius: var(--radius-surface); }
-
-  /* =============================================
      WORK — Réalisations
      ============================================= */
   .work__panel { position: relative; display: grid; grid-template-columns: 1fr .75fr; align-items: center; gap: clamp(40px,6vw,70px); padding: clamp(40px,6vw,76px); overflow: hidden; border-radius: var(--radius-surface); background: white; box-shadow: var(--shadow-card); }
@@ -541,6 +393,20 @@ const structuredData = {
   .cta-motif b { font-size: 1.7rem; font-weight: 400; }
 
   /* =============================================
+     INTRO SYSTEM / AUDIENCES STRIP / BLOG
+     ============================================= */
+  .home-intro__system { margin-top: clamp(48px,7vw,88px); }
+  .services-audiences { margin: 30px 0 0; color: var(--color-text-muted); font-size: .94rem; }
+  .services-audiences strong { color: var(--color-midnight); }
+  .services-audiences a { color: var(--color-primary); font-weight: 720; }
+  .home-blog__grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--space-3); }
+  .home-blog__grid h3 { font-size: 1.2rem; }
+  .home-blog .post-meta { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 20px; color: var(--color-text-muted); font-size: .72rem; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; }
+  .home-blog .post-meta span { color: var(--color-primary); }
+  .home-blog__more { margin: 34px 0 0; }
+  @media (max-width: 900px) { .home-blog__grid { grid-template-columns: 1fr; } }
+
+  /* =============================================
      RESPONSIVE
      ============================================= */
   @media (max-width: 1100px) {
@@ -551,7 +417,6 @@ const structuredData = {
     .growth-pipeline article { min-height: 320px; }
     .pipeline-index { margin-bottom: 55px; }
     .work-gallery { grid-template-columns: 1fr 1fr; }
-    .ads-grid { grid-template-columns: 1fr 150px 1fr; }
     .work__panel { grid-template-columns: 1fr; }
   }
 
@@ -559,16 +424,11 @@ const structuredData = {
     .home-intro__grid { grid-template-columns: 1fr 2.5fr; }
     .home-intro__copy { grid-column: 2; }
     .home-intro__image-row { grid-template-columns: 1fr 1.2fr; }
-    .problem__heading,.growth__head,.ads__heading,.visibility__layout,.web-layout,.automation__layout,.final-cta__panel { grid-template-columns: 1fr; }
+    .growth__head,.final-cta__panel { grid-template-columns: 1fr; }
     .problem-system { grid-template-columns: 1fr; }
     .system-answer { min-height: 440px; }
-    .web-copy { grid-row: 1; }
-    .ads-grid { grid-template-columns: 1fr; }
-    .funnel { min-height: 180px; flex-direction: row; }
-    .funnel i { width: 24px; height: 1px; }
     .work__panel { grid-template-columns: 1fr; }
     .work-gallery { grid-template-columns: 1fr 1fr; }
-    .audience-grid { grid-template-columns: repeat(2,1fr); }
     .final-cta__contact { justify-items: start; }
     .final-cta__contact small { text-align: left; }
   }
@@ -580,7 +440,7 @@ const structuredData = {
     .home-intro h2 { font-size: clamp(2.7rem,12vw,4rem); }
     .home-intro__image-row { grid-template-columns: 1fr; gap: 16px; }
     .home-intro__image-row :global(.editorial-image) { max-height: 280px; }
-    .frictions,.services-bento,.growth-pipeline,.audience-grid { grid-template-columns: 1fr; }
+    .frictions,.services-bento,.growth-pipeline { grid-template-columns: 1fr; }
     .service--wide,.service--dark { grid-column: auto; }
     .service-card__bg { opacity: .18; }
     .service--dark .service-card__bg { opacity: .24; }
@@ -588,17 +448,12 @@ const structuredData = {
     .growth-pipeline article { min-height: 270px; }
     .pipeline-index { margin-bottom: 38px; }
     .pipeline-index i { transform: rotate(90deg); }
-    .feature-grid { grid-template-columns: 1fr; }
-    .ads-grid ul { grid-template-columns: 1fr 1fr; }
     .work__panel { padding: 34px 24px; }
     .work-gallery { grid-template-columns: 1fr; }
     .final-cta__panel { padding: 36px 24px; }
     .final-cta__copy .button { width: 100%; }
   }
 
-  @media (max-width: 390px) {
-    .ads-grid ul { grid-template-columns: 1fr; }
-  }
 
   @media (prefers-reduced-motion: reduce) {
     .service-card { transition: none; }

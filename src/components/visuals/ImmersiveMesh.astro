@@ -4,8 +4,8 @@
   <svg class="immersive-mesh__fallback" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
     <defs>
       <radialGradient id="mesh-field" cx="72%" cy="38%" r="69%">
-        <stop stop-color="#2457FF" stop-opacity=".78" />
-        <stop offset=".36" stop-color="#173a9c" stop-opacity=".48" />
+        <stop stop-color="#2457FF" stop-opacity=".85" />
+        <stop offset=".36" stop-color="#1c46b8" stop-opacity=".52" />
         <stop offset="1" stop-color="#081126" stop-opacity="0" />
       </radialGradient>
       <linearGradient id="mesh-ribbon" x1=".05" y1=".94" x2=".9" y2=".08">
@@ -55,16 +55,19 @@
   .immersive-mesh__fallback { z-index: 0; }
   .immersive-mesh.is-ready .immersive-mesh__canvas { opacity: 1; }
   .immersive-mesh.is-ready .immersive-mesh__fallback { opacity: 0; }
-  .immersive-mesh__network { position: absolute; right: 0; bottom: -1px; left: 0; z-index: 2; width: 100%; height: clamp(130px, 24vh, 250px); opacity: .7; }
-  .immersive-mesh__network path { stroke: rgba(137,221,255,.2); stroke-width: 1; vector-effect: non-scaling-stroke; }
-  .immersive-mesh__network path:nth-child(2) { stroke: rgba(36,87,255,.38); }
+  .immersive-mesh__network { position: absolute; right: 0; bottom: -1px; left: 0; z-index: 2; width: 100%; height: clamp(130px, 24vh, 250px); opacity: .6; }
+  .immersive-mesh__network path { stroke: rgba(137,221,255,.24); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .immersive-mesh__network path:nth-child(2) { stroke: rgba(36,87,255,.34); }
   .immersive-mesh__network path:nth-child(3) { stroke-dasharray: 2 10; }
   .immersive-mesh__nodes circle { fill: #22D3EE; filter: drop-shadow(0 0 8px #22D3EE); }
-  .immersive-mesh__grain { position: absolute; inset: 0; z-index: 3; opacity: .075; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); mix-blend-mode: soft-light; }
+  .immersive-mesh__grain { position: absolute; inset: 0; z-index: 3; opacity: .055; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); mix-blend-mode: soft-light; }
 
   @media (max-width: 768px) {
-    .immersive-mesh__fallback { transform: scale(1.18) translateX(-7%); transform-origin: 65% 45%; }
-    .immersive-mesh__network { height: 150px; opacity: .48; }
+    .immersive-mesh__fallback { transform: scale(1.22) translateX(-6%); transform-origin: 68% 42%; }
+    .immersive-mesh__network { height: 150px; opacity: .4; }
+  }
+  @media (max-width: 480px) {
+    .immersive-mesh__grain { opacity: .045; }
   }
   @media (prefers-reduced-motion: reduce) {
     .immersive-mesh__canvas { display: none; }

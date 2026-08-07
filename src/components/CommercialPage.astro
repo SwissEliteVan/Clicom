@@ -29,8 +29,8 @@ interface Props {
 
 const { title, description, eyebrow, h1, intro, problems, solution, services, process, benefits, faq, links, variant = 'standard', editorialImage } = Astro.props;
 const visualByEyebrow: Record<string, 'web' | 'seo' | 'geo' | 'ads' | 'ai' | 'automation'> = {
-  'CrÃ©ation de site web': 'web',
-  'RÃ©fÃ©rencement naturel': 'seo',
+  'Création de site web': 'web',
+  'Référencement naturel': 'seo',
   'GEO & AEO': 'geo',
   'Google Ads': 'ads',
   'Intelligence artificielle': 'ai',
@@ -38,13 +38,13 @@ const visualByEyebrow: Record<string, 'web' | 'seo' | 'geo' | 'ads' | 'ai' | 'au
 };
 const visual = visualByEyebrow[eyebrow];
 const sectionCopy = {
-  web: { issues: 'Faire du site un actif commercial, pas une simple vitrine.', offer: 'Concevoir chaque couche autour du mÃªme objectif.', process: 'Du cadrage au lancement, sans rupture entre design et technique.', benefits: 'Une expÃ©rience qui inspire confiance et facilite le passage Ã  lâ€™action.' },
-  seo: { issues: 'Concentrer lâ€™effort SEO lÃ  oÃ¹ il peut crÃ©er de la valeur.', offer: 'Technique, contenu, autoritÃ©, local et mesure rÃ©unis.', process: 'Une progression lisible, fondÃ©e sur les prioritÃ©s.', benefits: 'Une visibilitÃ© construite pour soutenir les objectifs commerciaux.' },
-  geo: { issues: 'Rendre une expertise claire, structurÃ©e et vÃ©rifiable.', offer: 'PrÃ©parer la marque aux nouveaux parcours de recherche.', process: 'Observer, structurer et publier avant de mesurer.', benefits: 'Des signaux plus cohÃ©rents pour les moteurs et les personnes.' },
-  ads: { issues: 'Transformer un budget mÃ©dia en systÃ¨me dâ€™acquisition pilotable.', offer: 'Aligner lâ€™intention, le message, la page et la mesure.', process: 'Un cycle court entre apprentissage et optimisation.', benefits: 'Des dÃ©cisions publicitaires fondÃ©es sur la qualitÃ© des conversions.' },
-  automation: { issues: 'Supprimer les frictions rÃ©pÃ©titives.', offer: 'Relier les outils autour de dÃ©cisions claires.', process: 'Cartographier, simplifier, connecter et superviser.', benefits: 'Des flux fiables qui libÃ¨rent du temps.' },
-  ai: { issues: 'Passer des essais isolÃ©s Ã  des usages rÃ©ellement intÃ©grÃ©s.', offer: 'Mettre lâ€™IA au service des processus et des Ã©quipes.', process: 'Prototyper vite, intÃ©grer avec mÃ©thode, encadrer durablement.', benefits: 'Une adoption pragmatique, contrÃ´lÃ©e et Ã©volutive.' },
-}[visual] ?? { issues: 'Transformer les points de friction en opportunitÃ©s.', offer: 'Une expertise reliÃ©e Ã  votre croissance.', process: 'De la stratÃ©gie Ã  lâ€™amÃ©lioration continue.', benefits: 'Un levier pensÃ© pour produire de la valeur.' };
+  web: { issues: 'Faire du site un actif commercial, pas une simple vitrine.', offer: 'Concevoir chaque couche autour du même objectif.', process: 'Du cadrage au lancement, sans rupture entre design et technique.', benefits: 'Une expérience qui inspire confiance et facilite le passage à l’action.' },
+  seo: { issues: 'Concentrer l’effort SEO là où il peut créer de la valeur.', offer: 'Technique, contenu, autorité, local et mesure réunis.', process: 'Une progression lisible, fondée sur les priorités.', benefits: 'Une visibilité construite pour soutenir les objectifs commerciaux.' },
+  geo: { issues: 'Rendre une expertise claire, structurée et vérifiable.', offer: 'Préparer la marque aux nouveaux parcours de recherche.', process: 'Observer, structurer et publier avant de mesurer.', benefits: 'Des signaux plus cohérents pour les moteurs et les personnes.' },
+  ads: { issues: 'Transformer un budget média en système d’acquisition pilotable.', offer: 'Aligner l’intention, le message, la page et la mesure.', process: 'Un cycle court entre apprentissage et optimisation.', benefits: 'Des décisions publicitaires fondées sur la qualité des conversions.' },
+  automation: { issues: 'Supprimer les frictions répétitives.', offer: 'Relier les outils autour de décisions claires.', process: 'Cartographier, simplifier, connecter et superviser.', benefits: 'Des flux fiables qui libèrent du temps.' },
+  ai: { issues: 'Passer des essais isolés à des usages réellement intégrés.', offer: 'Mettre l’IA au service des processus et des équipes.', process: 'Prototyper vite, intégrer avec méthode, encadrer durablement.', benefits: 'Une adoption pragmatique, contrôlée et évolutive.' },
+}[visual] ?? { issues: 'Transformer les points de friction en opportunités.', offer: 'Une expertise reliée à votre croissance.', process: 'De la stratégie à l’amélioration continue.', benefits: 'Un levier pensé pour produire de la valeur.' };
 ---
 
 <Layout {title} {description}>
@@ -89,20 +89,20 @@ const sectionCopy = {
 
   <section class="section benefits-section">
     <div class="container benefits">
-      <div><div class="eyebrow">BÃ©nÃ©fices</div><h2>{sectionCopy.benefits}</h2></div>
-      <ul>{benefits.map((benefit) => <li><span>â†’</span>{benefit}</li>)}</ul>
+      <div><div class="eyebrow">Bénéfices</div><h2>{sectionCopy.benefits}</h2></div>
+      <ul>{benefits.map((benefit) => <li><span>→</span>{benefit}</li>)}</ul>
     </div>
   </section>
 
   <section class="section section--white">
     <div class="container faq-wrap">
-      <div class="section-heading"><div class="eyebrow">Questions frÃ©quentes</div><h2>Les rÃ©ponses <span class="accent">essentielles.</span></h2></div>
+      <div class="section-heading"><div class="eyebrow">Questions fréquentes</div><h2>Les réponses <span class="accent">essentielles.</span></h2></div>
       <div class="faq-list">{faq.map((item) => <details><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div>
-      <nav class="related" aria-label="Expertises associÃ©es"><strong>Ã€ dÃ©couvrir aussi</strong>{links.map((link) => <a href={link.href}>{link.label} <span>â†’</span></a>)}</nav>
+      <nav class="related" aria-label="Expertises associées"><strong>À découvrir aussi</strong>{links.map((link) => <a href={link.href}>{link.label} <span>→</span></a>)}</nav>
     </div>
   </section>
 
-  <CTA variant="calendly" secondaryHref="/audit-gratuit/" secondaryLabel="Demander un audit gratuit" title="Faisons de cette expertise votre prochain accÃ©lÃ©rateur." text="Un premier audit permet dâ€™identifier les prioritÃ©s, les dÃ©pendances et les opportunitÃ©s les plus pertinentes pour votre entreprise." />
+  <CTA variant="calendly" secondaryHref="/audit-gratuit/" secondaryLabel="Demander un audit gratuit" title="Faisons de cette expertise votre prochain accélérateur." text="Un premier audit permet d’identifier les priorités, les dépendances et les opportunités les plus pertinentes pour votre entreprise." />
 </Layout>
 
 <style>

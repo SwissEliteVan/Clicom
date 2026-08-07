@@ -42,83 +42,83 @@ declare global {
 type Choice = { label: string; next?: string; href?: string; action?: 'calendly' | 'whatsapp'; waMsg?: string };
 type ChatNode = { msg: string; choices: Choice[] };
 
-// â”€â”€ Tree structure â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Tree structure ──────────────────────────────────────────────────────────
 
 const { waNumber, calendlyUrl } = window.__clicomChatbotConfig;
 
 const tree: Record<string, ChatNode> = {
   root: {
-    msg: 'Bonjour ðŸ‘‹ Je peux vous guider vers les bonnes ressources. Quel est votre besoin principal ?',
+    msg: 'Bonjour 👋 Je peux vous guider vers les bonnes ressources. Quel est votre besoin principal ?',
     choices: [
-      { label: 'ðŸŒ CrÃ©er ou refaire mon site web', next: 'web' },
-      { label: 'ðŸ” AmÃ©liorer ma visibilitÃ© Google', next: 'seo' },
-      { label: 'ðŸ¤– RÃ©fÃ©rencement IA (GEO / AEO)', next: 'geo' },
-      { label: 'ðŸ“£ Lancer de la publicitÃ©', next: 'ads' },
-      { label: 'âš™ï¸ Automatisation / CRM', next: 'auto' },
-      { label: 'ðŸŽ¯ Obtenir un audit gratuit', next: 'audit' },
+      { label: '🌐 Créer ou refaire mon site web', next: 'web' },
+      { label: '🔍 Améliorer ma visibilité Google', next: 'seo' },
+      { label: '🤖 Référencement IA (GEO / AEO)', next: 'geo' },
+      { label: '📣 Lancer de la publicité', next: 'ads' },
+      { label: '⚙️ Automatisation / CRM', next: 'auto' },
+      { label: '🎯 Obtenir un audit gratuit', next: 'audit' },
       { label: '❓ Poser une question', next: 'question' },
-      { label: 'ðŸ“… Prendre rendez-vous', next: 'rdv' },
+      { label: '📅 Prendre rendez-vous', next: 'rdv' },
     ],
   },
   web: {
-    msg: 'Site web, refonte UX/UI, conversion, performance â€” CLICOM conÃ§oit des sites orientÃ©s rÃ©sultats.',
+    msg: 'Site web, refonte UX/UI, conversion, performance — CLICOM conçoit des sites orientés résultats.',
     choices: [
-      { label: 'Voir la page crÃ©ation de site â†’', href: '/creation-site-web/' },
-      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
-      { label: 'ðŸ’¬ Discuter sur WhatsApp', action: 'whatsapp', waMsg: 'Bonjour, je souhaite crÃ©er ou refaire mon site web avec CLICOM.' },
-      { label: 'â† Autre besoin', next: 'root' },
+      { label: 'Voir la page création de site →', href: '/creation-site-web/' },
+      { label: '📅 Réserver un appel', action: 'calendly' },
+      { label: '💬 Discuter sur WhatsApp', action: 'whatsapp', waMsg: 'Bonjour, je souhaite créer ou refaire mon site web avec CLICOM.' },
+      { label: '← Autre besoin', next: 'root' },
     ],
   },
   seo: {
-    msg: 'SEO technique, contenu, local et mesure : une stratÃ©gie fondÃ©e sur les intentions rÃ©elles de vos prospects.',
+    msg: 'SEO technique, contenu, local et mesure : une stratégie fondée sur les intentions réelles de vos prospects.',
     choices: [
-      { label: 'Voir la page SEO â†’', href: '/seo/' },
-      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
-      { label: 'ðŸ’¬ Discuter sur WhatsApp', action: 'whatsapp', waMsg: 'Bonjour, je m\'intÃ©resse aux services SEO de CLICOM.' },
-      { label: 'â† Autre besoin', next: 'root' },
+      { label: 'Voir la page SEO →', href: '/seo/' },
+      { label: '📅 Réserver un appel', action: 'calendly' },
+      { label: '💬 Discuter sur WhatsApp', action: 'whatsapp', waMsg: 'Bonjour, je m\'intéresse aux services SEO de CLICOM.' },
+      { label: '← Autre besoin', next: 'root' },
     ],
   },
   geo: {
-    msg: 'RÃ©fÃ©rencement IA (GEO / AEO) : structurer votre marque pour Ãªtre comprise par les moteurs gÃ©nÃ©ratifs.',
+    msg: 'Référencement IA (GEO / AEO) : structurer votre marque pour être comprise par les moteurs génératifs.',
     choices: [
-      { label: 'Voir la page rÃ©fÃ©rencement IA â†’', href: '/referencement-ia/' },
-      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
-      { label: 'ðŸ’¬ Discuter sur WhatsApp', action: 'whatsapp', waMsg: 'Bonjour, je voudrais en savoir plus sur le rÃ©fÃ©rencement IA.' },
-      { label: 'â† Autre besoin', next: 'root' },
+      { label: 'Voir la page référencement IA →', href: '/referencement-ia/' },
+      { label: '📅 Réserver un appel', action: 'calendly' },
+      { label: '💬 Discuter sur WhatsApp', action: 'whatsapp', waMsg: 'Bonjour, je voudrais en savoir plus sur le référencement IA.' },
+      { label: '← Autre besoin', next: 'root' },
     ],
   },
   ads: {
-    msg: 'Google Ads ou publicitÃ© rÃ©seaux sociaux ? Quel canal souhaitez-vous activer ?',
+    msg: 'Google Ads ou publicité réseaux sociaux ? Quel canal souhaitez-vous activer ?',
     choices: [
-      { label: 'Google Ads â†’', href: '/google-ads/' },
-      { label: 'PublicitÃ© rÃ©seaux sociaux â†’', href: '/social-ads/' },
-      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
-      { label: 'â† Autre besoin', next: 'root' },
+      { label: 'Google Ads →', href: '/google-ads/' },
+      { label: 'Publicité réseaux sociaux →', href: '/social-ads/' },
+      { label: '📅 Réserver un appel', action: 'calendly' },
+      { label: '← Autre besoin', next: 'root' },
     ],
   },
   auto: {
     msg: 'Automatisation de processus, CRM, e-mail marketing : connecter vos outils pour gagner du temps.',
     choices: [
-      { label: 'Automatisation â†’', href: '/automatisation/' },
-      { label: 'CRM & E-mail â†’', href: '/email-marketing-crm/' },
-      { label: 'ðŸ“… RÃ©server un appel', action: 'calendly' },
-      { label: 'â† Autre besoin', next: 'root' },
+      { label: 'Automatisation →', href: '/automatisation/' },
+      { label: 'CRM & E-mail →', href: '/email-marketing-crm/' },
+      { label: '📅 Réserver un appel', action: 'calendly' },
+      { label: '← Autre besoin', next: 'root' },
     ],
   },
   audit: {
-    msg: 'L\'audit gratuit CLICOM analyse votre site, votre visibilitÃ©, vos campagnes et vos opportunitÃ©s. Aucun engagement.',
+    msg: 'L\'audit gratuit CLICOM analyse votre site, votre visibilité, vos campagnes et vos opportunités. Aucun engagement.',
     choices: [
-      { label: 'Demander un audit â†’', href: '/audit-gratuit/' },
-      { label: 'ðŸ“… RÃ©server directement', action: 'calendly' },
-      { label: 'â† Autre besoin', next: 'root' },
+      { label: 'Demander un audit →', href: '/audit-gratuit/' },
+      { label: '📅 Réserver directement', action: 'calendly' },
+      { label: '← Autre besoin', next: 'root' },
     ],
   },
   rdv: {
-    msg: 'RÃ©servez un crÃ©neau directement dans notre agenda. Ã‰change de 30 minutes, sans engagement.',
+    msg: 'Réservez un créneau directement dans notre agenda. Échange de 30 minutes, sans engagement.',
     choices: [
-      { label: 'ðŸ“… Voir les disponibilitÃ©s', action: 'calendly' },
-      { label: 'ðŸ’¬ WhatsApp si urgent', action: 'whatsapp' },
-      { label: 'â† Autre besoin', next: 'root' },
+      { label: '📅 Voir les disponibilités', action: 'calendly' },
+      { label: '💬 WhatsApp si urgent', action: 'whatsapp' },
+      { label: '← Autre besoin', next: 'root' },
     ],
   },
   question: {
@@ -131,12 +131,12 @@ const tree: Record<string, ChatNode> = {
   },
 };
 
-// â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── State ────────────────────────────────────────────────────────────────────
 
 let isOpen = false;
 let badgeShown = false;
 
-// â”€â”€ Analytics (best-effort) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Analytics (best-effort) ───────────────────────────────────────────────────
 
 function safeTrack(fn: ((action: 'open' | 'path' | 'lead', path?: string) => void) | undefined, action: 'open' | 'path' | 'lead', path?: string) {
   try { fn?.(action, path); } catch {}
@@ -144,7 +144,7 @@ function safeTrack(fn: ((action: 'open' | 'path' | 'lead', path?: string) => voi
 
 async function getAnalytics() { return import('../../scripts/analytics'); }
 
-// â”€â”€ Render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Render ───────────────────────────────────────────────────────────────────
 
 const chatbot = document.getElementById('chatbot');
 const body = document.getElementById('chatbot-body');
@@ -203,7 +203,7 @@ async function renderChoices(nodeKey: string) {
   });
 }
 
-// â”€â”€ Open / Close â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Open / Close ─────────────────────────────────────────────────────────────
 
 async function openChatbot() {
   if (!chatbot) return;

@@ -1,0 +1,34 @@
+---
+const steps = [
+  ['01','DIAGNOSTIQUER','Comprendre les ruptures, les priorités et les signaux disponibles avant de choisir un canal.'],
+  ['02','CONSTRUIRE','Créer le socle : messages, pages, tracking et outils nécessaires au parcours.'],
+  ['03','ACTIVER','Mettre en mouvement SEO, Ads, contenu et automatisations selon le rôle de chaque levier.'],
+  ['04','OPTIMISER','Mesurer, tester, corriger et renforcer progressivement ce qui produit des opportunités.'],
+];
+---
+
+<section class="home-section home-method" aria-labelledby="home-method-title">
+  <div class="container">
+    <div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip">
+      <div>
+        <span class="home-kicker">Méthode</span>
+        <h2 id="home-method-title">On commence par comprendre. Pas par vendre un canal.</h2>
+      </div>
+      <p>Quatre étapes structurent le travail. La ligne de progression raconte le passage du diagnostic à l’optimisation continue.</p>
+    </div>
+
+    <div class="home-method-track" data-home-method>
+      <div class="home-method-track__rail" aria-hidden="true"><span data-method-progress></span></div>
+      <div class="home-method-track__steps">
+        {steps.map(([number,title,copy]) => (
+          <article class="home-method-step" data-reveal data-reveal-type="slide">
+            <span class="home-method-step__node" aria-hidden="true"></span>
+            <span class="home-method-step__number">{number}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

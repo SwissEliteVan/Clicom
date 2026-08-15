@@ -1,0 +1,32 @@
+---
+import Button from '../Button.astro';
+---
+
+<section class="home-cta" aria-labelledby="home-cta-title">
+  <div class="container home-cta__panel" data-reveal data-reveal-type="scale">
+    <div class="home-cta__halo home-cta__halo--one" aria-hidden="true"></div>
+    <div class="home-cta__halo home-cta__halo--two" aria-hidden="true"></div>
+    <div class="home-cta__grid" aria-hidden="true"></div>
+
+    <div class="home-cta__copy">
+      <span class="home-kicker">Prochaine étape</span>
+      <h2 id="home-cta-title">Votre prochain levier de croissance est probablement déjà visible.</h2>
+      <p>Nous analysons votre présence numérique et identifions les actions prioritaires pour améliorer visibilité, conversion et suivi.</p>
+      <div class="home-cta__actions">
+        <span data-magnetic><Button href="/audit-gratuit/">Demander mon audit <span aria-hidden="true">↗</span></Button></span>
+      </div>
+    </div>
+
+    <div class="home-cta__signal" aria-hidden="true">
+      <span>CLICOM</span>
+      <div><i></i><b></b><i></i></div>
+      <small>GROWTH SYSTEM READY</small>
+    </div>
+
+    <div class="home-cta__badges" aria-label="Informations pratiques">
+      <span>Réponse sous 24 h</span>
+      <span>Sans engagement</span>
+      <span>Suisse romande</span>
+    </div>
+  </div>
+</section>

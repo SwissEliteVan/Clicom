@@ -1,0 +1,69 @@
+---
+const pillars = [
+  {
+    number: '01',
+    label: 'WEB & CONVERSION',
+    title: 'Transformer une visite en décision.',
+    copy: 'Sites web, landing pages, identité et UX pensés pour rendre votre offre immédiatement compréhensible et actionnable.',
+    links: [['/creation-site-web/','Sites web'], ['/branding/','Branding']],
+    className: 'home-expertise-card--web',
+  },
+  {
+    number: '02',
+    label: 'SEO & VISIBILITÉ IA',
+    title: 'Être trouvé avant vos concurrents.',
+    copy: 'Architecture, contenu, SEO technique et visibilité dans les moteurs assistés par IA.',
+    links: [['/seo/','SEO'], ['/referencement-ia/','Référencement IA']],
+    className: 'home-expertise-card--seo',
+  },
+  {
+    number: '03',
+    label: 'PAID ACQUISITION',
+    title: 'Créer une demande mesurable.',
+    copy: 'Google Ads, Meta Ads et LinkedIn Ads pilotés autour du coût, de la qualité du lead et du parcours.',
+    links: [['/google-ads/','Google Ads'], ['/social-ads/','Social Ads']],
+    className: 'home-expertise-card--paid',
+  },
+  {
+    number: '04',
+    label: 'AUTOMATISATION & CRM',
+    title: 'Faire circuler l’information sans friction.',
+    copy: 'CRM, e-mail, automatisation et IA pour qualifier, router et relancer les opportunités au bon moment.',
+    links: [['/automatisation/','Automatisation'], ['/email-marketing-crm/','CRM & e-mail']],
+    className: 'home-expertise-card--automation',
+  },
+];
+---
+
+<section id="expertises" class="home-section home-expertise" aria-labelledby="expertise-title">
+  <div class="container">
+    <div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip">
+      <div>
+        <span class="home-kicker">Expertises</span>
+        <h2 id="expertise-title">Quatre piliers. Une seule logique de croissance.</h2>
+      </div>
+      <p>Chaque expertise garde sa spécialité. La différence vient de la façon dont elles se connectent autour du même objectif commercial.</p>
+    </div>
+
+    <div class="home-expertise-grid">
+      {pillars.map((pillar, index) => (
+        <article class:list={['home-expertise-card', pillar.className, index === 0 && 'home-expertise-card--feature']} data-reveal data-reveal-type={index === 0 ? 'scale' : 'slide'}>
+          <div class="home-expertise-card__head">
+            <span>{pillar.number}</span>
+            <small>{pillar.label}</small>
+          </div>
+          <div class="home-expertise-card__graphic" aria-hidden="true">
+            <span></span><i></i><b></b>
+          </div>
+          <div class="home-expertise-card__body">
+            <h3>{pillar.title}</h3>
+            <p>{pillar.copy}</p>
+            <div class="home-expertise-card__links">
+              {pillar.links.map(([href,label]) => <a href={href}>{label}<span aria-hidden="true">↗</span></a>)}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

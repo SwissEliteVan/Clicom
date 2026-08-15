@@ -1,0 +1,46 @@
+---
+import { Picture } from 'astro:assets';
+import Button from '../Button.astro';
+import portfolioNatPatoune from '../../assets/editorial/portfolio-nat-patoune.webp';
+import portfolioRikunali from '../../assets/editorial/portfolio-rikunali.webp';
+---
+
+<section class="home-section home-work" aria-labelledby="home-work-title">
+  <div class="container">
+    <div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip">
+      <div>
+        <span class="home-kicker">Réalisations</span>
+        <h2 id="home-work-title">Le niveau de détail se voit dans le travail livré.</h2>
+      </div>
+      <p>Deux projets récents montrent comment stratégie, design et exécution technique se traduisent dans des expériences numériques réelles.</p>
+    </div>
+
+    <div class="home-work-grid">
+      <article class="home-work-project home-work-project--primary" data-reveal data-reveal-type="scale">
+        <div class="home-work-project__media">
+          <Picture src={portfolioNatPatoune} alt="Aperçu du projet web Nat et Patoune" widths={[640,960,1280,1600]} sizes="(max-width: 760px) 100vw, 58vw" formats={['avif','webp']} quality={84} loading="lazy" />
+        </div>
+        <div class="home-work-project__meta">
+          <div><span>WEB DESIGN</span><span>DEVELOPMENT</span><span>2026</span></div>
+          <h3>Nat et Patoune</h3>
+          <a href="/realisations/">Voir le projet <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+
+      <article class="home-work-project home-work-project--secondary" data-reveal data-reveal-type="slide">
+        <div class="home-work-project__media">
+          <Picture src={portfolioRikunali} alt="Aperçu du projet web Rikunali" widths={[640,960,1280]} sizes="(max-width: 760px) 100vw, 42vw" formats={['avif','webp']} quality={84} loading="lazy" />
+        </div>
+        <div class="home-work-project__meta">
+          <div><span>WEB DESIGN</span><span>DEVELOPMENT</span><span>2026</span></div>
+          <h3>Rikunali</h3>
+          <a href="/realisations/">Voir le projet <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="home-work__action" data-reveal data-reveal-type="slide">
+      <Button href="/realisations/" variant="secondary">Voir toutes les réalisations <span aria-hidden="true">→</span></Button>
+    </div>
+  </div>
+</section>

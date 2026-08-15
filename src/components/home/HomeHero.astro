@@ -1,239 +1,104 @@
 ---
 import Button from '../Button.astro';
+import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
 
-const signals = [
-  { label: 'Attirer', detail: 'SEO · Ads · contenu', index: '01' },
-  { label: 'Convertir', detail: 'Site · landing pages', index: '02' },
-  { label: 'Suivre', detail: 'CRM · automatisation', index: '03' },
+const networkNodes = [
+  { label: 'SEO', detail: 'Visibilité', x: '12%', y: '23%' },
+  { label: 'ADS', detail: 'Acquisition', x: '17%', y: '72%' },
+  { label: 'SITE', detail: 'Conversion', x: '48%', y: '45%' },
+  { label: 'LEAD', detail: 'Qualification', x: '72%', y: '24%' },
+  { label: 'CRM', detail: 'Suivi', x: '77%', y: '73%' },
 ];
 ---
 
-<section class="home-hero" aria-labelledby="home-title">
+<section class="home-hero" data-hero aria-labelledby="home-title">
+  <div class="home-hero__media" data-hero-frame aria-hidden="true">
+    <ImmersiveMesh />
+  </div>
+  <div class="home-hero__wash" aria-hidden="true"></div>
   <div class="home-hero__grid" aria-hidden="true"></div>
-  <div class="home-hero__glow" aria-hidden="true"></div>
+  <div class="home-hero__orb home-hero__orb--one" data-depth=".5" aria-hidden="true"></div>
+  <div class="home-hero__orb home-hero__orb--two" data-depth=".9" aria-hidden="true"></div>
 
   <div class="container home-hero__inner">
-    <div class="home-hero__copy">
-      <p class="home-hero__eyebrow"><span></span>Agence numérique · Suisse romande</p>
-      <h1 id="home-title">Votre croissance numérique, reliée de bout en bout.</h1>
-      <p class="home-hero__lead">CLICOM conçoit le système qui relie votre site, votre visibilité, vos campagnes et votre suivi commercial pour transformer davantage d’attention en demandes qualifiées.</p>
-
-      <div class="home-hero__actions">
-        <Button href="/audit-gratuit/">Demander un audit <span aria-hidden="true">→</span></Button>
-        <Button href="#expertises" variant="secondary">Voir les expertises</Button>
-      </div>
-
-      <div class="home-hero__reassurance" aria-label="Informations pratiques">
-        <span>PME & indépendants</span>
-        <span>Suisse romande</span>
-        <span>Réponse sous 24 h</span>
-      </div>
+    <div class="home-hero__meta" data-hero-detail>
+      <span class="home-hero__badge"><i aria-hidden="true"></i>Agence numérique · Suisse romande</span>
+      <span class="home-hero__availability">CLICOM / DIGITAL GROWTH SYSTEMS</span>
     </div>
 
-    <div class="home-system" aria-label="Le système CLICOM : attirer, convertir et suivre">
-      <div class="home-system__header">
-        <span class="home-system__status"><i></i>Système d'acquisition</span>
-        <span class="home-system__code">CLM / 01</span>
-      </div>
+    <div class="home-hero__layout">
+      <div class="home-hero__copy">
+        <h1 id="home-title" class="home-hero__title">
+          <span class="home-hero__title-line"><span>Nous construisons</span></span>
+          <span class="home-hero__title-line home-hero__title-line--accent"><span>des systèmes numériques</span></span>
+          <span class="home-hero__title-line"><span>qui génèrent de la croissance.</span></span>
+        </h1>
 
-      <div class="home-system__flow">
-        {signals.map((signal, index) => (
-          <div class="home-system__step">
-            <span class="home-system__index">{signal.index}</span>
-            <div>
-              <strong>{signal.label}</strong>
-              <small>{signal.detail}</small>
-            </div>
-            {index < signals.length - 1 && <span class="home-system__arrow" aria-hidden="true">↓</span>}
+        <div class="home-hero__support">
+          <p class="home-hero__lead" data-hero-copy>Sites web, SEO, Ads, automatisation et IA reliés dans un même système pour transformer votre visibilité en opportunités commerciales.</p>
+          <div class="home-hero__actions" data-hero-cta>
+            <span data-magnetic><Button href="/audit-gratuit/">Demander un audit <span aria-hidden="true">↗</span></Button></span>
+            <Button href="#systeme" variant="secondary">Explorer notre approche</Button>
           </div>
-        ))}
+          <div class="home-hero__proof" data-hero-detail>
+            <span>PME & indépendants</span>
+            <span>Suisse romande</span>
+            <span>Réponse sous 24 h</span>
+          </div>
+        </div>
       </div>
 
-      <div class="home-system__result">
-        <span>Résultat recherché</span>
-        <strong>Plus de demandes. Moins de ruptures.</strong>
-        <div class="home-system__signal" aria-hidden="true"><i></i><span></span><b>→</b></div>
-      </div>
+      <aside class="home-hero__visual" aria-label="Schéma du système CLICOM" data-depth=".35">
+        <div class="home-hero__visual-head" data-hero-detail>
+          <span><i aria-hidden="true"></i>LIVE SYSTEM MAP</span>
+          <span>CLM / 001</span>
+        </div>
+
+        <div class="home-hero__network" data-hero-network aria-hidden="true">
+          <div class="home-hero__scan"></div>
+          <svg viewBox="0 0 800 540" preserveAspectRatio="none">
+            <path data-hero-connection pathLength="1" d="M110 125 C210 125 255 240 390 240" />
+            <path data-hero-connection pathLength="1" d="M135 390 C245 390 265 255 390 240" />
+            <path data-hero-connection pathLength="1" d="M390 240 C520 240 545 125 650 125" />
+            <path data-hero-connection pathLength="1" d="M390 240 C525 240 555 395 660 395" />
+            <path class="home-hero__connection--ghost" d="M650 125 C745 180 748 332 660 395" />
+          </svg>
+
+          {networkNodes.map((node, index) => (
+            <div class:list={['home-hero__node', index === 2 && 'home-hero__node--core']} style={`--node-x:${node.x};--node-y:${node.y}`} data-hero-node>
+              <i aria-hidden="true"></i>
+              <span>{node.label}</span>
+              <small>{node.detail}</small>
+            </div>
+          ))}
+
+          <div class="home-hero__core" data-hero-node>
+            <span>CLICOM</span>
+            <small>ORCHESTRATION</small>
+          </div>
+        </div>
+
+        <div class="home-hero__visual-foot" data-hero-detail>
+          <span><i></i>Tracking</span>
+          <span><i></i>Qualification</span>
+          <span><i></i>Automation</span>
+        </div>
+      </aside>
     </div>
   </div>
 
-  <div class="container home-hero__bottom" aria-hidden="true">
-    <span>STRATÉGIE</span><i></i><span>CRÉATION</span><i></i><span>ACQUISITION</span><i></i><span>AUTOMATISATION</span>
+  <div class="home-hero__ticker" aria-hidden="true">
+    <div class="home-hero__ticker-track">
+      <div class="home-hero__ticker-group">
+        <span>STRATÉGIE</span><i>✦</i><span>WEB</span><i>✦</i><span>SEO</span><i>✦</i><span>PAID MEDIA</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>IA</span><i>✦</i>
+      </div>
+      <div class="home-hero__ticker-group" aria-hidden="true">
+        <span>STRATÉGIE</span><i>✦</i><span>WEB</span><i>✦</i><span>SEO</span><i>✦</i><span>PAID MEDIA</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>IA</span><i>✦</i>
+      </div>
+    </div>
   </div>
 </section>
 
-<style>
-  .home-hero {
-    position: relative;
-    overflow: hidden;
-    padding: clamp(5.25rem, 8vw, 8.5rem) 0 2rem;
-    color: #fff;
-    background: #081126;
-    isolation: isolate;
-  }
-  .home-hero__grid {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    opacity: .28;
-    background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
-    background-size: 72px 72px;
-    mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
-  }
-  .home-hero__glow {
-    position: absolute;
-    z-index: -1;
-    top: -22%;
-    right: -8%;
-    width: min(62vw, 880px);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(36,87,255,.42), rgba(34,211,238,.09) 38%, transparent 68%);
-    filter: blur(12px);
-  }
-  .home-hero__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(360px, .72fr);
-    align-items: center;
-    gap: clamp(3rem, 7vw, 7.5rem);
-    min-height: min(760px, calc(100svh - 110px));
-  }
-  .home-hero__copy { max-width: 780px; }
-  .home-hero__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 11px;
-    margin: 0 0 1.6rem;
-    color: rgba(255,255,255,.72);
-    font-size: .72rem;
-    font-weight: 760;
-    letter-spacing: .13em;
-    text-transform: uppercase;
-  }
-  .home-hero__eyebrow span {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-cyan);
-    box-shadow: 0 0 0 5px rgba(34,211,238,.1);
-  }
-  .home-hero h1 {
-    max-width: 12.5ch;
-    margin: 0;
-    color: white;
-    font-size: clamp(3.4rem, 6.1vw, 6.8rem);
-    font-weight: 760;
-    line-height: .93;
-    letter-spacing: -.065em;
-    text-wrap: balance;
-  }
-  .home-hero__lead {
-    max-width: 61ch;
-    margin: clamp(1.7rem, 3vw, 2.5rem) 0 0;
-    color: rgba(247,249,252,.76);
-    font-size: clamp(1.05rem, 1.35vw, 1.24rem);
-    line-height: 1.62;
-  }
-  .home-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2rem; }
-  .home-hero__actions :global(.button) { min-height: 56px; border-radius: 999px; }
-  .home-hero__actions :global(.button--primary) { color: var(--color-midnight); background: white; box-shadow: 0 18px 52px rgba(0,0,0,.24); }
-  .home-hero__actions :global(.button--primary:hover) { background: #eef4ff; }
-  .home-hero__actions :global(.button--secondary) { color: white; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.06); box-shadow: none; }
-  .home-hero__actions :global(.button--secondary:hover) { border-color: rgba(255,255,255,.42); background: rgba(255,255,255,.1); }
-  .home-hero__reassurance {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 20px;
-    margin-top: 1.5rem;
-    color: rgba(247,249,252,.54);
-    font-size: .76rem;
-    font-weight: 650;
-  }
-  .home-hero__reassurance span { display: inline-flex; align-items: center; gap: 8px; }
-  .home-hero__reassurance span:not(:first-child)::before { width: 4px; height: 4px; border-radius: 50%; background: var(--color-cyan); content: ''; }
-
-  .home-system {
-    position: relative;
-    padding: clamp(1.2rem, 2.6vw, 2rem);
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 30px;
-    background: linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.025));
-    box-shadow: 0 42px 90px rgba(0,0,0,.28);
-    backdrop-filter: blur(20px);
-  }
-  .home-system::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 48%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--color-cyan));
-    content: '';
-  }
-  .home-system__header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .home-system__status { display: inline-flex; align-items: center; gap: 9px; font-size: .72rem; font-weight: 730; }
-  .home-system__status i { width: 7px; height: 7px; border-radius: 50%; background: #49e390; box-shadow: 0 0 0 5px rgba(73,227,144,.08); animation: signal-pulse 2.4s ease-in-out infinite; }
-  .home-system__code { color: rgba(255,255,255,.34); font-size: .66rem; font-weight: 720; letter-spacing: .12em; }
-  .home-system__flow { display: grid; padding: 1.15rem 0; }
-  .home-system__step { position: relative; display: grid; grid-template-columns: 36px 1fr; align-items: center; gap: 12px; padding: 1rem .4rem; }
-  .home-system__step:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,.08); }
-  .home-system__index { color: var(--color-cyan); font-size: .68rem; font-weight: 760; letter-spacing: .08em; }
-  .home-system__step strong { display: block; color: white; font-size: 1.04rem; letter-spacing: -.02em; }
-  .home-system__step small { display: block; margin-top: 3px; color: rgba(247,249,252,.49); font-size: .76rem; }
-  .home-system__arrow { position: absolute; right: .5rem; bottom: -.53rem; z-index: 1; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; color: var(--color-cyan); background: #0e1b39; font-size: .75rem; }
-  .home-system__result { position: relative; padding: 1.3rem; overflow: hidden; border: 1px solid rgba(34,211,238,.16); border-radius: 18px; background: rgba(34,211,238,.065); }
-  .home-system__result > span { display: block; margin-bottom: .35rem; color: var(--color-cyan); font-size: .66rem; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; }
-  .home-system__result strong { display: block; max-width: 18ch; color: white; font-size: 1.16rem; line-height: 1.25; letter-spacing: -.03em; }
-  .home-system__signal { display: flex; align-items: center; width: 116px; margin-top: 1.2rem; color: var(--color-cyan); }
-  .home-system__signal i { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: currentColor; }
-  .home-system__signal span { height: 1px; flex: 1; background: linear-gradient(90deg, currentColor, transparent); }
-  .home-system__signal b { font-size: 1.25rem; font-weight: 400; }
-
-  .home-hero__bottom {
-    display: flex;
-    align-items: center;
-    gap: clamp(12px, 2vw, 26px);
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,.1);
-    color: rgba(247,249,252,.38);
-    font-size: clamp(.58rem, .7vw, .7rem);
-    font-weight: 760;
-    letter-spacing: .15em;
-  }
-  .home-hero__bottom i { height: 1px; flex: 1; max-width: 90px; background: rgba(255,255,255,.12); }
-
-  @keyframes signal-pulse { 50% { box-shadow: 0 0 0 9px rgba(73,227,144,0); } }
-
-  @media (max-width: 980px) {
-    .home-hero__inner { grid-template-columns: minmax(0, 1fr) minmax(320px, .75fr); gap: 2.5rem; }
-    .home-hero h1 { font-size: clamp(3rem, 7vw, 5.4rem); }
-  }
-
-  @media (max-width: 760px) {
-    .home-hero { padding-top: 4.75rem; }
-    .home-hero__inner { grid-template-columns: 1fr; min-height: 0; gap: 2.75rem; }
-    .home-hero h1 { max-width: 11ch; font-size: clamp(2.65rem, 12vw, 4.6rem); }
-    .home-system { max-width: 560px; }
-    .home-hero__bottom { margin-top: 3rem; overflow: hidden; }
-    .home-hero__bottom span:nth-of-type(4), .home-hero__bottom i:nth-of-type(3) { display: none; }
-  }
-
-  @media (max-width: 520px) {
-    .home-hero { padding-top: 3.8rem; }
-    .home-hero__eyebrow { font-size: .62rem; }
-    .home-hero h1 { font-size: clamp(2.45rem, 13vw, 3.6rem); }
-    .home-hero__lead { font-size: 1rem; }
-    .home-hero__actions { display: grid; }
-    .home-hero__actions :global(.button) { width: 100%; }
-    .home-hero__reassurance { display: grid; gap: 7px; }
-    .home-hero__reassurance span:not(:first-child)::before { display: none; }
-    .home-system { padding: 1rem; border-radius: 22px; }
-    .home-system__result strong { font-size: 1.05rem; }
-    .home-hero__bottom { gap: 10px; font-size: .54rem; letter-spacing: .1em; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .home-system__status i { animation: none; }
-  }
-</style>
+<script>
+  import '../../scripts/hero-motion';
+</script>

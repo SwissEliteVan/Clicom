@@ -1,0 +1,39 @@
+---
+const stages = [
+  { number: '01', label: 'ATTIRER', title: 'Créer la bonne demande.', copy: 'SEO, Google Ads, Social Ads et contenu activent les canaux capables de produire une attention qualifiée.', meta: 'VISIBILITÉ · ACQUISITION' },
+  { number: '02', label: 'CONVERTIR', title: 'Transformer l’attention.', copy: 'Site, landing pages, UX et messages rendent la prochaine action évidente et mesurable.', meta: 'WEB · UX · CRO' },
+  { number: '03', label: 'SUIVRE', title: 'Faire avancer chaque lead.', copy: 'CRM, qualification et automatisation empêchent les opportunités de se perdre entre les outils.', meta: 'CRM · AUTOMATION' },
+  { number: '04', label: 'OPTIMISER', title: 'Améliorer le système.', copy: 'Data, IA et tests révèlent les frictions et alimentent l’amélioration continue.', meta: 'DATA · IA · TESTS' },
+];
+---
+
+<section id="systeme" class="home-section home-system-section home-section--dark" aria-labelledby="home-system-title">
+  <div class="home-system-section__glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="home-section-head" data-reveal data-reveal-type="clip">
+      <div>
+        <span class="home-kicker">Système CLICOM</span>
+        <h2 id="home-system-title">Votre croissance ne dépend pas d’un canal. Elle dépend du système entier.</h2>
+      </div>
+      <p>Nous relions les points qui cassent habituellement le parcours commercial : acquisition, conversion, suivi et optimisation.</p>
+    </div>
+
+    <div class="home-system-map" data-home-system data-reveal data-reveal-type="scale">
+      <svg class="home-system-map__line" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M42 110 H1158" />
+        <path class="home-system-map__progress" data-system-progress d="M42 110 H1158" />
+      </svg>
+      <div class="home-system-map__grid">
+        {stages.map((stage) => (
+          <article class="home-system-stage" data-reveal-item>
+            <div class="home-system-stage__node" aria-hidden="true"><i></i><span></span></div>
+            <div class="home-system-stage__meta"><span>{stage.number}</span><small>{stage.label}</small></div>
+            <h3>{stage.title}</h3>
+            <p>{stage.copy}</p>
+            <span class="home-system-stage__stack">{stage.meta}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

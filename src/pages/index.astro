@@ -1,16 +1,16 @@
 ---
-import { Picture } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import Button from '../components/Button.astro';
 import HomeHero from '../components/home/HomeHero.astro';
+import HomeSystem from '../components/home/HomeSystem.astro';
+import HomeExpertise from '../components/home/HomeExpertise.astro';
+import HomeMethod from '../components/home/HomeMethod.astro';
+import HomeWork from '../components/home/HomeWork.astro';
 import HomeFAQ from '../components/home/HomeFAQ.astro';
+import HomeCTA from '../components/home/HomeCTA.astro';
 import '../styles/home.css';
 
-import portfolioNatPatoune from '../assets/editorial/portfolio-nat-patoune.webp';
-import portfolioRikunali from '../assets/editorial/portfolio-rikunali.webp';
-
 const title = 'Clicom | Agence numérique suisse — Web, SEO, Ads & automatisation';
-const description = 'CLICOM aide les PME et indépendants en Suisse romande à relier site web, SEO, publicité et automatisation pour générer davantage de demandes qualifiées.';
+const description = 'CLICOM aide les PME et indépendants en Suisse romande à relier site web, SEO, publicité, automatisation et IA pour générer davantage d’opportunités commerciales.';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -44,218 +44,16 @@ const structuredData = {
     },
   ],
 };
-
-const pillars = [
-  {
-    number: '01',
-    tag: 'Créer',
-    title: 'Sites web & conversion',
-    copy: 'Un site rapide, lisible et construit autour d’un parcours de conversion clair — pas une simple vitrine.',
-    links: [
-      ['/creation-site-web/', 'Création de site'],
-      ['/branding/', 'Identité de marque'],
-    ],
-  },
-  {
-    number: '02',
-    tag: 'Être trouvé',
-    title: 'SEO & visibilité IA',
-    copy: 'Structurer votre présence pour être trouvé sur Google et mieux compris par les nouveaux moteurs de recherche assistés par IA.',
-    links: [
-      ['/seo/', 'SEO'],
-      ['/referencement-ia/', 'Référencement IA'],
-    ],
-  },
-  {
-    number: '03',
-    tag: 'Acquérir',
-    title: 'Google Ads & Social Ads',
-    copy: 'Capter la demande existante sur Google et créer de nouvelles opportunités avec des campagnes sociales mieux ciblées.',
-    links: [
-      ['/google-ads/', 'Google Ads'],
-      ['/social-ads/', 'Social Ads'],
-    ],
-  },
-  {
-    number: '04',
-    tag: 'Suivre',
-    title: 'Automatisation & CRM',
-    copy: 'Faire circuler les demandes vers les bons outils, automatiser les tâches répétitives et garder un suivi commercial lisible.',
-    links: [
-      ['/automatisation/', 'Automatisation'],
-      ['/email-marketing-crm/', 'CRM & e-mail'],
-    ],
-  },
-];
-
-const method = [
-  ['01', 'Diagnostiquer', 'Identifier les ruptures dans votre visibilité, votre conversion et votre suivi avant de choisir les leviers.'],
-  ['02', 'Construire', 'Créer le socle utile : pages, messages, tracking et outils nécessaires au parcours commercial.'],
-  ['03', 'Activer', 'Mettre en mouvement les canaux pertinents : SEO, publicité, contenu et automatisation.'],
-  ['04', 'Optimiser', 'Observer les signaux utiles, corriger les frictions et améliorer progressivement ce qui produit des demandes.'],
-];
 ---
 
 <Layout {title} {description} {structuredData}>
   <div class="home-shell">
     <HomeHero />
-
-    <section class="home-section home-positioning" aria-labelledby="positioning-title">
-      <div class="container">
-        <div class="home-positioning__intro">
-          <div>
-            <span class="home-kicker">Notre approche</span>
-            <h2 id="positioning-title">Le problème n’est pas le manque d’outils. C’est le manque de continuité.</h2>
-          </div>
-          <p>Un bon site ne suffit pas si personne ne le trouve. Du trafic ne suffit pas si les visiteurs ne convertissent pas. Et une demande ne vaut rien si elle se perd dans le suivi. CLICOM relie ces étapes dans un seul système.</p>
-        </div>
-
-        <div class="home-flow">
-          <article>
-            <span class="home-flow__index">01 / ATTIRER</span>
-            <h3>La bonne attention.</h3>
-            <p>SEO, Google Ads, Social Ads et contenu pour faire venir des personnes qui ont une vraie raison de s’intéresser à votre offre.</p>
-            <span class="home-flow__line" aria-hidden="true"></span>
-          </article>
-          <article>
-            <span class="home-flow__index">02 / CONVERTIR</span>
-            <h3>Un parcours sans friction.</h3>
-            <p>Des pages rapides, des messages compréhensibles et des appels à l’action qui rendent la prochaine étape évidente.</p>
-            <span class="home-flow__line" aria-hidden="true"></span>
-          </article>
-          <article>
-            <span class="home-flow__index">03 / SUIVRE</span>
-            <h3>Une demande qui avance.</h3>
-            <p>CRM, automatisations et suivi pour éviter qu’une opportunité disparaisse entre un formulaire, un e-mail et une relance oubliée.</p>
-            <span class="home-flow__line" aria-hidden="true"></span>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="expertises" class="home-section home-services" aria-labelledby="services-title">
-      <div class="container">
-        <div class="home-heading">
-          <span class="home-kicker">Expertises</span>
-          <h2 id="services-title">Quatre piliers. Un seul parcours commercial.</h2>
-          <p>Chaque levier peut fonctionner seul, mais la vraie valeur apparaît lorsqu’ils sont pensés ensemble autour de votre objectif commercial.</p>
-        </div>
-
-        <div class="home-services__grid">
-          {pillars.map((pillar) => (
-            <article class="home-service">
-              <div class="home-service__top">
-                <span class="home-service__number">{pillar.number}</span>
-                <span class="home-service__tag">{pillar.tag}</span>
-              </div>
-              <span class="home-service__signal" aria-hidden="true"></span>
-              <h3>{pillar.title}</h3>
-              <p>{pillar.copy}</p>
-              <div class="home-service__links">
-                {pillar.links.map(([href, label]) => (
-                  <a class="home-service__link" href={href}>{label}<span aria-hidden="true">→</span></a>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div class="home-services__footer">
-          <span>Vous cherchez une vue complète de l’offre CLICOM&nbsp;?</span>
-          <a href="/services/">Voir tous les services →</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="home-section home-section--dark home-method" aria-labelledby="method-title">
-      <div class="container">
-        <div class="home-heading">
-          <span class="home-kicker">Méthode</span>
-          <h2 id="method-title">On commence par comprendre. Pas par vendre un canal.</h2>
-          <p>La méthode reste simple : diagnostiquer ce qui bloque, construire le bon socle, activer les leviers utiles puis améliorer avec des signaux réels.</p>
-        </div>
-
-        <div class="home-method__grid">
-          {method.map(([number, heading, copy]) => (
-            <article class="home-method__step">
-              <span>{number}</span>
-              <h3>{heading}</h3>
-              <p>{copy}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="home-section home-work" aria-labelledby="work-title">
-      <div class="container">
-        <div class="home-work__head">
-          <div>
-            <span class="home-kicker">Réalisations</span>
-            <h2 id="work-title">Du travail concret, pas des maquettes génériques.</h2>
-          </div>
-          <p>Quelques projets permettent de voir comment la stratégie, le design et la réalisation technique se traduisent dans des expériences numériques réelles.</p>
-        </div>
-
-        <div class="home-work__grid">
-          <article class="home-project">
-            <Picture
-              src={portfolioNatPatoune}
-              alt="Aperçu du projet web Nat&Patoune"
-              widths={[640, 960, 1280]}
-              sizes="(max-width: 760px) 100vw, 58vw"
-              formats={['avif', 'webp']}
-              quality={82}
-              loading="lazy"
-            />
-            <div class="home-project__overlay">
-              <span class="home-project__meta">Projet web</span>
-              <h3>Nat&Patoune</h3>
-              <a href="/realisations/" aria-label="Voir les réalisations CLICOM"></a>
-            </div>
-          </article>
-
-          <article class="home-project">
-            <Picture
-              src={portfolioRikunali}
-              alt="Aperçu du projet web Rikunali"
-              widths={[640, 960, 1280]}
-              sizes="(max-width: 760px) 100vw, 42vw"
-              formats={['avif', 'webp']}
-              quality={82}
-              loading="lazy"
-            />
-            <div class="home-project__overlay">
-              <span class="home-project__meta">Projet web</span>
-              <h3>Rikunali</h3>
-              <a href="/realisations/" aria-label="Voir les réalisations CLICOM"></a>
-            </div>
-          </article>
-        </div>
-
-        <div class="home-work__action">
-          <Button href="/realisations/" variant="secondary">Voir toutes les réalisations <span aria-hidden="true">→</span></Button>
-        </div>
-      </div>
-    </section>
-
+    <HomeSystem />
+    <HomeExpertise />
+    <HomeMethod />
+    <HomeWork />
     <HomeFAQ />
-
-    <section class="home-conversion" aria-labelledby="conversion-title">
-      <div class="container home-conversion__panel">
-        <div class="home-conversion__copy">
-          <span class="home-kicker">Prochaine étape</span>
-          <h2 id="conversion-title">Voyons où votre système perd des opportunités.</h2>
-          <p>Expliquez-nous votre situation. Nous regardons votre présence numérique, vos canaux d’acquisition et votre parcours de conversion pour identifier les priorités les plus utiles.</p>
-          <Button href="/audit-gratuit/">Demander mon audit <span aria-hidden="true">→</span></Button>
-        </div>
-
-        <div class="home-conversion__contact">
-          <span>Contact direct</span>
-          <a href="tel:+41788238950">+41 78 823 89 50</a>
-          <a href="mailto:hello@clicom.ch">hello@clicom.ch</a>
-        </div>
-      </div>
-    </section>
+    <HomeCTA />
   </div>
 </Layout>

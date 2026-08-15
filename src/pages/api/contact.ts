@@ -33,14 +33,35 @@ const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, (character) => (
 
 const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
 
+const getClientIdentifier = (request: Request, clientAddress?: string) => {
+  const forwardedFor = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+  const realIp = request.headers.get('x-real-ip')?.trim();
+  const cfIp = request.headers.get('cf-connecting-ip')?.trim();
+  return clientAddress || forwardedFor || realIp || cfIp || 'unknown';
+};
+
+const trimRateLimitStore = (now: number) => {
+  for (const [key, timestamps] of requests) {
+    const recent = timestamps.filter((time) => now - time < WINDOW_MS);
+    if (recent.length) requests.set(key, recent);
+    else requests.delete(key);
+  }
+
+  if (requests.size <= MAX_TRACKED_IPS) return;
+
+  const overflow = requests.size - MAX_TRACKED_IPS;
+  const keys = Array.from(requests.keys()).slice(0, overflow);
+  keys.forEach((key) => requests.delete(key));
+};
+
 const isRateLimited = (ip: string) => {
   const now = Date.now();
-  if (requests.size > MAX_TRACKED_IPS) {
-    for (const [key, timestamps] of requests) if (!timestamps.some((time) => now - time < WINDOW_MS)) requests.delete(key);
-  }
+  if (requests.size > MAX_TRACKED_IPS) trimRateLimitStore(now);
+
   const recent = (requests.get(ip) ?? []).filter((time) => now - time < WINDOW_MS);
   recent.push(now);
   requests.set(ip, recent);
+
   return recent.length > MAX_REQUESTS;
 };
 
@@ -48,7 +69,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const contentLength = Number(request.headers.get('content-length') ?? 0);
   if (contentLength > 16_384) return json({ success: false, message: 'Requête trop volumineuse.' }, 413);
 
-  if (isRateLimited(clientAddress || 'unknown')) {
+  if (isRateLimited(getClientIdentifier(request, clientAddress))) {
     return json({ success: false, message: 'Trop de demandes. Veuillez réessayer plus tard.' }, 429);
   }
 

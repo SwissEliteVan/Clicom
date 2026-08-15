@@ -5,7 +5,7 @@ import portfolioNatPatoune from '../../assets/editorial/portfolio-nat-patoune.we
 import portfolioRikunali from '../../assets/editorial/portfolio-rikunali.webp';
 ---
 
-<section class="home-section home-work" aria-labelledby="home-work-title">
+<section class="home-section home-work" aria-labelledby="home-work-title" data-work-section>
   <div class="container">
     <div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip">
       <div>
@@ -16,8 +16,8 @@ import portfolioRikunali from '../../assets/editorial/portfolio-rikunali.webp';
     </div>
 
     <div class="home-work-grid">
-      <article class="home-work-project home-work-project--primary" data-reveal data-reveal-type="scale">
-        <div class="home-work-project__media">
+      <article class="home-work-project home-work-project--primary" data-reveal data-reveal-type="scale" data-work-project>
+        <div class="home-work-project__media" data-work-media>
           <Picture src={portfolioNatPatoune} alt="Aperçu du projet web Nat et Patoune" widths={[640,960,1280,1600]} sizes="(max-width: 760px) 100vw, 58vw" formats={['avif','webp']} quality={84} loading="lazy" />
         </div>
         <div class="home-work-project__meta">
@@ -27,8 +27,8 @@ import portfolioRikunali from '../../assets/editorial/portfolio-rikunali.webp';
         </div>
       </article>
 
-      <article class="home-work-project home-work-project--secondary" data-reveal data-reveal-type="slide">
-        <div class="home-work-project__media">
+      <article class="home-work-project home-work-project--secondary" data-reveal data-reveal-type="slide" data-work-project>
+        <div class="home-work-project__media" data-work-media>
           <Picture src={portfolioRikunali} alt="Aperçu du projet web Rikunali" widths={[640,960,1280]} sizes="(max-width: 760px) 100vw, 42vw" formats={['avif','webp']} quality={84} loading="lazy" />
         </div>
         <div class="home-work-project__meta">

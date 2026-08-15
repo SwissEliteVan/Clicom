@@ -2,11 +2,12 @@ import gsap from 'gsap';
 
 export const initScrollReveals = (reduced = false) => {
   const groups = gsap.utils.toArray<HTMLElement>('[data-reveal]');
+  const animations: gsap.core.Tween[] = [];
 
   if (reduced) {
     gsap.set(groups, { clearProps: 'all' });
     groups.forEach((group) => gsap.set(group.querySelectorAll('[data-reveal-item]'), { clearProps: 'all' }));
-    return;
+    return () => undefined;
   }
 
   groups.forEach((group) => {
@@ -22,20 +23,51 @@ export const initScrollReveals = (reduced = false) => {
     };
 
     if (type === 'clip') {
-      gsap.from(targets, { ...base, y: 26, opacity: 0, clipPath: 'inset(0 0 18% 0)' });
+      animations.push(gsap.from(targets, {
+        ...base,
+        y: 28,
+        opacity: 0,
+        clipPath: 'inset(0 0 22% 0 round 18px)',
+        filter: 'blur(5px)',
+      }));
       return;
     }
 
     if (type === 'scale') {
-      gsap.from(targets, { ...base, y: 24, opacity: 0, scale: .965, duration: 1.12 });
+      animations.push(gsap.from(targets, {
+        ...base,
+        y: 26,
+        opacity: 0,
+        scale: .95,
+        filter: 'blur(6px)',
+        duration: 1.14,
+      }));
       return;
     }
 
     if (type === 'slide') {
-      gsap.from(targets, { ...base, x: 34, opacity: 0, duration: .92 });
+      animations.push(gsap.from(targets, {
+        ...base,
+        x: 38,
+        opacity: 0,
+        filter: 'blur(4px)',
+        duration: .94,
+      }));
       return;
     }
 
-    gsap.from(targets, { ...base, y: 42, opacity: 0 });
+    animations.push(gsap.from(targets, {
+      ...base,
+      y: 44,
+      opacity: 0,
+      filter: 'blur(4px)',
+    }));
   });
+
+  return () => {
+    animations.forEach((animation) => {
+      animation.scrollTrigger?.kill();
+      animation.kill();
+    });
+  };
 };

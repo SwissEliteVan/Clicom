@@ -47,12 +47,13 @@ const pillars = [
 
     <div class="home-expertise-grid">
       {pillars.map((pillar, index) => (
-        <article class:list={['home-expertise-card', pillar.className, index === 0 && 'home-expertise-card--feature']} data-reveal data-reveal-type={index === 0 ? 'scale' : 'slide'}>
+        <article class:list={['home-expertise-card', pillar.className, index === 0 && 'home-expertise-card--feature']} data-reveal data-reveal-type={index === 0 ? 'scale' : 'slide'} data-expertise-card>
+          <div class="home-expertise-card__pointer" aria-hidden="true"></div>
           <div class="home-expertise-card__head">
             <span>{pillar.number}</span>
             <small>{pillar.label}</small>
           </div>
-          <div class="home-expertise-card__graphic" aria-hidden="true">
+          <div class="home-expertise-card__graphic" aria-hidden="true" data-expertise-graphic>
             <span></span><i></i><b></b>
           </div>
           <div class="home-expertise-card__body">

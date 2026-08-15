@@ -1,29 +1,16 @@
 ---
+import { Picture } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import Icon from '../components/Icon.astro';
 import HomeHero from '../components/home/HomeHero.astro';
 import HomeFAQ from '../components/home/HomeFAQ.astro';
-import { getCollection } from 'astro:content';
-import EditorialImage from '../components/EditorialImage.astro';
+import '../styles/home.css';
 
-// Images pour la homepage
-import agenceFuturiste from '../assets/editorial/agence-digitale-futuriste.jpg';
-import consultantStrategie from '../assets/editorial/consultant-digital-strategie.png';
-import dashboardCroissance from '../assets/editorial/dashboard-croissance-digital.jpg';
-import dashboardHolographique from '../assets/editorial/dashboard-holographique-data.jpg';
-import expertMarketing from '../assets/editorial/expert-marketing-digital.jpg';
-import gainTempsAdmin from '../assets/editorial/gain-de-temps-administratif-pme.jpeg';
-import webResponsive from '../assets/editorial/web-responsive.webp';
-import geoKnowledge from '../assets/editorial/geo-knowledge.webp';
-import aiEditorial from '../assets/editorial/ai-editorial.webp';
 import portfolioNatPatoune from '../assets/editorial/portfolio-nat-patoune.webp';
 import portfolioRikunali from '../assets/editorial/portfolio-rikunali.webp';
-import bureauFlatlay from '../assets/editorial/bureau-flatlay-document.png';
-import marketingDigital from '../assets/editorial/marketing-digital-strategie.jpg';
 
-const title = 'Clicom | Agence numérique suisse — Web, SEO, Ads & IA';
-const description = 'Clicom accompagne les entreprises avec des sites web performants, du SEO, Google Ads, Publicité sur les réseaux sociaux et des solutions d\'intelligence artificielle et d\'automatisation.';
+const title = 'Clicom | Agence numérique suisse — Web, SEO, Ads & automatisation';
+const description = 'CLICOM aide les PME et indépendants en Suisse romande à relier site web, SEO, publicité et automatisation pour générer davantage de demandes qualifiées.';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -37,7 +24,15 @@ const structuredData = {
       telephone: '+41788238950',
       description,
       areaServed: { '@type': 'Country', name: 'Suisse' },
-      serviceType: ['Création de sites web', 'SEO', 'Référencement IA', 'Google Ads', 'Publicité sur les réseaux sociaux', 'Automatisation IA', 'CRM et e-mail marketing'],
+      serviceType: [
+        'Création de sites web',
+        'SEO',
+        'Référencement IA',
+        'Google Ads',
+        'Publicité sur les réseaux sociaux',
+        'Automatisation',
+        'CRM et e-mail marketing',
+      ],
     },
     {
       '@type': 'WebSite',
@@ -50,435 +45,217 @@ const structuredData = {
   ],
 };
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const pillars = [
+  {
+    number: '01',
+    tag: 'Créer',
+    title: 'Sites web & conversion',
+    copy: 'Un site rapide, lisible et construit autour d’un parcours de conversion clair — pas une simple vitrine.',
+    links: [
+      ['/creation-site-web/', 'Création de site'],
+      ['/branding/', 'Identité de marque'],
+    ],
+  },
+  {
+    number: '02',
+    tag: 'Être trouvé',
+    title: 'SEO & visibilité IA',
+    copy: 'Structurer votre présence pour être trouvé sur Google et mieux compris par les nouveaux moteurs de recherche assistés par IA.',
+    links: [
+      ['/seo/', 'SEO'],
+      ['/referencement-ia/', 'Référencement IA'],
+    ],
+  },
+  {
+    number: '03',
+    tag: 'Acquérir',
+    title: 'Google Ads & Social Ads',
+    copy: 'Capter la demande existante sur Google et créer de nouvelles opportunités avec des campagnes sociales mieux ciblées.',
+    links: [
+      ['/google-ads/', 'Google Ads'],
+      ['/social-ads/', 'Social Ads'],
+    ],
+  },
+  {
+    number: '04',
+    tag: 'Suivre',
+    title: 'Automatisation & CRM',
+    copy: 'Faire circuler les demandes vers les bons outils, automatiser les tâches répétitives et garder un suivi commercial lisible.',
+    links: [
+      ['/automatisation/', 'Automatisation'],
+      ['/email-marketing-crm/', 'CRM & e-mail'],
+    ],
+  },
+];
+
+const method = [
+  ['01', 'Diagnostiquer', 'Identifier les ruptures dans votre visibilité, votre conversion et votre suivi avant de choisir les leviers.'],
+  ['02', 'Construire', 'Créer le socle utile : pages, messages, tracking et outils nécessaires au parcours commercial.'],
+  ['03', 'Activer', 'Mettre en mouvement les canaux pertinents : SEO, publicité, contenu et automatisation.'],
+  ['04', 'Optimiser', 'Observer les signaux utiles, corriger les frictions et améliorer progressivement ce qui produit des demandes.'],
+];
 ---
 
 <Layout {title} {description} {structuredData}>
-  <HomeHero />
+  <div class="home-shell">
+    <HomeHero />
 
-  <!-- Section 1 — Positionnement / Pourquoi Clicom -->
-  <section class="home-intro" aria-labelledby="intro-title">
-    <div class="container home-intro__grid" data-reveal>
-      <div class="home-intro__index" data-reveal-item><span>01</span><i></i><span>L'agence</span></div>
-      <h2 id="intro-title" data-reveal-item>Une agence, un interlocuteur, un système complet.</h2>
-      <div class="home-intro__copy" data-reveal-item>
-        <p>Site web, référencement, publicité et automatisation sont pilotés au même endroit. Vous gardez un seul contact et une vision claire de ce qui produit des demandes.</p>
-        <p class="home-intro__for"><strong>Pour qui&nbsp;:</strong> PME, indépendants, commerces et services en Suisse romande.</p>
-        <a class="text-link" href="/agence">Découvrir l'agence <span>↗</span></a>
-      </div>
-    </div>
-    <div class="home-intro__visual" data-reveal>
-      <div class="home-intro__image-row">
-        <EditorialImage src={agenceFuturiste} alt="Agence digitale futuriste — innovation et technologie" ratio="1/1" ratioMobile="1/1" position="center" eager />
-        <EditorialImage src={consultantStrategie} alt="Consultant digital en stratégie de croissance" ratio="3/2" ratioMobile="4/3" position="center" />
-      </div>
-    </div>
-    <div class="container home-intro__system" data-reveal>
-      <div class="problem-system" data-reveal-item>
-        <div class="frictions">
-          {[
-            ['01','Site web','Beaucoup de visites, très peu de demandes.'],
-            ['02','Google','Vos concurrents sortent avant vous.'],
-            ['03','Publicité','Un budget dépensé sans retour mesurable.'],
-            ['04','Suivi','Des demandes traitées trop tard.'],
-            ['05','Outils','Des outils qui ne se parlent pas.'],
-            ['06','Temps','Des tâches répétitives chaque semaine.'],
-          ].map(([number,label,text]) => <article><span>{number}</span><small>{label}</small><p>{text}</p></article>)}
+    <section class="home-section home-positioning" aria-labelledby="positioning-title">
+      <div class="container">
+        <div class="home-positioning__intro">
+          <div>
+            <span class="home-kicker">Notre approche</span>
+            <h2 id="positioning-title">Le problème n’est pas le manque d’outils. C’est le manque de continuité.</h2>
+          </div>
+          <p>Un bon site ne suffit pas si personne ne le trouve. Du trafic ne suffit pas si les visiteurs ne convertissent pas. Et une demande ne vaut rien si elle se perd dans le suivi. CLICOM relie ces étapes dans un seul système.</p>
         </div>
-        <div class="system-answer">
-          <div class="answer-mark" aria-hidden="true"><span></span><i></i><b>→</b></div>
-          <span class="tag">Notre approche</span>
-          <h3>Un parcours continu, de la visite au client.</h3>
-          <p>Nous relions acquisition, conversion et suivi commercial pour que chaque levier alimente le suivant.</p>
-          <a class="text-link" href="/solutions">Voir nos solutions <span>→</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Section 2 — Services (Bento Grid) -->
-  <section class="section section--white services" aria-labelledby="services-title">
-    <div class="container">
-      <div class="section-heading">
-        <div class="eyebrow">Nos services</div>
-        <h2 id="services-title">Ce que nous faisons pour vous.</h2>
-        <p>Sept expertises activées selon vos objectifs, jamais sous forme de forfait imposé.</p>
-      </div>
-      <div class="services-bento">
-        <!-- Sites web -->
-        <article class="service-card service--wide" style={`--service-bg: url(${webResponsive.src})`}>
-          <div class="service-card__bg" aria-hidden="true"></div>
-          <div class="service-card__top">
-            <span class="icon-box"><Icon name="code" /></span>
-            <span aria-hidden="true" class="service-card__number">01</span>
-          </div>
-          <h3>Sites web</h3>
-          <p>Un site rapide, clair et pensé pour transformer vos visiteurs en demandes de contact.</p>
-          <a href="/creation-site-web/">En savoir plus <span aria-hidden="true">→</span></a>
-          <div class="service-signal" aria-hidden="true"><i></i><span></span><b>→</b></div>
-        </article>
-        <!-- SEO & Référencement IA -->
-        <article class="service-card service--tall" style={`--service-bg: url(${geoKnowledge.src})`}>
-          <div class="service-card__bg" aria-hidden="true"></div>
-          <div class="service-card__top">
-            <span class="icon-box"><Icon name="search" /></span>
-            <span aria-hidden="true" class="service-card__number">02</span>
-          </div>
-          <h3>SEO & Référencement IA</h3>
-          <p>Être trouvé sur Google et cité par les moteurs de recherche IA, sur les requêtes qui comptent.</p>
-          <a href="/seo/">En savoir plus <span aria-hidden="true">→</span></a>
-        </article>
-        <!-- Google Ads -->
-        <article class="service-card" style={`--service-bg: url(${dashboardCroissance.src})`}>
-          <div class="service-card__bg" aria-hidden="true"></div>
-          <div class="service-card__top">
-            <span class="icon-box"><Icon name="cursor" /></span>
-            <span aria-hidden="true" class="service-card__number">03</span>
-          </div>
-          <h3>Google Ads</h3>
-          <p>Capter la demande déjà existante, avec un coût par demande suivi de près.</p>
-          <a href="/google-ads/">En savoir plus <span aria-hidden="true">→</span></a>
-        </article>
-        <!-- Publicité sur les réseaux sociaux -->
-        <article class="service-card" style={`--service-bg: url(${dashboardHolographique.src})`}>
-          <div class="service-card__bg" aria-hidden="true"></div>
-          <div class="service-card__top">
-            <span class="icon-box"><Icon name="target" /></span>
-            <span aria-hidden="true" class="service-card__number">04</span>
-          </div>
-          <h3>Publicité sociale</h3>
-          <p>Aller chercher vos futurs clients sur Meta et LinkedIn, avant qu'ils ne cherchent.</p>
-          <a href="/google-ads/">En savoir plus <span aria-hidden="true">→</span></a>
-        </article>
-        <!-- Réseaux sociaux & contenu -->
-        <article class="service-card service--wide" style={`--service-bg: url(${marketingDigital.src})`}>
-          <div class="service-card__bg" aria-hidden="true"></div>
-          <div class="service-card__top">
-            <span class="icon-box"><Icon name="spark" /></span>
-            <span aria-hidden="true" class="service-card__number">05</span>
-          </div>
-          <h3>Réseaux sociaux & contenu</h3>
-          <p>Une présence régulière et cohérente qui installe la confiance avant le premier contact.</p>
-          <a href="/reseaux-sociaux/">En savoir plus <span aria-hidden="true">→</span></a>
-          <div class="service-signal" aria-hidden="true"><i></i><span></span><b>→</b></div>
-        </article>
-        <!-- Intelligence artificielle -->
-        <article class="service-card" style={`--service-bg: url(${aiEditorial.src})`}>
-          <div class="service-card__bg" aria-hidden="true"></div>
-          <div class="service-card__top">
-            <span class="icon-box"><Icon name="globe" /></span>
-            <span aria-hidden="true" class="service-card__number">06</span>
-          </div>
-          <h3>Intelligence artificielle</h3>
-          <p>L'IA appliquée là où elle fait gagner du temps : réponses, contenus, qualification.</p>
-          <a href="/intelligence-artificielle/">En savoir plus <span aria-hidden="true">→</span></a>
-        </article>
-        <!-- Automatisation & CRM -->
-        <article class="service-card service--dark" style={`--service-bg: url(${gainTempsAdmin.src})`}>
-          <div class="service-card__bg" aria-hidden="true"></div>
-          <div class="service-card__top">
-            <span class="icon-box"><Icon name="automation" /></span>
-            <span aria-hidden="true" class="service-card__number">07</span>
-          </div>
-          <h3>Automatisation & CRM</h3>
-          <p>Chaque demande arrive au bon endroit, relancée automatiquement, sans saisie manuelle.</p>
-          <a href="/automatisation/">En savoir plus <span aria-hidden="true">→</span></a>
-        </article>
-      </div>
-      <p class="services-audiences"><strong>Secteurs :</strong> commerce local · immobilier · santé · services B2B · e-commerce · artisanat — <a href="/secteurs/">Voir les secteurs <span>→</span></a></p>
-    </div>
-  </section>
-
-  <!-- Section 3 — Méthode Clicom -->
-  <section class="section growth" aria-labelledby="growth-title">
-    <div class="container">
-      <div class="growth__head">
-        <div>
-          <div class="eyebrow">Méthode</div>
-          <h2 id="growth-title">Comment nous travaillons.</h2>
-        </div>
-        <p>Quatre étapes, dans cet ordre. Chacune produit un livrable concret et des chiffres que vous pouvez vérifier.</p>
-      </div>
-      <div class="growth__media" data-reveal>
-        <EditorialImage src={expertMarketing} alt="Expert marketing digital analysant des données de performance" ratio="21/9" ratioMobile="4/3" position="center 30%" />
-      </div>
-      <div class="growth-pipeline">
-        {[
-          ['01','Cadrer',['Objectifs chiffrés','Analyse du marché','Audit de l\'existant','Plan d\'action']],
-          ['02','Construire',['Site ou refonte','Pages de conversion','Contenus','Suivi des demandes']],
-          ['03','Diffuser',['SEO','Google Ads','Publicité sociale','Réseaux sociaux']],
-          ['04','Optimiser',['Rapports mensuels','Tests A/B','Automatisation','Ajustements']],
-        ].map(([number,title,items], index) => <article><div class="pipeline-index"><span>{number}</span>{index < 3 && <i aria-hidden="true">→</i>}</div><h3>{title}</h3><ul>{(items as string[]).map(item => <li>{item}</li>)}</ul></article>)}
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 4 — Réalisations -->
-  <section class="section work" aria-labelledby="work-title">
-    <div class="container work__panel">
-      <div>
-        <div class="eyebrow">Réalisations</div>
-        <h2 id="work-title">Nos projets récents.</h2>
-        <p>Chaque réalisation est présentée avec son contexte, les choix retenus et ce qui a été livré. Nous publions uniquement ce que nos clients nous autorisent à montrer.</p>
-        <div class="button-row">
-          <Button href="/realisations">Voir les projets <span aria-hidden="true">↗</span></Button>
-        </div>
-      </div>
-      <div class="work-gallery">
-        <EditorialImage src={portfolioNatPatoune} alt="Projet de site web pour Nat&Patoune" ratio="4/3" ratioMobile="1/1" position="center" />
-        <EditorialImage src={portfolioRikunali} alt="Projet de site web pour Rikunali" ratio="4/3" ratioMobile="1/1" position="center" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 5 — Blog / Expertise -->
-  <section class="section section--white home-blog" aria-labelledby="blog-title">
-    <div class="container">
-      <div class="section-heading">
-        <div class="eyebrow">Ressources</div>
-        <h2 id="blog-title">Ressources utiles.</h2>
-        <p>Nos articles sur le SEO, la publicité, l'IA et la conversion — écrits pour être appliqués.</p>
-      </div>
-      <div class="home-blog__grid">
-        {posts.map((post) => (
-          <article class="card card--interactive">
-            <div class="post-meta"><span>{post.data.category}</span><time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('fr-CH', { day: 'numeric', month: 'short', year: 'numeric' })}</time></div>
-            <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
-            <a class="text-link" href={'/blog/' + post.id + '/'}>Lire l’article <span>→</span></a>
+        <div class="home-flow">
+          <article>
+            <span class="home-flow__index">01 / ATTIRER</span>
+            <h3>La bonne attention.</h3>
+            <p>SEO, Google Ads, Social Ads et contenu pour faire venir des personnes qui ont une vraie raison de s’intéresser à votre offre.</p>
+            <span class="home-flow__line" aria-hidden="true"></span>
           </article>
-        ))}
+          <article>
+            <span class="home-flow__index">02 / CONVERTIR</span>
+            <h3>Un parcours sans friction.</h3>
+            <p>Des pages rapides, des messages compréhensibles et des appels à l’action qui rendent la prochaine étape évidente.</p>
+            <span class="home-flow__line" aria-hidden="true"></span>
+          </article>
+          <article>
+            <span class="home-flow__index">03 / SUIVRE</span>
+            <h3>Une demande qui avance.</h3>
+            <p>CRM, automatisations et suivi pour éviter qu’une opportunité disparaisse entre un formulaire, un e-mail et une relance oubliée.</p>
+            <span class="home-flow__line" aria-hidden="true"></span>
+          </article>
+        </div>
       </div>
-      <p class="home-blog__more"><a class="text-link" href="/blog/">Voir tous les articles <span>→</span></a></p>
-    </div>
-  </section>
+    </section>
 
-  <HomeFAQ />
+    <section id="expertises" class="home-section home-services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="home-heading">
+          <span class="home-kicker">Expertises</span>
+          <h2 id="services-title">Quatre piliers. Un seul parcours commercial.</h2>
+          <p>Chaque levier peut fonctionner seul, mais la vraie valeur apparaît lorsqu’ils sont pensés ensemble autour de votre objectif commercial.</p>
+        </div>
 
-  <!-- Section 6 — CTA Final -->
-  <section class="final-cta" aria-labelledby="final-cta-title">
-    <div class="container final-cta__panel">
-      <div class="final-cta__bg" aria-hidden="true">
-        <EditorialImage src={bureauFlatlay} alt="" ratio="1/1" ratioMobile="1/1" position="center" />
+        <div class="home-services__grid">
+          {pillars.map((pillar) => (
+            <article class="home-service">
+              <div class="home-service__top">
+                <span class="home-service__number">{pillar.number}</span>
+                <span class="home-service__tag">{pillar.tag}</span>
+              </div>
+              <span class="home-service__signal" aria-hidden="true"></span>
+              <h3>{pillar.title}</h3>
+              <p>{pillar.copy}</p>
+              <div class="home-service__links">
+                {pillar.links.map(([href, label]) => (
+                  <a class="home-service__link" href={href}>{label}<span aria-hidden="true">→</span></a>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="home-services__footer">
+          <span>Vous cherchez une vue complète de l’offre CLICOM&nbsp;?</span>
+          <a href="/services/">Voir tous les services →</a>
+        </div>
       </div>
-      <div class="final-cta__copy">
-        <div class="eyebrow">Prochaine étape</div>
-        <h2 id="final-cta-title">Parlons de votre projet.</h2>
-        <p>Décrivez-nous votre situation en quelques lignes. Nous analysons votre présence en ligne et vous indiquons les deux ou trois actions les plus rentables à engager.</p>
-        <Button href="/audit-gratuit/">Obtenir mon audit gratuit <span aria-hidden="true">↗</span></Button>
+    </section>
+
+    <section class="home-section home-section--dark home-method" aria-labelledby="method-title">
+      <div class="container">
+        <div class="home-heading">
+          <span class="home-kicker">Méthode</span>
+          <h2 id="method-title">On commence par comprendre. Pas par vendre un canal.</h2>
+          <p>La méthode reste simple : diagnostiquer ce qui bloque, construire le bon socle, activer les leviers utiles puis améliorer avec des signaux réels.</p>
+        </div>
+
+        <div class="home-method__grid">
+          {method.map(([number, heading, copy]) => (
+            <article class="home-method__step">
+              <span>{number}</span>
+              <h3>{heading}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
       </div>
-      <div class="final-cta__contact">
-        <div class="cta-motif" aria-hidden="true"><span></span><i></i><b>→</b></div>
-        <a href="tel:+41788238950"><small>Téléphone</small>+41 78 823 89 50</a>
-        <a href="mailto:hello@clicom.ch"><small>E-mail</small>hello@clicom.ch</a>
+    </section>
+
+    <section class="home-section home-work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="home-work__head">
+          <div>
+            <span class="home-kicker">Réalisations</span>
+            <h2 id="work-title">Du travail concret, pas des maquettes génériques.</h2>
+          </div>
+          <p>Quelques projets permettent de voir comment la stratégie, le design et la réalisation technique se traduisent dans des expériences numériques réelles.</p>
+        </div>
+
+        <div class="home-work__grid">
+          <article class="home-project">
+            <Picture
+              src={portfolioNatPatoune}
+              alt="Aperçu du projet web Nat&Patoune"
+              widths={[640, 960, 1280]}
+              sizes="(max-width: 760px) 100vw, 58vw"
+              formats={['avif', 'webp']}
+              quality={82}
+              loading="lazy"
+            />
+            <div class="home-project__overlay">
+              <span class="home-project__meta">Projet web</span>
+              <h3>Nat&Patoune</h3>
+              <a href="/realisations/" aria-label="Voir les réalisations CLICOM"></a>
+            </div>
+          </article>
+
+          <article class="home-project">
+            <Picture
+              src={portfolioRikunali}
+              alt="Aperçu du projet web Rikunali"
+              widths={[640, 960, 1280]}
+              sizes="(max-width: 760px) 100vw, 42vw"
+              formats={['avif', 'webp']}
+              quality={82}
+              loading="lazy"
+            />
+            <div class="home-project__overlay">
+              <span class="home-project__meta">Projet web</span>
+              <h3>Rikunali</h3>
+              <a href="/realisations/" aria-label="Voir les réalisations CLICOM"></a>
+            </div>
+          </article>
+        </div>
+
+        <div class="home-work__action">
+          <Button href="/realisations/" variant="secondary">Voir toutes les réalisations <span aria-hidden="true">→</span></Button>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <HomeFAQ />
+
+    <section class="home-conversion" aria-labelledby="conversion-title">
+      <div class="container home-conversion__panel">
+        <div class="home-conversion__copy">
+          <span class="home-kicker">Prochaine étape</span>
+          <h2 id="conversion-title">Voyons où votre système perd des opportunités.</h2>
+          <p>Expliquez-nous votre situation. Nous regardons votre présence numérique, vos canaux d’acquisition et votre parcours de conversion pour identifier les priorités les plus utiles.</p>
+          <Button href="/audit-gratuit/">Demander mon audit <span aria-hidden="true">→</span></Button>
+        </div>
+
+        <div class="home-conversion__contact">
+          <span>Contact direct</span>
+          <a href="tel:+41788238950">+41 78 823 89 50</a>
+          <a href="mailto:hello@clicom.ch">hello@clicom.ch</a>
+        </div>
+      </div>
+    </section>
+  </div>
 </Layout>
-
-<style>
-  /* =============================================
-     HOME INTRO — Nouvelle section visuelle
-     ============================================= */
-  .home-intro { position: relative; padding-block: clamp(7rem,12vw,12rem); overflow: hidden; background: var(--color-background); }
-  .home-intro::before { position: absolute; top: 0; right: 5%; width: min(42vw,650px); height: 1px; background: linear-gradient(90deg,transparent,var(--color-primary)); content: ''; }
-  .home-intro__grid { display: grid; grid-template-columns: minmax(130px,.35fr) minmax(0,1.65fr) minmax(260px,.58fr); align-items: start; gap: clamp(28px,5vw,80px); }
-  .home-intro__index { display: flex; align-items: center; gap: 12px; padding-top: 14px; color: var(--color-text-muted); font-size: .65rem; font-weight: 760; letter-spacing: .13em; text-transform: uppercase; }
-  .home-intro__index i { width: 28px; height: 1px; background: var(--color-primary); }
-  .home-intro h2 { max-width: 850px; margin: 0; font-size: clamp(3rem,5.2vw,6rem); line-height: .98; letter-spacing: -.065em; text-wrap: pretty; }
-  .home-intro__copy { padding-top: 14px; }
-  .home-intro__copy p { font-size: clamp(1rem,1.2vw,1.14rem); }
-  .home-intro__visual { margin-top: clamp(40px,6vw,80px); }
-  .home-intro__image-row { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; }
-  .home-intro__image-row :global(.editorial-image) { border-radius: 20px; overflow: hidden; }
-
-  /* =============================================
-     PROBLEM
-     ============================================= */
-  .growth__head { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(280px,.65fr); align-items: end; gap: clamp(40px,8vw,110px); margin-bottom: clamp(48px,7vw,80px); }
-  .growth__head h2 { margin-bottom: 0; }
-  .growth__head > p { margin-bottom: 5px; }
-  .problem-system { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(320px,.65fr); gap: 24px; }
-  .frictions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border: 1px solid var(--color-border); border-radius: var(--radius-surface); overflow: hidden; background: var(--color-border); gap: 1px; }
-  .frictions article { position: relative; min-height: 175px; padding: 28px; background: white; }
-  .frictions article::after { position: absolute; top: 28px; right: 28px; width: 6px; height: 6px; border-radius: 50%; background: #f04438; box-shadow: 0 0 0 5px rgba(240,68,56,.07); content: ''; }
-  .frictions span { color: var(--color-border-strong); font-size: .7rem; font-weight: 760; }
-  .frictions small { display: block; margin-top: 22px; color: var(--color-text-muted); font-size: .65rem; font-weight: 740; letter-spacing: .12em; text-transform: uppercase; }
-  .frictions p { margin: 6px 0 0; color: var(--color-midnight); font-weight: 680; }
-  .system-answer { position: relative; display: flex; min-height: 100%; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: clamp(32px,4vw,48px); overflow: hidden; border-radius: var(--radius-surface); color: white; background: var(--gradient-dark); }
-  .system-answer::before { position: absolute; inset: 0; opacity: .2; background-image: radial-gradient(rgba(255,255,255,.3) 1px, transparent 1px); background-size: 18px 18px; content: ''; mask-image: linear-gradient(to bottom, black, transparent 75%); }
-  .system-answer > * { position: relative; z-index: 1; }
-  .answer-mark { position: absolute; top: 44px; right: 40px; left: 40px; display: flex; align-items: center; color: var(--color-cyan); }
-  .answer-mark span { width: 11px; height: 11px; border-radius: 50%; background: var(--color-cyan); }
-  .answer-mark i { height: 1px; flex: 1; background: linear-gradient(90deg,var(--color-cyan),transparent); }
-  .answer-mark b { font-size: 1.7rem; font-weight: 400; }
-  .system-answer .tag { margin-bottom: 24px; color: var(--color-cyan); border-color: rgba(34,211,238,.22); background: rgba(34,211,238,.08); }
-  .system-answer h3 { font-size: clamp(1.8rem,2.6vw,2.5rem); }
-  .system-answer p { color: var(--color-dark-muted); }
-  .system-answer .text-link { color: var(--color-cyan); }
-
-  /* =============================================
-     SERVICES — Bento with background images
-     ============================================= */
-  .services-bento { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); grid-auto-flow: dense; gap: 20px; }
-  .service-card { position: relative; display: flex; min-height: 330px; flex-direction: column; padding: 30px; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: var(--color-background); transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base); }
-  .service-card:hover { transform: translateY(-4px); border-color: rgba(36,87,255,.28); box-shadow: var(--shadow-card-hover); }
-  .service-card__bg { position: absolute; inset: 0; opacity: .12; background-image: var(--service-bg); background-size: cover; background-position: center; transition: opacity var(--transition-base); }
-  .service-card:hover .service-card__bg { opacity: .22; }
-  .service-card > *:not(.service-card__bg) { position: relative; z-index: 1; }
-  .service-card__top { display: flex; align-items: flex-start; justify-content: space-between; }
-  .service-card__number { color: var(--color-border-strong); font-size: .68rem; font-weight: 760; }
-  .service-card h3 { margin-top: auto; }
-  .service-card p { font-size: .94rem; }
-  .service-card > a { display: inline-flex; align-items: center; gap: 8px; color: var(--color-primary); font-size: .82rem; font-weight: 720; }
-  .service-card > a::after { position: absolute; inset: 0; content: ''; }
-  .service-card > a span { transition: transform var(--transition-fast); }
-  .service-card:hover > a span { transform: translateX(4px); }
-  .service--wide { grid-column: span 2; }
-  .service--tall { grid-row: span 2; min-height: 680px; background: linear-gradient(155deg,var(--color-primary-soft),white 70%); }
-  .service--dark { grid-column: span 2; color: white; border-color: rgba(255,255,255,.1); background: var(--gradient-dark); }
-  .service--dark .service-card__bg { opacity: .15; }
-  .service--dark:hover .service-card__bg { opacity: .25; }
-  .service--dark p { color: var(--color-dark-muted); }
-  .service--dark .service-card__number { color: rgba(255,255,255,.2); }
-  .service--dark > a { color: var(--color-cyan); }
-  .service-signal { position: absolute; top: 48px; right: 30px; display: flex; width: 100px; align-items: center; color: var(--color-primary); }
-  .service-signal i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-  .service-signal span { height: 1px; flex: 1; background: linear-gradient(90deg,currentColor,transparent); }
-  .service-signal b { font-weight: 400; }
-
-  /* =============================================
-     GROWTH — Méthode
-     ============================================= */
-  .growth { overflow: hidden; }
-  .growth__media { margin-bottom: clamp(40px,6vw,64px); }
-  .growth__media :global(.editorial-image) { border-radius: var(--radius-surface); }
-  .growth-pipeline { position: relative; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1px; padding: 1px; border: 1px solid var(--color-border); border-radius: var(--radius-surface); background: var(--color-border); }
-  .growth-pipeline article { min-height: 390px; padding: 32px; background: white; }
-  .growth-pipeline article:first-child { border-radius: 28px 0 0 28px; }
-  .growth-pipeline article:last-child { border-radius: 0 28px 28px 0; background: var(--color-midnight); }
-  .pipeline-index { display: flex; align-items: center; justify-content: space-between; margin-bottom: 90px; color: var(--color-primary); font-size: .7rem; font-weight: 760; }
-  .pipeline-index i { font-size: 1.3rem; font-style: normal; font-weight: 400; }
-  .growth-pipeline article:last-child .pipeline-index { color: var(--color-cyan); }
-  .growth-pipeline article:last-child h3 { color: white; }
-  .growth-pipeline ul { display: grid; gap: 8px; margin: 25px 0 0; padding: 0; list-style: none; }
-  .growth-pipeline li { color: var(--color-text-muted); font-size: .82rem; }
-  .growth-pipeline article:last-child li { color: var(--color-dark-muted); }
-
-  /* =============================================
-     WORK — Réalisations
-     ============================================= */
-  .work__panel { position: relative; display: grid; grid-template-columns: 1fr .75fr; align-items: center; gap: clamp(40px,6vw,70px); padding: clamp(40px,6vw,76px); overflow: hidden; border-radius: var(--radius-surface); background: white; box-shadow: var(--shadow-card); }
-  .work__panel > div:first-child { position: relative; z-index: 2; max-width: 730px; }
-  .work-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .work-gallery :global(.editorial-image) { border-radius: 16px; overflow: hidden; }
-
-  /* =============================================
-     FINAL CTA
-     ============================================= */
-  .final-cta { padding: var(--space-section) 0; background: white; }
-  .final-cta__panel { position: relative; display: grid; grid-template-columns: 1.2fr .8fr; align-items: end; gap: 60px; padding: clamp(42px,7vw,88px); overflow: hidden; border-radius: var(--radius-surface); color: white; background: var(--gradient-dark); box-shadow: var(--shadow-featured); }
-  .final-cta__panel::before { position: absolute; inset: 0; opacity: .25; background-image: linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px); background-size: 48px 48px; content: ''; mask-image: linear-gradient(90deg,transparent,black); }
-  .final-cta__panel > * { position: relative; z-index: 1; }
-  .final-cta__bg { position: absolute; inset: 0; opacity: .15; z-index: 0; }
-  .final-cta__bg :global(.editorial-image) { width: 100%; height: 100%; border-radius: 0; }
-  .final-cta__copy p { max-width: 680px; color: var(--color-dark-muted); }
-  .final-cta__copy .button { margin-top: 20px; }
-  .final-cta__contact { display: grid; gap: 20px; justify-items: end; }
-  .final-cta__contact a { color: white; font-size: clamp(1rem,1.7vw,1.25rem); font-weight: 680; }
-  .final-cta__contact small { display: block; color: #78849b; font-size: .6rem; letter-spacing: .1em; text-align: right; text-transform: uppercase; }
-  .cta-motif { display: flex; width: 100%; max-width: 260px; align-items: center; margin-bottom: 20px; color: var(--color-cyan); }
-  .cta-motif span { width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
-  .cta-motif i { height: 1px; flex: 1; background: linear-gradient(90deg,currentColor,transparent); }
-  .cta-motif b { font-size: 1.7rem; font-weight: 400; }
-
-  /* =============================================
-     INTRO SYSTEM / AUDIENCES STRIP / BLOG
-     ============================================= */
-  .home-intro__system { margin-top: clamp(48px,7vw,88px); }
-  .home-intro__for { margin-top: 14px; font-size: .94rem; }
-  .home-intro__for strong { color: var(--color-midnight); }
-  .services-audiences { margin: 30px 0 0; color: var(--color-text-muted); font-size: .94rem; }
-  .services-audiences strong { color: var(--color-midnight); }
-  .services-audiences a { color: var(--color-primary); font-weight: 720; }
-  .home-blog__grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--space-3); }
-  .home-blog__grid h3 { font-size: 1.2rem; }
-  .home-blog .post-meta { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 20px; color: var(--color-text-muted); font-size: .72rem; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; }
-  .home-blog .post-meta span { color: var(--color-primary); }
-  .home-blog__more { margin: 34px 0 0; }
-  @media (max-width: 900px) { .home-blog__grid { grid-template-columns: 1fr; } }
-
-  /* =============================================
-     RESPONSIVE
-     ============================================= */
-  @media (max-width: 1100px) {
-    .services-bento { grid-template-columns: repeat(2,1fr); }
-    .service--tall { grid-row: span 1; min-height: 330px; }
-    .growth-pipeline { grid-template-columns: repeat(2,1fr); }
-    .growth-pipeline article:first-child,.growth-pipeline article:last-child { border-radius: 0; }
-    .growth-pipeline article { min-height: 320px; }
-    .pipeline-index { margin-bottom: 55px; }
-    .work-gallery { grid-template-columns: 1fr 1fr; }
-    .work__panel { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 800px) {
-    .home-intro__grid { grid-template-columns: 1fr 2.5fr; }
-    .home-intro__copy { grid-column: 2; }
-    .home-intro__image-row { grid-template-columns: 1fr 1.2fr; }
-    .growth__head,.final-cta__panel { grid-template-columns: 1fr; }
-    .problem-system { grid-template-columns: 1fr; }
-    .system-answer { min-height: 440px; }
-    .work__panel { grid-template-columns: 1fr; }
-    .work-gallery { grid-template-columns: 1fr 1fr; }
-    .final-cta__contact { justify-items: start; }
-    .final-cta__contact small { text-align: left; }
-  }
-
-  @media (max-width: 680px) {
-    .home-intro { padding-block: 3.25rem; }
-    .home-intro__grid { grid-template-columns: 1fr; gap: 16px; }
-    .home-intro__copy { grid-column: auto; }
-    .home-intro h2 { font-size: clamp(1.6rem,6.8vw,2rem); }
-    .home-intro__index { margin-bottom: 0; }
-    .home-intro__system { margin-top: 2.25rem; }
-    .home-intro__visual { margin-block: 1.75rem; }
-    .home-intro__image-row { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .home-intro__image-row :global(.editorial-image) { max-height: 190px; }
-    .frictions,.services-bento,.growth-pipeline { grid-template-columns: 1fr 1fr; }
-    .service--wide,.service--dark,.service--tall { grid-column: auto; grid-row: auto; }
-    .services-bento { gap: 12px; }
-    .service-card { min-height: 0; padding: 18px; border-radius: 16px; }
-    .service-card p { font-size: .88rem; line-height: 1.45; }
-    .service-signal { display: none; }
-    .service-card__bg { opacity: .18; }
-    .service--dark .service-card__bg { opacity: .24; }
-    .final-cta__bg { opacity: .22; }
-    .frictions article { min-height: 0; padding: 16px; }
-    .frictions article p { font-size: .85rem; line-height: 1.4; }
-    .growth-pipeline article { min-height: 0; padding: 18px; }
-    .growth-pipeline ul { margin-top: 12px; }
-    .growth__head { gap: 14px; margin-bottom: 1.75rem; }
-    .growth__media { margin-block: 1.5rem; }
-    .pipeline-index { margin-bottom: 14px; }
-    .pipeline-index i { display: none; }
-    .system-answer { min-height: 0; padding: 24px 20px; }
-    .work__panel { gap: 22px; padding: 24px 20px; border-radius: 20px; }
-    .work-gallery { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .services-audiences { margin-top: 20px; font-size: .87rem; }
-    .home-blog__more { margin-top: 22px; }
-    .final-cta__panel { gap: 24px; padding: 26px 20px; border-radius: 20px; }
-    .final-cta__copy .button { width: 100%; }
-  }
-
-  @media (max-width: 400px) {
-    .services-bento,.frictions,.growth-pipeline { grid-template-columns: 1fr; }
-    .service-card { padding: 16px; }
-    .home-intro__image-row :global(.editorial-image) { max-height: 160px; }
-  }
-
-
-  @media (prefers-reduced-motion: reduce) {
-    .service-card { transition: none; }
-  }
-</style>

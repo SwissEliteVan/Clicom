@@ -7,7 +7,7 @@ const steps = [
 ];
 ---
 
-<section class="home-section home-method" aria-labelledby="home-method-title">
+<section class="home-section home-method" aria-labelledby="home-method-title" data-method-section>
   <div class="container">
     <div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip">
       <div>
@@ -20,8 +20,8 @@ const steps = [
     <div class="home-method-track" data-home-method>
       <div class="home-method-track__rail" aria-hidden="true"><span data-method-progress></span></div>
       <div class="home-method-track__steps">
-        {steps.map(([number,title,copy]) => (
-          <article class="home-method-step" data-reveal data-reveal-type="slide">
+        {steps.map(([number,title,copy], index) => (
+          <article class:list={['home-method-step', index === 0 && 'is-active']} data-method-step data-step-index={index} data-reveal data-reveal-type="slide">
             <span class="home-method-step__node" aria-hidden="true"></span>
             <span class="home-method-step__number">{number}</span>
             <h3>{title}</h3>

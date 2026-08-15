@@ -7,8 +7,10 @@ const stages = [
 ];
 ---
 
-<section id="systeme" class="home-section home-system-section home-section--dark" aria-labelledby="home-system-title">
+<section id="systeme" class="home-section home-system-section home-section--dark" aria-labelledby="home-system-title" data-system-story>
   <div class="home-system-section__glow" aria-hidden="true"></div>
+  <div class="home-system-section__bridge" aria-hidden="true"><span></span></div>
+
   <div class="container">
     <div class="home-section-head" data-reveal data-reveal-type="clip">
       <div>
@@ -18,19 +20,44 @@ const stages = [
       <p>Nous relions les points qui cassent habituellement le parcours commercial : acquisition, conversion, suivi et optimisation.</p>
     </div>
 
-    <div class="home-system-map" data-home-system data-reveal data-reveal-type="scale">
-      <svg class="home-system-map__line" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M42 110 H1158" />
-        <path class="home-system-map__progress" data-system-progress d="M42 110 H1158" />
-      </svg>
-      <div class="home-system-map__grid">
-        {stages.map((stage) => (
-          <article class="home-system-stage" data-reveal-item>
-            <div class="home-system-stage__node" aria-hidden="true"><i></i><span></span></div>
-            <div class="home-system-stage__meta"><span>{stage.number}</span><small>{stage.label}</small></div>
+    <div class="home-system-story">
+      <div class="home-system-story__visual" data-system-visual aria-hidden="true">
+        <div class="home-system-orbit home-system-orbit--outer"></div>
+        <div class="home-system-orbit home-system-orbit--middle"></div>
+        <div class="home-system-orbit home-system-orbit--inner"></div>
+
+        <div class="home-system-core" data-system-core>
+          <span>CLICOM</span>
+          <small>GROWTH ENGINE</small>
+        </div>
+
+        <div class="home-system-channel home-system-channel--seo" data-system-channel="0"><i></i><span>SEO</span><small>VISIBILITÉ</small></div>
+        <div class="home-system-channel home-system-channel--ads" data-system-channel="0"><i></i><span>ADS</span><small>ACQUISITION</small></div>
+        <div class="home-system-channel home-system-channel--site" data-system-channel="1"><i></i><span>SITE</span><small>CONVERSION</small></div>
+        <div class="home-system-channel home-system-channel--crm" data-system-channel="2"><i></i><span>CRM</span><small>SUIVI</small></div>
+        <div class="home-system-channel home-system-channel--data" data-system-channel="3"><i></i><span>DATA + IA</span><small>OPTIMISATION</small></div>
+
+        <svg class="home-system-flow" viewBox="0 0 720 720" preserveAspectRatio="xMidYMid meet">
+          <path data-system-flow="0" pathLength="1" d="M85 210 C220 210 220 350 360 360" />
+          <path data-system-flow="0" pathLength="1" d="M82 510 C220 510 235 385 360 360" />
+          <path data-system-flow="1" pathLength="1" d="M360 360 C505 360 515 190 635 190" />
+          <path data-system-flow="2" pathLength="1" d="M360 360 C510 360 510 520 635 520" />
+          <path data-system-flow="3" pathLength="1" d="M635 520 C690 430 690 285 635 190" />
+        </svg>
+
+        <div class="home-system-status">
+          <span>STAGE</span>
+          <strong data-system-status>01 / ATTIRER</strong>
+        </div>
+      </div>
+
+      <div class="home-system-story__steps">
+        {stages.map((stage, index) => (
+          <article class:list={['home-system-stage-v2', index === 0 && 'is-active']} data-system-step data-stage-index={index}>
+            <div class="home-system-stage-v2__meta"><span>{stage.number}</span><small>{stage.label}</small></div>
             <h3>{stage.title}</h3>
             <p>{stage.copy}</p>
-            <span class="home-system-stage__stack">{stage.meta}</span>
+            <span class="home-system-stage-v2__stack">{stage.meta}</span>
           </article>
         ))}
       </div>

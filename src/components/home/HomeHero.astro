@@ -3,12 +3,14 @@ import Button from '../Button.astro';
 import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
 
 const networkNodes = [
-  { label: 'SEO', detail: 'Visibilité', x: '12%', y: '23%' },
-  { label: 'ADS', detail: 'Acquisition', x: '17%', y: '72%' },
-  { label: 'SITE', detail: 'Conversion', x: '48%', y: '45%' },
-  { label: 'LEAD', detail: 'Qualification', x: '72%', y: '24%' },
-  { label: 'CRM', detail: 'Suivi', x: '77%', y: '73%' },
+  { label: 'SITE', detail: 'Présence', x: '12%', y: '23%' },
+  { label: 'SEO', detail: 'Visibilité locale', x: '17%', y: '72%' },
+  { label: 'PME', detail: 'Objectif métier', x: '48%', y: '45%' },
+  { label: 'CRM', detail: 'Prospects', x: '72%', y: '24%' },
+  { label: 'IA', detail: 'Temps gagné', x: '77%', y: '73%' },
 ];
+
+const maturity = ['Présence', 'Acquisition', 'Automatisation', 'Sécurité'];
 ---
 
 <section class="home-hero" data-hero aria-labelledby="home-title">
@@ -22,36 +24,36 @@ const networkNodes = [
 
   <div class="container home-hero__inner">
     <div class="home-hero__meta" data-hero-detail>
-      <span class="home-hero__badge"><i aria-hidden="true"></i>Agence numérique · Suisse romande</span>
-      <span class="home-hero__availability">CLICOM / DIGITAL GROWTH SYSTEMS</span>
+      <span class="home-hero__badge"><i aria-hidden="true"></i>Partenaire digital · PME suisses</span>
+      <span class="home-hero__availability">CLICOM / DIGITAL PME SYSTEMS</span>
     </div>
 
     <div class="home-hero__layout">
       <div class="home-hero__copy">
         <h1 id="home-title" class="home-hero__title">
-          <span class="home-hero__title-line"><span>Nous construisons</span></span>
-          <span class="home-hero__title-line home-hero__title-line--accent"><span>des systèmes numériques</span></span>
-          <span class="home-hero__title-line"><span>qui génèrent de la croissance.</span></span>
+          <span class="home-hero__title-line"><span>Le digital utile</span></span>
+          <span class="home-hero__title-line home-hero__title-line--accent"><span>aux PME de Suisse romande.</span></span>
         </h1>
 
         <div class="home-hero__support">
-          <p class="home-hero__lead" data-hero-copy>Sites web, SEO, Ads, automatisation et IA reliés dans un même système pour transformer votre visibilité en opportunités commerciales.</p>
+          <p class="home-hero__lead" data-hero-copy>Nous créons des sites, des contenus, des campagnes et des outils numériques qui aident votre entreprise à gagner en visibilité, en efficacité et en croissance.</p>
+          <p class="home-hero__signature" data-hero-copy>Votre expertise mérite une présence digitale à sa hauteur.</p>
           <div class="home-hero__actions" data-hero-cta>
-            <span data-magnetic><Button href="/audit-gratuit/">Demander un audit <span aria-hidden="true">↗</span></Button></span>
-            <Button href="#systeme" variant="secondary">Explorer notre approche</Button>
+            <span data-magnetic><Button href="/audit-gratuit/">Demander un diagnostic <span aria-hidden="true">↗</span></Button></span>
+            <Button href="#systeme" variant="secondary">Voir l’approche PME</Button>
           </div>
           <div class="home-hero__proof" data-hero-detail>
-            <span>PME & indépendants</span>
-            <span>Suisse romande</span>
-            <span>Réponse sous 24 h</span>
+            <span>Site & visibilité</span>
+            <span>Automatisation responsable</span>
+            <span>Sécurité & données</span>
           </div>
         </div>
       </div>
 
-      <aside class="home-hero__visual" aria-label="Schéma du système CLICOM" data-depth=".35">
+      <aside class="home-hero__visual" aria-label="Schéma du système digital CLICOM pour PME" data-depth=".35">
         <div class="home-hero__visual-head" data-hero-detail>
-          <span><i aria-hidden="true"></i>LIVE SYSTEM MAP</span>
-          <span>CLM / 001</span>
+          <span><i aria-hidden="true"></i>PME DIGITAL MAP</span>
+          <span>CLM / 2026</span>
         </div>
 
         <div class="home-hero__network" data-hero-network aria-hidden="true">
@@ -74,14 +76,20 @@ const networkNodes = [
 
           <div class="home-hero__core" data-hero-node>
             <span>CLICOM</span>
-            <small>ORCHESTRATION</small>
+            <small>PME ENGINE</small>
           </div>
         </div>
 
+        <div class="home-hero__maturity" data-hero-detail aria-hidden="true">
+          {maturity.map((item, index) => (
+            <span style={`--i:${index}`}>{item}</span>
+          ))}
+        </div>
+
         <div class="home-hero__visual-foot" data-hero-detail>
-          <span><i></i>Tracking</span>
-          <span><i></i>Qualification</span>
-          <span><i></i>Automation</span>
+          <span><i></i>Visibilité</span>
+          <span><i></i>Prospects</span>
+          <span><i></i>Protection</span>
         </div>
       </aside>
     </div>
@@ -90,10 +98,10 @@ const networkNodes = [
   <div class="home-hero__ticker" aria-hidden="true">
     <div class="home-hero__ticker-track">
       <div class="home-hero__ticker-group">
-        <span>STRATÉGIE</span><i>✦</i><span>WEB</span><i>✦</i><span>SEO</span><i>✦</i><span>PAID MEDIA</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>IA</span><i>✦</i>
+        <span>STRATÉGIE PME</span><i>✦</i><span>SITE</span><i>✦</i><span>SEO LOCAL</span><i>✦</i><span>PUBLICITÉ</span><i>✦</i><span>CRM</span><i>✦</i><span>IA RESPONSABLE</span><i>✦</i><span>SÉCURITÉ</span><i>✦</i>
       </div>
       <div class="home-hero__ticker-group" aria-hidden="true">
-        <span>STRATÉGIE</span><i>✦</i><span>WEB</span><i>✦</i><span>SEO</span><i>✦</i><span>PAID MEDIA</span><i>✦</i><span>AUTOMATISATION</span><i>✦</i><span>IA</span><i>✦</i>
+        <span>STRATÉGIE PME</span><i>✦</i><span>SITE</span><i>✦</i><span>SEO LOCAL</span><i>✦</i><span>PUBLICITÉ</span><i>✦</i><span>CRM</span><i>✦</i><span>IA RESPONSABLE</span><i>✦</i><span>SÉCURITÉ</span><i>✦</i>
       </div>
     </div>
   </div>

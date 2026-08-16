@@ -1,71 +1,23 @@
 ---
-import PremiumMedia from './PremiumMedia.astro';
+import HomeSystemVisual from './HomeSystemVisual.astro';
+import '../../styles/home-system-immersive.css';
 const stages = [
-  { number: '01', label: 'PRÉSENCE DIGITALE', title: 'Rendre votre entreprise visible et crédible.', copy: 'Site web, identité, SEO local, contenus et réseaux sociaux posent une base claire pour être trouvé, compris et contacté.', meta: 'SITE · SEO LOCAL · CONTENU' },
-  { number: '02', label: 'ACQUISITION', title: 'Transformer l’attention en demandes.', copy: 'Publicité, référencement, pages d’arrivée et messages commerciaux créent un parcours mesurable vers le contact, le devis ou la réservation.', meta: 'ADS · TUNNEL · PROSPECTS' },
-  { number: '03', label: 'AUTOMATISATION', title: 'Gagner du temps sans perdre l’humain.', copy: 'CRM, formulaires intelligents, e-mails automatiques, réservation et IA réduisent les tâches répétitives et améliorent le suivi.', meta: 'CRM · IA · WORKFLOWS' },
-  { number: '04', label: 'PERFORMANCE & SÉCURITÉ', title: 'Faire durer la confiance et les résultats.', copy: 'Statistiques, optimisation continue, maintenance, sauvegardes et protection des accès rendent votre dispositif plus fiable dans le temps.', meta: 'DATA · MAINTENANCE · SÉCURITÉ' },
+  { number:'01', label:'PRÉSENCE DIGITALE', title:'Rendre votre entreprise visible et crédible.', copy:'Site Internet, identité, référencement local et contenus construisent une présence claire pour être trouvé, compris et contacté.', meta:'SITE INTERNET · RÉFÉRENCEMENT LOCAL · CONTENU' },
+  { number:'02', label:'ACQUISITION', title:'Transformer la visibilité en demandes.', copy:'Les trajectoires se multiplient et convergent : référencement, publicité et pages d’arrivée relient l’attention à une prise de contact concrète.', meta:'VISIBILITÉ · DEMANDES · CONVERSION' },
+  { number:'03', label:'AUTOMATISATION', title:'Organiser chaque demande sans perdre l’humain.', copy:'Les signaux reçus sont triés, qualifiés et distribués vers les bonnes actions pour accélérer le suivi et réduire les tâches répétitives.', meta:'REÇU · QUALIFIÉ · TRANSMIS · RELANCÉ' },
+  { number:'04', label:'PERFORMANCE & SÉCURITÉ', title:'Mesurer, protéger et améliorer le système.', copy:'Le réseau devient stable et contrôlé : suivi des résultats, optimisation continue, sauvegardes et protection des accès renforcent sa fiabilité.', meta:'MESURÉ · OPTIMISÉ · PROTÉGÉ · SUIVI' },
 ];
 ---
-
 <section id="systeme" class="home-section home-system-section home-section--dark" aria-labelledby="home-system-title" data-system-story>
-  <div class="home-system-section__glow" aria-hidden="true"></div>
-  <div class="home-system-section__bridge" aria-hidden="true"><span></span></div>
-
+  <div class="home-system-section__continuity" aria-hidden="true"><i></i></div>
   <div class="container">
-    <div class="home-section-head" data-reveal data-reveal-type="clip">
-      <div>
-        <span class="home-kicker">Méthode PME 2026</span>
-        <h2 id="home-system-title">Votre présence digitale doit devenir un outil de travail.</h2>
-      </div>
-      <p>Nous partons de l’essentiel, puis nous construisons un système évolutif : visibilité, acquisition, automatisation, données et sécurité.</p>
-    </div>
-
+    <div class="home-section-head home-system-section__head" data-reveal data-reveal-type="clip"><div><span class="home-kicker">Méthode PME 2026</span><h2 id="home-system-title">Votre présence digitale doit devenir un outil de travail.</h2></div><p>Nous partons de l’essentiel, puis nous construisons un système évolutif : visibilité, acquisition, automatisation, données et sécurité.</p></div>
     <div class="home-system-story">
-      <div class="home-system-story__visual" data-system-visual>
-        <div class="home-system-orbit home-system-orbit--outer"></div>
-        <div class="home-system-orbit home-system-orbit--middle"></div>
-        <div class="home-system-orbit home-system-orbit--inner"></div>
-        <div class="home-system-pulse" data-system-pulse></div>
-
-        <div class="home-system-core" data-system-core>
-          <span>PME</span>
-          <small>DIGITAL ENGINE</small>
-        </div>
-
-        <div class="home-system-channel home-system-channel--seo" data-system-channel="0"><i></i><span>SITE</span><small>PRÉSENCE</small></div>
-        <div class="home-system-channel home-system-channel--ads" data-system-channel="1"><i></i><span>ADS</span><small>ACQUISITION</small></div>
-        <div class="home-system-channel home-system-channel--site" data-system-channel="0"><i></i><span>SEO</span><small>LOCAL</small></div>
-        <div class="home-system-channel home-system-channel--crm" data-system-channel="2"><i></i><span>CRM</span><small>SUIVI</small></div>
-        <div class="home-system-channel home-system-channel--data" data-system-channel="3"><i></i><span>DATA + IA</span><small>PROTECTION</small></div>
-
-        <svg class="home-system-flow" viewBox="0 0 720 720" preserveAspectRatio="xMidYMid meet">
-          <path data-system-flow="0" pathLength="1" d="M85 210 C220 210 220 350 360 360" />
-          <path data-system-flow="0" pathLength="1" d="M82 510 C220 510 235 385 360 360" />
-          <path data-system-flow="1" pathLength="1" d="M360 360 C505 360 515 190 635 190" />
-          <path data-system-flow="2" pathLength="1" d="M360 360 C510 360 510 520 635 520" />
-          <path data-system-flow="3" pathLength="1" d="M635 520 C690 430 690 285 635 190" />
-        </svg>
-
-        <div class="home-system-status">
-          <span>NIVEAU</span>
-          <strong data-system-status>01 / PRÉSENCE DIGITALE</strong>
-        </div>
-        <div class="home-system-media-stack" aria-hidden="true">
-          {(['web','ads','crm','monitor'] as const).map((type,index) => <div class:list={['home-system-media', index === 0 && 'is-active']} data-system-media={index}><PremiumMedia type={type} /></div>)}
-        </div>
-      </div>
-
+      <HomeSystemVisual />
       <div class="home-system-story__steps">
-        {stages.map((stage, index) => (
-          <article class:list={['home-system-stage-v2', index === 0 && 'is-active']} data-system-step data-stage-index={index}>
-            <div class="home-system-stage-v2__meta"><span>{stage.number}</span><small>{stage.label}</small></div>
-            <h3>{stage.title}</h3>
-            <p>{stage.copy}</p>
-            <span class="home-system-stage-v2__stack">{stage.meta}</span>
-          </article>
-        ))}
+        {stages.map((stage,index)=><article class:list={['home-system-stage-v2',index===0&&'is-active']} data-system-step data-stage-index={index}><div class="home-system-stage-v2__meta"><span>{stage.number}</span><small>{stage.label}</small></div><h3>{stage.title}</h3><p>{stage.copy}</p><span class="home-system-stage-v2__stack">{stage.meta}</span><div class="home-system-stage-v2__mini" aria-hidden="true">{Array.from({length:4},(_,i)=><i style={`--mini:${i}`}></i>)}</div></article>)}
       </div>
     </div>
   </div>
 </section>
+<script>import '../../scripts/home-system-motion';</script>

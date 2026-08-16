@@ -3,44 +3,37 @@ import { Picture } from 'astro:assets';
 import Button from '../Button.astro';
 import portfolioNatPatoune from '../../assets/editorial/portfolio-nat-patoune.webp';
 import portfolioRikunali from '../../assets/editorial/portfolio-rikunali.webp';
+import '../../styles/home-work-editorial.css';
 ---
+<section class="home-section home-work home-work--editorial" aria-labelledby="home-work-title" data-work-section>
+  <div class="container home-work__heading"><div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip"><div><span class="home-kicker">Réalisations</span><h2 id="home-work-title">Entrez dans le travail réalisé.</h2></div><p>Deux projets récents montrent comment conception, direction visuelle et exécution technique prennent forme dans des expériences numériques concrètes.</p></div></div>
 
-<section class="home-section home-work" aria-labelledby="home-work-title" data-work-section>
-  <div class="container">
-    <div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip">
-      <div>
-        <span class="home-kicker">Réalisations</span>
-        <h2 id="home-work-title">Le niveau de détail se voit dans le travail livré.</h2>
+  <div class="work-story">
+    <article class="work-scene work-scene--primary" data-work-project="primary">
+      <div class="work-scene__index"><span>PROJET 01</span><i></i><small>SITE INTERNET · CONCEPTION · DÉVELOPPEMENT</small></div>
+      <div class="work-scene__title-mask"><h3>Nat et Patoune</h3></div>
+      <div class="work-scene__frame" data-work-frame>
+        <div class="work-scene__backdrop" data-work-depth="back"></div>
+        <div class="work-scene__main" data-work-depth="main"><Picture src={portfolioNatPatoune} alt="Projet Nat et Patoune présenté sur un écran d’ordinateur" widths={[720,1080,1440,1800]} sizes="(max-width: 960px) 100vw, 92vw" formats={['avif','webp']} quality={86} loading="lazy" /></div>
+        <div class="work-scene__device" data-work-depth="front" aria-hidden="true"><Picture src={portfolioNatPatoune} alt="" widths={[240,360]} sizes="220px" formats={['avif','webp']} quality={80} loading="lazy" /></div>
+        <div class="work-scene__fragment" data-work-depth="front"><small>BOUTIQUE ANIMALE</small><b>Une expérience claire,<br/>pensée pour les produits.</b><span>PARCOURIR · CHOISIR · DÉCOUVRIR</span></div>
+        <i class="work-scene__reflection" data-work-reflection></i>
       </div>
-      <p>Deux projets récents montrent comment stratégie, design et exécution technique se traduisent dans des expériences numériques réelles.</p>
-    </div>
+      <div class="work-scene__caption"><p>Une présence numérique chaleureuse qui organise l’offre et donne aux produits une place centrale.</p><a href="/realisations/">Découvrir le projet <span aria-hidden="true">↗</span></a></div>
+    </article>
 
-    <div class="home-work-grid">
-      <article class="home-work-project home-work-project--primary" data-reveal data-reveal-type="scale" data-work-project>
-        <div class="home-work-project__media" data-work-media>
-          <div class="home-work-project__desktop"><Picture src={portfolioNatPatoune} alt="Aperçu desktop du projet web Nat et Patoune" widths={[640,960,1280,1600]} sizes="(max-width: 760px) 100vw, 58vw" formats={['avif','webp']} quality={84} loading="lazy" /></div><div class="home-work-project__mobile" aria-hidden="true"><Picture src={portfolioNatPatoune} alt="" widths={[320,480]} sizes="180px" formats={['avif','webp']} quality={82} loading="lazy" /></div><span class="home-work-project__detail">UI / MOBILE</span>
-        </div>
-        <div class="home-work-project__meta">
-          <div><span>WEB DESIGN</span><span>DEVELOPMENT</span><span>2026</span></div>
-          <h3>Nat et Patoune</h3>
-          <a href="/realisations/">Voir le projet <span aria-hidden="true">↗</span></a>
-        </div>
-      </article>
+    <div class="work-transition" aria-hidden="true"><span data-work-transition-line></span><b>02</b></div>
 
-      <article class="home-work-project home-work-project--secondary" data-reveal data-reveal-type="slide" data-work-project>
-        <div class="home-work-project__media" data-work-media>
-          <div class="home-work-project__desktop"><Picture src={portfolioRikunali} alt="Aperçu desktop du projet web Rikunali" widths={[640,960,1280]} sizes="(max-width: 760px) 100vw, 42vw" formats={['avif','webp']} quality={84} loading="lazy" /></div><div class="home-work-project__mobile" aria-hidden="true"><Picture src={portfolioRikunali} alt="" widths={[320,480]} sizes="160px" formats={['avif','webp']} quality={82} loading="lazy" /></div><span class="home-work-project__detail">RESPONSIVE / UI</span>
-        </div>
-        <div class="home-work-project__meta">
-          <div><span>WEB DESIGN</span><span>DEVELOPMENT</span><span>2026</span></div>
-          <h3>Rikunali</h3>
-          <a href="/realisations/">Voir le projet <span aria-hidden="true">↗</span></a>
-        </div>
-      </article>
-    </div>
-
-    <div class="home-work__action" data-reveal data-reveal-type="slide">
-      <Button href="/realisations/" variant="secondary">Voir toutes les réalisations <span aria-hidden="true">→</span></Button>
-    </div>
+    <article class="work-scene work-scene--secondary" data-work-project="secondary">
+      <div class="work-scene__secondary-copy"><div class="work-scene__index"><span>PROJET 02</span><i></i><small>SITE INTERNET · CONCEPTION · DÉVELOPPEMENT</small></div><div class="work-scene__title-mask"><h3>Rikunali</h3></div><p>Une composition apaisée où les contenus, les espaces et les images accompagnent un univers consacré au bien-être.</p><a href="/realisations/">Découvrir le projet <span aria-hidden="true">↗</span></a></div>
+      <div class="work-scene__vertical" data-work-frame>
+        <div class="work-scene__vertical-main" data-work-depth="main"><Picture src={portfolioRikunali} alt="Projet Rikunali présenté sur une tablette dans un univers naturel" widths={[640,900,1200]} sizes="(max-width: 960px) 100vw, 56vw" formats={['avif','webp']} quality={86} loading="lazy" /></div>
+        <div class="work-scene__vertical-detail" data-work-depth="front" aria-hidden="true"><Picture src={portfolioRikunali} alt="" widths={[240,360]} sizes="190px" formats={['avif','webp']} quality={80} loading="lazy" /></div>
+        <div class="work-scene__vertical-label"><small>BIEN-ÊTRE</small><span>SOINS · ÉQUILIBRE · SÉRÉNITÉ</span></div><i class="work-scene__reflection" data-work-reflection></i>
+      </div>
+    </article>
   </div>
+
+  <div class="container home-work__action"><Button href="/realisations/" variant="secondary">Voir toutes les réalisations <span aria-hidden="true">→</span></Button></div>
 </section>
+<script>import '../../scripts/home-work-motion';</script>

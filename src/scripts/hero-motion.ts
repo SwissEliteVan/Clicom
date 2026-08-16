@@ -1,79 +1,122 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import { initScrollReveals } from './scroll-motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 const hero = document.querySelector<HTMLElement>('[data-hero]');
-const frame = document.querySelector<HTMLElement>('[data-hero-frame]');
-const media = document.querySelector<HTMLElement>('[data-hero-media]');
-const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-canvas]');
+if (hero) initialiseHero(hero);
 
-if (!reduce.matches && hero && frame && media) {
-  const intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
-  intro
-    .from(frame, { clipPath: 'inset(8% 7% 8% 7% round 28px)', scale: 1.08, duration: 1.45 })
-    .from('[data-hero-detail]', { opacity: 0, y: 18, duration: .8, stagger: .12 }, .18)
-    .from('.home-hero__title-line > span', { yPercent: 112, duration: 1.08, stagger: .1 }, .25)
-    .from('[data-hero-copy]', { opacity: 0, y: 24, duration: .8 }, .72)
-    .from('[data-hero-cta]', { opacity: 0, y: 24, scale: .96, duration: .8 }, .82);
+function initialiseHero(root: HTMLElement) {
+  const context = gsap.context(() => {
+    const media = gsap.matchMedia();
+    const listeners: Array<() => void> = [];
+    let intro: gsap.core.Timeline | undefined;
 
-  gsap.timeline({ scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .8 } })
-    .to(frame, { scale: .91, yPercent: 8, clipPath: 'inset(4% 3% 0% 3% round 34px)', ease: 'none' }, 0)
-    .to('.home-hero__title', { yPercent: -13, opacity: .18, ease: 'none' }, 0)
-    .to('.home-hero__support', { yPercent: -24, opacity: 0, ease: 'none' }, 0)
-    .to('.home-hero__wash', { opacity: .45, ease: 'none' }, 0);
-
-  const finePointer = window.matchMedia('(pointer: fine)').matches;
-  if (finePointer) {
-    const layers = gsap.utils.toArray<HTMLElement>('[data-depth]');
-    const moveX = layers.map((el) => gsap.quickTo(el, 'x', { duration: 1.1, ease: 'power3.out' }));
-    const moveY = layers.map((el) => gsap.quickTo(el, 'y', { duration: 1.1, ease: 'power3.out' }));
-    hero.addEventListener('pointermove', (event) => {
-      const x = event.clientX / innerWidth - .5;
-      const y = event.clientY / innerHeight - .5;
-      layers.forEach((el, i) => { const depth = Number(el.dataset.depth || 1); moveX[i](x * 13 * depth); moveY[i](y * 10 * depth); });
-    }, { passive: true });
-
-    document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((item) => {
-      const setX = gsap.quickTo(item, 'x', { duration: .45, ease: 'power3.out' });
-      const setY = gsap.quickTo(item, 'y', { duration: .45, ease: 'power3.out' });
-      item.addEventListener('pointermove', (event) => { const r = item.getBoundingClientRect(); setX((event.clientX-r.left-r.width/2)*.12); setY((event.clientY-r.top-r.height/2)*.12); });
-      item.addEventListener('pointerleave', () => { setX(0); setY(0); });
-    });
-  }
-
-  const lenis = new Lenis({ duration: 1.05, smoothWheel: true, wheelMultiplier: .9 });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
-}
-
-if (!reduce.matches && canvas && media) {
-  const ctx = canvas.getContext('2d', { alpha: true });
-  if (ctx) {
-    let width = 0, height = 0, raf = 0, time = 0;
-    let targetX = .62, targetY = .42, mouseX = targetX, mouseY = targetY;
-    const resize = () => { const dpr = Math.min(devicePixelRatio, 1.5); width = media.clientWidth; height = media.clientHeight; canvas.width = Math.round(width*dpr); canvas.height = Math.round(height*dpr); canvas.style.width=`${width}px`; canvas.style.height=`${height}px`; ctx.setTransform(dpr,0,0,dpr,0,0); };
-    const draw = () => {
-      time += .006; mouseX += (targetX-mouseX)*.025; mouseY += (targetY-mouseY)*.025;
-      ctx.clearRect(0,0,width,height);
-      const glow=ctx.createRadialGradient(mouseX*width,mouseY*height,0,mouseX*width,mouseY*height,width*.58);
-      glow.addColorStop(0,'rgba(36,87,255,.42)'); glow.addColorStop(.42,'rgba(18,55,137,.18)'); glow.addColorStop(1,'rgba(8,17,38,0)'); ctx.fillStyle=glow; ctx.fillRect(0,0,width,height);
-      for(let line=0;line<16;line++){
-        const offset=(line-8)*height*.041; ctx.beginPath();
-        for(let x=-40;x<=width+40;x+=22){ const p=x/width; const base=height*(.78-p*.48)+offset; const wave=Math.sin(p*7+time*5+line*.23)*18 + Math.sin(p*2.6-time*2)*24; const pull=Math.exp(-Math.pow((p-mouseX)*3.1,2))*(mouseY-.5)*72; const y=base+wave+pull; x===-40?ctx.moveTo(x,y):ctx.lineTo(x,y); }
-        const grad=ctx.createLinearGradient(0,0,width,0); grad.addColorStop(0,'rgba(36,87,255,0)'); grad.addColorStop(.48,`rgba(36,87,255,${.07+line*.004})`); grad.addColorStop(1,'rgba(34,211,238,.24)'); ctx.strokeStyle=grad; ctx.lineWidth=line===8?1.8:.72; ctx.stroke();
-      }
-      for(let i=0;i<34;i++){ const p=(i/34+time*.09)%1; const x=p*width; const y=height*(.78-p*.48)+Math.sin(p*7+time*5+8*.23)*18; ctx.fillStyle=i%5===0?'rgba(34,211,238,.82)':'rgba(255,255,255,.36)'; ctx.beginPath(); ctx.arc(x,y,i%5===0?2.3:1.1,0,Math.PI*2); ctx.fill(); }
-      raf=requestAnimationFrame(draw);
+    const on = <K extends keyof HTMLElementEventMap>(element: HTMLElement, type: K, handler: (event: HTMLElementEventMap[K]) => void) => {
+      element.addEventListener(type, handler as EventListener);
+      listeners.push(() => element.removeEventListener(type, handler as EventListener));
     };
-    const observer=new ResizeObserver(resize); observer.observe(media); resize(); media.classList.add('is-canvas-ready'); draw();
-    hero?.addEventListener('pointermove',(event)=>{ targetX=event.clientX/innerWidth; targetY=event.clientY/innerHeight; },{passive:true});
-    document.addEventListener('astro:before-swap',()=>{ cancelAnimationFrame(raf); observer.disconnect(); },{once:true});
-  }
-}
 
-initScrollReveals(reduce.matches);
+    media.add('(min-width: 961px) and (prefers-reduced-motion: no-preference)', () => {
+      const scenes = gsap.utils.toArray<HTMLElement>('[data-scene]', root);
+      const paths = gsap.utils.toArray<SVGPathElement>('[data-flow]', root);
+      const core = root.querySelector<HTMLElement>('[data-hero-core]');
+      const stage = root.querySelector<HTMLElement>('[data-hero-stage]');
+      const traveller = root.querySelector<HTMLElement>('[data-request-traveller]');
+      const requestForm = root.querySelector<HTMLElement>('[data-request-form]');
+      const requestCard = root.querySelector<HTMLElement>('[data-request-card]');
+      const pipelineCard = root.querySelector<HTMLElement>('[data-pipeline-card]');
+      const automationSteps = gsap.utils.toArray<HTMLElement>('[data-automation-step]', root);
+      const resultBars = gsap.utils.toArray<HTMLElement>('[data-result-bar]', root);
+      const securityRows = gsap.utils.toArray<HTMLElement>('[data-security-row]', root);
+
+      gsap.set(scenes, { opacity: 0, scale: .9, y: 12 });
+      gsap.set(paths, { strokeDashoffset: 1 });
+      gsap.set('[data-scene="results"], [data-scene="security"]', { visibility: 'visible' });
+      gsap.set(resultBars, { scaleX: 0 });
+      gsap.set(automationSteps, { opacity: .42 });
+
+      intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      intro
+        .from(core, { opacity: 0, scale: .45, duration: .3 })
+        .from('.hero-product__stage', { opacity: 0, scale: .97, duration: .35 }, 0)
+        .from('.hero-product h1 b', { yPercent: 18, opacity: .5, stagger: .05, duration: 2.7 }, .08)
+        .from('[data-hero-copy], [data-hero-detail]', { opacity: .55, y: 8, stagger: .04, duration: 2.65 }, .12)
+        .from('[data-hero-cta]', { opacity: .62, y: 8, scale: .98, duration: 2.55 }, .25)
+        .to('[data-scene="search"]', { opacity: 1, scale: 1, y: 0, duration: .22 }, .18)
+        .from('[data-search-text]', { clipPath: 'inset(0 100% 0 0)', duration: .32, ease: 'steps(18)' }, .25)
+        .to('[data-search-curve]', { strokeDashoffset: 0, duration: .28 }, .37)
+        .add(() => { const position = root.querySelector('[data-search-position]'); if (position) position.textContent = '4'; }, .46)
+        .add(() => { const position = root.querySelector('[data-search-position]'); if (position) position.textContent = '2'; }, .58)
+        .to(paths[0], { strokeDashoffset: 0, duration: .2 }, .52)
+        .to('[data-scene="site"]', { opacity: 1, scale: 1, y: 0, duration: .22 }, .62)
+        .to(paths[1], { strokeDashoffset: 0, duration: .16 }, .78)
+        .to('[data-scene="request"]', { opacity: 1, scale: 1, y: 0, duration: .2 }, .82)
+        .from('[data-form-name], [data-form-service]', { clipPath: 'inset(0 100% 0 0)', stagger: .08, duration: .18 }, .92)
+        .to('[data-request-submit]', { scale: .94, backgroundColor: '#f7f9fc', duration: .09, yoyo: true, repeat: 1 }, 1.14)
+        .to(requestForm, { opacity: 0, scale: .96, duration: .15 }, 1.28)
+        .to(requestCard, { opacity: 1, scale: 1, duration: .18 }, 1.3)
+        .set(traveller, { opacity: 1 }, 1.48)
+        .to(traveller, { x: -95, y: 245, scale: .82, duration: .36, ease: 'power2.inOut' }, 1.5)
+        .to(paths[2], { strokeDashoffset: 0, duration: .28 }, 1.5)
+        .to('[data-scene="followup"]', { opacity: 1, scale: 1, y: 0, duration: .2 }, 1.65)
+        .to(traveller, { opacity: 0, duration: .08 }, 1.85)
+        .to(pipelineCard, { xPercent: 118, duration: .26, ease: 'power2.inOut' }, 1.86)
+        .to(pipelineCard, { xPercent: 236, duration: .3, ease: 'power2.inOut' }, 2.13)
+        .to(paths[3], { strokeDashoffset: 0, duration: .2 }, 2.0)
+        .to('[data-scene="automation"]', { opacity: 1, scale: 1, y: 0, duration: .2 }, 2.05)
+        .to(automationSteps, { opacity: 1, stagger: .07, duration: .08, onStart() { automationSteps.forEach((step,index) => gsap.delayedCall(index * .07, () => { step.classList.add('is-active'); const state = step.querySelector('small'); if (state) state.textContent = 'Terminé'; })); } }, 2.12)
+        .to(paths[4], { strokeDashoffset: 0, duration: .15 }, 2.28)
+        .to('[data-scene="assist"]', { opacity: 1, scale: 1, y: 0, duration: .18 }, 2.3)
+        .to('[data-ai-status]', { opacity: .35, duration: .08, yoyo: true, repeat: 1 }, 2.42)
+        .to(paths[5], { strokeDashoffset: 0, duration: .14 }, 2.48)
+        .to('[data-scene="results"]', { opacity: 1, scale: 1, y: 0, duration: .16 }, 2.5)
+        .to(resultBars, { scaleX: 1, stagger: .04, duration: .16 }, 2.52)
+        .to(paths[6], { strokeDashoffset: 0, duration: .14 }, 2.58)
+        .to('[data-scene="security"]', { opacity: 1, scale: 1, y: 0, duration: .16 }, 2.62)
+        .from(securityRows, { opacity: .25, x: -5, stagger: .035, duration: .12 }, 2.64);
+
+      const scroll = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: .75 } });
+      scroll.to('[data-hero-copy-block]', { scale: .94, yPercent: -8, opacity: .12, ease: 'none' }, 0).to(stage, { scale: 1.22, xPercent: -18, yPercent: 8, ease: 'none' }, 0).to(scenes, { xPercent: index => (index % 2 ? -5 : 5), yPercent: index => index < 4 ? 8 : -8, ease: 'none' }, 0);
+
+      if (stage && matchMedia('(pointer:fine)').matches) {
+        const depthLayers = gsap.utils.toArray<HTMLElement>('[data-depth]', root);
+        const xSetters = depthLayers.map(element => gsap.quickTo(element, 'x', { duration: .7, ease: 'power3.out' }));
+        const ySetters = depthLayers.map(element => gsap.quickTo(element, 'y', { duration: .7, ease: 'power3.out' }));
+        const rotateX = gsap.quickTo(stage, 'rotationX', { duration: .8, ease: 'power3.out' });
+        const rotateY = gsap.quickTo(stage, 'rotationY', { duration: .8, ease: 'power3.out' });
+        on(root, 'pointermove', event => { const bounds = root.getBoundingClientRect(); const x = (event.clientX - bounds.left) / bounds.width - .5; const y = (event.clientY - bounds.top) / bounds.height - .5; depthLayers.forEach((layer,index) => { const depth = Number(layer.dataset.depth || .5); xSetters[index](x * 18 * depth); ySetters[index](y * 14 * depth); }); rotateX(-y * 3); rotateY(x * 3); });
+        on(root, 'pointerleave', () => { depthLayers.forEach((_,index) => { xSetters[index](0); ySetters[index](0); }); rotateX(0); rotateY(0); });
+      }
+
+      const replay = (selector: string, animation: () => void) => { const element = root.querySelector<HTMLElement>(selector); if (element) on(element, 'pointerenter', animation); };
+      replay('[data-scene="search"]', () => gsap.fromTo('[data-search-curve]', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .65 }));
+      replay('[data-scene="site"]', () => gsap.fromTo('[data-site-button]', { scale: 1 }, { scale: .92, yoyo: true, repeat: 1, duration: .16 }));
+      replay('[data-scene="followup"]', () => gsap.to(pipelineCard, { xPercent: '+=18', yoyo: true, repeat: 1, duration: .22 }));
+      replay('[data-scene="automation"]', () => gsap.fromTo(automationSteps, { opacity: .4 }, { opacity: 1, stagger: .07, duration: .08 }));
+      replay('[data-scene="results"]', () => gsap.fromTo(resultBars, { scaleX: .55 }, { scaleX: 1, stagger: .05, duration: .22 }));
+      replay('[data-scene="security"]', () => gsap.fromTo(securityRows, { opacity: .35 }, { opacity: 1, stagger: .06, duration: .12 }));
+
+      const visibility = new IntersectionObserver(([entry]) => entry.isIntersecting ? intro?.resume() : intro?.pause(), { threshold: .05 });
+      visibility.observe(root);
+      return () => { visibility.disconnect(); listeners.splice(0).forEach(remove => remove()); };
+    });
+
+    media.add('(max-width: 960px) and (prefers-reduced-motion: no-preference)', () => {
+      gsap.from('.hero-product h1 b', { yPercent: 110, stagger: .08, duration: .55, ease: 'power3.out' });
+      gsap.from('.hero-product__scene', { opacity: 0, y: 18, stagger: .08, duration: .45, ease: 'power2.out', delay: .25 });
+    });
+
+    media.add('(prefers-reduced-motion: reduce)', () => gsap.set('*', { clearProps: 'all' }));
+    return () => { listeners.splice(0).forEach(remove => remove()); media.revert(); };
+  }, root);
+
+  const lenis = new Lenis({ duration: 1.02, smoothWheel: true, wheelMultiplier: .9 });
+  const tick = (time: number) => lenis.raf(time * 1000);
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(tick);
+  gsap.ticker.lagSmoothing(0);
+  const cleanup = () => { gsap.ticker.remove(tick); lenis.destroy(); context.revert(); ScrollTrigger.getAll().filter(trigger => root.contains(trigger.trigger as Node)).forEach(trigger => trigger.kill()); };
+  document.addEventListener('astro:before-swap', cleanup, { once: true });
+}

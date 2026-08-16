@@ -1,0 +1,4 @@
+---
+const states = [['Sauvegarde','Active'],['Accès protégés','Actifs'],['Surveillance','Active'],['Mises à jour','À jour']];
+---
+<section class="hero-demo hero-security" data-scene="security" tabindex="-1"><header><span>SÉCURITÉ</span><small>État du système</small></header><ul>{states.map(([label,state])=><li data-security-row><i></i><span>{label}</span><b>{state}</b></li>)}</ul></section>

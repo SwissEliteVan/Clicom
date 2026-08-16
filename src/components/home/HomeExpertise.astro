@@ -1,4 +1,5 @@
 ---
+import PremiumMedia from './PremiumMedia.astro';
 const pillars = [
   {
     number: '01',
@@ -6,7 +7,7 @@ const pillars = [
     title: 'Être visible, crédible et facile à contacter.',
     copy: 'Site Internet, identité, contenus, SEO local et réseaux sociaux construisent une base professionnelle adaptée aux PME.',
     links: [['/creation-site-web/','Sites web'], ['/seo/','SEO local'], ['/reseaux-sociaux/','Réseaux sociaux']],
-    className: 'home-expertise-card--web',
+    className: 'home-expertise-card--web', media: 'web',
   },
   {
     number: '02',
@@ -14,7 +15,7 @@ const pillars = [
     title: 'Obtenir davantage de demandes qualifiées.',
     copy: 'Référencement, publicité, contenus et pages d’arrivée travaillent ensemble pour soutenir devis, appels, réservations ou ventes.',
     links: [['/google-ads/','Google Ads'], ['/social-ads/','Social Ads'], ['/creation-contenu/','Contenu']],
-    className: 'home-expertise-card--seo',
+    className: 'home-expertise-card--seo', media: 'search',
   },
   {
     number: '03',
@@ -22,7 +23,7 @@ const pillars = [
     title: 'Réduire les tâches répétitives.',
     copy: 'CRM, formulaires intelligents, e-mails automatiques, assistants internes et IA responsable améliorent l’organisation sans remplacer l’expertise humaine.',
     links: [['/automatisation/','Automatisation'], ['/intelligence-artificielle/','IA'], ['/email-marketing-crm/','CRM']],
-    className: 'home-expertise-card--paid',
+    className: 'home-expertise-card--paid', media: 'crm',
   },
   {
     number: '04',
@@ -30,7 +31,7 @@ const pillars = [
     title: 'Protéger et faire évoluer vos actifs numériques.',
     copy: 'Maintenance, sauvegardes, statistiques, optimisation continue, protection des accès et suivi technique renforcent la confiance dans la durée.',
     links: [['/services/','Services'], ['/contact/','Nous contacter']],
-    className: 'home-expertise-card--automation',
+    className: 'home-expertise-card--automation', media: 'monitor',
   },
 ];
 ---
@@ -53,9 +54,7 @@ const pillars = [
             <span>{pillar.number}</span>
             <small>{pillar.label}</small>
           </div>
-          <div class="home-expertise-card__graphic" aria-hidden="true" data-expertise-graphic>
-            <span></span><i></i><b></b>
-          </div>
+          <div class="home-expertise-card__media" aria-hidden="true" data-expertise-graphic><PremiumMedia type={pillar.media as 'web'|'search'|'ads'|'crm'|'monitor'} compact /></div>
           <div class="home-expertise-card__body">
             <h3>{pillar.title}</h3>
             <p>{pillar.copy}</p>

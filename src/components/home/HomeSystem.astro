@@ -1,4 +1,5 @@
 ---
+import PremiumMedia from './PremiumMedia.astro';
 const stages = [
   { number: '01', label: 'PRÉSENCE DIGITALE', title: 'Rendre votre entreprise visible et crédible.', copy: 'Site web, identité, SEO local, contenus et réseaux sociaux posent une base claire pour être trouvé, compris et contacté.', meta: 'SITE · SEO LOCAL · CONTENU' },
   { number: '02', label: 'ACQUISITION', title: 'Transformer l’attention en demandes.', copy: 'Publicité, référencement, pages d’arrivée et messages commerciaux créent un parcours mesurable vers le contact, le devis ou la réservation.', meta: 'ADS · TUNNEL · PROSPECTS' },
@@ -21,7 +22,7 @@ const stages = [
     </div>
 
     <div class="home-system-story">
-      <div class="home-system-story__visual" data-system-visual aria-hidden="true">
+      <div class="home-system-story__visual" data-system-visual>
         <div class="home-system-orbit home-system-orbit--outer"></div>
         <div class="home-system-orbit home-system-orbit--middle"></div>
         <div class="home-system-orbit home-system-orbit--inner"></div>
@@ -49,6 +50,9 @@ const stages = [
         <div class="home-system-status">
           <span>NIVEAU</span>
           <strong data-system-status>01 / PRÉSENCE DIGITALE</strong>
+        </div>
+        <div class="home-system-media-stack" aria-hidden="true">
+          {(['web','ads','crm','monitor'] as const).map((type,index) => <div class:list={['home-system-media', index === 0 && 'is-active']} data-system-media={index}><PremiumMedia type={type} /></div>)}
         </div>
       </div>
 

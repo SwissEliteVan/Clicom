@@ -1,69 +1,27 @@
 ---
-import PremiumMedia from './PremiumMedia.astro';
+import ExpertiseBuildMedia from './expertise/ExpertiseBuildMedia.astro';
+import ExpertiseVisibilityMedia from './expertise/ExpertiseVisibilityMedia.astro';
+import ExpertiseAcquisitionMedia from './expertise/ExpertiseAcquisitionMedia.astro';
+import ExpertiseAutomationMedia from './expertise/ExpertiseAutomationMedia.astro';
+import '../../styles/home-expertise-immersive.css';
 const pillars = [
-  {
-    number: '01',
-    label: 'PRÉSENCE DIGITALE',
-    title: 'Être visible, crédible et facile à contacter.',
-    copy: 'Site Internet, identité, contenus, SEO local et réseaux sociaux construisent une base professionnelle adaptée aux PME.',
-    links: [['/creation-site-web/','Sites web'], ['/seo/','SEO local'], ['/reseaux-sociaux/','Réseaux sociaux']],
-    className: 'home-expertise-card--web', media: 'web',
-  },
-  {
-    number: '02',
-    label: 'ACQUISITION',
-    title: 'Obtenir davantage de demandes qualifiées.',
-    copy: 'Référencement, publicité, contenus et pages d’arrivée travaillent ensemble pour soutenir devis, appels, réservations ou ventes.',
-    links: [['/google-ads/','Google Ads'], ['/social-ads/','Social Ads'], ['/creation-contenu/','Contenu']],
-    className: 'home-expertise-card--seo', media: 'search',
-  },
-  {
-    number: '03',
-    label: 'AUTOMATISATION & IA',
-    title: 'Réduire les tâches répétitives.',
-    copy: 'CRM, formulaires intelligents, e-mails automatiques, assistants internes et IA responsable améliorent l’organisation sans remplacer l’expertise humaine.',
-    links: [['/automatisation/','Automatisation'], ['/intelligence-artificielle/','IA'], ['/email-marketing-crm/','CRM']],
-    className: 'home-expertise-card--paid', media: 'crm',
-  },
-  {
-    number: '04',
-    label: 'PERFORMANCE & SÉCURITÉ',
-    title: 'Protéger et faire évoluer vos actifs numériques.',
-    copy: 'Maintenance, sauvegardes, statistiques, optimisation continue, protection des accès et suivi technique renforcent la confiance dans la durée.',
-    links: [['/services/','Services'], ['/contact/','Nous contacter']],
-    className: 'home-expertise-card--automation', media: 'monitor',
-  },
+  {number:'01',label:'SITES INTERNET & CONVERSION',title:'Construire un parcours clair qui mène à l’action.',copy:'Architecture, hiérarchie, expérience utilisateur et contenus composent des sites rapides, crédibles et pensés pour générer des demandes.',links:[['/creation-site-web/','Sites Internet'],['/branding/','Identité visuelle']],kind:'build',size:'large'},
+  {number:'02',label:'RÉFÉRENCEMENT & VISIBILITÉ',title:'Transformer le bruit en présence visible.',copy:'Nous organisons les contenus, les signaux locaux et les informations utiles pour rapprocher votre entreprise des recherches pertinentes.',links:[['/seo/','Référencement'],['/referencement-ia/','Visibilité dans les réponses IA']],kind:'visibility',size:'compact'},
+  {number:'03',label:'ACQUISITION',title:'Faire émerger les meilleures opportunités.',copy:'Les campagnes sélectionnent les audiences et les intentions utiles pour transformer un volume diffus en demandes réellement pertinentes.',links:[['/google-ads/','Publicité sur Google'],['/social-ads/','Publicité sur les réseaux sociaux']],kind:'acquisition',size:'compact'},
+  {number:'04',label:'AUTOMATISATION & SUIVI',title:'Déclencher les bonnes actions, au bon moment.',copy:'Chaque demande peut être analysée, orientée et suivie automatiquement, avec les contrôles humains nécessaires et une organisation lisible.',links:[['/automatisation/','Automatisation'],['/email-marketing-crm/','Suivi commercial']],kind:'automation',size:'large'},
 ];
+const Media = {build:ExpertiseBuildMedia,visibility:ExpertiseVisibilityMedia,acquisition:ExpertiseAcquisitionMedia,automation:ExpertiseAutomationMedia};
 ---
-
-<section id="expertises" class="home-section home-expertise" aria-labelledby="expertise-title">
+<section id="expertises" class="home-section home-expertise home-expertise--immersive" aria-labelledby="expertise-title" data-expertise-section>
   <div class="container">
-    <div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip">
-      <div>
-        <span class="home-kicker">Offre 2026</span>
-        <h2 id="expertise-title">Des solutions digitales pensées pour les PME.</h2>
-      </div>
-      <p>Nous commençons par les priorités utiles, puis nous faisons évoluer votre dispositif avec des actions mesurables, compréhensibles et adaptées à vos ressources.</p>
-    </div>
-
-    <div class="home-expertise-grid">
-      {pillars.map((pillar, index) => (
-        <article class:list={['home-expertise-card', pillar.className, index === 0 && 'home-expertise-card--feature']} data-reveal data-reveal-type={index === 0 ? 'scale' : 'slide'} data-expertise-card>
-          <div class="home-expertise-card__pointer" aria-hidden="true"></div>
-          <div class="home-expertise-card__head">
-            <span>{pillar.number}</span>
-            <small>{pillar.label}</small>
-          </div>
-          <div class="home-expertise-card__media" aria-hidden="true" data-expertise-graphic><PremiumMedia type={pillar.media as 'web'|'search'|'ads'|'crm'|'monitor'} compact /></div>
-          <div class="home-expertise-card__body">
-            <h3>{pillar.title}</h3>
-            <p>{pillar.copy}</p>
-            <div class="home-expertise-card__links">
-              {pillar.links.map(([href,label]) => <a href={href}>{label}<span aria-hidden="true">↗</span></a>)}
-            </div>
-          </div>
-        </article>
-      ))}
+    <div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip"><div><span class="home-kicker">Expertises</span><h2 id="expertise-title">Quatre savoir-faire. Quatre mouvements distincts.</h2></div><p>Chaque expertise répond à une fonction précise : construire, rendre visible, sélectionner et automatiser.</p></div>
+    <div class="expertise-editorial-grid">
+      {pillars.map((pillar)=>{const Visual=Media[pillar.kind as keyof typeof Media];return <article class:list={['expertise-editorial',`expertise-editorial--${pillar.size}`,`expertise-editorial--${pillar.kind}`]} data-expertise-item={pillar.kind}>
+        <div class="expertise-editorial__meta"><span>{pillar.number}</span><small>{pillar.label}</small></div>
+        <div class="expertise-editorial__visual"><Visual /></div>
+        <div class="expertise-editorial__copy"><h3>{pillar.title}</h3><p>{pillar.copy}</p><div class="expertise-editorial__links">{pillar.links.map(([href,label])=><a href={href}>{label}<span aria-hidden="true">↗</span></a>)}</div></div>
+      </article>})}
     </div>
   </div>
 </section>
+<script>import '../../scripts/home-expertise-motion';</script>

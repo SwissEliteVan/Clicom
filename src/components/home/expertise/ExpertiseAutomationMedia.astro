@@ -1,0 +1,9 @@
+---
+const actions=['RÉPONSE','RAPPEL','SUIVI','CLASSEMENT'];
+---
+<div class="expertise-media expertise-automation" data-expertise-media="automation" aria-hidden="true">
+  <svg viewBox="0 0 620 420"><path data-machine-path pathLength="1" d="M20 210H118C160 210 158 142 205 142H265"/><path data-machine-path pathLength="1" d="M265 142C326 142 302 82 370 82H590"/><path data-machine-path pathLength="1" d="M265 142C342 142 330 170 390 170H590"/><path data-machine-path pathLength="1" d="M265 142C342 142 330 258 390 258H590"/><path data-machine-path pathLength="1" d="M265 142C326 142 302 346 370 346H590"/><g data-machine-lock><rect x="112" y="175" width="82" height="70" rx="14"/><circle cx="153" cy="202" r="8"/><path d="M153 210V225"/></g><g data-machine-lock><rect x="246" y="107" width="92" height="70" rx="14"/><circle cx="292" cy="134" r="8"/><path d="M292 142V157"/></g></svg>
+  <div class="expertise-automation__stages"><span>ENTRÉE</span><span>ANALYSE</span><span>ORIENTATION</span></div>
+  <div class="expertise-automation__actions">{actions.map((action,index)=><span data-machine-action style={`--i:${index}`}><i></i>{action}<b></b></span>)}</div>
+  <i class="expertise-automation__signal" data-machine-signal></i>
+</div>

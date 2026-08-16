@@ -2,24 +2,22 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
-import EditorialImage from '../components/EditorialImage.astro';
 import CTA from '../components/CTA.astro';
 import resourcesImage from '../assets/editorial/resources-editorial.webp';
 const topics=[{title:'Blog',text:'Guides et analyses pour cadrer vos décisions en ligne.',href:'/blog/',icon:'spark'},{title:'SEO',text:'Construire une visibilité organique reliée aux intentions de vos prospects.',href:'/seo/',icon:'search'},{title:'Intelligence artificielle',text:'Identifier des usages IA utiles pour la visibilité et les équipes.',href:'/intelligence-artificielle/',icon:'automation'},{title:'Google Ads',text:'Comprendre le rôle du ciblage, du suivi des conversions et des pages de destination.',href:'/google-ads/',icon:'cursor'},{title:'Sites web',text:'Relier expérience, performance, SEO technique et conversion.',href:'/creation-site-web/',icon:'code'},{title:'Conversion',text:'Réduire les frictions et transformer davantage de visites en actions utiles.',href:'/blog/ameliorer-taux-conversion-site/',icon:'chart'}] as const;
 ---
 <Layout title="Ressources marketing numérique — CLICOM Suisse" description="Guides CLICOM sur le SEO, l’intelligence artificielle, Google Ads, les sites web et l’optimisation de la conversion.">
   <PageHero eyebrow="Ressources" title="Des repères utiles pour décider et <span class='accent'>agir.</span>" intro="Explorez les principaux leviers de croissance en ligne et approfondissez les sujets qui comptent pour votre entreprise." primary="/blog/" primaryLabel="Lire le blog →" secondary="/audit-gratuit/" secondaryLabel="Demander un audit" showBand={false} />
-  <section class="resources-editorial" aria-hidden="true"><div class="container"><div class="resources-editorial__frame"><EditorialImage src={resourcesImage} alt="" ratio="21/9" ratioMobile="4/3" eager sizes="100vw" /></div></div></section>
+  <section class="resources-editorial" aria-hidden="true"><div class="container"><div class="resources-editorial__frame"><img src={resourcesImage.src} alt="" width={resourcesImage.width} height={resourcesImage.height} loading="eager" fetchpriority="high" decoding="async" /></div></div></section>
   <section class="section section--white"><div class="container"><div class="section-heading"><div class="eyebrow">Hub de ressources</div><h2>De la visibilité à la <span class="accent">conversion.</span></h2><p>Chaque ressource relie les principes essentiels aux expertises et aux prochaines étapes possibles.</p></div><div class="grid grid--3">{topics.map(topic=><ServiceCard title={topic.title} text={topic.text} href={topic.href} icon={topic.icon}/>)}</div></div></section>
   <section class="section section--dark"><div class="container resource-path"><div><div class="eyebrow">Par où commencer ?</div><h2>Attirer. Convertir. Automatiser. <span class="gradient-text">Accélérer.</span></h2></div><p>Commencez par le frein le plus important de votre parcours actuel. Un audit permet ensuite de vérifier les dépendances entre les différents leviers.</p></div></section>
   <CTA title="Besoin d’un diagnostic adapté à votre entreprise ?"/>
 </Layout>
 <style>
-  .resources-editorial{position:relative;z-index:20;width:100%;max-width:none;overflow:visible;background:white}
-  .resources-editorial__frame{position:relative;z-index:20;width:100%;max-width:none;overflow:visible;border:0;border-radius:0;background:white;box-shadow:none}
+  .resources-editorial{position:relative;z-index:20;width:100%;max-width:none;min-height:420px;overflow:visible;background:white}
+  .resources-editorial__frame{position:relative;z-index:20;width:100%;max-width:none;min-height:420px;overflow:visible;border:0;border-radius:0;background:white;box-shadow:none}
 
-  .resources-editorial__frame :global(img){position:relative;z-index:20;display:block;width:100%;max-width:none;height:auto;min-height:0;object-fit:cover;opacity:1;visibility:visible;filter:none;clip-path:none;transform:none}
-  .resources-editorial__frame :global(figure) { width: 100%; max-width: none; min-height: 0; margin: 0; border-radius: 0; }
+  .resources-editorial__frame :global(img){position:relative;z-index:20;display:block;width:100%;max-width:none;height:420px;min-height:420px;object-fit:cover;opacity:1;visibility:visible;filter:none;clip-path:none;transform:none}
   .resource-path{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,100px);align-items:center}.resource-path p{font-size:1.12rem}
-  @media(max-width:700px){.resource-path{grid-template-columns:1fr}}
+  @media(max-width:700px){.resources-editorial,.resources-editorial__frame,.resources-editorial__frame :global(img){height:240px;min-height:240px}.resource-path{grid-template-columns:1fr}}
 </style>

@@ -1,79 +1,13 @@
 ---
 import Button from './Button.astro';
-import CalendlyButton from './conversion/CalendlyButton.astro';
 
-interface Props {
-  title?: string;
-  text?: string;
-  href?: string;
-  label?: string;
-  variant?: 'audit' | 'calendly' | 'contact';
-  secondaryHref?: string;
-  secondaryLabel?: string;
-}
+interface Props { title?: string; text?: string; href?: string; label?: string; }
 
 const {
   title = 'Prêt à accélérer votre croissance ?',
   text = 'Parlons de vos objectifs et identifions les leviers numériques les plus pertinents pour votre entreprise.',
-  href,
-  label,
-  variant = 'audit',
-  secondaryHref,
-  secondaryLabel,
+  href = '/contact#audit',
+  label = 'Demander un audit gratuit →',
 } = Astro.props;
-
-const primaryHref = href ?? (variant === 'contact' ? '/contact/' : '/audit-gratuit/');
-const primaryLabel = label ?? (
-  variant === 'calendly' ? 'Réserver un rendez-vous' :
-  variant === 'contact' ? 'Parler de mon projet →' :
-  'Demander un audit gratuit →'
-);
-const isCalendly = variant === 'calendly';
 ---
-
-<section class="section">
-  <div class="container">
-    <div class="cta-panel">
-      <div>
-        <h2>{title}</h2>
-        <p>{text}</p>
-      </div>
-      <div class="cta-panel__actions">
-        {isCalendly
-          ? <CalendlyButton mode="popup" label={primaryLabel} variant="primary" />
-          : <Button href={primaryHref} data-cta-label={primaryLabel}>{primaryLabel}</Button>
-        }
-        {secondaryHref && secondaryLabel && (
-          <Button href={secondaryHref} variant="secondary" data-cta-label={secondaryLabel}>{secondaryLabel}</Button>
-        )}
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-  import { trackCTA } from '../scripts/analytics';
-  document.querySelectorAll<HTMLElement>('[data-cta-label]:not([data-cta-bound])').forEach(el => {
-    el.dataset.ctaBound = 'true';
-    el.addEventListener('click', () => {
-      const label = el.getAttribute('data-cta-label') ?? '';
-      const href = el.getAttribute('href') ?? '';
-      trackCTA(label, href);
-    });
-  });
-</script>
-
-<style>
-  .cta-panel__actions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex-shrink: 0;
-    align-items: stretch;
-  }
-  .cta-panel__actions :global(.button) { width: 100%; justify-content: center; }
-  @media (min-width: 600px) {
-    .cta-panel__actions { flex-direction: row; align-items: center; }
-    .cta-panel__actions :global(.button) { width: auto; }
-  }
-</style>
+<section class="section"><div class="container"><div class="cta-panel"><div><h2>{title}</h2><p>{text}</p></div><Button {href}>{label}</Button></div></div></section>

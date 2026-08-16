@@ -49,8 +49,6 @@ const {
     border-radius: var(--radius-surface, 28px);
     aspect-ratio: var(--ratio);
     background: var(--color-midnight, #081126);
-    opacity: 1;
-    visibility: visible;
   }
   .editorial-image :global(img) {
     display: block;
@@ -75,7 +73,7 @@ const {
     document.querySelectorAll<HTMLElement>('[data-editorial]').forEach((el) => {
       const img = el.querySelector('img');
       gsap.fromTo(el,
-        { clipPath: 'inset(12% 6% 12% 6% round 28px)', opacity: 1 },
+        { clipPath: 'inset(12% 6% 12% 6% round 28px)', opacity: 0 },
         {
           clipPath: 'inset(0% 0% 0% 0% round 28px)', opacity: 1,
           duration: 1.2, ease: 'power3.out',

@@ -1,16 +1,9 @@
-import { trackForm } from './analytics';
-
 const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
 
 if (form) {
   const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
   const status = form.querySelector<HTMLElement>('[data-form-status]');
-  const idleLabel = button?.textContent ?? 'Envoyer';
-  let started = false;
-
-  form.addEventListener('focusin', () => {
-    if (!started) { started = true; trackForm('start', form.id || undefined); }
-  }, { once: true });
+  const idleLabel = button?.textContent ?? 'Recevoir mon audit →';
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -23,15 +16,11 @@ if (form) {
 
     try {
       const payload = Object.fromEntries(new FormData(form).entries());
-      const controller = new AbortController();
-      const timeout = window.setTimeout(() => controller.abort(), 15_000);
       const response = await fetch(form.action, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-        signal: controller.signal,
       });
-      window.clearTimeout(timeout);
       const result = await response.json().catch(() => null) as { success?: boolean; message?: string } | null;
 
       if (!response.ok || !result?.success) throw new Error(result?.message || 'Request failed');
@@ -39,14 +28,9 @@ if (form) {
       form.reset();
       status.textContent = 'Merci. Votre demande a bien été envoyée.';
       status.classList.add('is-success');
-      trackForm('submit', form.id || undefined);
-      try { sessionStorage.setItem('clicom_converted', '1'); } catch {}
-    } catch (error) {
-      status.textContent = error instanceof DOMException && error.name === 'AbortError'
-        ? 'Le délai d’envoi est dépassé. Réessayez ou écrivez-nous à hello@clicom.ch.'
-        : 'Une erreur est survenue. Vous pouvez aussi nous écrire à hello@clicom.ch.';
+    } catch {
+      status.textContent = 'Une erreur est survenue. Vous pouvez aussi nous écrire à hello@clicom.ch.';
       status.classList.add('is-error');
-      trackForm('error', form.id || undefined);
     } finally {
       button.disabled = false;
       button.textContent = idleLabel;

@@ -2,44 +2,27 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Button from '../components/Button.astro';
-import CalendlyButton from '../components/conversion/CalendlyButton.astro';
 ---
 
 <Layout title="Contact & audit gratuit — Clicom">
-  <PageHero eyebrow="Contact" title="Parlons de votre prochain <span class='gradient-text'>accélérateur.</span>" intro="Présentez-nous votre objectif, votre contexte et le principal défi à résoudre. Nous préparerons un échange ciblé." primary="#rdv" primaryLabel="Réserver un rendez-vous" secondary="/audit-gratuit/" secondaryLabel="Découvrir l'audit gratuit" />
-  
-  <section class="section section--white" id="rdv">
-    <div class="container contact-contact">
-      <div>
-        <div class="eyebrow">Rendez-vous</div>
-        <h2>Un court échange <span class="accent">sans engagement.</span></h2>
-        <p>Présentez votre contexte, vos objectifs et le principal défi à résoudre. Nous préparons un échange ciblé.</p>
-        <div class="next-step"><strong>Au programme</strong><p>Nous écoutons votre situation, partageons une première lecture et identifions ensemble les prochaines étapes pertinentes.</p></div>
-      </div>
-      <div class="contact-actions">
-        <h3>1. Réserver un rendez-vous</h3>
-        <CalendlyButton mode="inline" label="Choisir un créneau →" />
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="form">
+  <PageHero eyebrow="Contact" title="Parlons de votre prochain <span class='gradient-text'>accélérateur.</span>" intro="Présentez-nous votre objectif, votre contexte et le principal défi à résoudre. Nous préparerons un échange ciblé." primary="#audit" primaryLabel="Parler de mon projet →" secondary="/audit-gratuit/" secondaryLabel="Découvrir l’audit gratuit" />
+  <section class="section section--white" id="audit">
     <div class="container contact">
       <div>
-        <div class="eyebrow">Formulaire</div>
-        <h2>Ou préférez-vous <span class="accent">écrire ?</span></h2>
+        <div class="eyebrow">Votre projet</div>
+        <h2>Commençons par une discussion <span class="accent">utile.</span></h2>
         <p>Indiquez ce que vous souhaitez améliorer, les actions déjà entreprises et votre priorité actuelle.</p>
-        <div class="next-step"><strong>Après votre envoi</strong><p>Nous examinons votre demande, préparons les premières questions puis revenons vers vous.</p></div>
-        <p class="direct-contact"><a href="mailto:hello@clicom.ch"><strong>hello@clicom.ch</strong></a><br /><a href="tel:+41788238950">078 823 89 50</a></p>
+        <div class="next-step"><strong>Après votre envoi</strong><p>Nous examinons votre demande, préparons les premières questions puis revenons vers vous pour organiser la suite.</p></div>
+        <p class="direct-contact">Contact direct<br /><a href="tel:+41788238950"><strong>078 823 89 50</strong></a><br /><a href="mailto:hello@clicom.ch"><strong>hello@clicom.ch</strong></a></p>
         <div class="motif">●────→</div>
       </div>
-      <form id="contact-form" class="card form" action="/api/contact" method="post" data-contact-form>
+      <form class="card form" action="/api/contact" method="post" data-contact-form>
         <div class="form-grid">
           <div class="field"><label for="nom">Nom</label><input id="nom" name="nom" autocomplete="name" maxlength="100" required /></div>
           <div class="field"><label for="entreprise">Entreprise</label><input id="entreprise" name="entreprise" autocomplete="organization" maxlength="120" /></div>
           <div class="field"><label for="site">Site internet</label><input id="site" name="site" type="url" maxlength="300" /></div>
           <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required /></div>
-          <div class="field field--full"><label for="tel">Téléphone <em style="color:var(--color-text-muted);font-size:.82rem">(optionnel)</em></label><input id="tel" name="telephone" type="tel" autocomplete="tel" maxlength="40" /></div>
+          <div class="field field--full"><label for="tel">Téléphone</label><input id="tel" name="telephone" type="tel" autocomplete="tel" maxlength="40" /></div>
           <div class="field field--full"><label for="objectif">Votre objectif ou principal défi</label><textarea id="objectif" name="objectif" minlength="10" maxlength="3000" placeholder="Expliquez-nous brièvement votre besoin et votre priorité." required></textarea></div>
           <div class="form-honeypot" aria-hidden="true"><label for="website">Ne pas remplir ce champ</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
         </div>
@@ -56,20 +39,16 @@ import CalendlyButton from '../components/conversion/CalendlyButton.astro';
 </script>
 
 <style>
-  .contact-contact { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 80px); }
-  .contact-actions { padding: 32px; border: 1px solid var(--color-border); border-radius: var(--radius-card); background: white; }
-  .contact-actions h3 { margin-bottom: 20px; font-size: 1.1rem; }
   .contact { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(50px, 8vw, 110px); }
   .form > .button { justify-self: start; }
   .next-step { margin-block: 28px; padding: 20px 22px; border-left: 3px solid var(--color-primary); background: var(--color-primary-soft); }
   .next-step p { margin: 7px 0 0; font-size: .92rem; }
   .direct-contact { font-size: .94rem; }
-  .direct-contact a { color: var(--color-primary); }
   .form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
   .form-status { min-height: 1.5em; margin: 0; font-size: .9rem; font-weight: 650; }
   .form-status.is-success { color: #067647; }
   .form-status.is-error { color: #b42318; }
   .form-privacy { margin: 0; color: var(--color-text-muted); font-size: .78rem; line-height: 1.55; }
   .form-privacy a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
-  @media (max-width: 850px) { .contact-contact, .contact { grid-template-columns: 1fr; } .form > .button { width: 100%; } }
+  @media (max-width: 850px) { .contact { grid-template-columns: 1fr; } .form > .button { width: 100%; } }
 </style>

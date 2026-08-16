@@ -1,6 +1,6 @@
-﻿---
-import Button from "./Button.astro";
-import VisualBand from "./visuals/VisualBand.astro";
+---
+import Button from './Button.astro';
+import VisualBand from './visuals/VisualBand.astro';
 
 interface Props {
   eyebrow: string;
@@ -11,20 +11,19 @@ interface Props {
   primary?: string;
   primaryLabel?: string;
   showBand?: boolean;
-  variant?: "default" | "commercial";
 }
 
-const { eyebrow, title, intro, secondary, secondaryLabel = "Découvrir nos services", primary = "/contact/#form", primaryLabel = "Parler de mon projet →", showBand = true, variant = "default" } = Astro.props;
+const { eyebrow, title, intro, secondary, secondaryLabel = 'Découvrir nos services', primary = '/contact#audit', primaryLabel = 'Parler de mon projet →', showBand = true } = Astro.props;
 const bands = {
-  Services: { type: "services" as const, eyebrow: "Système CLICOM", title: "Trois forces, une même trajectoire.", text: "Acquisition, création et technologie deviennent un système cohérent." },
-  "Audit gratuit": { type: "audit" as const, eyebrow: "Diagnostic visuel", title: "Six signaux observés comme un seul système.", text: "Site, visibilité, acquisition, social, IA et conversion sont reliés sans score artificiel." },
-  Blog: { type: "editorial" as const, eyebrow: "Lecture structurée", title: "Des signaux transformés en décisions.", text: "Une grille éditoriale légère relie les sujets, les analyses et les prochaines actions." },
-  Ressources: { type: "editorial" as const, eyebrow: "Cartographie éditoriale", title: "Trouver le bon point d’entrée.", text: "Les contenus sont reliés par intention plutôt qu’empilés comme une bibliothèque générique." },
+  Services: { type: 'services' as const, eyebrow: 'Système CLICOM', title: 'Trois forces, une même trajectoire.', text: 'Acquisition, création et technologie deviennent un système cohérent.' },
+  'Audit gratuit': { type: 'audit' as const, eyebrow: 'Diagnostic visuel', title: 'Six signaux observés comme un seul système.', text: 'Site, visibilité, acquisition, social, IA et conversion sont reliés sans score artificiel.' },
+  Blog: { type: 'editorial' as const, eyebrow: 'Lecture structurée', title: 'Des signaux transformés en décisions.', text: 'Une grille éditoriale légère relie les sujets, les analyses et les prochaines actions.' },
+  Ressources: { type: 'editorial' as const, eyebrow: 'Cartographie éditoriale', title: 'Trouver le bon point d’entrée.', text: 'Les contenus sont reliés par intention plutôt qu’empilés comme une bibliothèque générique.' },
 };
 const band = bands[eyebrow as keyof typeof bands];
 ---
 
-<section class:list={["page-hero", { "page-hero--commercial": variant === "commercial" }]}>
+<section class="page-hero">
   <div class="container page-hero__inner">
     <div class="page-hero__copy">
       <div class="eyebrow">{eyebrow}</div>
@@ -45,19 +44,3 @@ const band = bands[eyebrow as keyof typeof bands];
   </div>
 </section>
 {showBand && band && <VisualBand {...band} />}
-
-<style>
-  .page-hero--commercial .page-hero__copy { max-width: 780px; }
-  .page-hero--commercial .eyebrow { margin-bottom: 20px; }
-  .page-hero--commercial h1 { font-size: clamp(2.3rem, 6.4vw, 4.1rem); line-height: 1.03; letter-spacing: -0.02em; }
-  .page-hero--commercial p { font-size: 1.12rem; max-width: 60ch; }
-  .page-hero--commercial .button-row { margin-top: 34px; }
-  .page-hero--commercial .hero-mark { opacity: 0.9; }
-  @media (max-width: 600px) {
-    .page-hero--commercial .button-row { flex-direction: column; align-items: stretch; gap: 12px; }
-    .page-hero--commercial .button-row :global(a) { width: 100%; text-align: center; }
-  }
-  @media (max-width: 480px) {
-    .page-hero--commercial h1 { font-size: clamp(1.9rem, 7.4vw, 2.1rem); }
-  }
-</style>

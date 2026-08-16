@@ -13,7 +13,7 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
   if (!host.isConnected || reduceMotion.matches) return;
 
   const mobileScene = window.matchMedia('(max-width: 768px)').matches;
-  const dprLimit = mobileScene ? 1.35 : 1.5;
+  const dprLimit = mobileScene ? 1 : 1.5;
 
   const renderer = new Renderer({ canvas, alpha: true, antialias: false, dpr: Math.min(window.devicePixelRatio, dprLimit) });
   const gl = renderer.gl;
@@ -35,7 +35,7 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
       }
     `,
     fragment: `
-      precision ${mobileScene ? 'mediump' : 'highp'} float;
+      precision highp float;
       varying vec2 vUv;
       uniform float uTime;
       uniform vec2 uResolution;
@@ -74,34 +74,32 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
         vec2 pointer = (uPointer - .5) * vec2(.16, .1);
 
         p.x += p.y * .31;
-        ${mobileScene ? 'p.y -= .42;' : ''}
         float field = flow(p * 1.12 + pointer, t);
-        float ripple = sin(p.x * 6.4 - t * 2.1 + p.y * 3.1) * .5 + .5;
-        float surface = field * .84 + ripple * .16;
+        float fine = flow(p * 2.15 - pointer * .6 + 3.4, -t * .72);
+        float surface = field * .78 + fine * .22;
 
         float ribbonAxis = p.y + .28 * sin(p.x * 1.55 + t) + .13 * sin(p.x * 3.7 - t * .7);
-        float volume = exp(-abs(ribbonAxis - (surface - .48) * 1.25) * 1.82);
-        float fold = pow(clamp(1.0 - abs(fract(surface * 5.2 + ribbonAxis * .72) - .5) * 2.0, 0.0, 1.0), 7.0);
-        float edge = smoothstep(.14, .86, volume) * fold;
+        float volume = exp(-abs(ribbonAxis - (surface - .48) * 1.25) * 2.15);
+        float fold = pow(clamp(1.0 - abs(fract(surface * 5.2 + ribbonAxis * .72) - .5) * 2.0, 0.0, 1.0), 9.0);
+        float edge = smoothstep(.18, .94, volume) * fold;
 
         vec3 midnight = vec3(.031, .067, .149);
-        vec3 lift = vec3(.043, .086, .184);
         vec3 deepBlue = vec3(.055, .16, .48);
         vec3 electric = vec3(.141, .341, 1.0);
         vec3 cyan = vec3(.133, .827, .933);
         vec3 color = midnight;
-        color += deepBlue * volume * .66;
-        color += electric * pow(volume, 2.6) * (.42 + surface * .58);
-        color += mix(electric, cyan, smoothstep(.34, .70, surface)) * edge * 1.62;
+        color += deepBlue * volume * .48;
+        color += electric * pow(volume, 3.0) * (.34 + surface * .52);
+        color += mix(electric, cyan, smoothstep(.42, .76, surface)) * edge * 1.35;
 
-        float highlight = pow(max(0.0, 1.0 - abs(ribbonAxis + .12 - surface * .42) * 5.5), 14.0);
-        color += mix(cyan, vec3(1.0), .5) * highlight * .92;
-        float halo = exp(-length(p - vec2(${mobileScene ? '.28' : '.74'} + pointer.x * .5, ${mobileScene ? '.52' : '.34'} + pointer.y * .5)) * ${mobileScene ? '1.15' : '1.45'});
-        color += mix(electric, cyan, .35) * halo * ${mobileScene ? '.34' : '.26'};
+        float highlight = pow(max(0.0, 1.0 - abs(ribbonAxis + .12 - surface * .42) * 5.5), 16.0);
+        color += mix(cyan, vec3(1.0), .45) * highlight * .72;
+        float halo = exp(-length(p - vec2(.56 + pointer.x, .16 + pointer.y)) * 1.8);
+        color += electric * halo * .14;
 
-        float calmZone = ${mobileScene ? 'smoothstep(-1.6, -.9, p.y)' : 'smoothstep(-1.35, -.05, p.x)'};
-        color = mix(lift, color, ${mobileScene ? '.62 + .38' : '.34 + .66'} * calmZone);
-        color *= .985 + hash(gl_FragCoord.xy + uTime) * .03;
+        float leftGuard = smoothstep(-1.25, .05, p.x);
+        color = mix(midnight, color, .3 + .7 * leftGuard);
+        color *= .96 + hash(gl_FragCoord.xy + uTime) * .04;
         gl_FragColor = vec4(color, 1.0);
       }
     `,
@@ -114,9 +112,6 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
   });
 
   const mesh = new Mesh(gl, { geometry, program });
-  const resolutionUniform = program.uniforms.uResolution.value as number[];
-  const pointerUniform = program.uniforms.uPointer.value as number[];
-  const frameScaleUniform = program.uniforms.uFrameScale.value as number[];
   const mobileOrigin = mobileScene ? { x: .58, y: .48 } : { x: .68, y: .38 };
   const pointer = { ...mobileOrigin };
   const target = { ...mobileOrigin };
@@ -131,10 +126,10 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
     const height = Math.max(1, bounds.height);
     renderer.dpr = Math.min(window.devicePixelRatio, dprLimit);
     renderer.setSize(width, height);
-    resolutionUniform[0] = gl.canvas.width;
-    resolutionUniform[1] = gl.canvas.height;
-    frameScaleUniform[0] = mobileScene ? (width <= 480 ? .62 : .78) : 1;
-    frameScaleUniform[1] = mobileScene ? (width <= 480 ? .74 : .82) : 1;
+    program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height];
+    program.uniforms.uFrameScale.value = mobileScene
+      ? (width <= 480 ? [.92, .52] : [.98, .76])
+      : [1, 1];
   };
 
   const render = (now: number) => {
@@ -142,13 +137,12 @@ async function initialiseMesh(host: HTMLElement, canvas: HTMLCanvasElement) {
     if (!inViewport || document.hidden || disposed) return;
     if (mobileScene) {
       const elapsed = (now - start) / 1000;
-      target.x = mobileOrigin.x + Math.sin(elapsed * .26) * .11;
-      target.y = mobileOrigin.y + Math.cos(elapsed * .21) * .08;
+      target.x = mobileOrigin.x + Math.sin(elapsed * .18) * .045;
+      target.y = mobileOrigin.y + Math.cos(elapsed * .14) * .03;
     }
     pointer.x += (target.x - pointer.x) * .025;
     pointer.y += (target.y - pointer.y) * .025;
-    pointerUniform[0] = pointer.x;
-    pointerUniform[1] = pointer.y;
+    program.uniforms.uPointer.value = [pointer.x, pointer.y];
     program.uniforms.uTime.value = (now - start) / 1000;
     renderer.render({ scene: mesh });
     raf = requestAnimationFrame(render);

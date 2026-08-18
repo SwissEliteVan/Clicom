@@ -61,6 +61,8 @@
   --visual-loop: 8s;
   --z-header: 100;
   --z-menu: 110;
+  --z-cookie-banner: 500;
+  --z-cookie-prefs: 600;
   --z-skip: 1000;
 }
 

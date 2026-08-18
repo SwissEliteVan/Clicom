@@ -13,6 +13,7 @@ const securityHeaders: Record<string, string> = {
     "img-src 'self' data: https:",
     "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://calendly.com",
     "frame-src https://calendly.com",
+    "worker-src 'none'",
     "upgrade-insecure-requests",
   ].join('; '),
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',

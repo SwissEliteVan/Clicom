@@ -1,13 +1,12 @@
 import type { APIRoute } from 'astro';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 export const prerender = false;
 
-const EMAIL_TO = 'hello@clicom.ch';
-const EMAIL_FROM = 'CLICOM <formulaire@clicom.ch>';
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 5;
 const requests = new Map<string, number[]>();
+let lastSweep = 0;
 
 const limits = {
   nom: 100,
@@ -34,12 +33,40 @@ const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, (character) => (
 
 const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
 
+const sweepExpiredRequests = (now: number) => {
+  if (now - lastSweep < WINDOW_MS) return;
+  lastSweep = now;
+  for (const [ip, times] of requests.entries()) {
+    const recent = times.filter((time) => now - time < WINDOW_MS);
+    if (recent.length) requests.set(ip, recent);
+    else requests.delete(ip);
+  }
+};
+
 const isRateLimited = (ip: string) => {
   const now = Date.now();
+  sweepExpiredRequests(now);
   const recent = (requests.get(ip) ?? []).filter((time) => now - time < WINDOW_MS);
+  if (recent.length >= MAX_REQUESTS) {
+    requests.set(ip, recent);
+    return true;
+  }
   recent.push(now);
   requests.set(ip, recent);
-  return recent.length > MAX_REQUESTS;
+  return false;
+};
+
+const getMailConfig = () => {
+  const host = import.meta.env.SMTP_HOST;
+  const port = Number(import.meta.env.SMTP_PORT ?? 465);
+  const secure = String(import.meta.env.SMTP_SECURE ?? 'true').toLowerCase() === 'true';
+  const user = import.meta.env.SMTP_USER;
+  const pass = import.meta.env.SMTP_PASSWORD;
+  const from = import.meta.env.EMAIL_FROM || 'CLICOM <hello@clicom.ch>';
+  const to = import.meta.env.EMAIL_TO || 'hello@clicom.ch';
+
+  if (!host || !Number.isFinite(port) || !user || !pass) return null;
+  return { host, port, secure, user, pass, from, to };
 };
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
@@ -83,9 +110,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
   }
 
-  const apiKey = import.meta.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error('RESEND_API_KEY is not configured.');
+  const mail = getMailConfig();
+  if (!mail) {
+    console.error('SMTP is not configured.');
     return json({ success: false, message: 'Service temporairement indisponible.' }, 503);
   }
 
@@ -97,19 +124,28 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const text = fields.map(([label, value]) => `${label}\n${value}`).join('\n\n');
 
   try {
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from: EMAIL_FROM,
-      to: EMAIL_TO,
+    const transporter = nodemailer.createTransport({
+      host: mail.host,
+      port: mail.port,
+      secure: mail.secure,
+      auth: { user: mail.user, pass: mail.pass },
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 15_000,
+    });
+
+    await transporter.sendMail({
+      from: mail.from,
+      to: mail.to,
       replyTo: email,
       subject: `Nouvelle demande CLICOM — ${nom}`,
       html,
       text,
     });
-    if (error) throw error;
+
     return json({ success: true, message: 'Merci. Votre demande a bien été envoyée.' }, 200);
   } catch (error) {
-    console.error('Contact email failed:', error instanceof Error ? error.message : 'Unknown provider error');
+    console.error('Contact email failed:', error instanceof Error ? error.message : 'Unknown SMTP error');
     return json({ success: false, message: 'Une erreur est survenue lors de l’envoi.' }, 502);
   }
 };

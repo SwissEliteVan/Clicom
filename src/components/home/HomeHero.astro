@@ -1,5 +1,6 @@
 ---
 import Button from '../Button.astro';
+import CalendlyButton from '../conversion/CalendlyButton.astro';
 import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
 import HeroSearchDemo from './hero/HeroSearchDemo.astro';
 import HeroWebsiteDemo from './hero/HeroWebsiteDemo.astro';
@@ -15,11 +16,14 @@ import '../../styles/hero-premium.css';
   <div class="hero-product__ambient" data-depth="0.25" aria-hidden="true"><ImmersiveMesh /></div><div class="hero-product__wash"></div><div class="hero-product__grid" data-depth="0.45"></div>
   <div class="container hero-product__inner">
     <div class="hero-product__copy" data-hero-copy-block>
-      <p class="hero-product__eyebrow" data-hero-detail>AGENCE NUMÉRIQUE <i></i> SUISSE ROMANDE</p>
+      <p class="hero-product__eyebrow" data-hero-detail>AGENCE NUMÉRIQUE <i></i> SUISSE</p>
       <h1 id="home-title"><span><b>Le digital utile</b></span><span><b>aux PME</b></span><span><b>de Suisse romande.</b></span></h1>
-      <p class="hero-product__lead" data-hero-copy>Nous créons des sites, des campagnes et des outils numériques qui aident votre entreprise à gagner en visibilité, en efficacité et en croissance.</p>
-      <div class="hero-product__actions" data-hero-cta><Button href="/audit-gratuit/">Demander un audit <span aria-hidden="true">↗</span></Button><Button href="#systeme" variant="secondary">Découvrir notre approche</Button></div>
-      <div class="hero-product__proof" data-hero-detail><span>PME & indépendants</span><span>Suisse romande</span><span>Accompagnement personnalisé</span></div>
+      <p class="hero-product__lead" data-hero-copy>CLICOM accompagne les entreprises suisses dans leur site web, leur visibilité, leur acquisition et l'automatisation de leurs processus numériques.</p>
+      <div class="hero-product__actions" data-hero-cta>
+        <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
+        <Button href="/solutions/" variant="secondary">Découvrir nos solutions</Button>
+      </div>
+      <div class="hero-product__proof" data-hero-detail><span>PME &amp; indépendants</span><span>Suisse romande</span><span>Accompagnement personnalisé</span></div>
     </div>
     <div class="hero-product__stage" data-hero-stage aria-hidden="true">
       <div class="hero-product__stage-head"><span><i></i>SYSTÈME NUMÉRIQUE CLICOM</span><small>DÉMONSTRATION</small></div>

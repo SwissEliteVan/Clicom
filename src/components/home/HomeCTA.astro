@@ -1,5 +1,6 @@
 ---
 import Button from '../Button.astro';
+import CalendlyButton from '../conversion/CalendlyButton.astro';
 ---
 
 <section class="home-cta" aria-labelledby="home-cta-title">
@@ -9,24 +10,49 @@ import Button from '../Button.astro';
     <div class="home-cta__grid" aria-hidden="true"></div>
 
     <div class="home-cta__copy">
-      <span class="home-kicker">Prochaine étape</span>
-      <h2 id="home-cta-title">Votre expertise mérite une présence digitale à sa hauteur.</h2>
-      <p>Nous analysons votre visibilité, vos outils, vos contenus et votre suivi commercial pour définir les actions utiles : ce qui peut générer plus de demandes, faire gagner du temps et sécuriser votre activité.</p>
+      <span class="home-kicker">Parlons de votre projet</span>
+      <h2 id="home-cta-title">Une priorité numérique à clarifier ?</h2>
+      <p>Présentez-nous votre situation et vos objectifs. Nous identifierons ensemble la prochaine étape la plus pertinente.</p>
       <div class="home-cta__actions">
-        <span data-magnetic><Button href="/audit-gratuit/">Demander mon diagnostic <span aria-hidden="true">↗</span></Button></span>
+        <span data-magnetic>
+          <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
+        </span>
+        <Button href="/audit-gratuit/" variant="secondary">Demander un audit gratuit</Button>
+      </div>
+      <div class="home-cta__direct">
+        <a href="tel:+41788238950">078 823 89 50</a>
+        <span aria-hidden="true">·</span>
+        <a href="mailto:hello@clicom.ch">hello@clicom.ch</a>
       </div>
     </div>
 
-    <div class="home-cta__signal" aria-hidden="true">
-      <span>CLICOM</span>
-      <div><i></i><b></b><i></i></div>
-      <small>PME DIGITAL SYSTEM READY</small>
-    </div>
-
     <div class="home-cta__badges" aria-label="Informations pratiques">
-      <span>Approche PME</span>
-      <span>Sans promesse irréaliste</span>
+      <span>Échange de 30 min</span>
+      <span>Sans engagement</span>
       <span>Suisse romande</span>
     </div>
   </div>
 </section>
+
+<style>
+  .home-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .home-cta__direct {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+    color: rgba(255,255,255,.55);
+    font-size: .85rem;
+  }
+  .home-cta__direct a {
+    color: rgba(255,255,255,.72);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .home-cta__direct a:hover { color: white; }
+</style>

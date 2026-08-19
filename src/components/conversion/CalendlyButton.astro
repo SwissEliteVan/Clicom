@@ -1,16 +1,64 @@
 ---
-interface Props { mode?: 'popup' | 'inline'; label?: string; variant?: 'primary' | 'secondary' | 'ghost'; class?: string; }
-const { mode = 'popup', label = 'Réserver un rendez-vous', variant = 'primary', class: className = '' } = Astro.props;
+interface Props {
+  mode?: 'popup' | 'inline';
+  label?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  class?: string;
+  fallbackHref?: string;
+}
+const {
+  mode = 'popup',
+  label = 'Réserver un échange de 30 min →',
+  variant = 'primary',
+  class: className = '',
+  fallbackHref = '/contact/',
+} = Astro.props;
 const calendlyUrl = import.meta.env.PUBLIC_CALENDLY_URL ?? '';
 ---
-{calendlyUrl && (
-  <div class={`calendly-wrap calendly-wrap--${mode} ${className}`} data-calendly-mode={mode}>
-    {mode === 'popup' ? <button type="button" class={`button button--${variant}`} data-calendly-popup>{label}</button> : <div class="calendly-inline-container" data-calendly-inline aria-label="Calendrier de réservation"><button type="button" class={`button button--${variant}`} data-calendly-inline-trigger>{label}</button></div>}
+
+{mode === 'popup' ? (
+  calendlyUrl ? (
+    <div class={`calendly-wrap ${className}`} data-calendly-mode="popup">
+      <button type="button" class={`button button--${variant}`} data-calendly-popup>
+        {label}
+      </button>
+    </div>
+  ) : (
+    <a href={fallbackHref} class={`button button--${variant} ${className}`}>
+      {label}
+    </a>
+  )
+) : (
+  <div class={`calendly-wrap calendly-wrap--inline ${className}`} data-calendly-mode="inline">
+    <div class="calendly-inline-container" data-calendly-inline aria-label="Calendrier de réservation">
+      <button type="button" class={`button button--${variant}`} data-calendly-inline-trigger>
+        {label}
+      </button>
+    </div>
   </div>
 )}
+
 <script>
   import { initCalendlyInline, openCalendlyPopup } from '../../scripts/calendly';
-  document.querySelectorAll<HTMLButtonElement>('[data-calendly-popup]:not([data-calendly-bound])').forEach((button) => { button.dataset.calendlyBound = 'true'; button.addEventListener('click', () => void openCalendlyPopup()); });
-  document.querySelectorAll<HTMLButtonElement>('[data-calendly-inline-trigger]:not([data-calendly-bound])').forEach((button) => { button.dataset.calendlyBound = 'true'; button.addEventListener('click', () => { const container = button.closest<HTMLElement>('[data-calendly-inline]'); if (container) void initCalendlyInline(container); }); });
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-calendly-popup]:not([data-calendly-bound])')
+    .forEach((button) => {
+      button.dataset.calendlyBound = 'true';
+      button.addEventListener('click', () => void openCalendlyPopup());
+    });
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-calendly-inline-trigger]:not([data-calendly-bound])')
+    .forEach((button) => {
+      button.dataset.calendlyBound = 'true';
+      button.addEventListener('click', () => {
+        const container = button.closest<HTMLElement>('[data-calendly-inline]');
+        if (container) void initCalendlyInline(container);
+      });
+    });
 </script>
-<style>.calendly-wrap{display:inline-flex}.calendly-wrap--inline{display:block;width:100%}.calendly-inline-container{width:100%;min-width:0}</style>
+
+<style>
+  .calendly-wrap { display: inline-flex; }
+  .calendly-wrap--inline { display: block; width: 100%; }
+  .calendly-inline-container { width: 100%; min-width: 0; }
+</style>

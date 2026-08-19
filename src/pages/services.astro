@@ -1,3 +1,264 @@
 ---
-import Layout from '../layouts/Layout.astro';import PageHero from '../components/PageHero.astro';import ServiceCard from '../components/ServiceCard.astro';import CTA from '../components/CTA.astro';---
-<Layout title="Services numériques — Clicom" description="Sites web, SEO, GEO, publicité, réseaux sociaux, contenu, automatisation, CRM et identité de marque par Clicom."><PageHero eyebrow="Services" title="Les bons leviers. <span class='accent'>Un seul système.</span>" intro="Stratégie, création, technologie et acquisition réunies pour soutenir votre croissance." secondary="/solutions" secondaryLabel="Voir nos solutions"/><section class="section section--white"><div class="container"><div class="section-heading"><div class="eyebrow">Nos expertises</div><h2>Attirer. Convertir. Automatiser. <span class="accent">Accélérer.</span></h2></div><div class="grid grid--3"><ServiceCard id="web" icon="code" title="Sites web & Pages de conversion" text="Conception, performance et parcours de conversion." href="/creation-site-web/"/><ServiceCard id="seo" icon="search" title="Référencement & visibilité IA" text="Visibilité sur les moteurs de recherche et de réponse IA." href="/seo/"/><ServiceCard id="ads" icon="cursor" title="Google Ads & Publicité sur les réseaux sociaux" text="Campagnes d’acquisition sur Google et les plateformes sociales." href="/google-ads/"/><ServiceCard id="social" icon="globe" title="Réseaux sociaux" text="Stratégie éditoriale, publication et animation de marque." href="/reseaux-sociaux/"/><ServiceCard id="contenu" icon="spark" title="Création de contenu" text="Vidéo, photo, textes et formats organiques ou publicitaires." href="/creation-contenu/"/><ServiceCard id="branding" icon="target" title="Identité de marque" text="Positionnement, identité et système de marque cohérents." href="/branding/"/><ServiceCard id="automation" icon="automation" title="Automatisation & IA" text="Automatisations, assistants et intégrations avec un cadre clair." href="/automatisation/"/><ServiceCard id="crm" icon="chart" title="CRM & e-mail marketing" text="Organisation des contacts, suivi et scénarios e-mail utiles." href="/email-marketing-crm/"/><ServiceCard icon="automation" title="Intelligence artificielle" text="Usages IA pragmatiques pour les équipes et l’acquisition." href="/intelligence-artificielle/"/></div></div></section><CTA/></Layout>
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Button from '../components/Button.astro';
+import CalendlyButton from '../components/conversion/CalendlyButton.astro';
+---
+
+<Layout
+  title="Services numériques — CLICOM Suisse"
+  description="Site web, visibilité, acquisition, contenu et automatisation : découvrez les expertises CLICOM pour développer votre présence numérique."
+>
+  <PageHero
+    eyebrow="Services"
+    title="Les expertises nécessaires pour construire une présence numérique <span class='gradient-text'>plus efficace.</span>"
+    intro="Site web, visibilité, acquisition, contenu et automatisation : CLICOM assemble les expertises utiles en fonction de vos objectifs."
+    primary="#expertises"
+    primaryLabel="Explorer nos expertises →"
+    secondary="/solutions/"
+    secondaryLabel="Voir nos solutions par problème"
+  />
+
+  <section class="section section--white services-intro">
+    <div class="container">
+      <div class="services-intro__grid">
+        <div class="services-intro__lead">
+          <div class="eyebrow">Notre approche</div>
+          <h2>Pas d'accumulation d'outils inutiles. <span class="accent">Uniquement ce qui compte.</span></h2>
+        </div>
+        <div class="services-intro__body">
+          <p>Chaque entreprise possède des priorités différentes. Nous identifions les leviers réellement utiles avant de choisir les outils, les canaux et les actions à mettre en œuvre.</p>
+          <div class="services-method-pills">
+            <span>Comprendre</span>
+            <i>→</i>
+            <span>Prioriser</span>
+            <i>→</i>
+            <span>Construire</span>
+            <i>→</i>
+            <span>Mesurer</span>
+            <i>→</i>
+            <span>Améliorer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" id="expertises">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Catalogue des expertises</div>
+        <h2>Des compétences ciblées pour <span class="accent">chaque étape de votre croissance.</span></h2>
+        <p>De la première impression sur votre site jusqu'à l'automatisation de vos flux internes.</p>
+      </div>
+
+      <div class="grid grid--3">
+        <ServiceCard
+          id="web"
+          icon="code"
+          title="Création de sites web"
+          text="Sites rapides, sécurisés et pensés pour convertir vos visiteurs en contacts qualifiés."
+          href="/creation-site-web/"
+        />
+        <ServiceCard
+          id="seo"
+          icon="search"
+          title="Référencement naturel (SEO)"
+          text="Positionnement durable sur Google pour capter les recherches de vos futurs clients."
+          href="/seo/"
+        />
+        <ServiceCard
+          id="geo"
+          icon="spark"
+          title="Référencement IA"
+          text="Optimisation de votre visibilité dans les moteurs de réponse comme ChatGPT, Perplexity et Gemini."
+          href="/referencement-ia/"
+        />
+        <ServiceCard
+          id="ads"
+          icon="cursor"
+          title="Google Ads"
+          text="Campagnes de recherche ciblées pour capter une intention d'achat immédiate et mesurable."
+          href="/google-ads/"
+        />
+        <ServiceCard
+          id="social-ads"
+          icon="target"
+          title="Publicité sur les réseaux sociaux"
+          text="Campagnes ciblées sur Meta et LinkedIn pour développer votre notoriété et vos prospects."
+          href="/social-ads/"
+        />
+        <ServiceCard
+          id="social"
+          icon="globe"
+          title="Réseaux sociaux"
+          text="Stratégie éditoriale, rythme de publication et valorisation de votre image professionnelle."
+          href="/reseaux-sociaux/"
+        />
+        <ServiceCard
+          id="contenu"
+          icon="spark"
+          title="Création de contenu"
+          text="Articles, visuels, pages clés et argumentaires pour convaincre et rassurer vos prospects."
+          href="/creation-contenu/"
+        />
+        <ServiceCard
+          id="automation"
+          icon="automation"
+          title="Automatisation des processus"
+          text="Connexion de vos outils pour éliminer les tâches répétitives et accélérer le traitement des demandes."
+          href="/automatisation/"
+        />
+        <ServiceCard
+          id="crm"
+          icon="chart"
+          title="CRM & E-mail marketing"
+          text="Organisation de vos contacts, suivi commercial fluide et scénarios relationnels pertinents."
+          href="/email-marketing-crm/"
+        />
+        <ServiceCard
+          icon="automation"
+          title="Intelligence artificielle"
+          text="Intégration d'outils IA pragmatiques au service de votre productivité et de vos équipes."
+          href="/intelligence-artificielle/"
+        />
+        <ServiceCard
+          id="branding"
+          icon="target"
+          title="Identité de marque & Branding"
+          text="Positionnement clair, charte graphique cohérente et présence numérique rassurante."
+          href="/branding/"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Bloc final de conversion -->
+  <section class="section section--dark services-cta-section">
+    <div class="container services-cta-panel">
+      <div class="services-cta-copy">
+        <div class="eyebrow eyebrow--cyan">Orientation personnalisée</div>
+        <h2>Vous ne savez pas par où commencer ?</h2>
+        <p>Un échange de 30 minutes suffit souvent pour clarifier les premières priorités et définir les leviers les plus rentables pour votre situation.</p>
+        <div class="services-cta-actions">
+          <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
+          <Button href="/audit-gratuit/" variant="secondary">Demander un audit gratuit</Button>
+        </div>
+      </div>
+      <div class="services-cta-meta">
+        <div class="meta-item">
+          <strong>30 minutes</strong>
+          <span>Échange direct et concret</span>
+        </div>
+        <div class="meta-item">
+          <strong>Sans engagement</strong>
+          <span>Conseils orientés PME</span>
+        </div>
+        <div class="meta-item">
+          <strong>Suisse romande</strong>
+          <span>Expertise locale et réactivité</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .services-intro {
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .services-intro__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(32px, 6vw, 64px);
+    align-items: center;
+  }
+  .services-intro__lead h2 {
+    margin-top: 8px;
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  }
+  .services-intro__body p {
+    margin: 0 0 20px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .services-method-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .services-method-pills span {
+    padding: 6px 12px;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .services-method-pills i {
+    color: var(--color-text-muted);
+    font-style: normal;
+    font-size: 0.8rem;
+  }
+  .services-cta-section {
+    background: var(--color-midnight);
+    color: white;
+  }
+  .services-cta-panel {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .eyebrow--cyan {
+    color: var(--color-cyan) !important;
+  }
+  .services-cta-copy h2 {
+    margin: 8px 0 16px;
+    font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+    color: white;
+  }
+  .services-cta-copy p {
+    margin: 0 0 28px;
+    color: var(--color-dark-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 580px;
+  }
+  .services-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .services-cta-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-dark-border);
+    border-radius: var(--radius-card);
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .meta-item strong {
+    font-size: 1.05rem;
+    color: var(--color-cyan);
+  }
+  .meta-item span {
+    font-size: 0.84rem;
+    color: var(--color-dark-muted);
+  }
+  @media (max-width: 850px) {
+    .services-intro__grid,
+    .services-cta-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

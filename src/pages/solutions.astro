@@ -1,3 +1,299 @@
 ---
-import Layout from '../layouts/Layout.astro';import PageHero from '../components/PageHero.astro';import ServiceCard from '../components/ServiceCard.astro';import CTA from '../components/CTA.astro';---
-<Layout title="Solutions de croissance en ligne — Clicom"><PageHero eyebrow="Solutions" title="Moins de friction. <span class='gradient-text'>Plus d’élan.</span>" intro="Des systèmes numériques conçus autour de vos enjeux commerciaux et opérationnels." primary="/audit-gratuit/" primaryLabel="Demander un audit →" secondary="/services/" secondaryLabel="Découvrir nos services"/><section class="section section--dark"><div class="container"><div class="section-heading"><div class="eyebrow">Systèmes de croissance</div><h2>La technologie au service de <span class="gradient-text">l’action.</span></h2></div><div class="grid grid--2"><ServiceCard id="ia" icon="automation" title="Automatisation intelligente" text="Connecter les outils, structurer les données et automatiser les étapes répétitives." href="/automatisation/"/><ServiceCard id="crm" icon="chart" title="CRM & e-mail marketing" text="Centraliser les contacts, organiser le suivi et déclencher des communications pertinentes." href="/email-marketing-crm/"/><ServiceCard id="data" icon="target" title="Acquisition connectée" text="Aligner SEO, référencement IA, publicité, contenu et pages de conversion." href="/services/"/><ServiceCard icon="globe" title="Socle numérique fiable" text="Associer expérience web, mesure et maintenance selon les besoins." href="/creation-site-web/"/></div></div></section><CTA href="/audit-gratuit/"/></Layout><style>.section--dark :global(.card){background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)}.section--dark :global(.card h3){color:white}</style>
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import CalendlyButton from '../components/conversion/CalendlyButton.astro';
+
+const solutions = [
+  {
+    number: '01',
+    title: 'Gagner en visibilité locale et nationale',
+    problem: 'Votre entreprise est difficile à trouver, vos concurrents occupent les premières positions sur Google et votre présence est absente des réponses IA.',
+    benefits: 'Une visibilité organique pérenne sur les requêtes stratégiques de votre secteur en Suisse.',
+    services: [
+      { label: 'Référencement naturel (SEO)', href: '/seo/' },
+      { label: 'Référencement IA (ChatGPT, Gemini)', href: '/referencement-ia/' },
+      { label: 'Création de contenu pertinent', href: '/creation-contenu/' },
+      { label: 'Création de site optimisé', href: '/creation-site-web/' },
+    ],
+  },
+  {
+    number: '02',
+    title: 'Générer davantage de prospects qualifiés',
+    problem: 'Votre acquisition est irrégulière, dépend trop du bouche-à-oreille et vos visites ne se transforment pas en demandes concrètes.',
+    benefits: 'Des flux d\'opportunités réguliers grâce à des campagnes ciblées et des pages de destination optimisées.',
+    services: [
+      { label: 'Google Ads', href: '/google-ads/' },
+      { label: 'Publicité sur les réseaux sociaux', href: '/social-ads/' },
+      { label: 'Pages de conversion ciblées', href: '/creation-site-web/' },
+    ],
+  },
+  {
+    number: '03',
+    title: 'Transformer davantage de visiteurs en clients',
+    problem: 'Vous avez du trafic sur votre site mais peu de prises de contact. Le message manque de clarté et le parcours utilisateur présente des frictions.',
+    benefits: 'Un taux de conversion supérieur grâce à une proposition de valeur limpide et des appels à l\'action rassurants.',
+    services: [
+      { label: 'Refonte de site axée conversion', href: '/creation-site-web/' },
+      { label: 'Clarté des messages et contenus', href: '/creation-contenu/' },
+      { label: 'Audit ergonomique et UX', href: '/audit-gratuit/' },
+    ],
+  },
+  {
+    number: '04',
+    title: 'Automatiser les tâches répétitives',
+    problem: 'Saisie manuelle des contacts, relances oubliées, perte de temps administratif et dispersion des données entre plusieurs outils.',
+    benefits: 'Des processus fluides, des demandes traitées en quelques secondes et plus de temps pour vos clients.',
+    services: [
+      { label: 'Automatisation des processus', href: '/automatisation/' },
+      { label: 'Organisation CRM & Suivi', href: '/email-marketing-crm/' },
+      { label: 'Usages IA pragmatiques', href: '/intelligence-artificielle/' },
+    ],
+  },
+  {
+    number: '05',
+    title: 'Structurer et mesurer son acquisition',
+    problem: 'Vos actions numériques sont dispersées, vous manquez de visibilité sur ce qui fonctionne réellement et vos canaux ne sont pas connectés.',
+    benefits: 'Un pilotage clair de vos investissements et un système d\'acquisition cohérent qui travaille en continu.',
+    services: [
+      { label: 'Stratégie & acquisition connectée', href: '/services/' },
+      { label: 'Alignement CRM & Campagnes', href: '/email-marketing-crm/' },
+      { label: 'Audit global de présence', href: '/audit-gratuit/' },
+    ],
+  },
+  {
+    number: '06',
+    title: 'Renforcer son image et sa crédibilité',
+    problem: 'Votre identité visuelle est vieillissante, votre discours manque de consistance et votre présence en ligne ne reflète pas la qualité de vos prestations.',
+    benefits: 'Une image de marque moderne, professionnelle et cohérente qui inspire immédiatement confiance.',
+    services: [
+      { label: 'Identité de marque & Branding', href: '/branding/' },
+      { label: 'Création de site haut de gamme', href: '/creation-site-web/' },
+      { label: 'Réseaux sociaux professionnels', href: '/reseaux-sociaux/' },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Solutions numériques — CLICOM Suisse"
+  description="Résolvez vos défis numériques concrets : visibilité, acquisition de prospects, conversion, automatisation et image de marque."
+>
+  <PageHero
+    eyebrow="Solutions"
+    title="Quel problème numérique <span class='gradient-text'>voulez-vous résoudre ?</span>"
+    intro="Nous partons de votre objectif business avant de choisir les services, outils et canaux à mobiliser."
+    primary="#solutions-grid"
+    primaryLabel="Identifier mon besoin →"
+    secondary="/services/"
+    secondaryLabel="Voir tous nos services"
+  />
+
+  <section class="section section--white" id="solutions-grid">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Défis &amp; Réponses concrètes</div>
+        <h2>Des solutions structurées autour de <span class="accent">vos enjeux opérationnels.</span></h2>
+        <p>Identifiez votre défi actuel et découvrez les leviers numériques à actionner en priorité.</p>
+      </div>
+
+      <div class="solutions-grid">
+        {solutions.map((sol) => (
+          <article class="card solution-card">
+            <div class="solution-card__header">
+              <span class="solution-card__number">{sol.number}</span>
+              <h3>{sol.title}</h3>
+            </div>
+
+            <div class="solution-card__section">
+              <strong>Le constat fréquent :</strong>
+              <p>{sol.problem}</p>
+            </div>
+
+            <div class="solution-card__section solution-card__section--benefit">
+              <strong>L'objectif visé :</strong>
+              <p>{sol.benefits}</p>
+            </div>
+
+            <div class="solution-card__services">
+              <strong>Expertises mobilisées :</strong>
+              <div class="solution-card__links">
+                {sol.services.map((srv) => (
+                  <a href={srv.href} class="solution-link">
+                    {srv.label} <span aria-hidden="true">→</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bloc final de conversion -->
+  <section class="section section--dark">
+    <div class="container solutions-cta-panel">
+      <div class="solutions-cta-copy">
+        <div class="eyebrow eyebrow--cyan">Conseil sur-mesure</div>
+        <h2>Votre priorité ne rentre pas dans une case ?</h2>
+        <p>Présentez-nous votre situation. Nous vous aiderons à identifier les leviers les plus pertinents pour votre entreprise lors d'un échange direct.</p>
+        <div class="solutions-cta-actions">
+          <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
+          <Button href="/audit-gratuit/" variant="secondary">Demander un audit gratuit</Button>
+        </div>
+      </div>
+      <div class="solutions-cta-badge">
+        <span>Approche pragmatique</span>
+        <span>Priorisation réaliste</span>
+        <span>Suisse romande</span>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+  .solution-card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(24px, 4vw, 36px);
+    border-radius: var(--radius-card);
+  }
+  .solution-card__header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .solution-card__number {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+  }
+  .solution-card__header h3 {
+    margin: 0;
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    letter-spacing: -0.02em;
+    color: var(--color-midnight);
+  }
+  .solution-card__section {
+    margin-bottom: 16px;
+  }
+  .solution-card__section strong {
+    display: block;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+  }
+  .solution-card__section p {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--color-midnight);
+  }
+  .solution-card__section--benefit {
+    padding: 12px 14px;
+    background: var(--color-primary-soft);
+    border-radius: 8px;
+    border-left: 3px solid var(--color-primary);
+  }
+  .solution-card__section--benefit strong {
+    color: var(--color-primary);
+  }
+  .solution-card__services {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-border);
+  }
+  .solution-card__services strong {
+    display: block;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 10px;
+  }
+  .solution-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .solution-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 11px;
+    background: rgba(247, 249, 252, 0.9);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 650;
+    color: var(--color-midnight);
+    text-decoration: none;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+  .solution-link:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .solutions-cta-panel {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .eyebrow--cyan {
+    color: var(--color-cyan) !important;
+  }
+  .solutions-cta-copy h2 {
+    margin: 8px 0 16px;
+    font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+    color: white;
+  }
+  .solutions-cta-copy p {
+    margin: 0 0 28px;
+    color: var(--color-dark-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 580px;
+  }
+  .solutions-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .solutions-cta-badge {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-dark-border);
+    border-radius: var(--radius-card);
+  }
+  .solutions-cta-badge span {
+    padding: 8px 12px;
+    border: 1px solid var(--color-dark-border);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 650;
+    color: var(--color-cyan);
+    text-align: center;
+  }
+  @media (max-width: 850px) {
+    .solutions-grid,
+    .solutions-cta-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -2,34 +2,97 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Button from '../components/Button.astro';
+import CalendlyButton from '../components/conversion/CalendlyButton.astro';
 ---
 
-<Layout title="Contact & audit gratuit — Clicom">
-  <PageHero eyebrow="Contact" title="Parlons de votre prochain <span class='gradient-text'>accélérateur.</span>" intro="Présentez-nous votre objectif, votre contexte et le principal défi à résoudre. Nous préparerons un échange ciblé." primary="#audit" primaryLabel="Parler de mon projet →" secondary="/audit-gratuit/" secondaryLabel="Découvrir l’audit gratuit" />
-  <section class="section section--white" id="audit">
-    <div class="container contact">
-      <div>
-        <div class="eyebrow">Votre projet</div>
-        <h2>Commençons par une discussion <span class="accent">utile.</span></h2>
-        <p>Indiquez ce que vous souhaitez améliorer, les actions déjà entreprises et votre priorité actuelle.</p>
-        <div class="next-step"><strong>Après votre envoi</strong><p>Nous examinons votre demande, préparons les premières questions puis revenons vers vous pour organiser la suite.</p></div>
-        <p class="direct-contact">Contact direct<br /><a href="tel:+41788238950"><strong>078 823 89 50</strong></a><br /><a href="mailto:hello@clicom.ch"><strong>hello@clicom.ch</strong></a></p>
-        <div class="motif">●────→</div>
+<Layout title="Contact — CLICOM Suisse" description="Prenez contact avec CLICOM : réservez un échange de 30 minutes, transmettez votre projet via notre formulaire ou contactez-nous directement.">
+  <PageHero
+    eyebrow="Contact"
+    title="Parlons de votre <span class='gradient-text'>projet.</span>"
+    intro="Choisissez la manière la plus simple de nous présenter votre situation : un rendez-vous, un message ou un contact direct."
+    primary="#formulaire"
+    primaryLabel="Écrire un message →"
+    secondary="/audit-gratuit/"
+    secondaryLabel="Demander un audit gratuit"
+  />
+
+  <section class="section section--white" id="contact-options">
+    <div class="container contact-layout">
+      <div class="contact-channels">
+        <!-- Chemin 1: Rendez-vous Calendly -->
+        <article class="card channel-card channel-card--highlight">
+          <div class="eyebrow">Option 1 · Échange direct</div>
+          <h2>Réserver un échange de 30 minutes</h2>
+          <p>Choisissez directement un créneau pour nous présenter votre entreprise, votre projet et vos priorités.</p>
+          <div class="channel-card__action">
+            <CalendlyButton label="Choisir un créneau →" fallbackHref="#formulaire" />
+          </div>
+          <span class="channel-card__badge">30 minutes · Sans engagement</span>
+        </article>
+
+        <!-- Chemin 3: Contact direct -->
+        <article class="card channel-card">
+          <div class="eyebrow">Option 2 · Contact direct</div>
+          <h2>Appelez-nous ou écrivez-nous</h2>
+          <p>Vous préférez un échange immédiat sans formulaire ? Contactez-nous directement.</p>
+          <div class="direct-links">
+            <a href="tel:+41788238950" class="direct-link">
+              <span class="direct-link__label">Téléphone</span>
+              <strong>078 823 89 50</strong>
+            </a>
+            <a href="mailto:hello@clicom.ch" class="direct-link">
+              <span class="direct-link__label">E-mail</span>
+              <strong>hello@clicom.ch</strong>
+            </a>
+          </div>
+          <span class="channel-card__badge">Réponse sous 24h ouvrées</span>
+        </article>
       </div>
-      <form class="card form" action="/api/contact" method="post" data-contact-form>
-        <div class="form-grid">
-          <div class="field"><label for="nom">Nom</label><input id="nom" name="nom" autocomplete="name" maxlength="100" required /></div>
-          <div class="field"><label for="entreprise">Entreprise</label><input id="entreprise" name="entreprise" autocomplete="organization" maxlength="120" /></div>
-          <div class="field"><label for="site">Site internet</label><input id="site" name="site" type="url" maxlength="300" /></div>
-          <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required /></div>
-          <div class="field field--full"><label for="tel">Téléphone</label><input id="tel" name="telephone" type="tel" autocomplete="tel" maxlength="40" /></div>
-          <div class="field field--full"><label for="objectif">Votre objectif ou principal défi</label><textarea id="objectif" name="objectif" minlength="10" maxlength="3000" placeholder="Expliquez-nous brièvement votre besoin et votre priorité." required></textarea></div>
-          <div class="form-honeypot" aria-hidden="true"><label for="website">Ne pas remplir ce champ</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+
+      <!-- Chemin 2: Formulaire de contact -->
+      <div class="contact-form-wrapper" id="formulaire">
+        <div class="form-header">
+          <div class="eyebrow">Option 3 · Message détaillé</div>
+          <h2>Présenter votre projet</h2>
+          <p>Indiquez vos besoins et vos priorités actuelles. Nous étudierons votre demande avant de vous répondre.</p>
         </div>
-        <Button type="submit">Envoyer ma demande →</Button>
-        <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-        <p class="form-privacy">Vos informations sont utilisées uniquement pour étudier votre demande et vous répondre. <a href="/politique-de-confidentialite/">Politique de confidentialité</a>.</p>
-      </form>
+
+        <form class="card form" action="/api/contact" method="post" data-contact-form>
+          <div class="form-grid">
+            <div class="field">
+              <label for="nom">Nom *</label>
+              <input id="nom" name="nom" autocomplete="name" maxlength="100" required />
+            </div>
+            <div class="field">
+              <label for="entreprise">Entreprise</label>
+              <input id="entreprise" name="entreprise" autocomplete="organization" maxlength="120" />
+            </div>
+            <div class="field">
+              <label for="site">Site internet</label>
+              <input id="site" name="site" type="url" maxlength="300" placeholder="https://" />
+            </div>
+            <div class="field">
+              <label for="email">E-mail *</label>
+              <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required />
+            </div>
+            <div class="field field--full">
+              <label for="tel">Téléphone</label>
+              <input id="tel" name="telephone" type="tel" autocomplete="tel" maxlength="40" />
+            </div>
+            <div class="field field--full">
+              <label for="objectif">Votre objectif ou principal défi *</label>
+              <textarea id="objectif" name="objectif" minlength="10" maxlength="3000" placeholder="Expliquez-nous brièvement votre besoin et votre priorité." required></textarea>
+            </div>
+            <div class="form-honeypot" aria-hidden="true">
+              <label for="website">Ne pas remplir ce champ</label>
+              <input id="website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+          </div>
+          <Button type="submit">Envoyer ma demande →</Button>
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+          <p class="form-privacy">Vos informations sont utilisées uniquement pour étudier votre demande et vous répondre. <a href="/politique-de-confidentialite/">Politique de confidentialité</a>.</p>
+        </form>
+      </div>
     </div>
   </section>
 </Layout>
@@ -39,16 +102,125 @@ import Button from '../components/Button.astro';
 </script>
 
 <style>
-  .contact { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(50px, 8vw, 110px); }
-  .form > .button { justify-self: start; }
-  .next-step { margin-block: 28px; padding: 20px 22px; border-left: 3px solid var(--color-primary); background: var(--color-primary-soft); }
-  .next-step p { margin: 7px 0 0; font-size: .92rem; }
-  .direct-contact { font-size: .94rem; }
-  .form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
-  .form-status { min-height: 1.5em; margin: 0; font-size: .9rem; font-weight: 650; }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+  .contact-channels {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .channel-card {
+    padding: clamp(24px, 4vw, 36px);
+    border-radius: var(--radius-card);
+  }
+  .channel-card--highlight {
+    background: var(--color-primary-soft);
+    border-color: rgba(36, 87, 255, 0.2);
+  }
+  .channel-card h2 {
+    margin: 8px 0 12px;
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    letter-spacing: -0.02em;
+  }
+  .channel-card p {
+    margin: 0 0 20px;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+  }
+  .channel-card__action {
+    margin-bottom: 16px;
+  }
+  .channel-card__badge {
+    display: inline-block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.04em;
+  }
+  .direct-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .direct-link {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+  }
+  .direct-link:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+  .direct-link__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 2px;
+  }
+  .direct-link strong {
+    font-size: 0.95rem;
+    color: var(--color-midnight);
+  }
+  .form-header {
+    margin-bottom: 20px;
+  }
+  .form-header h2 {
+    margin: 8px 0 10px;
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  }
+  .form-header p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.94rem;
+  }
+  .form-honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .form-status {
+    min-height: 1.5em;
+    margin: 12px 0 0;
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
   .form-status.is-success { color: #067647; }
   .form-status.is-error { color: #b42318; }
-  .form-privacy { margin: 0; color: var(--color-text-muted); font-size: .78rem; line-height: 1.55; }
-  .form-privacy a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
-  @media (max-width: 850px) { .contact { grid-template-columns: 1fr; } .form > .button { width: 100%; } }
+  .form-privacy {
+    margin: 14px 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+  .form-privacy a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 900px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 520px) {
+    .direct-links {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
+

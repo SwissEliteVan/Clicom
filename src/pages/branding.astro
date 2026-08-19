@@ -1,8 +1,106 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
-const problems=[{title:'Une marque difficile à distinguer',text:'Le positionnement et les messages ressemblent trop aux alternatives du marché.'},{title:'Une identité incohérente',text:'Les supports utilisent des codes, des tons et des niveaux de qualité différents.'},{title:'Une évolution mal accompagnée',text:'L’entreprise a changé, mais son identité ne raconte plus son ambition.'}];
-const services=[{title:'Positionnement',text:'Territoire, différence, audiences, promesse et preuves.'},{title:'Logo',text:'Signe identifiable et déclinaisons adaptées aux usages utiles.'},{title:'Identité visuelle',text:'Système graphique cohérent au-delà du seul logo.'},{title:'Charte de marque',text:'Règles d’utilisation pour maintenir la cohérence dans le temps.'},{title:'Couleurs & typographie',text:'Choix lisibles, distinctifs et adaptés aux supports.'},{title:'Tone of voice',text:'Principes éditoriaux pour faire reconnaître la marque dans ses messages.'}];
-const process=[{title:'Comprendre',text:'Explorer vision, marché et perceptions.'},{title:'Positionner',text:'Clarifier différence et promesse.'},{title:'Créer',text:'Concevoir l’identité et ses règles.'},{title:'Déployer',text:'Adapter la marque aux supports prioritaires.'}];
-const faq=[{question:'Une identité visuelle se limite-t-elle au logo ?',answer:'Non. Elle comprend aussi couleurs, typographies, compositions, iconographie et règles de cohérence.'},{question:'Pouvez-vous faire évoluer une marque existante ?',answer:'Oui. L’évolution peut être progressive ou structurante selon les acquis et le repositionnement attendu.'},{question:'Le branding inclut-il les textes ?',answer:'Le positionnement, les messages clés et le tone of voice peuvent faire partie du périmètre.'}];
+
+const problems = [
+  {
+    title: 'Une marque difficile à distinguer',
+    text: 'Le positionnement, les messages ou les codes visuels ressemblent trop aux alternatives du marché pour rendre la différence évidente.',
+  },
+  {
+    title: 'Des supports qui ne racontent pas la même histoire',
+    text: 'Site, contenus, réseaux sociaux et publicité utilisent des tons, des visuels ou des niveaux de qualité qui manquent de cohérence.',
+  },
+  {
+    title: 'Une entreprise qui a évolué sans faire évoluer son identité',
+    text: 'L’offre, l’ambition ou les audiences ont changé, mais la marque ne traduit plus clairement ce que l’entreprise souhaite représenter.',
+  },
+];
+
+const services = [
+  { title: 'Positionnement de marque', text: 'Clarifier audiences, différence, promesse, preuves et territoire pour donner un cap aux décisions créatives.' },
+  { title: 'Messages et langage', text: 'Définir les messages clés et les principes éditoriaux qui rendent la marque reconnaissable dans ses prises de parole.' },
+  { title: 'Logo et identité visuelle', text: 'Concevoir ou faire évoluer les signes, couleurs, typographies et éléments qui constituent l’identité.' },
+  { title: 'Système graphique', text: 'Créer des règles de composition, d’iconographie et de mise en page qui dépassent le seul logo.' },
+  { title: 'Charte et outils d’usage', text: 'Formaliser ce dont les équipes ont besoin pour produire des supports cohérents dans la durée.' },
+  { title: 'Applications digitales', text: 'Déployer la marque sur le site, les contenus, les réseaux sociaux et les campagnes prioritaires.' },
+];
+
+const process = [
+  { title: 'Explorer', text: 'Comprendre l’entreprise, son marché, ses publics, ses acquis et les perceptions à faire évoluer.' },
+  { title: 'Positionner', text: 'Clarifier la différence, la promesse et les messages qui doivent guider l’identité.' },
+  { title: 'Créer', text: 'Concevoir le système visuel et éditorial avec des partis pris cohérents avec le positionnement.' },
+  { title: 'Formaliser', text: 'Documenter les règles et les outils qui permettent aux équipes de les utiliser avec autonomie.' },
+  { title: 'Déployer', text: 'Appliquer la marque sur les supports prioritaires et ajuster les détails à l’usage réel.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Bien plus qu’un logo',
+  title: 'Le branding ne se limite pas à un logo.',
+  intro: 'Une identité utile relie stratégie, langage et système graphique pour que la marque reste reconnaissable à chaque point de contact.',
+  items: [
+    { title: 'Rendre la différence visible', text: 'Le positionnement donne un sens aux choix créatifs et aide les prospects à comprendre ce qui vous distingue.' },
+    { title: 'Créer un système, pas un fichier isolé', text: 'Couleurs, typographies, règles graphiques et ton doivent fonctionner ensemble sur des usages réels.' },
+    { title: 'Relier les supports digitaux', text: 'Le site, le contenu, les réseaux sociaux et la publicité gagnent en cohérence lorsqu’ils partagent la même base.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Une identité visuelle se limite-t-elle au logo ?',
+    answer: 'Non. Le logo est un élément du système. Une identité comprend aussi le positionnement, les messages, les couleurs, les typographies, les compositions, l’iconographie et leurs règles d’usage.',
+  },
+  {
+    question: 'Pouvez-vous faire évoluer une marque existante ?',
+    answer: 'Oui. Une évolution peut être progressive ou plus structurante selon ce qui fonctionne déjà, la perception actuelle de la marque et le repositionnement souhaité.',
+  },
+  {
+    question: 'Le branding inclut-il les textes ?',
+    answer: 'Le périmètre peut inclure le positionnement, les messages clés et le tone of voice. L’objectif est de relier ce que la marque dit à la manière dont elle se présente visuellement.',
+  },
+  {
+    question: 'Comment la nouvelle identité est-elle déployée ?',
+    answer: 'Nous priorisons les supports qui comptent le plus : site, présentations, contenus, réseaux sociaux ou campagnes. Les règles de marque servent ensuite de repère pour les déploiements suivants.',
+  },
+];
 ---
-<CommercialPage title="Branding et identité visuelle — CLICOM Suisse" description="Positionnement, logo, identité visuelle, charte, couleurs, typographie et tone of voice pour une marque cohérente." eyebrow="Branding" h1="Donner à votre ambition une marque <span class='gradient-text'>claire et reconnaissable.</span>" intro="CLICOM relie positionnement, identité et langage pour construire une marque capable de soutenir votre croissance." {problems} solution="Nous clarifions ce que la marque doit exprimer, puis construisons un système visuel et éditorial cohérent sur les supports prioritaires." {services} {process} benefits={['Un positionnement plus facile à comprendre','Une identité distinctive et cohérente','Des règles utilisables par vos équipes','Des supports alignés sur une même marque','Une base solide pour le site et les campagnes']} {faq} links={[{href:'/creation-site-web/',label:'Création de site web'},{href:'/creation-contenu/',label:'Contenu'},{href:'/reseaux-sociaux/',label:'Réseaux sociaux'}]} />
+
+<CommercialPage
+  title="Branding et identité visuelle cohérente | CLICOM"
+  description="Positionnement, identité visuelle, logo, système graphique et applications digitales pour une marque claire, cohérente et reconnaissable."
+  eyebrow="Branding"
+  h1="Construire une identité <span class='gradient-text'>cohérente et reconnaissable.</span>"
+  intro="CLICOM relie positionnement, identité visuelle et langage de marque pour créer une base cohérente sur votre site, vos contenus, vos réseaux et vos campagnes."
+  {problems}
+  solution="Le branding permet de rendre une entreprise plus facile à reconnaître et à comprendre. Il donne un cadre durable aux choix de design, de contenu et de communication."
+  {services}
+  {process}
+  benefits={[
+    'Une proposition de valeur plus facile à reconnaître',
+    'Des messages et des visuels mieux alignés',
+    'Des règles utiles pour produire des supports cohérents',
+    'Une identité reliée au site, aux contenus et aux campagnes',
+    'Une base plus solide pour faire évoluer la marque dans le temps',
+  ]}
+  {faq}
+  links={[
+    { href: '/creation-site-web/', label: 'Création de site web' },
+    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/reseaux-sociaux/', label: 'Réseaux sociaux' },
+  ]}
+  problemEyebrow="Pourquoi le branding compte"
+  problemsTitle="Une identité cohérente évite de devoir réexpliquer la marque à chaque support."
+  offerTitle="Donner une même direction à ce que votre marque dit et montre."
+  processTitle="De l’intention de marque à son application sur les supports prioritaires."
+  benefitsTitle="Une marque plus claire à comprendre et plus simple à déployer."
+  faqTitle="Les questions utiles avant de faire évoluer votre identité."
+  {decisionGuide}
+  heroPrimaryLabel="Parler de votre marque"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Voir notre approche"
+  heroPrimaryCalendly={true}
+  ctaTitle="Clarifions ce que votre marque doit rendre évident."
+  ctaText="Réservez un échange de 30 minutes pour parler de votre positionnement, de votre identité actuelle et des supports à prioriser."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+  variant="reverse"
+/>

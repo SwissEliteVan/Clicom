@@ -1,9 +1,111 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
 import webImage from '../assets/editorial/creation-site-web-responsive-suisse.webp';
-const problems=[{title:'Un site qui ne convertit pas',text:'Le trafic existe, mais les parcours et les messages ne transforment pas suffisamment les visites en demandes.'},{title:'Une expérience datée',text:'L’image, l’ergonomie ou le rendu mobile ne reflètent plus le niveau réel de votre entreprise.'},{title:'Une base technique fragile',text:'Lenteur, maintenance complexe et fondations SEO faibles limitent durablement la croissance.'}];
-const services=[{title:'Sites vitrines & corporate',text:'Une présence claire, crédible et alignée sur votre positionnement.'},{title:'Pages de conversion',text:'Des pages concentrées sur une offre, une audience et une action mesurable.'},{title:'Refonte UX/UI',text:'Architecture, messages et interfaces repensés autour des usages et de la conversion.'},{title:'Adapté à tous les écrans & performance',text:'Une expérience fluide sur mobile, tablette et desktop, avec un socle rapide.'},{title:'SEO technique',text:'Structure, balisage et bonnes pratiques intégrés dès la conception.'},{title:'Maintenance',text:'Un cadre adapté pour faire évoluer, sécuriser et maintenir le site dans le temps.'}];
-const process=[{title:'Cadrage',text:'Objectifs, audiences, contenus et indicateurs.'},{title:'Architecture',text:'Parcours, wireframes et hiérarchie des messages.'},{title:'Création',text:'Design, intégration et contenus prioritaires.'},{title:'Lancement',text:'Tests, mesure, mise en ligne et optimisations.'}];
-const faq=[{question:'Combien de temps faut-il pour créer un site ?',answer:'Le délai dépend du périmètre, du nombre de pages, des contenus et des intégrations. Un planning réaliste est défini après le cadrage.'},{question:'Pouvez-vous reprendre un site existant ?',answer:'Oui. Une refonte peut conserver les acquis utiles tout en améliorant la structure, l’expérience, la performance et le SEO.'},{question:'Le site sera-t-il administrable ?',answer:'Le niveau d’autonomie est défini selon vos besoins, votre équipe et la fréquence des mises à jour.'}];
+
+const problems = [
+  {
+    title: 'Un site beau, mais difficile à utiliser pour décider',
+    text: 'Le design attire l’attention, sans expliquer assez vite l’offre, les preuves ou la prochaine étape à suivre pour un prospect.',
+  },
+  {
+    title: 'Des contenus sans hiérarchie claire',
+    text: 'Les messages importants sont noyés, les parcours changent d’une page à l’autre et les appels à l’action manquent de contexte.',
+  },
+  {
+    title: 'Une base technique qui limite la suite',
+    text: 'Lenteur, expérience mobile fragile, SEO technique incomplet ou suivi absent rendent le site plus difficile à faire évoluer.',
+  },
+];
+
+const services = [
+  { title: 'Cadrage et structure', text: 'Clarifier objectifs, audiences, offres, pages prioritaires et actions à mesurer avant de dessiner.' },
+  { title: 'UX et hiérarchie des contenus', text: 'Organiser les parcours, les messages et les preuves pour réduire l’effort nécessaire à la compréhension.' },
+  { title: 'Design responsive', text: 'Concevoir une interface cohérente sur mobile, tablette et desktop, sans traiter le mobile comme une adaptation tardive.' },
+  { title: 'Développement Astro', text: 'Mettre en œuvre un socle moderne, maintenable et performant, adapté au niveau d’autonomie recherché.' },
+  { title: 'SEO technique et performance', text: 'Intégrer structure, balisage, vitesse et bonnes pratiques techniques dès la conception du projet.' },
+  { title: 'Formulaires, tracking et mise en ligne', text: 'Relier les prises de contact à une mesure utile et organiser le lancement avec les vérifications nécessaires.' },
+];
+
+const process = [
+  { title: 'Comprendre', text: 'Cadrer l’offre, les audiences, les contenus disponibles, les objectifs et les contraintes techniques.' },
+  { title: 'Structurer', text: 'Définir l’architecture, les parcours, les priorités de contenu et les actions à faciliter.' },
+  { title: 'Concevoir', text: 'Traduire le positionnement en interfaces claires, crédibles et adaptées à chaque écran.' },
+  { title: 'Développer', text: 'Intégrer le site, les composants, les formulaires et les fondations techniques utiles au projet.' },
+  { title: 'Lancer et améliorer', text: 'Tester, mettre en ligne, mesurer les premiers signaux et faire évoluer les priorités avec méthode.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Un outil commercial',
+  title: 'Un beau site ne suffit pas s’il ne facilite pas une décision.',
+  intro: 'Un site efficace met de l’ordre dans votre proposition de valeur, rassure au bon moment et rend la prise de contact plus simple sur tous les écrans.',
+  items: [
+    { title: 'Clarté avant décoration', text: 'Le visiteur doit comprendre rapidement ce que vous proposez, pour qui et pourquoi votre approche mérite son attention.' },
+    { title: 'Mobile et vitesse dès le départ', text: 'L’expérience ne peut pas être pensée uniquement sur grand écran : performance et lisibilité influencent chaque parcours.' },
+    { title: 'Conversion et mesure intégrées', text: 'Les appels à l’action, formulaires et signaux de conversion se conçoivent avec le site, pas après son lancement.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Combien coûte la création ou la refonte d’un site web ?',
+    answer: 'Le budget dépend du périmètre, du nombre de pages, des contenus, des fonctionnalités, des intégrations et du niveau d’accompagnement. Nous cadrons ces éléments avant de proposer une solution adaptée.',
+  },
+  {
+    question: 'Combien de temps faut-il pour créer un site ?',
+    answer: 'Le calendrier dépend surtout du périmètre, de la disponibilité des contenus, des validations et des intégrations nécessaires. Un planning réaliste est défini au moment du cadrage.',
+  },
+  {
+    question: 'Puis-je garder mon domaine actuel ?',
+    answer: 'Oui, dans la plupart des cas. La conservation ou le transfert du domaine est vérifié dans le plan de mise en ligne pour éviter les ruptures inutiles.',
+  },
+  {
+    question: 'Qui possède le site après sa mise en ligne ?',
+    answer: 'Les modalités de propriété, d’accès et de maintenance sont clarifiées dans le projet. L’objectif est que votre entreprise dispose des éléments nécessaires pour faire évoluer le site dans le cadre choisi.',
+  },
+  {
+    question: 'Pouvez-vous reprendre un site existant ?',
+    answer: 'Oui. Nous pouvons auditer un site existant pour conserver ce qui fonctionne, corriger les points de friction et organiser une refonte progressive ou plus complète selon le besoin.',
+  },
+];
 ---
-<CommercialPage title="Création de site web en Suisse — CLICOM" description="Sites vitrines, corporate, pages de conversion et refontes performantes conçus par CLICOM pour convertir et soutenir votre croissance." eyebrow="Création de site web" h1="Un site web conçu pour <span class='accent'>convertir et durer.</span>" intro="CLICOM conçoit des sites rapides, clairs et évolutifs qui renforcent votre marque et transforment l’attention en opportunités." {problems} solution="Nous relions stratégie, UX/UI, développement, SEO technique et conversion dans un même projet, sans dissocier l’image des objectifs commerciaux." {services} {process} benefits={['Une proposition de valeur immédiatement lisible','Une expérience cohérente sur tous les écrans','Un socle technique performant et évolutif','Des parcours conçus pour générer des contacts','Une maintenance pensée dès la conception']} {faq} links={[{href:'/seo/',label:'SEO'},{href:'/branding/',label:'Branding'},{href:'/creation-contenu/',label:'Création de contenu'}]} editorialImage={webImage} />
+
+<CommercialPage
+  title="Création de site web orienté conversion | CLICOM"
+  description="Sites web clairs, rapides et évolutifs : UX, design, développement Astro, SEO technique, formulaires et tracking au service des demandes."
+  eyebrow="Création de site web"
+  h1="Un site web conçu pour <span class='accent'>convaincre, rassurer et générer des demandes.</span>"
+  intro="CLICOM conçoit des sites web qui rendent l’offre plus claire, renforcent la crédibilité et facilitent le passage de la visite à la prise de contact."
+  {problems}
+  solution="Votre site ne doit pas seulement présenter votre entreprise. Il doit soutenir vos objectifs commerciaux avec une expérience claire, rapide, mobile et mesurable."
+  {services}
+  {process}
+  benefits={[
+    'Une proposition de valeur plus immédiate à comprendre',
+    'Des parcours et appels à l’action plus simples à suivre',
+    'Une expérience cohérente sur mobile, tablette et desktop',
+    'Un socle SEO et technique pensé dès le début du projet',
+    'Des demandes et interactions plus faciles à mesurer',
+  ]}
+  {faq}
+  links={[
+    { href: '/seo/', label: 'SEO' },
+    { href: '/branding/', label: 'Branding' },
+    { href: '/creation-contenu/', label: 'Création de contenu' },
+  ]}
+  problemEyebrow="Pourquoi un site peut rester inefficace"
+  problemsTitle="La confiance se construit dans les détails du parcours."
+  offerTitle="Concevoir un site qui relie image, performance et conversion."
+  processTitle="Du cadrage à la mise en ligne, sans rupture entre stratégie et technique."
+  benefitsTitle="Un site plus clair pour vos visiteurs et plus utile à votre entreprise."
+  faqTitle="Les questions à éclaircir avant de lancer un projet web."
+  {decisionGuide}
+  heroPrimaryLabel="Nous présenter votre projet"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Découvrir notre méthode"
+  heroPrimaryCalendly={true}
+  ctaTitle="Faisons de votre site un outil commercial plus clair."
+  ctaText="Réservez un échange de 30 minutes pour discuter de votre site actuel, de votre projet et des priorités qui peuvent améliorer le parcours de vos visiteurs."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+  editorialImage={webImage}
+/>

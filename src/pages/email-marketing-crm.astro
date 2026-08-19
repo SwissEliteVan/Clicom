@@ -1,8 +1,106 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
-const problems=[{title:'Des contacts dispersés',text:'Les données commerciales vivent dans plusieurs outils, fichiers ou boîtes e-mail.'},{title:'Peu de suivi après le contact',text:'Les prospects non prêts à décider sortent trop vite du parcours.'},{title:'Des communications identiques',text:'Les messages ne tiennent pas compte du profil, de l’intérêt ou de la maturité.'}];
-const services=[{title:'CRM',text:'Organisation des contacts, entreprises, opportunités et activités.'},{title:'Infolettres',text:'Rendez-vous éditoriaux utiles, cohérents et mesurables.'},{title:'Maturation des prospects',text:'Séquences qui accompagnent la réflexion sans sursolliciter.'},{title:'Segmentation',text:'Groupes construits selon des données réellement exploitables.'},{title:'Priorisation des prospects',text:'Priorisation selon des signaux définis avec les équipes commerciales.'},{title:'Fidélisation',text:'Scénarios post-achat, réactivation et développement de la relation.'}];
-const process=[{title:'Structurer',text:'Définir données, étapes et responsabilités.'},{title:'Segmenter',text:'Organiser les contacts et les signaux.'},{title:'Activer',text:'Créer campagnes et automatisations.'},{title:'Améliorer',text:'Suivre engagement et impact commercial.'}];
-const faq=[{question:'Quel CRM choisir ?',answer:'Le choix dépend du cycle de vente, des intégrations et du niveau de personnalisation.'},{question:'Infolettre ou maturation des prospects ?',answer:'Infolettre suit un rythme commun. La maturation des prospects adapte les messages à une étape ou un profil.'},{question:'La notation des prospects est-elle toujours utile ?',answer:'Elle devient pertinente lorsque les signaux permettent réellement de mieux prioriser les actions.'}];
+
+const problems = [
+  {
+    title: 'Des contacts dispersés entre plusieurs outils',
+    text: 'Informations commerciales, demandes de contact et historiques d’échange vivent dans des fichiers, boîtes e-mail ou outils qui se répondent mal.',
+  },
+  {
+    title: 'Un suivi qui dépend trop de la mémoire de chacun',
+    text: 'Les prospects qui ne sont pas prêts immédiatement peuvent sortir du parcours, tandis que les relances restent difficiles à coordonner.',
+  },
+  {
+    title: 'Des communications identiques pour des besoins différents',
+    text: 'Les messages ne tiennent pas assez compte de l’intérêt exprimé, de l’étape du cycle de vente ou de la relation déjà établie.',
+  },
+];
+
+const services = [
+  { title: 'Structure CRM et pipeline', text: 'Organiser contacts, entreprises, opportunités, étapes et responsabilités autour de votre cycle commercial réel.' },
+  { title: 'Capture et qualification des demandes', text: 'Relier formulaires, campagnes ou prises de contact à des informations utiles pour orienter le suivi.' },
+  { title: 'Segmentation exploitable', text: 'Créer des groupes qui correspondent à des intérêts, niveaux de maturité ou relations réellement actionnables.' },
+  { title: 'E-mails et séquences de suivi', text: 'Concevoir des communications utiles après un nouveau lead, une demande de devis ou une étape clé du parcours.' },
+  { title: 'Relances et continuité commerciale', text: 'Rendre visibles les prochaines actions et faciliter le passage entre marketing, vente et service client.' },
+  { title: 'Mesure et amélioration', text: 'Suivre les signaux qui aident à mieux comprendre l’engagement, la qualité du pipeline et les points de friction.' },
+];
+
+const process = [
+  { title: 'Cartographier', text: 'Comprendre les outils, les données, le cycle de vente et les moments où les contacts se perdent.' },
+  { title: 'Structurer', text: 'Définir les champs utiles, les étapes, les responsabilités et les règles de qualité des données.' },
+  { title: 'Segmenter', text: 'Organiser les audiences et les signaux nécessaires à des communications plus pertinentes.' },
+  { title: 'Activer', text: 'Mettre en place les campagnes, relances et scénarios qui accompagnent vraiment le parcours.' },
+  { title: 'Améliorer', text: 'Lire les résultats, ajuster les séquences et maintenir une structure CRM utilisable par les équipes.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Scénarios utiles',
+  title: 'Mieux suivre chaque relation, sans transformer l’e-mail en bruit de masse.',
+  intro: 'Le CRM et l’e-mail marketing fonctionnent lorsqu’ils apportent la bonne information ou la bonne relance à un moment qui a du sens pour le prospect ou le client.',
+  items: [
+    { title: 'Nouveau lead et demande de devis', text: 'Accuser réception, qualifier, attribuer une action et relancer avec le contexte nécessaire aux équipes commerciales.' },
+    { title: 'Onboarding et relation client', text: 'Accompagner les premières étapes, partager les informations utiles et maintenir une continuité après la signature.' },
+    { title: 'Réactivation et développement', text: 'Recontacter des clients ou contacts existants avec une raison claire, fondée sur leur relation et leur intérêt.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Quel CRM faut-il choisir ?',
+    answer: 'Le bon choix dépend du cycle de vente, du nombre d’utilisateurs, des outils à connecter et du niveau de personnalisation réellement nécessaire. Nous partons de vos usages avant de recommander une structure.',
+  },
+  {
+    question: 'Peut-on travailler avec notre CRM actuel ?',
+    answer: 'Souvent, oui. Nous commençons par examiner les données, les étapes et les possibilités de l’outil existant avant d’envisager un changement.',
+  },
+  {
+    question: 'Quelle différence entre une newsletter et une séquence e-mail ?',
+    answer: 'Une newsletter s’adresse généralement à un groupe selon un rendez-vous éditorial. Une séquence se déclenche ou s’adapte à une étape, un intérêt ou une action dans le parcours.',
+  },
+  {
+    question: 'Comment éviter des e-mails trop intrusifs ?',
+    answer: 'En limitant les scénarios à des messages utiles, en respectant le contexte de la relation et en mesurant l’engagement plutôt que la seule fréquence d’envoi.',
+  },
+];
 ---
-<CommercialPage title="E-mail marketing et CRM — CLICOM Suisse" description="Infolettres, maturation des prospects, segmentation, notation des prospects, automatisations CRM et fidélisation pour mieux développer vos contacts." eyebrow="E-mail marketing & CRM" h1="Transformer vos contacts en relations <span class='accent'>mieux suivies.</span>" intro="CLICOM organise vos données et vos communications pour accompagner prospects et clients au bon rythme." {problems} solution="Nous alignons structure CRM, segmentation, scénarios e-mail et suivi commercial pour rendre la relation plus lisible et régulière." {services} {process} benefits={['Une base de contacts mieux organisée','Des relances cohérentes avec le parcours','Des communications plus pertinentes','Une meilleure continuité entre marketing et vente','Des opportunités et relations mieux suivies']} {faq} links={[{href:'/automatisation/',label:'Automatisation'},{href:'/creation-contenu/',label:'Contenu'},{href:'/intelligence-artificielle/',label:'Intelligence artificielle'}]} variant="reverse" />
+
+<CommercialPage
+  title="E-mail marketing et CRM : mieux suivre vos prospects | CLICOM"
+  description="CRM, segmentation, e-mails, relances et scénarios de suivi pour mieux accompagner les prospects et clients sans dépendre uniquement de nouvelles campagnes."
+  eyebrow="E-mail marketing & CRM"
+  h1="Mieux suivre les prospects et maintenir la relation sans dépendre uniquement de <span class='accent'>nouvelles campagnes.</span>"
+  intro="CLICOM organise vos données, vos étapes commerciales et vos communications pour que chaque prospect ou client soit mieux suivi au fil de sa relation avec vous."
+  {problems}
+  solution="L’e-mail marketing et le CRM ne servent pas à envoyer plus de messages. Ils servent à mieux comprendre la relation, mieux organiser le suivi et intervenir au bon moment."
+  {services}
+  {process}
+  benefits={[
+    'Une base de contacts plus claire et plus utilisable',
+    'Des relances mieux reliées aux étapes du parcours',
+    'Des communications plus pertinentes selon le contexte',
+    'Une meilleure continuité entre marketing, vente et service client',
+    'Des opportunités et des relations plus faciles à suivre',
+  ]}
+  {faq}
+  links={[
+    { href: '/automatisation/', label: 'Automatisation' },
+    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/intelligence-artificielle/', label: 'Intelligence artificielle' },
+  ]}
+  problemEyebrow="Pourquoi la relation se perd trop souvent"
+  problemsTitle="Le bon suivi commence par une information fiable et un prochain pas clair."
+  offerTitle="Relier données, relances et équipes autour du parcours client."
+  processTitle="Une méthode qui organise la relation avant de l’automatiser."
+  benefitsTitle="Des contacts mieux suivis et des échanges plus cohérents."
+  faqTitle="Les questions utiles avant de structurer CRM et e-mail marketing."
+  {decisionGuide}
+  heroPrimaryLabel="Parler de votre CRM"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Voir les scénarios possibles"
+  heroPrimaryCalendly={true}
+  ctaTitle="Faisons le point sur vos contacts, vos relances et votre pipeline."
+  ctaText="Réservez un échange de 30 minutes pour identifier les étapes où votre CRM et vos e-mails peuvent apporter le plus de continuité."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+  variant="reverse"
+/>

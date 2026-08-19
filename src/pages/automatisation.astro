@@ -1,8 +1,105 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
-const problems=[{title:'Des prospects traités trop tard',text:'Les demandes arrivent dans plusieurs outils et restent parfois sans suivi immédiat.'},{title:'Des données recopiées',text:'Les équipes déplacent manuellement les mêmes informations entre formulaires, CRM et tableaux.'},{title:'Un reporting chronophage',text:'La collecte et la consolidation prennent plus de temps que l’analyse.'}];
-const services=[{title:'Capture des prospects',text:'Centralisation des demandes issues du site, des campagnes et des formulaires.'},{title:'Qualification',text:'Règles de tri, enrichissement et orientation vers la bonne personne.'},{title:'CRM & suivi',text:'Création et mise à jour des contacts, opportunités et tâches.'},{title:'E-mail & relances',text:'Scénarios déclenchés selon les actions et étapes commerciales.'},{title:'Reporting',text:'Consolidation des données utiles pour une lecture plus régulière.'},{title:'Automatisations marketing',text:'Connexion des étapes répétitives entre acquisition, contenu et vente.'}];
-const process=[{title:'Cartographier',text:'Documenter outils, données et étapes.'},{title:'Simplifier',text:'Retirer les frictions avant d’automatiser.'},{title:'Connecter',text:'Déployer les automatisations prioritaires.'},{title:'Superviser',text:'Contrôler erreurs, usages et évolution.'}];
-const faq=[{question:'Que peut-on automatiser en premier ?',answer:'Les tâches fréquentes, prévisibles, consommatrices de temps et suffisamment documentées.'},{question:'Faut-il changer tous nos outils ?',answer:'Pas nécessairement. La priorité est d’évaluer les outils existants et leurs possibilités de connexion.'},{question:'Comment éviter les automatisations fragiles ?',answer:'En simplifiant le processus, en limitant les dépendances et en prévoyant une supervision.'}];
+
+const problems = [
+  {
+    title: 'Des demandes traitées trop tard',
+    text: 'Les formulaires, e-mails et campagnes alimentent plusieurs outils, ce qui retarde parfois la notification, l’attribution ou la première réponse.',
+  },
+  {
+    title: 'Des données recopiées à la main',
+    text: 'Les mêmes informations passent d’un formulaire au CRM, d’un tableau à un outil de reporting ou d’une équipe à l’autre, avec un risque d’erreur.',
+  },
+  {
+    title: 'Un reporting qui prend plus de temps que l’analyse',
+    text: 'La collecte, la consolidation et la mise en forme des données limitent le temps disponible pour décider et améliorer les actions.',
+  },
+];
+
+const services = [
+  { title: 'Formulaire vers CRM', text: 'Créer ou enrichir les fiches de contact à partir des informations utiles recueillies sur le site.' },
+  { title: 'Lead vers notification et suivi', text: 'Orienter une demande vers la bonne personne, créer une tâche et donner le contexte nécessaire à une réponse rapide.' },
+  { title: 'Devis et relances', text: 'Déclencher les étapes de suivi après une proposition, avec des règles adaptées à votre fonctionnement commercial.' },
+  { title: 'Onboarding client', text: 'Préparer les actions et informations qui aident les équipes à accueillir un nouveau client de façon cohérente.' },
+  { title: 'Synchronisation des données', text: 'Faire circuler des informations définies entre les outils pour limiter les doubles saisies et les écarts.' },
+  { title: 'Reporting automatisé', text: 'Consolider les indicateurs utiles afin de consacrer davantage de temps à leur interprétation et à la décision.' },
+];
+
+const process = [
+  { title: 'Cartographier', text: 'Documenter les outils, données, étapes et exceptions qui composent le processus actuel.' },
+  { title: 'Simplifier', text: 'Retirer les doublons et les ambiguïtés avant de connecter des outils ou d’ajouter des règles.' },
+  { title: 'Prioriser', text: 'Choisir les flux fréquents, stables et suffisamment documentés qui méritent un premier effort.' },
+  { title: 'Connecter', text: 'Mettre en place les automatisations avec les contrôles, alertes et responsabilités nécessaires.' },
+  { title: 'Superviser', text: 'Vérifier les résultats, traiter les exceptions et faire évoluer le flux lorsque le fonctionnement change.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Garder le contrôle',
+  title: 'Ce qu’il vaut mieux ne pas automatiser.',
+  intro: 'L’automatisation est utile quand elle fiabilise un processus compris. Automatiser une étape confuse, sensible ou instable peut simplement accélérer un problème existant.',
+  items: [
+    { title: 'Un processus jamais clarifié', text: 'Avant de le connecter à des outils, il faut savoir qui décide, quelles données comptent et comment les exceptions sont gérées.' },
+    { title: 'Une décision qui demande du jugement', text: 'Les échanges sensibles, arbitrages complexes ou validations à forte conséquence doivent conserver un contrôle humain adapté.' },
+    { title: 'Des données peu fiables', text: 'Une synchronisation ne corrige pas une donnée erronée. La qualité des sources et les règles de mise à jour restent essentielles.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Que peut-on automatiser en premier ?',
+    answer: 'Les tâches fréquentes, prévisibles, chronophages et suffisamment documentées constituent souvent les meilleurs premiers candidats. Nous cherchons le gain utile, pas l’automatisation maximale.',
+  },
+  {
+    question: 'Faut-il changer tous nos outils ?',
+    answer: 'Pas nécessairement. Nous évaluons d’abord les outils existants, leurs possibilités de connexion et la simplicité du processus à mettre en place.',
+  },
+  {
+    question: 'Comment éviter une automatisation fragile ?',
+    answer: 'En simplifiant le flux, en limitant les dépendances inutiles, en testant les cas principaux et en prévoyant une supervision des erreurs ou des exceptions.',
+  },
+  {
+    question: 'L’automatisation remplace-t-elle les équipes ?',
+    answer: 'Elle vise surtout à réduire les tâches répétitives et à fiabiliser les passages d’information. Les équipes conservent les décisions, la relation et les situations qui demandent du contexte.',
+  },
+];
 ---
-<CommercialPage title="Automatisation marketing et commerciale — CLICOM" description="Automatisez les prospects, la qualification, le CRM, les e-mails, le reporting et vos automatisations commerciales avec CLICOM." eyebrow="Automatisation" h1="Relier vos outils pour avancer avec <span class='gradient-text'>moins de friction.</span>" intro="CLICOM automatise les étapes répétitives de vos processus marketing et commerciaux sans perdre le contrôle." {problems} solution="Nous cartographions les flux, simplifions les étapes puis connectons les outils autour des prospects, du CRM, des relances et du reporting." {services} {process} benefits={['Des demandes prises en charge plus rapidement','Moins de ressaisie et d’erreurs manuelles','Une information mieux synchronisée','Des équipes concentrées sur les décisions','Des automatisations documentées et supervisées']} {faq} links={[{href:'/email-marketing-crm/',label:'CRM & e-mail'},{href:'/intelligence-artificielle/',label:'Intelligence artificielle'},{href:'/audit-gratuit/',label:'Audit gratuit'}]} />
+
+<CommercialPage
+  title="Automatisation : relier vos outils et vos processus | CLICOM"
+  description="Automatisation des formulaires, leads, devis, onboarding, synchronisation de données et reporting pour réduire les tâches répétitives et les frictions."
+  eyebrow="Automatisation"
+  h1="Réduire les tâches répétitives et fiabiliser les échanges entre <span class='gradient-text'>vos outils.</span>"
+  intro="CLICOM aide à simplifier puis automatiser les flux marketing et commerciaux qui font perdre du temps, créent des erreurs ou ralentissent le suivi des demandes."
+  {problems}
+  solution="L’objectif n’est pas d’automatiser tout ce qui bouge. Il est de fiabiliser les étapes utiles et de libérer du temps pour les décisions, les équipes et la relation client."
+  {services}
+  {process}
+  benefits={[
+    'Des demandes prises en charge plus rapidement',
+    'Moins de ressaisie et de risques d’erreur manuelle',
+    'Des informations mieux synchronisées entre les outils',
+    'Un reporting plus régulier et moins chronophage',
+    'Des flux documentés, supervisés et plus simples à faire évoluer',
+  ]}
+  {faq}
+  links={[
+    { href: '/email-marketing-crm/', label: 'E-mail marketing & CRM' },
+    { href: '/intelligence-artificielle/', label: 'Intelligence artificielle' },
+    { href: '/creation-site-web/', label: 'Création de site web' },
+  ]}
+  problemEyebrow="Pourquoi les processus ralentissent"
+  problemsTitle="Les frictions s’accumulent souvent entre les outils, pas dans une seule tâche."
+  offerTitle="Simplifier les flux avant de les connecter."
+  processTitle="De la cartographie à la supervision, sans automatiser à l’aveugle."
+  benefitsTitle="Des opérations plus fiables et plus de temps pour les tâches à valeur humaine."
+  faqTitle="Les questions à poser avant d’automatiser un processus."
+  {decisionGuide}
+  heroPrimaryLabel="Identifier vos priorités d’automatisation"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Voir des exemples de flux"
+  heroPrimaryCalendly={true}
+  ctaTitle="Repérons les tâches qui méritent vraiment d’être automatisées."
+  ctaText="Réservez un échange de 30 minutes pour discuter de vos outils, de vos points de friction et des flux les plus utiles à simplifier."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+/>

@@ -1,8 +1,105 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
-const problems=[{title:'Des messages génériques',text:'La communication ressemble au marché sans exprimer clairement votre différence.'},{title:'Un manque de formats',text:'Les équipes disposent de peu de matière pour alimenter le site, les réseaux et les campagnes.'},{title:'Une production isolée',text:'Chaque contenu est créé séparément au lieu de nourrir plusieurs canaux.'}];
-const services=[{title:'Vidéo, Reels & Shorts',text:'Formats courts ou éditoriaux adaptés aux canaux et aux usages.'},{title:'Photographie',text:'Images de marque, équipes, produits et situations réelles.'},{title:'Rédaction persuasive',text:'Messages, pages et campagnes plus clairs et convaincants.'},{title:'Articles SEO',text:'Contenus construits autour des intentions et de votre expertise.'},{title:'Newsletters',text:'Rendez-vous éditoriaux utiles pour entretenir la relation.'},{title:'Créatifs publicitaires',text:'Angles et variations conçus pour alimenter les tests médias.'}];
-const process=[{title:'Éditorialiser',text:'Définir messages, piliers et formats.'},{title:'Préparer',text:'Planifier sujets, scripts et production.'},{title:'Créer',text:'Produire avec cohérence de marque.'},{title:'Déployer',text:'Adapter et distribuer sur les canaux.'}];
-const faq=[{question:'Pouvez-vous produire plusieurs formats ?',answer:'Oui. Une même idée peut être déclinée en vidéo, texte, visuel, newsletter ou créatif selon les canaux.'},{question:'Le contenu est-il optimisé pour le SEO ?',answer:'Les contenus destinés à la recherche sont structurés selon les intentions, le sujet et leur rôle dans le parcours.'},{question:'Travaillez-vous avec nos équipes ?',answer:'Oui. CLICOM peut produire, accompagner ou organiser un fonctionnement hybride avec vos ressources internes.'}];
+
+const problems = [
+  {
+    title: 'Des contenus qui occupent l’espace sans aider à décider',
+    text: 'Les publications existent, mais elles n’expliquent pas assez clairement l’offre, la différence ou la prochaine étape à suivre.',
+  },
+  {
+    title: 'Une expertise difficile à transformer',
+    text: 'Vos équipes connaissent leur sujet, sans toujours disposer d’un cadre pour le rendre compréhensible à des prospects non spécialistes.',
+  },
+  {
+    title: 'Une production peu réutilisée',
+    text: 'Un même sujet est recréé séparément pour le site, les réseaux et les campagnes au lieu d’alimenter plusieurs formats utiles.',
+  },
+];
+
+const services = [
+  { title: 'Pages d’offres et landing pages', text: 'Des pages qui structurent une proposition de valeur, rassurent et orientent vers une action claire.' },
+  { title: 'Articles et pages SEO', text: 'Des contenus pensés autour d’une intention de recherche, d’une expertise et d’un rôle dans le parcours.' },
+  { title: 'Guides, FAQ et comparatifs', text: 'Des formats qui aident à comprendre, comparer et lever les hésitations avant une décision.' },
+  { title: 'Contenus pour les réseaux sociaux', text: 'Des déclinaisons adaptées aux plateformes retenues, avec une ligne éditoriale cohérente.' },
+  { title: 'Newsletters et séquences', text: 'Des rendez-vous utiles pour entretenir une relation, accompagner un sujet ou relancer avec pertinence.' },
+  { title: 'Créatifs de campagne', text: 'Des angles et variations conçus pour nourrir les tests publicitaires, sans diluer le message de marque.' },
+];
+
+const process = [
+  { title: 'Cadrer', text: 'Comprendre l’offre, l’audience, le niveau de maturité et l’objectif du contenu.' },
+  { title: 'Choisir', text: 'Prioriser les sujets et formats qui peuvent réellement servir le parcours client.' },
+  { title: 'Produire', text: 'Rédiger, concevoir ou coordonner la création avec un niveau d’exigence adapté au canal.' },
+  { title: 'Décliner', text: 'Réutiliser une idée forte dans les formats qui ont un rôle clair sur le site, les réseaux ou les campagnes.' },
+  { title: 'Mesurer', text: 'Observer lecture, engagement et actions utiles pour faire évoluer le système éditorial.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Un rôle pour chaque contenu',
+  title: 'La qualité et le rôle comptent plus que le volume.',
+  intro: 'Un contenu n’a pas besoin de tout faire. Il doit répondre à une intention précise et s’inscrire dans le parcours de vos prospects.',
+  items: [
+    { title: 'Expliquer', text: 'Rendre un sujet, une offre ou un processus assez clair pour que le visiteur puisse avancer.' },
+    { title: 'Comparer', text: 'Donner les repères utiles pour évaluer des options, des méthodes ou des niveaux d’accompagnement.' },
+    { title: 'Faire agir', text: 'Relier le contenu à une prochaine étape crédible : page d’offre, demande, ressource ou échange.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Travaillez-vous avec nos équipes internes ?',
+    answer: 'Oui. CLICOM peut définir le cadre éditorial, produire certains contenus, accompagner vos équipes ou organiser une répartition hybride selon les expertises disponibles.',
+  },
+  {
+    question: 'Le contenu est-il optimisé pour le SEO ?',
+    answer: 'Les contenus destinés à la recherche sont construits autour des intentions, de la structure du site et de leur rôle dans le parcours. L’optimisation ne doit jamais réduire la qualité ou la précision de la réponse.',
+  },
+  {
+    question: 'Peut-on réutiliser des contenus existants ?',
+    answer: 'Souvent, oui. Un audit éditorial permet d’identifier les contenus qui méritent d’être clarifiés, regroupés, mis à jour ou déclinés dans un autre format.',
+  },
+  {
+    question: 'Combien de contenus faut-il produire ?',
+    answer: 'Le bon rythme dépend des objectifs, des ressources et des sujets réellement utiles à vos audiences. Nous privilégions un plan tenable plutôt qu’un volume imposé.',
+  },
+];
 ---
-<CommercialPage title="Création de contenu numérique — CLICOM Suisse" description="Vidéo, Reels, photo, rédaction persuasive, articles SEO, newsletters et créations publicitaires au service de votre croissance." eyebrow="Création de contenu" h1="Des contenus qui rendent votre marque <span class='gradient-text'>plus claire et plus mémorable.</span>" intro="CLICOM conçoit des contenus capables d’alimenter votre visibilité organique, vos réseaux et vos campagnes." {problems} solution="Nous transformons votre expertise en un système éditorial cohérent, réutilisable et adapté aux différents moments du parcours client." {services} {process} benefits={['Des messages distinctifs et cohérents','Plus de matière pour vos canaux','Une production pensée pour la réutilisation','Des formats organiques et publicitaires alignés','Un meilleur lien entre expertise et acquisition']} {faq} links={[{href:'/reseaux-sociaux/',label:'Réseaux sociaux'},{href:'/seo/',label:'SEO'},{href:'/social-ads/',label:'Publicité sur les réseaux sociaux'}]} />
+
+<CommercialPage
+  title="Création de contenu stratégique | CLICOM"
+  description="Pages, articles, guides, FAQ, contenus sociaux et créatifs : une création de contenu pensée pour expliquer, comparer et faire avancer."
+  eyebrow="Création de contenu"
+  h1="Des contenus qui aident à <span class='gradient-text'>comprendre, comparer et décider.</span>"
+  intro="CLICOM transforme votre expertise en contenus utiles pour le site, le SEO, les réseaux sociaux et les campagnes, avec un rôle clair pour chaque format."
+  {problems}
+  solution="Produire davantage n’est pas un objectif en soi. Le contenu doit rendre votre offre plus compréhensible, renforcer la confiance et faciliter la suite du parcours."
+  {services}
+  {process}
+  benefits={[
+    'Des messages plus clairs pour les prospects comme pour les équipes',
+    'Des contenus reliés aux offres, aux recherches et aux campagnes',
+    'Une production mieux réutilisée sur les canaux pertinents',
+    'Un rythme éditorial compatible avec vos ressources',
+    'Des choix guidés par le rôle de chaque contenu, pas par le volume',
+  ]}
+  {faq}
+  links={[
+    { href: '/seo/', label: 'SEO' },
+    { href: '/reseaux-sociaux/', label: 'Réseaux sociaux' },
+    { href: '/social-ads/', label: 'Publicité sur les réseaux sociaux' },
+  ]}
+  problemEyebrow="Pourquoi le contenu compte"
+  problemsTitle="Un bon contenu réduit l’effort nécessaire pour choisir."
+  offerTitle="Construire un système éditorial qui sert vos décisions commerciales."
+  processTitle="De l’expertise brute à des formats utiles sur les bons canaux."
+  benefitsTitle="Une présence éditoriale plus cohérente et plus utile."
+  faqTitle="Les vraies questions avant d’organiser votre production de contenu."
+  {decisionGuide}
+  heroPrimaryLabel="Parler de votre stratégie de contenu"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Voir les formats possibles"
+  heroPrimaryCalendly={true}
+  ctaTitle="Donnez un rôle plus clair à vos contenus."
+  ctaText="Réservez un échange de 30 minutes pour identifier les contenus qui peuvent mieux soutenir vos offres, votre visibilité ou vos campagnes."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+/>

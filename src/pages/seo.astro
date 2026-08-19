@@ -1,8 +1,106 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
-const problems=[{title:'Une visibilité insuffisante',text:'Vos offres restent difficiles à trouver au moment où vos prospects recherchent une solution.'},{title:'Du trafic sans intention',text:'Les visites progressent, mais les pages attirent peu de demandes qualifiées.'},{title:'Des actions dispersées',text:'Technique, contenus et autorité évoluent sans feuille de route commune.'}];
-const services=[{title:'Audit SEO',text:'Analyse technique, sémantique, concurrentielle et commerciale.'},{title:'Mots-clés & intentions',text:'Priorisation des recherches réellement liées à vos offres.'},{title:'SEO technique',text:'Indexation, performance, architecture et signaux techniques.'},{title:'On-page & contenus',text:'Pages et contenus structurés pour répondre clairement aux intentions.'},{title:'SEO local & autorité',text:'Présence locale, cohérence de marque et développement de signaux de confiance.'},{title:'Suivi & conversion',text:'Lecture des positions, du trafic et surtout des actions utiles.'}];
-const process=[{title:'Auditer',text:'Identifier les freins et les acquis.'},{title:'Prioriser',text:'Choisir les chantiers à plus forte valeur.'},{title:'Déployer',text:'Optimiser technique, pages et contenus.'},{title:'Mesurer',text:'Suivre visibilité, demandes et progression.'}];
-const faq=[{question:'Quand le SEO produit-il des résultats ?',answer:'Le SEO s’inscrit dans la durée. Le rythme dépend du marché, de l’existant, de la concurrence et de la capacité à déployer les recommandations.'},{question:'Le SEO remplace-t-il Google Ads ?',answer:'Non. Le SEO construit un actif organique durable, tandis que Google Ads peut capter rapidement une demande. Les deux leviers peuvent se renforcer.'},{question:'Garantissez-vous une première position ?',answer:'Non. Aucun prestataire sérieux ne peut garantir un classement. CLICOM s’engage sur une méthode, des priorités claires et un suivi transparent.'}];
+
+const problems = [
+  {
+    title: 'Une visibilité qui ne sert pas assez vos offres',
+    text: 'Vos pages existent, mais elles ne répondent pas clairement aux recherches qui précèdent une prise de contact ou une demande de devis.',
+  },
+  {
+    title: 'Des efforts dispersés',
+    text: 'Technique, contenu, liens et SEO local évoluent chacun de leur côté, sans ordre de priorité ni lecture commerciale commune.',
+  },
+  {
+    title: 'Des décisions guidées par les positions seules',
+    text: 'Le trafic augmente parfois sans mieux qualifier les visiteurs ni faciliter les demandes réellement utiles à l’entreprise.',
+  },
+];
+
+const services = [
+  { title: 'Audit SEO et priorités', text: 'Identifier les freins techniques, éditoriaux et commerciaux avant de multiplier les actions.' },
+  { title: 'Architecture et maillage interne', text: 'Organiser les pages pour que les offres, expertises et contenus se renforcent mutuellement.' },
+  { title: 'SEO technique', text: 'Travailler indexation, performance, balisage et structure pour donner une base fiable au site.' },
+  { title: 'Intentions de recherche', text: 'Choisir les sujets et les requêtes selon ce que les prospects cherchent réellement à comprendre ou comparer.' },
+  { title: 'Pages et contenus utiles', text: 'Créer ou améliorer des contenus capables de répondre avec précision, sans produire pour produire.' },
+  { title: 'SEO local et mesure', text: 'Renforcer la cohérence locale lorsque c’est pertinent et suivre les signaux liés aux demandes.' },
+];
+
+const process = [
+  { title: 'Comprendre', text: 'Auditer l’existant, vos offres, vos audiences et la manière dont le marché cherche.' },
+  { title: 'Prioriser', text: 'Choisir une feuille de route réaliste selon l’impact, l’effort et les dépendances.' },
+  { title: 'Optimiser', text: 'Corriger les fondations techniques, l’architecture et les pages les plus importantes.' },
+  { title: 'Développer', text: 'Faire progresser les contenus, le maillage et les signaux de confiance au bon rythme.' },
+  { title: 'Mesurer', text: 'Lire visibilité, trafic qualifié et actions utiles pour ajuster les priorités.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Ce qui compte vraiment',
+  title: 'Le SEO progresse par étapes, pas par promesses.',
+  intro: 'Le référencement naturel est une stratégie de moyen et long terme. La bonne priorité dépend toujours de votre marché, de votre site et de ce qui est déjà en place.',
+  items: [
+    { title: 'Des fondations saines', text: 'Un site accessible, structuré et rapide réduit les freins avant de chercher davantage de visibilité.' },
+    { title: 'La bonne intention', text: 'Une page utile répond à une question précise et accompagne un besoin réel, pas seulement un mot-clé.' },
+    { title: 'Des preuves cohérentes', text: 'Contenu, liens internes, informations locales et signaux de confiance se construisent dans le temps.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Quand le SEO produit-il des résultats ?',
+    answer: 'Le SEO demande du temps. Le rythme dépend de votre marché, de l’état du site, de la concurrence et de la capacité à mettre les recommandations en œuvre. Nous privilégions des jalons concrets plutôt qu’une promesse de délai artificiel.',
+  },
+  {
+    question: 'Pouvez-vous garantir une première position sur Google ?',
+    answer: 'Non. Aucun prestataire sérieux ne peut garantir une position. CLICOM s’engage sur une méthode, des priorités claires et un suivi lisible des actions engagées.',
+  },
+  {
+    question: 'Le SEO local est-il utile pour une entreprise suisse ?',
+    answer: 'Il est pertinent lorsque les clients recherchent une offre dans une zone précise ou doivent pouvoir vérifier facilement vos informations. Son rôle est évalué selon votre marché et vos zones de service.',
+  },
+  {
+    question: 'Le SEO remplace-t-il Google Ads ?',
+    answer: 'Non. Le SEO construit un actif organique dans la durée, alors que Google Ads peut capter une demande existante plus rapidement. Les deux leviers peuvent se compléter selon vos priorités.',
+  },
+];
 ---
-<CommercialPage title="Agence SEO en Suisse — CLICOM" description="Audit SEO, stratégie de mots-clés, technique, contenus, SEO local et suivi orienté conversion avec CLICOM." eyebrow="Référencement naturel" h1="Gagner une visibilité organique <span class='accent'>qui compte.</span>" intro="Une stratégie SEO utile ne cherche pas seulement des positions : elle relie les recherches de vos prospects à vos offres et à vos objectifs." {problems} solution="CLICOM construit une feuille de route SEO équilibrée entre fondations techniques, intentions de recherche, contenus, autorité et conversion." {services} {process} benefits={['Une stratégie fondée sur les intentions réelles','Des priorités techniques et éditoriales claires','Une visibilité locale et nationale mieux structurée','Des contenus reliés aux offres commerciales','Un suivi orienté acquisition et conversion']} {faq} links={[{href:'/referencement-ia/',label:'Référencement IA'},{href:'/creation-contenu/',label:'Contenu'},{href:'/google-ads/',label:'Google Ads'}]} variant="reverse" />
+
+<CommercialPage
+  title="SEO en Suisse romande : stratégie et audit | CLICOM"
+  description="Audit SEO, architecture, contenus, SEO technique et suivi pour mieux répondre aux recherches de vos prospects en Suisse romande."
+  eyebrow="Référencement naturel"
+  h1="Être trouvé par les bonnes personnes, <span class='accent'>au bon moment.</span>"
+  intro="CLICOM construit une stratégie SEO qui relie les recherches de vos prospects, la clarté de vos offres et les actions que votre site doit générer."
+  {problems}
+  solution="Le SEO ne consiste pas à accumuler des mots-clés. Il doit rendre votre entreprise plus facile à trouver, à comprendre et à choisir lorsque l’intention existe."
+  {services}
+  {process}
+  benefits={[
+    'Des priorités fondées sur les recherches et les objectifs réels',
+    'Une architecture plus claire pour les visiteurs comme pour les moteurs',
+    'Des contenus reliés à vos offres plutôt qu’à des volumes isolés',
+    'Une présence locale mieux structurée lorsque le marché le justifie',
+    'Une mesure qui relie la visibilité aux demandes utiles',
+  ]}
+  {faq}
+  links={[
+    { href: '/referencement-ia/', label: 'Référencement IA' },
+    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/creation-site-web/', label: 'Création de site web' },
+  ]}
+  problemEyebrow="Pourquoi le SEO compte"
+  problemsTitle="Être visible ne suffit pas : il faut être pertinent."
+  offerTitle="Relier recherche, contenu et conversion."
+  processTitle="Une progression lisible, adaptée à votre point de départ."
+  benefitsTitle="Une visibilité organique plus utile à vos objectifs."
+  faqTitle="Les questions à poser avant de lancer une stratégie SEO."
+  {decisionGuide}
+  heroPrimaryLabel="Demander un audit SEO"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Voir notre approche"
+  heroPrimaryCalendly={true}
+  ctaTitle="Votre visibilité mérite une feuille de route réaliste."
+  ctaText="Réservez un échange de 30 minutes pour faire le point sur votre site, votre marché et les priorités SEO les plus utiles."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+  variant="reverse"
+/>

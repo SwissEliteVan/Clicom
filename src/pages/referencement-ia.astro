@@ -1,9 +1,107 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
 import geoImage from '../assets/editorial/geo-knowledge.webp';
-const problems=[{title:'Une marque peu comprise',text:'Les moteurs génératifs disposent de signaux incomplets ou incohérents sur votre expertise.'},{title:'Des contenus difficiles à citer',text:'Les réponses sont peu structurées, peu spécifiques ou insuffisamment étayées.'},{title:'Une stratégie limitée au SEO classique',text:'Les nouveaux usages de recherche conversationnelle ne sont pas intégrés à la feuille de route.'}];
-const services=[{title:'Audit GEO & AEO',text:'Analyse de votre présence dans les moteurs de réponse et génératifs.'},{title:'Contenu structuré',text:'Réponses claires, sections citables et formats adaptés aux questions.'},{title:'Entités & marque',text:'Cohérence des informations qui définissent votre entreprise et ses expertises.'},{title:'Schema.org',text:'Données structurées pertinentes, sans surbalisage ni promesse artificielle.'},{title:'Autorité éditoriale',text:'Contenus utiles, sources et preuves de compétence cohérentes.'},{title:'Veille générative',text:'Suivi raisonné des évolutions de ChatGPT, Google AI et autres interfaces.'}];
-const process=[{title:'Observer',text:'Cartographier les questions et les réponses existantes.'},{title:'Structurer',text:'Clarifier entités, sujets et architecture.'},{title:'Publier',text:'Créer des contenus utiles et vérifiables.'},{title:'Ajuster',text:'Suivre les signaux sans promettre de classement.'}];
-const faq=[{question:'Qu’est-ce que le GEO ou l’AEO ?',answer:'Ces approches visent à rendre une marque et ses contenus plus compréhensibles pour les moteurs de réponse et les interfaces génératives.'},{question:'Pouvez-vous garantir une citation dans ChatGPT ?',answer:'Non. Les réponses dépendent des modèles, des sources et du contexte. Nous améliorons les signaux disponibles sans garantir une présence.'},{question:'Le référencement IA remplace-t-il le SEO ?',answer:'Non. Une base SEO solide, une marque cohérente et des contenus fiables restent essentiels.'}];
+
+const problems = [
+  {
+    title: 'Des informations de marque éparpillées',
+    text: 'Les données qui décrivent votre entreprise, vos offres et vos expertises sont incomplètes, contradictoires ou difficiles à relier.',
+  },
+  {
+    title: 'Des contenus difficiles à exploiter',
+    text: 'Les réponses sont vagues, peu structurées ou sans éléments vérifiables pour éclairer une question précise.',
+  },
+  {
+    title: 'Une attente de résultats impossibles à garantir',
+    text: 'Les moteurs génératifs changent, choisissent leurs sources et répondent selon le contexte : aucune présence dans ChatGPT ou Gemini ne peut être promise.',
+  },
+];
+
+const services = [
+  { title: 'Diagnostic de présence et de questions', text: 'Repérer les sujets, entités et informations qui doivent être mieux compris en ligne.' },
+  { title: 'Architecture de l’information', text: 'Clarifier la relation entre votre entreprise, vos offres, vos expertises et vos preuves.' },
+  { title: 'Réponses explicites et contenus utiles', text: 'Structurer des pages qui répondent clairement aux questions des prospects, sans jargon inutile.' },
+  { title: 'Données structurées pertinentes', text: 'Mettre en place les balises qui décrivent utilement le contenu, sans surbalisage ni effet d’annonce.' },
+  { title: 'Cohérence des entités', text: 'Aligner les informations importantes sur vos canaux pour rendre votre présence plus fiable et identifiable.' },
+  { title: 'SEO et autorité éditoriale', text: 'Consolider les fondations SEO et les contenus qui restent indispensables aux nouveaux usages de recherche.' },
+];
+
+const process = [
+  { title: 'Cartographier', text: 'Identifier les questions, contenus, informations de marque et écarts de cohérence.' },
+  { title: 'Clarifier', text: 'Préciser vos sujets, vos offres et les réponses que les visiteurs doivent pouvoir trouver.' },
+  { title: 'Structurer', text: 'Améliorer l’architecture, les pages et les données qui rendent ces informations compréhensibles.' },
+  { title: 'Publier', text: 'Développer des contenus utiles, sourcés lorsque nécessaire et cohérents avec le SEO.' },
+  { title: 'Suivre', text: 'Observer les évolutions sans confondre veille, signaux et garanties de visibilité.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Un complément au SEO',
+  title: 'Préparer les bons signaux, sans promettre une citation.',
+  intro: 'Le référencement IA améliore la compréhension et la cohérence de votre présence. Il complète le SEO traditionnel, mais ne donne pas le contrôle sur les réponses des modèles.',
+  items: [
+    { title: 'Ce que nous renforçons', text: 'La clarté des contenus, les entités, les données structurées et la cohérence des informations de marque.' },
+    { title: 'Ce qui reste incertain', text: 'Les sources retenues, le contexte de chaque requête et l’évolution des interfaces génératives.' },
+    { title: 'Pourquoi le SEO reste central', text: 'Un site techniquement solide, des contenus utiles et des signaux de confiance restent les fondations de cette approche.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Peut-on garantir d’apparaître dans ChatGPT, Gemini ou un autre moteur IA ?',
+    answer: 'Non. Les réponses dépendent du modèle, de ses sources et du contexte de la demande. Nous travaillons sur les signaux que votre entreprise maîtrise, sans promettre une citation.',
+  },
+  {
+    question: 'Quelle est la différence avec le SEO ?',
+    answer: 'Le SEO vise notamment la compréhension, l’indexation et la visibilité dans les résultats de recherche. Le référencement IA ajoute une attention particulière à la structure des réponses, aux entités et à la cohérence des informations. Les deux approches se renforcent.',
+  },
+  {
+    question: 'Combien de temps faut-il ?',
+    answer: 'Il faut d’abord traiter les fondations les plus utiles. Les effets dépendent de l’existant, du rythme de publication et des évolutions des moteurs. Nous définissons des priorités observables plutôt qu’un délai garanti.',
+  },
+  {
+    question: 'Quels contenus sont concernés ?',
+    answer: 'Les pages d’offres, pages d’expertise, FAQ, guides, études, informations d’entreprise et contenus qui répondent à des questions précises peuvent être concernés selon votre activité.',
+  },
+];
 ---
-<CommercialPage title="Référencement IA, GEO et AEO — CLICOM" description="Préparez votre visibilité dans ChatGPT, Google AI et les moteurs génératifs grâce au GEO, à l’AEO et aux contenus structurés." eyebrow="GEO & AEO" h1="Rendre votre expertise lisible par les <span class='gradient-text'>moteurs génératifs.</span>" intro="CLICOM structure votre présence pour les nouveaux parcours de recherche, sans promesse de classement ni raccourci artificiel." {problems} solution="Nous relions SEO, contenu structuré, entités, Schema.org et autorité de marque pour renforcer la compréhension de votre expertise." {services} {process} benefits={['Une marque mieux définie en ligne','Des réponses plus claires et exploitables','Une architecture éditoriale cohérente','Des signaux compatibles avec le SEO classique','Une veille pragmatique sur les usages génératifs']} {faq} links={[{href:'/seo/',label:'SEO'},{href:'/intelligence-artificielle/',label:'Intelligence artificielle'},{href:'/creation-contenu/',label:'Contenu'}]} editorialImage={geoImage} />
+
+<CommercialPage
+  title="Référencement IA : structurer votre visibilité | CLICOM"
+  description="Structurez vos contenus, entités et données pour rendre votre entreprise plus facile à comprendre dans les nouveaux parcours de recherche."
+  eyebrow="GEO & AEO"
+  h1="Rendre votre entreprise plus facile à <span class='gradient-text'>comprendre, identifier et citer.</span>"
+  intro="CLICOM aide à structurer les contenus et les signaux qui rendent votre expertise plus lisible pour les personnes, les moteurs de recherche et les interfaces génératives."
+  {problems}
+  solution="Le référencement IA ne remplace pas le SEO. Il prolonge un travail de clarté, de cohérence et d’autorité pour les parcours de recherche qui deviennent conversationnels."
+  {services}
+  {process}
+  benefits={[
+    'Une information de marque plus cohérente et plus facile à vérifier',
+    'Des contenus qui répondent plus explicitement aux vraies questions',
+    'Des données structurées utilisées avec discernement',
+    'Une approche compatible avec les fondations SEO existantes',
+    'Une veille pragmatique, sans promesse artificielle de présence',
+  ]}
+  {faq}
+  links={[
+    { href: '/seo/', label: 'SEO' },
+    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/intelligence-artificielle/', label: 'Intelligence artificielle' },
+  ]}
+  problemEyebrow="Pourquoi s’y préparer"
+  problemsTitle="Les moteurs ont besoin de comprendre avant de pouvoir recommander."
+  offerTitle="Une présence plus claire pour les nouveaux parcours de recherche."
+  processTitle="Une méthode prudente, fondée sur des signaux que vous maîtrisez."
+  benefitsTitle="Mieux expliquer votre expertise, aujourd’hui et demain."
+  faqTitle="Les limites et les priorités du référencement IA."
+  {decisionGuide}
+  heroPrimaryLabel="Évaluer votre présence IA"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Comprendre l’approche"
+  heroPrimaryCalendly={true}
+  ctaTitle="Clarifions ce qui rend votre expertise plus lisible en ligne."
+  ctaText="Réservez un échange de 30 minutes pour identifier les contenus, informations et fondations SEO à traiter en priorité."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+  editorialImage={geoImage}
+/>

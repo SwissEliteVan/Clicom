@@ -1,5 +1,6 @@
 ---
 import Button from './Button.astro';
+import CalendlyButton from './conversion/CalendlyButton.astro';
 import VisualBand from './visuals/VisualBand.astro';
 
 interface Props {
@@ -10,10 +11,21 @@ interface Props {
   secondaryLabel?: string;
   primary?: string;
   primaryLabel?: string;
+  primaryCalendly?: boolean;
   showBand?: boolean;
 }
 
-const { eyebrow, title, intro, secondary, secondaryLabel = 'Découvrir nos services', primary = '/contact#audit', primaryLabel = 'Parler de mon projet →', showBand = true } = Astro.props;
+const {
+  eyebrow,
+  title,
+  intro,
+  secondary,
+  secondaryLabel = 'Découvrir nos services',
+  primary = '/contact#audit',
+  primaryLabel = 'Parler de mon projet →',
+  primaryCalendly = false,
+  showBand = true,
+} = Astro.props;
 const bands = {
   Services: { type: 'services' as const, eyebrow: 'Système CLICOM', title: 'Trois forces, une même trajectoire.', text: 'Acquisition, création et technologie deviennent un système cohérent.' },
   'Audit gratuit': { type: 'audit' as const, eyebrow: 'Diagnostic visuel', title: 'Six signaux observés comme un seul système.', text: 'Site, visibilité, acquisition, social, IA et conversion sont reliés sans score artificiel.' },
@@ -30,7 +42,7 @@ const band = bands[eyebrow as keyof typeof bands];
       <h1 set:html={title}></h1>
       <p>{intro}</p>
       <div class="button-row">
-        <Button href={primary}>{primaryLabel}</Button>
+        {primaryCalendly ? <CalendlyButton label={primaryLabel} /> : <Button href={primary}>{primaryLabel}</Button>}
         {secondary && <Button href={secondary} variant="secondary">{secondaryLabel}</Button>}
       </div>
     </div>
@@ -44,3 +56,12 @@ const band = bands[eyebrow as keyof typeof bands];
   </div>
 </section>
 {showBand && band && <VisualBand {...band} />}
+
+<style>
+  .button-row :global(.calendly-wrap) { display: inline-flex; }
+
+  @media (max-width: 680px) {
+    .button-row :global(.calendly-wrap),
+    .button-row :global(.calendly-wrap .button) { width: 100%; }
+  }
+</style>

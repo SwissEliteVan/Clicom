@@ -1,13 +1,32 @@
 ---
+import type { ImageMetadata } from 'astro';
 import Layout from '../layouts/Layout.astro';
-import PageHero from './PageHero.astro';
 import CTA from './CTA.astro';
 import CommercialVisual from './CommercialVisual.astro';
-import type { ImageMetadata } from 'astro';
+import PageHero from './PageHero.astro';
 
-interface Item { title: string; text: string }
-interface FAQ { question: string; answer: string }
-interface Link { href: string; label: string }
+interface Item {
+  title: string;
+  text: string;
+}
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Link {
+  href: string;
+  label: string;
+}
+
+interface DecisionGuide {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  items: Item[];
+}
+
 interface Props {
   title: string;
   description: string;
@@ -23,82 +42,205 @@ interface Props {
   links: Link[];
   variant?: 'standard' | 'reverse';
   editorialImage?: ImageMetadata;
+  problemEyebrow?: string;
+  problemsTitle?: string;
+  offerEyebrow?: string;
+  offerTitle?: string;
+  processTitle?: string;
+  benefitsTitle?: string;
+  faqTitle?: string;
+  decisionGuide?: DecisionGuide;
+  heroPrimaryLabel?: string;
+  heroSecondary?: string;
+  heroSecondaryLabel?: string;
+  heroPrimaryCalendly?: boolean;
+  ctaTitle?: string;
+  ctaText?: string;
+  ctaLabel?: string;
+  ctaCalendly?: boolean;
 }
 
-const { title, description, eyebrow, h1, intro, problems, solution, services, process, benefits, faq, links, variant = 'standard', editorialImage } = Astro.props;
+const {
+  title,
+  description,
+  eyebrow,
+  h1,
+  intro,
+  problems,
+  solution,
+  services,
+  process,
+  benefits,
+  faq,
+  links,
+  variant = 'standard',
+  editorialImage,
+  problemEyebrow = 'Vos enjeux',
+  problemsTitle = 'Clarifier ce qui freine vos résultats.',
+  offerEyebrow = 'Approche CLICOM',
+  offerTitle = 'Une expertise reliée à vos objectifs.',
+  processTitle = 'Une méthode claire, du premier échange à l’amélioration.',
+  benefitsTitle = 'Des décisions plus simples et des actions plus cohérentes.',
+  faqTitle = 'Les réponses aux questions les plus utiles.',
+  decisionGuide,
+  heroPrimaryLabel = 'Réserver un échange de 30 min →',
+  heroSecondary = '#method',
+  heroSecondaryLabel = 'Découvrir notre méthode',
+  heroPrimaryCalendly = false,
+  ctaTitle = 'Parlons de la meilleure prochaine étape.',
+  ctaText = 'Un échange de 30 minutes permet de clarifier votre contexte, les priorités et le bon niveau d’accompagnement.',
+  ctaLabel = 'Réserver un échange de 30 min →',
+  ctaCalendly = false,
+} = Astro.props;
+
 const visualByEyebrow: Record<string, 'web' | 'seo' | 'geo' | 'ads' | 'ai' | 'automation'> = {
   'Création de site web': 'web',
   'Référencement naturel': 'seo',
   'GEO & AEO': 'geo',
   'Google Ads': 'ads',
   'Intelligence artificielle': 'ai',
-  'Automatisation': 'automation',
+  Automatisation: 'automation',
 };
+
 const visual = visualByEyebrow[eyebrow];
-const sectionCopy = {
-  web: { issues: 'Faire du site un actif commercial, pas une simple vitrine.', offer: 'Concevoir chaque couche autour du même objectif.', process: 'Du cadrage au lancement, sans rupture entre design et technique.', benefits: 'Une expérience qui inspire confiance et facilite le passage à l’action.' },
-  seo: { issues: 'Concentrer l’effort SEO là où il peut créer de la valeur.', offer: 'Technique, contenu, autorité, local et mesure réunis.', process: 'Une progression lisible, fondée sur les priorités.', benefits: 'Une visibilité construite pour soutenir les objectifs commerciaux.' },
-  geo: { issues: 'Rendre une expertise claire, structurée et vérifiable.', offer: 'Préparer la marque aux nouveaux parcours de recherche.', process: 'Observer, structurer et publier avant de mesurer.', benefits: 'Des signaux plus cohérents pour les moteurs et les personnes.' },
-  ads: { issues: 'Transformer un budget média en système d’acquisition pilotable.', offer: 'Aligner l’intention, le message, la page et la mesure.', process: 'Un cycle court entre apprentissage et optimisation.', benefits: 'Des décisions publicitaires fondées sur la qualité des conversions.' },
-  automation: { issues: 'Supprimer les frictions répétitives.', offer: 'Relier les outils autour de décisions claires.', process: 'Cartographier, simplifier, connecter et superviser.', benefits: 'Des flux fiables qui libèrent du temps.' },
-  ai: { issues: 'Passer des essais isolés à des usages réellement intégrés.', offer: 'Mettre l’IA au service des processus et des équipes.', process: 'Prototyper vite, intégrer avec méthode, encadrer durablement.', benefits: 'Une adoption pragmatique, contrôlée et évolutive.' },
-}[visual] ?? { issues: 'Transformer les points de friction en opportunités.', offer: 'Une expertise reliée à votre croissance.', process: 'De la stratégie à l’amélioration continue.', benefits: 'Un levier pensé pour produire de la valeur.' };
 ---
 
 <Layout {title} {description}>
-  <PageHero {eyebrow} title={h1} {intro} primary="/audit-gratuit/" primaryLabel="Demander un audit gratuit →" secondary="/services/" secondaryLabel="Découvrir nos services" />
+  <PageHero
+    {eyebrow}
+    title={h1}
+    {intro}
+    primaryLabel={heroPrimaryLabel}
+    primaryCalendly={heroPrimaryCalendly}
+    primary="/contact/"
+    secondary={heroSecondary}
+    secondaryLabel={heroSecondaryLabel}
+  />
 
-  {editorialImage && <section class="commercial-editorial" aria-hidden="true"><img src={editorialImage.src} alt="" width={editorialImage.width} height={editorialImage.height} loading="eager" fetchpriority="high" decoding="async" /></section>}
+  {
+    editorialImage && (
+      <section class="commercial-editorial" aria-hidden="true">
+        <img
+          src={editorialImage.src}
+          alt=""
+          width={editorialImage.width}
+          height={editorialImage.height}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </section>
+    )
+  }
 
   <section class="section section--white">
     <div class:list={['container', 'split', { 'split--reverse': variant === 'reverse' }]}>
       <div class="section-heading">
-        <div class="eyebrow">Vos enjeux</div>
-        <h2>{sectionCopy.issues}</h2>
+        <div class="eyebrow">{problemEyebrow}</div>
+        <h2>{problemsTitle}</h2>
         <p>{solution}</p>
       </div>
       <div class="issue-list">
-        {problems.map((item, index) => <article><span>0{index + 1}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>)}
+        {
+          problems.map((item, index) => (
+            <article>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
   {visual && <CommercialVisual type={visual} />}
 
-  <section class="section section--dark">
+  <section id="approach" class="section section--dark">
     <div class="container">
-      <div class="section-heading"><div class="eyebrow">Solution CLICOM</div><h2>{sectionCopy.offer}</h2></div>
+      <div class="section-heading">
+        <div class="eyebrow">{offerEyebrow}</div>
+        <h2>{offerTitle}</h2>
+      </div>
       <div class:list={['grid', 'grid--3', 'offer-grid', { 'offer-grid--featured': variant === 'reverse' }]}>
         {services.map((item) => <article class="card"><h3>{item.title}</h3><p>{item.text}</p></article>)}
       </div>
     </div>
   </section>
 
-  <section class="section section--white">
+  {
+    decisionGuide && (
+      <section class="section decision-section">
+        <div class="container">
+          <div class="section-heading">
+            <div class="eyebrow">{decisionGuide.eyebrow}</div>
+            <h2>{decisionGuide.title}</h2>
+            {decisionGuide.intro && <p>{decisionGuide.intro}</p>}
+          </div>
+          <div class:list={['grid', 'decision-grid', decisionGuide.items.length === 2 ? 'grid--2' : 'grid--3']}>
+            {decisionGuide.items.map((item) => <article class="card"><h3>{item.title}</h3><p>{item.text}</p></article>)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section id="method" class="section section--white">
     <div class="container">
-      <div class="section-heading"><div class="eyebrow">Processus</div><h2>{sectionCopy.process}</h2></div>
-      <div class="process-grid">
-        {process.map((item, index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
+      <div class="section-heading">
+        <div class="eyebrow">Processus</div>
+        <h2>{processTitle}</h2>
+      </div>
+      <div class="process-grid" style={`--process-count: ${Math.min(process.length, 5)}`}>
+        {
+          process.map((item, index) => (
+            <article>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <section class="section benefits-section">
     <div class="container benefits">
-      <div><div class="eyebrow">Bénéfices</div><h2>{sectionCopy.benefits}</h2></div>
+      <div>
+        <div class="eyebrow">Bénéfices</div>
+        <h2>{benefitsTitle}</h2>
+      </div>
       <ul>{benefits.map((benefit) => <li><span>→</span>{benefit}</li>)}</ul>
     </div>
   </section>
 
   <section class="section section--white">
     <div class="container faq-wrap">
-      <div class="section-heading"><div class="eyebrow">Questions fréquentes</div><h2>Les réponses <span class="accent">essentielles.</span></h2></div>
-      <div class="faq-list">{faq.map((item) => <details><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div>
-      <nav class="related" aria-label="Expertises associées"><strong>À découvrir aussi</strong>{links.map((link) => <a href={link.href}>{link.label} <span>→</span></a>)}</nav>
+      <div class="section-heading">
+        <div class="eyebrow">Questions fréquentes</div>
+        <h2>{faqTitle}</h2>
+      </div>
+      <div class="faq-list">
+        {
+          faq.map((item) => (
+            <details>
+              <summary>{item.question}<span aria-hidden="true">+</span></summary>
+              <p>{item.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+      <nav class="related" aria-label="Expertises associées">
+        <strong>À découvrir aussi</strong>
+        {links.map((link) => <a href={link.href}>{link.label} <span>→</span></a>)}
+      </nav>
     </div>
   </section>
 
-  <CTA href="/audit-gratuit/" title="Faisons de cette expertise votre prochain accélérateur." text="Un premier audit permet d’identifier les priorités, les dépendances et les opportunités les plus pertinentes pour votre entreprise." />
+  <CTA title={ctaTitle} text={ctaText} label={ctaLabel} calendly={ctaCalendly} />
 </Layout>
 
 <style>
@@ -113,7 +255,9 @@ const sectionCopy = {
   .issue-list p { margin: 0; }
   .offer-grid .card::before { background: var(--color-cyan); }
   .offer-grid--featured .card:first-child { grid-column: span 2; background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(36,87,255,.12)); }
-  .process-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--color-border); }
+  .decision-section { background: var(--color-primary-soft); }
+  .decision-grid .card { background: rgba(255,255,255,.85); }
+  .process-grid { display: grid; grid-template-columns: repeat(var(--process-count, 4), minmax(0, 1fr)); border-block: 1px solid var(--color-border); }
   .process-grid article { padding: 32px; border-right: 1px solid var(--color-border); }
   .process-grid article:last-child { border-right: 0; }
   .process-grid h3 { margin-top: 32px; }
@@ -134,6 +278,19 @@ const sectionCopy = {
   .related strong { width: 100%; margin-bottom: 6px; }
   .related a { padding: 9px 13px; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-text-muted); font-size: .84rem; font-weight: 680; }
   .related a span { color: var(--color-primary); }
-  @media (max-width: 900px) { .split, .benefits { grid-template-columns: 1fr; } .split--reverse .section-heading { order: initial; } .process-grid { grid-template-columns: repeat(2, 1fr); } .process-grid article:nth-child(2) { border-right: 0; } .offer-grid--featured .card:first-child { grid-column: auto; } }
-  @media (max-width: 580px) { .commercial-editorial, .commercial-editorial :global(img) { height: 240px; min-height: 240px; } .process-grid { grid-template-columns: 1fr; } .process-grid article { border-right: 0; border-bottom: 1px solid var(--color-border); padding-inline: 0; } .faq-list p { padding-right: 0; } }
+  @media (max-width: 900px) {
+    .split, .benefits { grid-template-columns: 1fr; }
+    .split--reverse .section-heading { order: initial; }
+    .process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .process-grid article { border-bottom: 1px solid var(--color-border); }
+    .process-grid article:nth-child(even) { border-right: 0; }
+    .offer-grid--featured .card:first-child { grid-column: auto; }
+  }
+  @media (max-width: 580px) {
+    .commercial-editorial, .commercial-editorial :global(img) { height: 240px; min-height: 240px; }
+    .process-grid { grid-template-columns: 1fr; }
+    .process-grid article, .process-grid article:nth-child(even) { border-right: 0; }
+    .process-grid article:last-child { border-bottom: 0; }
+    .faq-list p { padding-right: 0; }
+  }
 </style>

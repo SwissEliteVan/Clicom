@@ -1,13 +1,15 @@
 ---
 import Button from './Button.astro';
+import CalendlyButton from './conversion/CalendlyButton.astro';
 
-interface Props { title?: string; text?: string; href?: string; label?: string; }
+interface Props { title?: string; text?: string; href?: string; label?: string; calendly?: boolean; }
 
 const {
   title = 'Prêt à accélérer votre croissance ?',
   text = 'Parlons de vos objectifs et identifions les leviers numériques les plus pertinents pour votre entreprise.',
   href = '/contact#audit',
   label = 'Demander un audit gratuit →',
+  calendly = false,
 } = Astro.props;
 ---
-<section class="section"><div class="container"><div class="cta-panel"><div><h2>{title}</h2><p>{text}</p></div><Button {href}>{label}</Button></div></div></section>
+<section class="section"><div class="container"><div class="cta-panel"><div><h2>{title}</h2><p>{text}</p></div>{calendly ? <CalendlyButton label={label} /> : <Button {href}>{label}</Button>}</div></div></section>

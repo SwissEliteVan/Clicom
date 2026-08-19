@@ -1,8 +1,105 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
-const problems=[{title:'Des audiences mal qualifiées',text:'Le ciblage génère de la portée sans créer suffisamment d’intérêt commercial.'},{title:'Des créations qui fatiguent',text:'Les mêmes messages tournent trop longtemps et perdent progressivement leur efficacité.'},{title:'Un suivi des conversions incomplet',text:'Les décisions reposent sur des signaux partiels ou des métriques de surface.'}];
-const services=[{title:'Meta Ads',text:'Acquisition et reciblage sur Facebook et Instagram.'},{title:'LinkedIn Ads',text:'Ciblage professionnel lorsque la valeur et l’audience le justifient.'},{title:'TikTok Ads',text:'Activation selon les usages, les formats et la pertinence pour votre marché.'},{title:'Audiences & reciblage',text:'Segments utiles selon la maturité, l’engagement et l’intention.'},{title:'Créations publicitaires & tests',text:'Angles, formats et variations organisés dans un plan de test.'},{title:'Suivi des conversions CPA / ROAS',text:'Mesure et lecture de la performance au-delà des clics.'}];
-const process=[{title:'Positionner',text:'Clarifier offre, audience et promesse.'},{title:'Produire',text:'Décliner angles et créatifs.'},{title:'Tester',text:'Comparer audiences, messages et formats.'},{title:'Développer',text:'Renforcer les combinaisons efficaces.'}];
-const faq=[{question:'Quelle plateforme choisir ?',answer:'Le choix dépend de vos audiences, de votre offre, du cycle de décision et des formats que votre équipe peut produire.'},{question:'Faut-il beaucoup de créatifs ?',answer:'Il faut surtout un renouvellement régulier et un plan de test structuré, adapté au budget disponible.'},{question:'Pouvez-vous garantir un ROAS ?',answer:'Non. La performance dépend notamment de l’offre, du marché, du site et du budget. Nous pilotons les variables contrôlables avec transparence.'}];
+
+const problems = [
+  {
+    title: 'Une portée qui ne crée pas assez d’intérêt',
+    text: 'Les audiences voient les publicités, sans toujours comprendre rapidement ce qui rend l’offre pertinente pour elles.',
+  },
+  {
+    title: 'Des publications simplement “boostées”',
+    text: 'Mettre du budget derrière une publication ne remplace ni une stratégie d’audience, ni une promesse claire, ni un dispositif de test.',
+  },
+  {
+    title: 'Des créatifs qui s’essoufflent',
+    text: 'Les mêmes formats et messages tournent trop longtemps, alors que l’apprentissage dépend du renouvellement et de la comparaison des angles.',
+  },
+];
+
+const services = [
+  { title: 'Stratégie Meta Ads', text: 'Campagnes Facebook et Instagram structurées autour du rôle de chaque audience dans le parcours.' },
+  { title: 'LinkedIn Ads lorsque c’est pertinent', text: 'Activation B2B évaluée selon la cible, le cycle de décision, la valeur de l’offre et le budget disponible.' },
+  { title: 'Audiences et retargeting', text: 'Segments de découverte, d’engagement et de reciblage organisés selon la maturité des personnes touchées.' },
+  { title: 'Créatifs publicitaires', text: 'Angles, formats et variations conçus pour susciter l’intérêt, expliquer et nourrir les tests.' },
+  { title: 'Landing pages et parcours', text: 'Pages cohérentes avec les promesses de campagne, pensées pour réduire les frictions après le clic.' },
+  { title: 'Tracking et apprentissage', text: 'Suivi des actions utiles et lecture de la performance au-delà des impressions ou du taux de clic.' },
+];
+
+const process = [
+  { title: 'Positionner', text: 'Clarifier l’audience, le message, l’offre et la place de la campagne dans le parcours.' },
+  { title: 'Préparer', text: 'Organiser les créatifs, les pages, le tracking et les audiences à tester.' },
+  { title: 'Diffuser', text: 'Lancer avec un cadre de budget et des hypothèses explicites, sans tout multiplier dès le départ.' },
+  { title: 'Tester', text: 'Comparer angles, formats, audiences et parcours pour apprendre de manière structurée.' },
+  { title: 'Développer', text: 'Renforcer les combinaisons utiles et renouveler les créatifs avant qu’ils ne s’essoufflent.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Deux leviers différents',
+  title: 'Social Ads et Google Ads ne répondent pas au même moment.',
+  intro: 'Google Ads capte une demande déjà exprimée. Les campagnes sociales travaillent souvent plus tôt : elles créent de l’intérêt, expliquent une offre et reconnectent les personnes déjà engagées.',
+  items: [
+    { title: 'Capter une recherche', text: 'Google Ads est adapté lorsqu’une personne formule déjà un besoin ou cherche une solution précise.' },
+    { title: 'Créer et nourrir la demande', text: 'Social Ads permet de faire découvrir une offre à des audiences qui ne vous recherchent pas encore activement.' },
+    { title: 'Réactiver avec pertinence', text: 'Le retargeting reconnecte les personnes déjà exposées, à condition que le message et la page restent utiles.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Quelle plateforme faut-il choisir ?',
+    answer: 'Le choix dépend de vos audiences, de votre offre, de votre cycle de décision et de votre capacité à produire des créatifs adaptés. Nous ne recommandons pas une plateforme par défaut.',
+  },
+  {
+    question: 'Booster une publication suffit-il ?',
+    answer: 'Non. Le boost peut avoir un rôle ponctuel, mais une stratégie Social Ads complète organise objectifs, audiences, messages, créatifs, retargeting, pages et mesure.',
+  },
+  {
+    question: 'Faut-il produire beaucoup de créatifs ?',
+    answer: 'Il faut surtout un plan de renouvellement réaliste. Plusieurs angles et formats aident à apprendre sans confondre volume et qualité.',
+  },
+  {
+    question: 'Pouvez-vous garantir un ROAS ?',
+    answer: 'Non. La performance dépend de l’offre, du marché, des créatifs, du site, du budget et du suivi commercial. Nous pilotons ce qui peut l’être et rendons les apprentissages lisibles.',
+  },
+];
 ---
-<CommercialPage title="Agence de publicité sur les réseaux sociaux en Suisse — CLICOM" description="Meta Ads, LinkedIn Ads, TikTok Ads, reciblage, créations publicitaires et suivi des conversions orientés CPA et ROAS avec CLICOM." eyebrow="Publicité sur les réseaux sociaux" h1="Créer la demande avec des campagnes <span class='gradient-text'>sociales mieux orchestrées.</span>" intro="De l’audience au créatif, CLICOM construit des campagnes sociales qui apprennent, s’ajustent et soutiennent vos objectifs." {problems} solution="Nous relions stratégie média, créations publicitaires, audiences, reciblage, suivi des conversions et pages de conversion dans un cadre de test continu." {services} {process} benefits={['Des plateformes choisies pour leur pertinence','Des messages adaptés aux niveaux de maturité','Un renouvellement des créations structuré','Une lecture claire du CPA et du ROAS','Un lien direct avec vos pages de conversion']} {faq} links={[{href:'/creation-contenu/',label:'Création de contenu'},{href:'/reseaux-sociaux/',label:'Réseaux sociaux'},{href:'/google-ads/',label:'Google Ads'}]} />
+
+<CommercialPage
+  title="Social Ads : créer et réactiver la demande | CLICOM"
+  description="Campagnes Meta et LinkedIn, créatifs, audiences, retargeting, landing pages et tracking pour créer une demande mieux qualifiée."
+  eyebrow="Publicité sur les réseaux sociaux"
+  h1="Créer de la demande auprès d’audiences qui ne vous <span class='gradient-text'>recherchent pas encore.</span>"
+  intro="CLICOM conçoit des campagnes sociales qui font connaître une offre, nourrissent l’intérêt et réactivent les audiences déjà engagées."
+  {problems}
+  solution="Les campagnes sociales ne se résument pas à diffuser une publication. Elles relient créatifs, audiences, pages, retargeting et suivi dans un cycle d’apprentissage continu."
+  {services}
+  {process}
+  benefits={[
+    'Des plateformes retenues pour leur pertinence, pas par réflexe',
+    'Des créatifs construits pour expliquer et tester des angles',
+    'Des audiences reliées à leur niveau de maturité',
+    'Un retargeting plus cohérent avec les interactions précédentes',
+    'Une lecture de la performance qui dépasse les métriques de surface',
+  ]}
+  {faq}
+  links={[
+    { href: '/google-ads/', label: 'Google Ads' },
+    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/creation-site-web/', label: 'Création de site web' },
+  ]}
+  problemEyebrow="Pourquoi les campagnes sociales demandent une méthode"
+  problemsTitle="L’attention se gagne avec un message utile, pas avec un simple budget."
+  offerTitle="Créer, tester et améliorer des campagnes qui accompagnent la décision."
+  processTitle="Un cycle court entre hypothèse, diffusion et apprentissage."
+  benefitsTitle="Des campagnes sociales plus lisibles et mieux reliées au parcours."
+  faqTitle="Les questions à éclaircir avant d’activer Social Ads."
+  {decisionGuide}
+  heroPrimaryLabel="Évaluer votre potentiel Social Ads"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Voir notre approche"
+  heroPrimaryCalendly={true}
+  ctaTitle="Faisons le point sur vos audiences, vos créatifs et vos pages."
+  ctaText="Réservez un échange de 30 minutes pour évaluer la place de Social Ads dans votre acquisition et les conditions d’un test utile."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+/>

@@ -1,8 +1,106 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
-const problems=[{title:'Un budget peu lisible',text:'Les dépenses progressent sans vision claire des demandes et de leur qualité.'},{title:'Des campagnes trop larges',text:'Mots-clés, audiences et messages dispersent l’investissement.'},{title:'Des pages de conversion faibles',text:'La publicité génère des clics, mais l’expérience après le clic freine la conversion.'}];
-const services=[{title:'Réseau de recherche',text:'Campagnes centrées sur les requêtes à intention commerciale.'},{title:'Performance Max',text:'Activation encadrée selon les données, les objectifs et la maturité du compte.'},{title:'Display & YouTube',text:'Formats de visibilité ou de considération lorsqu’ils servent réellement la stratégie.'},{title:'Remarketing',text:'Relance mesurée des audiences déjà engagées avec votre marque.'},{title:'Suivi des conversions & pages de conversion',text:'Mesure fiable et pages cohérentes avec les promesses publicitaires.'},{title:'Optimisation CPA / ROAS',text:'Arbitrages continus fondés sur la valeur et la qualité des conversions.'}];
-const process=[{title:'Cadrer',text:'Offres, marges, zones et objectifs.'},{title:'Instrumenter',text:'Suivi des conversions et conversions utiles.'},{title:'Lancer',text:'Campagnes, annonces et pages de conversion.'},{title:'Optimiser',text:'Requêtes, budgets, CPA et ROAS.'}];
-const faq=[{question:'Quel budget faut-il prévoir ?',answer:'Le budget dépend du marché, du volume de recherche, des zones ciblées et de la valeur d’une conversion. Il est cadré avant le lancement.'},{question:'Quand peut-on lancer les campagnes ?',answer:'Une fois les objectifs, le suivi des conversions, les annonces et les pages de destination validés.'},{question:'Travaillez-vous uniquement le ROAS ?',answer:'Non. Selon le modèle d’affaires, le CPA, la qualité des prospects et la valeur commerciale sont tout aussi importants.'}];
+
+const problems = [
+  {
+    title: 'Un budget qui génère des clics sans lecture commerciale claire',
+    text: 'Les dépenses progressent, mais la qualité des demandes, les parcours après le clic ou les conversions réellement utiles restent difficiles à suivre.',
+  },
+  {
+    title: 'Des campagnes trop larges',
+    text: 'Mots-clés, annonces et zones ciblées se dispersent au lieu de concentrer le budget sur les intentions proches d’une décision.',
+  },
+  {
+    title: 'Des pages qui freinent après le clic',
+    text: 'Une annonce pertinente ne compense pas une page lente, floue ou incapable de rassurer avant la prise de contact.',
+  },
+];
+
+const services = [
+  { title: 'Cadrage des offres et du budget', text: 'Définir ce qui mérite d’être promu, les zones utiles, les marges et les conversions qui comptent.' },
+  { title: 'Campagnes sur le réseau de recherche', text: 'Capter les requêtes qui traduisent une intention commerciale, avec une structure lisible.' },
+  { title: 'Mots-clés, annonces et exclusions', text: 'Relier le vocabulaire des prospects à des messages précis et limiter les recherches non pertinentes.' },
+  { title: 'Landing pages et conversion', text: 'Améliorer la cohérence entre la promesse de l’annonce, le contenu de la page et l’action attendue.' },
+  { title: 'Tracking des conversions', text: 'Mesurer les demandes, appels ou actions définies avec vous avant de chercher à optimiser.' },
+  { title: 'Optimisation continue', text: 'Ajuster requêtes, budgets, annonces et campagnes selon la qualité observée des opportunités.' },
+];
+
+const process = [
+  { title: 'Cadrer', text: 'Comprendre offres, zones, cycle de vente, budget et définition d’une conversion utile.' },
+  { title: 'Instrumenter', text: 'Vérifier la mesure avant de prendre des décisions sur la performance des campagnes.' },
+  { title: 'Construire', text: 'Structurer mots-clés, annonces, audiences éventuelles et pages de destination.' },
+  { title: 'Lancer', text: 'Démarrer avec un périmètre maîtrisé pour observer les premières données sans diluer le budget.' },
+  { title: 'Optimiser', text: 'Arbitrer avec régularité selon les recherches, la qualité des conversions et les priorités commerciales.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Choisir le bon moment',
+  title: 'Quand Google Ads est pertinent — et quand commencer autrement.',
+  intro: 'Google Ads peut être très utile lorsque des personnes recherchent déjà une solution. Il reste un levier à évaluer avec votre offre, votre site et votre capacité de suivi.',
+  items: [
+    { title: 'Pertinent si la demande existe', text: 'Il aide à capter des recherches liées à une offre claire, une zone définie et une prochaine étape mesurable.' },
+    { title: 'À préparer avant de lancer', text: 'Une page de destination, un suivi fiable et une réponse commerciale organisée sont aussi importants que la campagne.' },
+    { title: 'Pas toujours le premier investissement', text: 'Si l’offre, le site ou la mesure sont trop fragiles, il est souvent plus utile de traiter ces fondations avant d’augmenter le budget média.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Quel budget faut-il prévoir pour Google Ads ?',
+    answer: 'Le budget dépend du volume de recherche, de la concurrence, des zones ciblées et de la valeur d’une opportunité. Nous le cadrons avec vous avant le lancement, sans imposer un montant standard.',
+  },
+  {
+    question: 'Faut-il une landing page dédiée ?',
+    answer: 'Pas systématiquement, mais la page doit être cohérente avec l’annonce et capable de faire avancer le visiteur. Une page trop générale réduit souvent la qualité de la campagne.',
+  },
+  {
+    question: 'Pouvez-vous garantir un CPA ou un ROAS ?',
+    answer: 'Non. Ils dépendent notamment de l’offre, du marché, du budget, des pages et du suivi commercial. Nous mettons en place une mesure fiable et optimisons les variables contrôlables avec transparence.',
+  },
+  {
+    question: 'Combien de temps faut-il pour lancer une campagne ?',
+    answer: 'Le lancement intervient une fois les objectifs, le tracking, les annonces et les pages de destination préparés. Le délai dépend du niveau de préparation de ces éléments.',
+  },
+];
 ---
-<CommercialPage title="Agence Google Ads en Suisse — CLICOM" description="Campagnes Search, Performance Max, remarketing, suivi des conversions et pages de conversion optimisées pour le CPA et le ROAS." eyebrow="Google Ads" h1="Transformer la demande active en <span class='accent'>opportunités mesurables.</span>" intro="CLICOM structure vos campagnes Google Ads autour de vos offres, de vos marges et de la qualité réelle des conversions." {problems} solution="Nous alignons ciblage, annonces, suivi des conversions, pages de conversion et optimisation pour piloter la publicité comme un système d’acquisition complet." {services} {process} benefits={['Des campagnes reliées à des objectifs commerciaux','Une mesure plus fiable des conversions','Des budgets concentrés sur les opportunités','Des pages de conversion cohérentes avec les annonces','Une optimisation continue du CPA et du ROAS']} {faq} links={[{href:'/creation-site-web/',label:'Pages de conversion'},{href:'/seo/',label:'SEO'},{href:'/social-ads/',label:'Publicité sur les réseaux sociaux'}]} variant="reverse" />
+
+<CommercialPage
+  title="Google Ads : campagnes orientées demandes | CLICOM"
+  description="Campagnes Google Ads, mots-clés, annonces, landing pages et mesure des conversions pour capter une intention de recherche existante."
+  eyebrow="Google Ads"
+  h1="Transformer une intention de recherche existante en <span class='accent'>opportunités commerciales.</span>"
+  intro="CLICOM structure vos campagnes Google Ads autour de vos offres, de la qualité des conversions et de ce qui se passe réellement après le clic."
+  {problems}
+  solution="La rentabilité d’une campagne dépend autant de la page de destination, de l’offre et du suivi que des réglages du compte Google Ads."
+  {services}
+  {process}
+  benefits={[
+    'Des budgets concentrés sur les intentions les plus pertinentes',
+    'Des annonces et des pages plus cohérentes entre elles',
+    'Une mesure plus fiable des demandes et actions utiles',
+    'Des décisions appuyées sur la qualité des opportunités, pas seulement les clics',
+    'Un levier évalué honnêtement face aux autres priorités du site',
+  ]}
+  {faq}
+  links={[
+    { href: '/creation-site-web/', label: 'Création de site web' },
+    { href: '/seo/', label: 'SEO' },
+    { href: '/social-ads/', label: 'Publicité sur les réseaux sociaux' },
+  ]}
+  problemEyebrow="Pourquoi les campagnes déçoivent parfois"
+  problemsTitle="Le clic n’est qu’un début : l’enjeu est ce qu’il déclenche ensuite."
+  offerTitle="Un dispositif d’acquisition, pas seulement un compte publicitaire."
+  processTitle="Une méthode qui relie campagne, page et conversion."
+  benefitsTitle="Plus de clarté pour investir et optimiser au bon endroit."
+  faqTitle="Les questions utiles avant d’investir dans Google Ads."
+  {decisionGuide}
+  heroPrimaryLabel="Parler de vos campagnes Google Ads"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Voir notre méthode"
+  heroPrimaryCalendly={true}
+  ctaTitle="Évaluons si Google Ads est le bon levier pour votre contexte."
+  ctaText="Réservez un échange de 30 minutes pour parler de votre offre, de vos pages et des conditions nécessaires à une campagne mesurable."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+  variant="reverse"
+/>

@@ -1,8 +1,106 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
-const problems=[{title:'Une présence irrégulière',text:'La publication dépend du temps disponible et manque de continuité.'},{title:'Des contenus sans ligne directrice',text:'Les formats existent, mais ne construisent ni positionnement ni préférence de marque.'},{title:'Peu de lien avec le commerce',text:'Les réseaux sociaux vivent séparément des offres, des campagnes et du site.'}];
-const services=[{title:'Stratégie sociale',text:'Rôle de chaque plateforme, audiences, piliers et objectifs.'},{title:'Calendrier éditorial',text:'Planification réaliste des sujets, formats et temps forts.'},{title:'Instagram & Facebook',text:'Contenus de marque, proximité et activation des communautés.'},{title:'LinkedIn',text:'Expertise, marque employeur et visibilité professionnelle.'},{title:'TikTok, Reels & Shorts',text:'Formats courts adaptés aux codes des plateformes pertinentes.'},{title:'Community management',text:'Publication, modération, réponses et reporting selon le mandat.'}];
-const process=[{title:'Écouter',text:'Analyser marque, audience et concurrence.'},{title:'Planifier',text:'Définir piliers et calendrier.'},{title:'Publier',text:'Produire et diffuser avec cohérence.'},{title:'Apprendre',text:'Lire les signaux et ajuster.'}];
-const faq=[{question:'Sur quels réseaux faut-il être présent ?',answer:'Seulement sur ceux où vos audiences et vos objectifs justifient un effort régulier.'},{question:'Pouvez-vous gérer les publications ?',answer:'Oui, le périmètre peut inclure planification, production, publication, modération et reporting.'},{question:'Combien faut-il publier ?',answer:'La fréquence dépend de la plateforme, des ressources disponibles et du niveau de qualité que la marque peut maintenir.'}];
+
+const problems = [
+  {
+    title: 'Une présence irrégulière',
+    text: 'La publication dépend du temps restant, ce qui rend la marque difficile à reconnaître et les efforts impossibles à faire progresser.',
+  },
+  {
+    title: 'Des contenus sans ligne directrice',
+    text: 'Les formats s’accumulent, sans rôle clair pour soutenir le positionnement, la relation avec la communauté ou les objectifs business.',
+  },
+  {
+    title: 'Trop de plateformes à gérer',
+    text: 'Être partout épuise les ressources et réduit la qualité. Toutes les plateformes ne sont pas pertinentes pour toutes les entreprises.',
+  },
+];
+
+const services = [
+  { title: 'Choix des réseaux pertinents', text: 'Définir les plateformes qui correspondent à vos audiences, à votre offre et aux capacités réelles de vos équipes.' },
+  { title: 'Ligne éditoriale', text: 'Clarifier les sujets, le ton, les preuves et les formats qui donnent une cohérence à votre présence.' },
+  { title: 'Planning réaliste', text: 'Organiser les temps forts, la fréquence et les responsabilités pour construire une régularité tenable.' },
+  { title: 'Création et adaptation de formats', text: 'Décliner des contenus pour les usages des plateformes retenues sans perdre l’identité de la marque.' },
+  { title: 'Publication et community management', text: 'Planifier, publier, modérer et répondre selon le périmètre défini avec vos équipes.' },
+  { title: 'Mesure et amélioration', text: 'Lire les signaux utiles pour ajuster la ligne éditoriale et le rôle des réseaux dans votre système marketing.' },
+];
+
+const process = [
+  { title: 'Analyser', text: 'Comprendre marque, audiences, contenus existants et place des réseaux dans le parcours client.' },
+  { title: 'Prioriser', text: 'Choisir les plateformes et les objectifs qui justifient un effort régulier.' },
+  { title: 'Planifier', text: 'Définir piliers éditoriaux, formats, calendrier et mode de collaboration.' },
+  { title: 'Publier', text: 'Produire et diffuser avec une cadence compatible avec la qualité attendue.' },
+  { title: 'Ajuster', text: 'Mesurer les signaux utiles, apprendre et faire évoluer le dispositif sans suivre toutes les tendances.' },
+];
+
+const decisionGuide = {
+  eyebrow: 'Faire moins, mais mieux',
+  title: 'La bonne présence sociale n’est pas la présence partout.',
+  intro: 'Une stratégie sociale crédible choisit les plateformes où la marque peut être réellement utile, régulière et reconnaissable.',
+  items: [
+    { title: 'Choisir avec intention', text: 'Chaque réseau doit avoir un rôle clair : visibilité, expertise, relation, marque employeur ou soutien à une campagne.' },
+    { title: 'Tenir dans la durée', text: 'Un calendrier réaliste vaut mieux qu’une fréquence ambitieuse qui ne peut pas être maintenue.' },
+    { title: 'Relier au business', text: 'Les contenus sociaux doivent rester cohérents avec les offres, le site, les campagnes et les objectifs de marque.' },
+  ],
+};
+
+const faq = [
+  {
+    question: 'Sur quels réseaux faut-il être présent ?',
+    answer: 'Uniquement là où vos audiences, vos objectifs et vos ressources justifient une présence régulière. Le choix peut évoluer, mais il doit rester intentionnel.',
+  },
+  {
+    question: 'Pouvez-vous gérer les publications ?',
+    answer: 'Oui. Le périmètre peut inclure stratégie, planning, production, publication, modération et reporting, ou seulement les étapes qui complètent vos ressources internes.',
+  },
+  {
+    question: 'Combien faut-il publier ?',
+    answer: 'La fréquence dépend de la plateforme, des formats, des ressources et du niveau de qualité que la marque peut maintenir. Nous construisons un rythme tenable.',
+  },
+  {
+    question: 'Comment mesurez-vous les résultats ?',
+    answer: 'Nous regardons les indicateurs adaptés à l’objectif : attention, engagement qualifié, visites utiles, conversations, candidatures ou soutien à une campagne. Le nombre d’abonnés seul ne suffit pas.',
+  },
+];
 ---
-<CommercialPage title="Gestion des réseaux sociaux — CLICOM Suisse" description="Stratégie, calendrier éditorial, community management, Reels et reporting pour Instagram, Facebook, LinkedIn et TikTok." eyebrow="Réseaux sociaux" h1="Construire une présence sociale <span class='accent'>cohérente et utile.</span>" intro="CLICOM transforme vos réseaux sociaux en un système éditorial relié à votre marque, vos offres et vos audiences." {problems} solution="Nous définissons un rôle clair pour chaque plateforme et organisons stratégie, production, publication, animation et reporting." {services} {process} benefits={['Une ligne éditoriale reconnaissable','Un calendrier réaliste et régulier','Des formats adaptés à chaque plateforme','Une communauté mieux accompagnée','Une présence reliée aux objectifs de marque']} {faq} links={[{href:'/creation-contenu/',label:'Création de contenu'},{href:'/social-ads/',label:'Publicité sur les réseaux sociaux'},{href:'/branding/',label:'Branding'}]} variant="reverse" />
+
+<CommercialPage
+  title="Réseaux sociaux : présence éditoriale crédible | CLICOM"
+  description="Stratégie, ligne éditoriale, planning, création, publication et mesure pour une présence sociale cohérente avec vos objectifs business."
+  eyebrow="Réseaux sociaux"
+  h1="Construire une présence régulière et crédible sur les <span class='accent'>plateformes réellement pertinentes.</span>"
+  intro="CLICOM aide les entreprises à choisir les bons réseaux, organiser leur ligne éditoriale et publier avec une cohérence durable avec la marque et les objectifs business."
+  {problems}
+  solution="Les réseaux sociaux doivent avoir un rôle utile dans votre système marketing : mieux expliquer, entretenir la relation, renforcer la marque ou soutenir une campagne."
+  {services}
+  {process}
+  benefits={[
+    'Des plateformes choisies selon vos audiences et vos objectifs',
+    'Une ligne éditoriale plus claire et reconnaissable',
+    'Un planning compatible avec vos ressources réelles',
+    'Des contenus plus cohérents avec le site et les campagnes',
+    'Une mesure adaptée au rôle de chaque réseau',
+  ]}
+  {faq}
+  links={[
+    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/social-ads/', label: 'Publicité sur les réseaux sociaux' },
+    { href: '/branding/', label: 'Branding' },
+  ]}
+  problemEyebrow="Pourquoi une présence cohérente compte"
+  problemsTitle="La régularité construit la confiance quand elle reste utile."
+  offerTitle="Une présence sociale organisée autour de votre marque et de vos priorités."
+  processTitle="Du choix des réseaux à l’amélioration continue de vos contenus."
+  benefitsTitle="Moins de dispersion, plus de cohérence dans votre présence sociale."
+  faqTitle="Les questions à éclaircir avant de structurer vos réseaux sociaux."
+  {decisionGuide}
+  heroPrimaryLabel="Parler de vos réseaux sociaux"
+  heroSecondary="#approach"
+  heroSecondaryLabel="Découvrir notre approche"
+  heroPrimaryCalendly={true}
+  ctaTitle="Construisons une présence sociale que vos équipes peuvent réellement tenir."
+  ctaText="Réservez un échange de 30 minutes pour identifier les plateformes, les contenus et l’organisation les plus utiles à votre contexte."
+  ctaLabel="Réserver un échange de 30 min →"
+  ctaCalendly={true}
+  variant="reverse"
+/>

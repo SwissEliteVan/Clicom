@@ -24,14 +24,48 @@ const json = (body: Record<string, unknown>, status: number) =>
     headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' },
   });
 
-const clean = (value: unknown, max: number) =>
-  typeof value === 'string' ? value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '').trim().slice(0, max) : '';
+const cleanSingleLine = (value: unknown, max: number) =>
+  typeof value === 'string'
+    ? value
+        .replace(/[\u0000-\u001F\u007F]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, max)
+    : '';
 
-const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, (character) => ({
-  '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',
-})[character] ?? character);
+const cleanMultiline = (value: unknown, max: number) =>
+  typeof value === 'string'
+    ? value
+        .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
+        .trim()
+        .slice(0, max)
+    : '';
+
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>'"]/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;',
+  })[character] ?? character);
 
 const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+
+const isAllowedOrigin = (origin: string | null, siteUrl?: URL): boolean => {
+  if (!origin) return true;
+  try {
+    const originUrl = new URL(origin);
+    if (siteUrl && originUrl.origin === siteUrl.origin) return true;
+    if (originUrl.origin === 'https://clicom.ch') return true;
+    if (import.meta.env.DEV) {
+      if (['localhost', '127.0.0.1', '[::1]'].includes(originUrl.hostname)) return true;
+    }
+  } catch {
+    return false;
+  }
+  return false;
+};
 
 const sweepExpiredRequests = (now: number) => {
   if (now - lastSweep < WINDOW_MS) return;
@@ -69,7 +103,12 @@ const getMailConfig = () => {
   return { host, port, secure, user, pass, from, to };
 };
 
-export const POST: APIRoute = async ({ request, clientAddress }) => {
+export const POST: APIRoute = async ({ request, clientAddress, site: siteUrl }) => {
+  const origin = request.headers.get('origin');
+  if (!isAllowedOrigin(origin, siteUrl)) {
+    return json({ success: false, message: 'Requête non autorisée.' }, 403);
+  }
+
   const contentLength = Number(request.headers.get('content-length') ?? 0);
   if (contentLength > 16_384) return json({ success: false, message: 'Requête trop volumineuse.' }, 413);
 
@@ -89,13 +128,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     return json({ success: false, message: 'Requête invalide.' }, 400);
   }
 
-  const nom = clean(payload.nom, limits.nom);
-  const entreprise = clean(payload.entreprise, limits.entreprise);
-  const site = clean(payload.site, limits.site);
-  const email = clean(payload.email, limits.email).toLowerCase();
-  const telephone = clean(payload.telephone, limits.telephone);
-  const objectif = clean(payload.objectif, limits.objectif);
-  const website = clean(payload.website, limits.website);
+  const nom = cleanSingleLine(payload.nom, limits.nom);
+  const entreprise = cleanSingleLine(payload.entreprise, limits.entreprise);
+  const site = cleanSingleLine(payload.site, limits.site);
+  const email = cleanSingleLine(payload.email, limits.email).toLowerCase();
+  const telephone = cleanSingleLine(payload.telephone, limits.telephone);
+  const objectif = cleanMultiline(payload.objectif, limits.objectif);
+  const website = cleanSingleLine(payload.website, limits.website);
 
   if (website) return json({ success: false, message: 'Requête invalide.' }, 400);
   if (nom.length < 2 || objectif.length < 10 || !isValidEmail(email)) {
@@ -117,8 +156,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 
   const fields = [
-    ['Nom', nom], ['Entreprise', entreprise || 'Non renseignée'], ['Site', site || 'Non renseigné'],
-    ['Email', email], ['Téléphone', telephone || 'Non renseigné'], ['Objectif', objectif],
+    ['Nom', nom],
+    ['Entreprise', entreprise || 'Non renseignée'],
+    ['Site', site || 'Non renseigné'],
+    ['Email', email],
+    ['Téléphone', telephone || 'Non renseigné'],
+    ['Objectif', objectif],
   ];
   const html = `<h1>Nouvelle demande CLICOM</h1>${fields.map(([label, value]) => `<p><strong>${label}</strong><br>${escapeHtml(value)}</p>`).join('')}`;
   const text = fields.map(([label, value]) => `${label}\n${value}`).join('\n\n');

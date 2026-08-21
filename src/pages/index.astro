@@ -9,8 +9,8 @@ import HomeFAQ from '../components/home/HomeFAQ.astro';
 import HomeCTA from '../components/home/HomeCTA.astro';
 import '../styles/home/index.css';
 const title = 'CLICOM | Agence digitale pour PME en Suisse romande';
-const description = 'CLICOM relie site web, SEO, acquisition, automatisation, données et sécurité pour construire un digital utile aux PME de Suisse romande.';
-const structuredData = {'@context':'https://schema.org','@graph':[{'@type':['Organization','ProfessionalService'],'@id':'https://clicom.ch/#organization',name:'CLICOM',url:'https://clicom.ch/',email:'hello@clicom.ch',telephone:'+41788238950',description,areaServed:{'@type':'AdministrativeArea',name:'Suisse romande'},serviceType:['Création de sites web','SEO','Google Ads','Automatisation et CRM','Performance et sécurité']},{'@type':'WebSite','@id':'https://clicom.ch/#website',url:'https://clicom.ch/',name:'CLICOM',inLanguage:'fr-CH',publisher:{'@id':'https://clicom.ch/#organization'}}]};
+const description = 'CliCom construit le système digital qui aide les PME romandes à être trouvées, choisies et mieux organisées : site web, visibilité, acquisition et automatisation.';
+const structuredData = {'@context':'https://schema.org','@graph':[{'@type':['Organization','ProfessionalService'],'@id':'https://clicom.ch/#organization',name:'CLICOM',url:'https://clicom.ch/',email:'hello@clicom.ch',telephone:'+41788238950',description,areaServed:{'@type':'AdministrativeArea',name:'Suisse romande'},serviceType:['Création de sites web','Référencement naturel (SEO)','Acquisition & Google Ads','Automatisation et CRM','Performance et sécurité']},{'@type':'WebSite','@id':'https://clicom.ch/#website',url:'https://clicom.ch/',name:'CLICOM',inLanguage:'fr-CH',publisher:{'@id':'https://clicom.ch/#organization'}}]};
 ---
 <Layout {title} {description} {structuredData}>
   <div class="home-shell">

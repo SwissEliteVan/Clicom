@@ -1,17 +1,17 @@
 ---
 const questions = [
-  ['Comment se déroule un premier échange avec CLICOM ?', 'Il s’agit d’un échange direct de 30 minutes (en visio ou par téléphone) pour comprendre votre activité, vos objectifs et vos priorités actuelles. Cet échange permet d’identifier concrètement comment CLICOM peut vous aider, en toute transparence et sans aucun engagement.'],
-  ['Quelle est la différence entre l’audit gratuit et le rendez-vous de 30 minutes ?', 'Le rendez-vous de 30 minutes est un échange oral direct pour faire le point sur vos besoins. L’audit gratuit consiste à nous transmettre votre site et vos enjeux pour recevoir une première analyse structurée de vos opportunités. Les deux démarches sont gratuites et sans engagement.'],
-  ['Quels types d’entreprises accompagnez-vous ?', 'Nous travaillons principalement avec des PME, indépendants, artisans et entreprises suisses qui souhaitent structurer leur présence en ligne, capter de nouveaux prospects et simplifier leurs processus sans multiplier les prestataires.'],
-  ['Combien de temps faut-il pour obtenir des résultats ?', 'Cela dépend des leviers activés : une campagne Google Ads ou une page de conversion optimisée génère des contacts rapidement, tandis que le SEO et les contenus construisent une visibilité durable. Nous définissons un calendrier réaliste dès le départ.'],
-  ['Faut-il refaire entièrement mon site existant ?', 'Pas nécessairement. Si votre site actuel dispose d’une bonne base, nous pouvons nous concentrer sur l’optimisation du parcours, le référencement, la publicité ou l’automatisation. Nous n’engageons une refonte que si elle est réellement justifiée.'],
-  ['Comment l’automatisation et l’IA peuvent-elles aider mon entreprise ?', 'En éliminant les tâches répétitives (qualification automatique des demandes de contact, synchronisation CRM, relances programmées) afin de libérer du temps pour votre cœur de métier tout en offrant une réactivité immédiate à vos prospects.'],
+  ['Comment se déroule un premier échange avec CliCom ?', 'C’est un échange direct de 30 minutes (en visio ou par téléphone) pour comprendre votre activité, vos priorités actuelles et vos défis. Nous identifions ensemble les actions digitales prioritaires, avec transparence et sans aucun engagement.'],
+  ['Quelle est la différence entre l’audit gratuit et le rendez-vous de 30 minutes ?', 'Le rendez-vous de 30 minutes est un échange direct pour faire le point sur vos enjeux. L’audit gratuit consiste à nous transmettre votre site actuel pour recevoir une première analyse concrète de vos opportunités d’amélioration. Les deux démarches sont gratuites et sans engagement.'],
+  ['Quels types d’entreprises accompagnez-vous ?', 'Nous travaillons principalement avec des PME, artisans, indépendants et structures de Suisse romande qui n’ont pas une équipe digitale dédiée en interne et qui souhaitent un partenaire de confiance pour structurer leur visibilité et leurs outils.'],
+  ['Combien de temps faut-il pour voir des résultats ?', 'Cela dépend des leviers activés : les campagnes Google Ads ou l’optimisation de conversion apportent des contacts rapidement, tandis que le référencement naturel (SEO) construit une visibilité solide et pérenne sur plusieurs mois. Nous fixons un calendrier réaliste dès le départ.'],
+  ['Faut-il refaire entièrement mon site existant ?', 'Non. Si votre site actuel dispose d’une base saine, nous pouvons capitaliser dessus et concentrer les efforts sur le référencement, l’acquisition ou l’automatisation. Nous ne proposons une refonte que si elle est réellement rentable pour votre activité.'],
+  ['Comment l’automatisation peut-elle concrètement aider une PME ?', 'En éliminant les tâches manuelles répétitives : centralisation des demandes de contact dans un CRM, accusé de réception immédiat pour vos prospects, rappels de relances automatiques. Vous gagnez du temps sans perdre la relation humaine.'],
 ];
 ---
 
-<section class="section faq" aria-labelledby="faq-title">
+<section id="faq" class="section faq" aria-labelledby="faq-title">
   <div class="container faq__layout">
-    <div class="faq__intro"><div class="eyebrow">Questions fréquentes</div><h2 id="faq-title">Des réponses claires avant de commencer.</h2><p>Le bon projet commence par un périmètre compris et des attentes réalistes.</p></div>
+    <div class="faq__intro"><div class="eyebrow">Questions fréquentes</div><h2 id="faq-title">Des réponses claires avant de commencer.</h2><p>Un projet réussi repose sur une compréhension mutuelle, des objectifs précis et des attentes réalistes.</p></div>
     <div class="faq__list">
       {questions.map(([question, answer], index) => (
         <details open={index === 0}>

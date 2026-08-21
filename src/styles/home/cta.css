@@ -89,11 +89,17 @@
   margin-top: 2rem;
 }
 
+.home-cta .home-kicker::before {
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, .14), 0 0 16px rgba(34, 211, 238, .38);
+  animation: cta-signal-breathe 4s ease-in-out infinite alternate;
+}
+
 .home-cta__actions :where(.button) {
   min-height: 58px;
   border-radius: 999px;
   color: #07102a;
   background: #fff;
+  transition: transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .25s cubic-bezier(.16, 1, .3, 1);
 }
 
 .home-cta__badges {
@@ -117,6 +123,17 @@
   }
 }
 
+@keyframes cta-signal-breathe {
+  0% {
+    transform: scale(.92);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, .08), 0 0 8px rgba(34, 211, 238, .2);
+  }
+  100% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 6px rgba(34, 211, 238, .18), 0 0 22px rgba(34, 211, 238, .5);
+  }
+}
+
 @keyframes cta-light-pass {
   0%, 35% {
     transform: translateX(-85%);
@@ -128,6 +145,13 @@
   70%, 100% {
     transform: translateX(85%);
     opacity: 0;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .home-cta__actions :where(.button):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(34, 211, 238, .2);
   }
 }
 
@@ -165,7 +189,14 @@
 
 @media (prefers-reduced-motion: reduce) {
   .home-cta__halo,
-  .home-cta__panel::after {
+  .home-cta__panel::after,
+  .home-cta .home-kicker::before {
     animation: none !important;
+    transform: none !important;
+  }
+
+  .home-cta__actions :where(.button) {
+    transform: none !important;
+    transition: none !important;
   }
 }

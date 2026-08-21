@@ -35,9 +35,9 @@ function initialiseSystem(root: HTMLElement) {
       gsap.set('[data-system-label="presence"], [data-system-label="visible"]', { opacity: 1, y: 0 });
 
       const timeline = gsap.timeline({
-        defaults:{ ease:'none' },
+        defaults:{ ease: motion.ease.linear },
         scrollTrigger:{ trigger:steps[0], endTrigger:steps[steps.length-1], start:'top 58%', end:'bottom 44%', scrub:motion.scrub.smooth, invalidateOnRefresh:true,
-          onUpdate:self => activate(Math.min(3,Math.floor(self.progress * 4))) }
+          onUpdate:self => activate(Math.min(3,Math.floor(self.progress * 3.99))) }
       });
       timeline
         .to(presence,{strokeDashoffset:0,duration:.14},0)
@@ -75,7 +75,7 @@ function initialiseSystem(root: HTMLElement) {
     media.add('(max-width: 960px) and (prefers-reduced-motion: no-preference)', () => {
       gsap.set(presence,{strokeDashoffset:0}); gsap.set(acquisition,{opacity:.55}); gsap.set(distribution,{opacity:.55}); gsap.set(control,{opacity:.5});
       steps.forEach((step,index) => ScrollTrigger.create({trigger:step,start:'top 72%',onEnter:()=>activate(index),onEnterBack:()=>activate(index)}));
-      gsap.from('.home-system-stage-v2__mini i',{scale:0,opacity:0,stagger:.07,duration:.35,ease:'back.out(1.7)',scrollTrigger:{trigger:'.home-system-story__steps',start:'top 75%',once:true}});
+      gsap.from('.home-system-stage-v2__mini i',{scale:0,opacity:0,stagger:.07,duration:.35,ease:'back.out(1.4)',scrollTrigger:{trigger:'.home-system-story__steps',start:'top 75%',once:true}});
     });
 
     media.add('(prefers-reduced-motion: reduce)', () => { activate(3); gsap.set([...presence,...acquisitionPaths,...distributionPaths,...controlPaths],{strokeDashoffset:0}); });

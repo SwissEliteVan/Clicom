@@ -1,5 +1,6 @@
 import Lenis from 'lenis';
 import { gsap, ScrollTrigger } from './motion/core';
+import { motion } from './motion/tokens';
 
 const hero = document.querySelector<HTMLElement>('[data-hero]');
 if (hero) initialiseHero(hero);
@@ -34,13 +35,13 @@ function initialiseHero(root: HTMLElement) {
       gsap.set(resultBars, { scaleX: 0 });
       gsap.set(automationSteps, { opacity: .42 });
 
-      intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      intro = gsap.timeline({ defaults: { ease: motion.ease.reveal } });
       intro
-        .from(core, { opacity: 0, scale: .45, duration: .3 })
-        .from('.hero-product__stage', { opacity: 0, scale: .97, duration: .35 }, 0)
-        .from('.hero-product h1 b', { yPercent: 18, opacity: .5, stagger: .05, duration: 2.7 }, .08)
-        .from('[data-hero-copy], [data-hero-detail]', { opacity: .55, y: 8, stagger: .04, duration: 2.65 }, .12)
-        .from('[data-hero-cta]', { opacity: .62, y: 8, scale: .98, duration: 2.55 }, .25)
+        .from(core, { opacity: 0, scale: .45, duration: motion.duration.standard })
+        .from('.hero-product__stage', { opacity: 0, scale: .97, duration: motion.duration.standard }, 0)
+        .from('.hero-product h1 b', { yPercent: 18, opacity: 0, stagger: .06, duration: motion.duration.reveal, ease: motion.ease.reveal }, .08)
+        .from('[data-hero-copy], [data-hero-detail]', { opacity: 0, y: motion.distance.subtle, stagger: .05, duration: motion.duration.reveal, ease: motion.ease.reveal }, .18)
+        .from('[data-hero-cta]', { opacity: 0, y: motion.distance.subtle, scale: .98, duration: motion.duration.reveal, ease: motion.ease.reveal }, .28)
         .to('[data-scene="search"]', { opacity: 1, scale: 1, y: 0, duration: .22 }, .18)
         .from('[data-search-text]', { clipPath: 'inset(0 100% 0 0)', duration: .32, ease: 'steps(18)' }, .25)
         .to('[data-search-curve]', { strokeDashoffset: 0, duration: .28 }, .37)
@@ -74,24 +75,24 @@ function initialiseHero(root: HTMLElement) {
         .to('[data-scene="security"]', { opacity: 1, scale: 1, y: 0, duration: .16 }, 2.62)
         .from(securityRows, { opacity: .25, x: -5, stagger: .035, duration: .12 }, 2.64);
 
-      const scroll = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: .75 } });
-      scroll.to('[data-hero-copy-block]', { scale: .94, yPercent: -8, opacity: .12, ease: 'none' }, 0).to(stage, { scale: 1.22, xPercent: -18, yPercent: 8, ease: 'none' }, 0).to(scenes, { xPercent: index => (index % 2 ? -5 : 5), yPercent: index => index < 4 ? 8 : -8, ease: 'none' }, 0);
+      const scroll = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: motion.scrub.smooth } });
+      scroll.to('[data-hero-copy-block]', { scale: .94, yPercent: -8, opacity: .12, ease: motion.ease.linear }, 0).to(stage, { scale: 1.22, xPercent: -18, yPercent: 8, ease: motion.ease.linear }, 0).to(scenes, { xPercent: index => (index % 2 ? -5 : 5), yPercent: index => index < 4 ? 8 : -8, ease: motion.ease.linear }, 0);
 
       if (stage && matchMedia('(pointer:fine)').matches) {
         const depthLayers = gsap.utils.toArray<HTMLElement>('[data-depth]', root);
-        const xSetters = depthLayers.map(element => gsap.quickTo(element, 'x', { duration: .7, ease: 'power3.out' }));
-        const ySetters = depthLayers.map(element => gsap.quickTo(element, 'y', { duration: .7, ease: 'power3.out' }));
-        const rotateX = gsap.quickTo(stage, 'rotationX', { duration: .8, ease: 'power3.out' });
-        const rotateY = gsap.quickTo(stage, 'rotationY', { duration: .8, ease: 'power3.out' });
+        const xSetters = depthLayers.map(element => gsap.quickTo(element, 'x', { duration: .7, ease: motion.ease.reveal }));
+        const ySetters = depthLayers.map(element => gsap.quickTo(element, 'y', { duration: .7, ease: motion.ease.reveal }));
+        const rotateX = gsap.quickTo(stage, 'rotationX', { duration: .8, ease: motion.ease.reveal });
+        const rotateY = gsap.quickTo(stage, 'rotationY', { duration: .8, ease: motion.ease.reveal });
         on(root, 'pointermove', event => { const bounds = root.getBoundingClientRect(); const x = (event.clientX - bounds.left) / bounds.width - .5; const y = (event.clientY - bounds.top) / bounds.height - .5; depthLayers.forEach((layer,index) => { const depth = Number(layer.dataset.depth || .5); xSetters[index](x * 18 * depth); ySetters[index](y * 14 * depth); }); rotateX(-y * 3); rotateY(x * 3); });
         on(root, 'pointerleave', () => { depthLayers.forEach((_,index) => { xSetters[index](0); ySetters[index](0); }); rotateX(0); rotateY(0); });
       }
 
       const replay = (selector: string, animation: () => void) => { const element = root.querySelector<HTMLElement>(selector); if (element) on(element, 'pointerenter', animation); };
-      replay('[data-scene="search"]', () => gsap.fromTo('[data-search-curve]', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .65 }));
+      replay('[data-scene="search"]', () => gsap.fromTo('[data-search-curve]', { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: motion.duration.reveal }));
       replay('[data-scene="site"]', () => gsap.fromTo('[data-site-button]', { scale: 1 }, { scale: .92, yoyo: true, repeat: 1, duration: .16 }));
       replay('[data-scene="followup"]', () => gsap.to(pipelineCard, { xPercent: '+=18', yoyo: true, repeat: 1, duration: .22 }));
-      replay('[data-scene="automation"]', () => gsap.fromTo(automationSteps, { opacity: .4 }, { opacity: 1, stagger: .07, duration: .08 }));
+      replay('[data-scene="automation"]', () => gsap.fromTo(automationSteps, { opacity: .4 }, { opacity: 1, stagger: .07, duration: motion.duration.micro }));
       replay('[data-scene="results"]', () => gsap.fromTo(resultBars, { scaleX: .55 }, { scaleX: 1, stagger: .05, duration: .22 }));
       replay('[data-scene="security"]', () => gsap.fromTo(securityRows, { opacity: .35 }, { opacity: 1, stagger: .06, duration: .12 }));
 
@@ -101,8 +102,8 @@ function initialiseHero(root: HTMLElement) {
     });
 
     media.add('(max-width: 960px) and (prefers-reduced-motion: no-preference)', () => {
-      gsap.from('.hero-product h1 b', { yPercent: 110, stagger: .08, duration: .55, ease: 'power3.out' });
-      gsap.from('.hero-product__scene', { opacity: 0, y: 18, stagger: .08, duration: .45, ease: 'power2.out', delay: .25 });
+      gsap.from('.hero-product h1 b', { yPercent: 110, stagger: .08, duration: .55, ease: motion.ease.reveal });
+      gsap.from('.hero-product__scene', { opacity: 0, y: motion.distance.reveal, stagger: .08, duration: .45, ease: motion.ease.standard, delay: .25 });
     });
 
     media.add('(prefers-reduced-motion: reduce)', () => gsap.set('*', { clearProps: 'all' }));

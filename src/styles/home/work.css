@@ -97,6 +97,7 @@
   object-fit: cover;
   transform: scale(1.08);
   transform-origin: center;
+  transition: transform .65s cubic-bezier(.16, 1, .3, 1);
 }
 
 .work-scene__device {
@@ -200,6 +201,13 @@
   color: #2457ff;
   font-size: .82rem;
   font-weight: 780;
+  transition: color .2s ease;
+}
+
+.work-scene__caption a span,
+.work-scene__secondary-copy a span {
+  display: inline-block;
+  transition: transform .25s cubic-bezier(.16, 1, .3, 1);
 }
 
 .work-transition {
@@ -290,6 +298,7 @@
 .work-scene__vertical-main img {
   object-fit: cover;
   transform: scale(1.08);
+  transition: transform .65s cubic-bezier(.16, 1, .3, 1);
 }
 
 .work-scene__vertical-detail {
@@ -419,6 +428,20 @@
   .home-work--editorial .home-work__action { margin-top: 6rem; }
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .work-scene__frame:hover .work-scene__main img,
+  .work-scene__vertical:hover .work-scene__vertical-main img {
+    transform: scale(1.12);
+  }
+
+  .work-scene__caption a:hover span,
+  .work-scene__secondary-copy a:hover span,
+  .work-scene--primary:hover .work-scene__caption a span,
+  .work-scene--secondary:hover .work-scene__secondary-copy a span {
+    transform: translate(3px, -3px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .work-scene__frame,
   .work-scene__vertical {
@@ -435,5 +458,13 @@
 
   .work-transition span {
     transform: scaleX(1) !important;
+  }
+
+  .work-scene__main img,
+  .work-scene__vertical-main img,
+  .work-scene__caption a span,
+  .work-scene__secondary-copy a span {
+    transform: none !important;
+    transition: none !important;
   }
 }

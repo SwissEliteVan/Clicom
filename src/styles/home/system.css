@@ -57,11 +57,11 @@
   min-height: min(720px, calc(100svh - 118px));
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, .11);
-  border-radius: 34px;
+  border-radius: var(--radius-surface);
   background:
     radial-gradient(circle at 50% 48%, rgba(36, 87, 255, .16), transparent 34%),
     linear-gradient(145deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .012));
-  box-shadow: 0 42px 95px rgba(0, 0, 0, .22);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, .22);
   isolation: isolate;
 }
 

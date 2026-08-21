@@ -1,4 +1,29 @@
 ---
 const labels=['PAGES','CRAWL','INDEX','POSITION','CONVERSION'];const xs=[92,270,450,630,808];
 ---
-<div class="seo-pipeline" data-visual-motion aria-hidden="true"><svg viewBox="0 0 900 360"><g class="pipeline-rail"><path d="M92 180H808"/><path data-visual-path d="M92 180H808"/></g><g class="page-stack" data-visual-node><rect x="52" y="126" width="62" height="78" rx="7"/><rect x="61" y="135" width="62" height="78" rx="7"/><path d="M74 158H108M74 174H103M74 190H96"/></g><g class="crawler" data-visual-node><circle cx="270" cy="180" r="32"/><path d="M246 180H294M270 156V204M252 162L288 198M288 162L252 198"/></g><g class="index" data-visual-node><ellipse cx="450" cy="151" rx="38" ry="13"/><path d="M412 151V204C412 222 488 222 488 204V151M412 177C412 195 488 195 488 177"/></g><g class="ranking" data-visual-node><path d="M606 214V180H622V214ZM630 214V155H646V214ZM654 214V130H670V214Z"/></g><g class="conversion" data-visual-node><circle cx="808" cy="180" r="37"/><circle cx="808" cy="180" r="21"/><circle cx="808" cy="180" r="6"/></g>{xs.map((x,i)=><text class="label" x={x} y="265" text-anchor="middle">{labels[i]}</text>)}<rect class="crawl-signal" x="0" y="0" width="13" height="4" rx="2"/></svg></div><script>import '../../scripts/visuals/svg-motion';</script><style>.seo-pipeline,.seo-pipeline svg{width:100%;min-height:330px}.pipeline-rail path{fill:none;stroke:rgba(36,87,255,.18);stroke-width:var(--visual-line-primary)}.pipeline-rail path:last-child{stroke:#2457ff;stroke-width:var(--visual-line-active)}.page-stack rect,.crawler circle,.index ellipse,.index path,.conversion circle{fill:white;stroke:rgba(36,87,255,.35);stroke-width:var(--visual-line-primary)}.page-stack path,.crawler path,.ranking path{fill:none;stroke:#2457ff;stroke-width:var(--visual-line-primary)}.ranking path{fill:rgba(36,87,255,.1)}.conversion circle:nth-child(2){stroke:#22d3ee}.conversion circle:last-child{fill:#22d3ee;stroke:none}.label{fill:#58657a;font:700 9px Manrope,sans-serif;letter-spacing:.1em}.crawl-signal{fill:#22d3ee;offset-path:path('M92 180H808');filter:drop-shadow(0 0 5px #22d3ee)}.is-visual-active .crawl-signal{animation:crawl 7s linear infinite}@keyframes crawl{to{offset-distance:100%}}@media(max-width:680px){.seo-pipeline,.seo-pipeline svg{min-height:240px}.label{font-size:8px}.crawl-signal{display:none}}@media(prefers-reduced-motion:reduce){.crawl-signal{animation:none}}</style>
+<div class="seo-pipeline" data-visual-motion aria-hidden="true"><svg viewBox="0 0 900 360"><g class="pipeline-rail"><path d="M92 180H808"/><path data-visual-path d="M92 180H808"/></g><g class="page-stack" data-visual-node><rect x="52" y="126" width="62" height="78" rx="7"/><rect x="61" y="135" width="62" height="78" rx="7"/><path d="M74 158H108M74 174H103M74 190H96"/></g><g class="crawler" data-visual-node><circle cx="270" cy="180" r="32"/><path d="M246 180H294M270 156V204M252 162L288 198M288 162L252 198"/></g><g class="index" data-visual-node><ellipse cx="450" cy="151" rx="38" ry="13"/><path d="M412 151V204C412 222 488 222 488 204V151M412 177C412 195 488 195 488 177"/></g><g class="ranking" data-visual-node><path d="M606 214V180H622V214ZM630 214V155H646V214ZM654 214V130H670V214Z"/></g><g class="conversion" data-visual-node><circle cx="808" cy="180" r="37"/><circle cx="808" cy="180" r="21"/><circle cx="808" cy="180" r="6"/></g>{xs.map((x,i)=><text class="label" x={x} y="265" text-anchor="middle">{labels[i]}</text>)}<rect class="crawl-signal" x="0" y="0" width="13" height="4" rx="2"/></svg></div><script>import '../../scripts/visuals/svg-motion';</script><style>
+  .seo-pipeline, .seo-pipeline svg { width: 100%; min-height: 330px; }
+  /* Level 2: Pipeline rail */
+  .pipeline-rail path { fill: none; stroke: rgba(36, 87, 255, 0.16); stroke-width: var(--visual-line-primary); }
+  .pipeline-rail path:last-child { stroke: var(--color-primary); stroke-width: var(--visual-line-active); }
+  /* Level 2: Structural nodes */
+  .page-stack rect, .crawler circle, .index ellipse, .index path, .conversion circle { fill: #ffffff; stroke: rgba(36, 87, 255, 0.28); stroke-width: var(--visual-line-primary); }
+  .page-stack path, .crawler path, .ranking path { fill: none; stroke: var(--color-primary); stroke-width: var(--visual-line-primary); }
+  /* Level 3: Background fills & context */
+  .ranking path { fill: rgba(36, 87, 255, 0.08); }
+  .label { fill: var(--color-text-muted); font: 700 9px 'Manrope Variable', Manrope, sans-serif; letter-spacing: 0.12em; }
+  /* Level 1: Active conversion & signal */
+  .conversion circle:nth-child(2) { stroke: var(--color-cyan); stroke-width: var(--visual-line-primary); }
+  .conversion circle:last-child { fill: var(--color-cyan); stroke: none; }
+  .crawl-signal { fill: var(--color-cyan); offset-path: path('M92 180H808'); filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.65)); }
+  .is-visual-active .crawl-signal { animation: crawl 7s linear infinite; }
+  @keyframes crawl { to { offset-distance: 100%; } }
+  @media (max-width: 680px) {
+    .seo-pipeline, .seo-pipeline svg { min-height: 240px; }
+    .label { font-size: 8px; }
+    .crawl-signal { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .crawl-signal { animation: none; }
+  }
+</style>

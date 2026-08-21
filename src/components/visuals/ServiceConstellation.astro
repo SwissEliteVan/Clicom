@@ -1,4 +1,30 @@
 ---
 const satellites=[['SEO',120,92],['ADS',128,280],['CONTENU',300,54],['DESIGN',604,54],['WEB',780,100],['IA',772,278],['CRM',604,326],['SOCIAL',300,326]];
 ---
-<div class="constellation" data-visual-motion aria-hidden="true"><svg viewBox="0 0 900 380"><g class="constellation-links"><path data-visual-path d="M450 190L245 190L120 92M245 190L128 280M245 190L300 54M450 190L450 76M450 190L655 190L604 54M655 190L780 100M655 190L772 278M450 190L604 326M450 190L300 326"/></g><g class="growth-core" data-visual-node><circle cx="450" cy="190" r="58"/><circle cx="450" cy="190" r="43"/><text x="450" y="185" text-anchor="middle">CLICOM</text><text class="sub" x="450" y="204" text-anchor="middle">SYSTÈME DE CROISSANCE</text></g><g class="branch acquisition" data-visual-node><circle cx="245" cy="190" r="39"/><text x="245" y="194" text-anchor="middle">ACQUISITION</text></g><g class="branch creation" data-visual-node><circle cx="450" cy="76" r="34"/><text x="450" y="80" text-anchor="middle">CRÉATION</text></g><g class="branch technology" data-visual-node><circle cx="655" cy="190" r="39"/><text x="655" y="194" text-anchor="middle">TECHNOLOGIE</text></g>{satellites.map(([label,x,y])=><g class="satellite" data-visual-node><circle cx={x} cy={y} r="19"/><text x={x} y={Number(y)+34} text-anchor="middle">{label}</text></g>)}</svg></div><script>import '../../scripts/visuals/svg-motion';</script><style>.constellation,.constellation svg{width:100%;min-height:350px}.constellation-links path{fill:none;stroke:rgba(36,87,255,.24);stroke-width:var(--visual-line-primary);stroke-dasharray:3 7}.growth-core circle,.branch circle,.satellite circle{fill:white;stroke:rgba(36,87,255,.35);stroke-width:var(--visual-line-primary)}.growth-core circle:first-child{fill:rgba(36,87,255,.08);stroke:#22d3ee;stroke-width:var(--visual-line-active);filter:drop-shadow(0 0 15px rgba(36,87,255,.2))}.growth-core text,.branch text,.satellite text{fill:#58657a;font:700 9px Manrope,sans-serif;letter-spacing:.07em}.growth-core text{fill:#2457ff;font-size:12px}.growth-core .sub{fill:#667085;font-size:6px}.satellite circle{fill:#edf2ff}.is-visual-active .growth-core circle:first-child{animation:core-breathe 6s ease-in-out infinite}@keyframes core-breathe{50%{stroke-opacity:.45;transform:scale(1.04);transform-origin:450px 190px}}@media(max-width:680px){.constellation,.constellation svg{min-height:245px}.satellite:nth-of-type(even){display:none}.branch text{font-size:7px}}@media(prefers-reduced-motion:reduce){.growth-core circle:first-child{animation:none}}</style>
+<div class="constellation" data-visual-motion aria-hidden="true"><svg viewBox="0 0 900 380"><g class="constellation-links"><path data-visual-path d="M450 190L245 190L120 92M245 190L128 280M245 190L300 54M450 190L450 76M450 190L655 190L604 54M655 190L780 100M655 190L772 278M450 190L604 326M450 190L300 326"/></g><g class="growth-core" data-visual-node><circle cx="450" cy="190" r="58"/><circle cx="450" cy="190" r="43"/><text x="450" y="185" text-anchor="middle">CLICOM</text><text class="sub" x="450" y="204" text-anchor="middle">SYSTÈME DE CROISSANCE</text></g><g class="branch acquisition" data-visual-node><circle cx="245" cy="190" r="39"/><text x="245" y="194" text-anchor="middle">ACQUISITION</text></g><g class="branch creation" data-visual-node><circle cx="450" cy="76" r="34"/><text x="450" y="80" text-anchor="middle">CRÉATION</text></g><g class="branch technology" data-visual-node><circle cx="655" cy="190" r="39"/><text x="655" y="194" text-anchor="middle">TECHNOLOGIE</text></g>{satellites.map(([label,x,y])=><g class="satellite" data-visual-node><circle cx={x} cy={y} r="19"/><text x={x} y={Number(y)+34} text-anchor="middle">{label}</text></g>)}</svg></div><script>import '../../scripts/visuals/svg-motion';</script><style>
+  .constellation, .constellation svg { width: 100%; min-height: 350px; }
+  /* Level 3: Constellation dashed links & satellite nodes */
+  .constellation-links path { fill: none; stroke: rgba(36, 87, 255, 0.16); stroke-width: var(--visual-line-primary); stroke-dasharray: 3 7; }
+  .satellite circle { fill: var(--color-primary-soft); stroke: rgba(36, 87, 255, 0.22); stroke-width: var(--visual-line-primary); }
+  .satellite text { fill: var(--color-text-muted); font: 700 9px 'Manrope Variable', Manrope, sans-serif; letter-spacing: 0.08em; }
+  /* Level 2: 3 Main Pillars */
+  .branch circle { fill: #ffffff; stroke: rgba(36, 87, 255, 0.32); stroke-width: var(--visual-line-primary); }
+  .branch text { fill: var(--color-midnight); font: 800 9px 'Manrope Variable', Manrope, sans-serif; letter-spacing: 0.09em; }
+  /* Level 1: Central Core System */
+  .growth-core circle:first-child { fill: rgba(36, 87, 255, 0.06); stroke: var(--color-cyan); stroke-width: var(--visual-line-active); filter: drop-shadow(0 0 10px rgba(36, 87, 255, 0.2)); }
+  .growth-core circle:nth-child(2) { fill: #ffffff; stroke: rgba(36, 87, 255, 0.35); stroke-width: var(--visual-line-primary); }
+  .growth-core text { fill: var(--color-primary); font: 800 12px 'Manrope Variable', Manrope, sans-serif; letter-spacing: 0.08em; }
+  .growth-core .sub { fill: var(--color-text-muted); font-size: 6.5px; letter-spacing: 0.1em; }
+  .is-visual-active .growth-core circle:first-child { animation: core-breathe 6s ease-in-out infinite; }
+  @keyframes core-breathe {
+    50% { stroke-opacity: 0.5; transform: scale(1.03); transform-origin: 450px 190px; }
+  }
+  @media (max-width: 680px) {
+    .constellation, .constellation svg { min-height: 245px; }
+    .satellite:nth-of-type(even) { display: none; }
+    .branch text { font-size: 7.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .growth-core circle:first-child { animation: none; }
+  }
+</style>

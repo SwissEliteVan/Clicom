@@ -1,4 +1,22 @@
 ---
 const labels=['SITE','SEO','ADS','SOCIAL','IA','CONVERSION'];const pts=[[450,48],[570,112],[570,248],[450,312],[330,248],[330,112]];
 ---
-<div class="audit-scanner" data-visual-motion aria-hidden="true"><svg viewBox="0 0 900 360"><g class="rings"><circle cx="450" cy="180" r="132"/><circle cx="450" cy="180" r="88"/><circle cx="450" cy="180" r="42"/><path d="M450 35V325M305 180H595"/></g><path class="sweep" d="M450 180V48A132 132 0 0 1 568 239Z"/>{pts.map(([x,y],i)=><g class="point" data-visual-node><circle cx={x} cy={y} r="7"/><text x={x} y={y+22} text-anchor="middle">{labels[i]}</text></g>)}</svg></div><script>import '../../scripts/visuals/svg-motion';</script><style>.audit-scanner svg{width:100%;min-height:330px}.rings{fill:none;stroke:rgba(36,87,255,.15);stroke-width:var(--visual-line-secondary);stroke-dasharray:3 7}.sweep{fill:rgba(34,211,238,.08);stroke:#22d3ee;stroke-width:var(--visual-line-primary);transform-origin:450px 180px}.is-visual-active .sweep{animation:sweep var(--visual-loop) linear infinite}.point circle{fill:#2457ff;stroke:white;stroke-width:var(--visual-line-active)}.point text{fill:#58657a;font:700 9px Manrope,sans-serif;letter-spacing:.08em}@keyframes sweep{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sweep{animation:none}}@media(max-width:680px){.audit-scanner svg{min-height:240px}}</style>
+<div class="audit-scanner" data-visual-motion aria-hidden="true"><svg viewBox="0 0 900 360"><g class="rings"><circle cx="450" cy="180" r="132"/><circle cx="450" cy="180" r="88"/><circle cx="450" cy="180" r="42"/><path d="M450 35V325M305 180H595"/></g><path class="sweep" d="M450 180V48A132 132 0 0 1 568 239Z"/>{pts.map(([x,y],i)=><g class="point" data-visual-node><circle cx={x} cy={y} r="7"/><text x={x} y={y+22} text-anchor="middle">{labels[i]}</text></g>)}</svg></div><script>import '../../scripts/visuals/svg-motion';</script><style>
+  .audit-scanner, .audit-scanner svg { width: 100%; min-height: 330px; }
+  /* Level 3: Concentric range rings & axes */
+  .rings { fill: none; stroke: rgba(36, 87, 255, 0.14); stroke-width: var(--visual-line-secondary); stroke-dasharray: 3 7; }
+  .rings path { stroke: rgba(36, 87, 255, 0.1); stroke-dasharray: none; }
+  /* Level 1: Radar sweep beam */
+  .sweep { fill: rgba(34, 211, 238, 0.07); stroke: var(--color-cyan); stroke-width: var(--visual-line-primary); transform-origin: 450px 180px; }
+  .is-visual-active .sweep { animation: sweep var(--visual-loop) linear infinite; }
+  /* Level 1: Target radar nodes */
+  .point circle { fill: var(--color-primary); stroke: #ffffff; stroke-width: var(--visual-line-active); filter: drop-shadow(0 2px 6px rgba(36, 87, 255, 0.35)); }
+  .point text { fill: var(--color-text-muted); font: 700 9px 'Manrope Variable', Manrope, sans-serif; letter-spacing: 0.1em; }
+  @keyframes sweep { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .sweep { animation: none; }
+  }
+  @media (max-width: 680px) {
+    .audit-scanner, .audit-scanner svg { min-height: 240px; }
+  }
+</style>

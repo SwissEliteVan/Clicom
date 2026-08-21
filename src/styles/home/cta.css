@@ -98,8 +98,9 @@
   min-height: 58px;
   border-radius: 999px;
   color: #07102a;
-  background: #fff;
-  transition: transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .25s cubic-bezier(.16, 1, .3, 1);
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition-micro), box-shadow var(--transition-fast), background-color var(--transition-micro);
 }
 
 .home-cta__badges {
@@ -151,7 +152,7 @@
 @media (hover: hover) and (pointer: fine) {
   .home-cta__actions :where(.button):hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(34, 211, 238, .2);
+    box-shadow: 0 10px 28px rgba(34, 211, 238, .22);
   }
 }
 

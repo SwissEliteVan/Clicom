@@ -235,14 +235,6 @@ const differentiators = [
     title: 'Approche progressive',
     text: 'Vous activez uniquement les briques nécessaires à votre stade de maturité, sans forfait rigide imposé ni surcoût caché.',
   },
-  {
-    title: 'Visibilité reliée à la conversion',
-    text: 'Le trafic n’est qu’un moyen : nous concevons chaque parcours pour amener le visiteur vers une prise de contact qualifiée.',
-  },
-  {
-    title: 'Automatisation utile & encadrée',
-    text: 'Des gains de temps réels grâce à l’automatisation et l’IA, toujours placés sous le contrôle et le jugement de vos collaborateurs.',
-  },
 ];
 ---
 
@@ -256,61 +248,34 @@ const differentiators = [
     title="Un digital cohérent plutôt qu'une <span class='gradient-text'>accumulation d'outils.</span>"
     intro="CliCom ne vous vend pas des prestations isolées : nous sélectionnons, structurons et relions les compétences numériques réellement utiles aux objectifs de votre PME."
     primary="#piliers"
-    primaryLabel="Explorer les 4 piliers →"
+    primaryLabel="Explorer les 4 piliers ↓"
     secondary="/solutions/"
     secondaryLabel="Voir les solutions par défi métier"
     showBand={false}
   />
 
-  <!-- Constat métier & vision système -->
+  <!-- Constat métier -->
   <section class="section section--white services-concept">
     <div class="container">
       <div class="services-concept__grid">
         <div class="services-concept__lead">
-          <div class="eyebrow">Le constat PME</div>
-          <h2>Vous ne cherchez pas du SEO ou un CRM. <span class="accent">Vous cherchez des résultats.</span></h2>
+          <div class="eyebrow">Vision &amp; Méthode</div>
+          <h2>Vous ne cherchez pas un outil. <span class="accent">Vous cherchez des résultats.</span></h2>
           <p class="lead-text">
-            Une PME ne cherche pas à empiler des logiciels pour le plaisir de la technologie. Elle cherche plus de demandes de devis qualifiées, une meilleure organisation commerciale et du temps libéré pour ses équipes.
+            Une PME ne cherche pas à empiler des logiciels. Elle cherche plus de demandes de devis qualifiées, une meilleure organisation commerciale et du temps libéré pour ses équipes opérationnelles.
           </p>
         </div>
-        <div class="services-concept__comparison">
-          <article class="concept-card concept-card--legacy">
-            <div class="concept-card__tag">L'approche classique par catalogue</div>
-            <h3>Des prestations dispersées</h3>
+        <div class="services-concept__split">
+          <div class="concept-item">
+            <span class="concept-item__num">01</span>
+            <h3>L'approche classique par catalogue</h3>
             <p>Faire appel à un freelance SEO, une agence web et acheter un CRM séparément crée des ruptures, de la perte de données et des coûts cachés.</p>
-          </article>
-          <article class="concept-card concept-card--system">
-            <div class="concept-card__tag">L'approche système CliCom</div>
-            <h3>Un écosystème interconnecté</h3>
+          </div>
+          <div class="concept-item concept-item--highlight">
+            <span class="concept-item__num">02</span>
+            <h3>L'approche système CliCom</h3>
             <p>Chaque composant alimente le suivant : le site crédibilise, les campagnes attirent, l'automatisation traite et le suivi fidélise.</p>
-          </article>
-        </div>
-      </div>
-
-      <!-- Rail de continuité du système -->
-      <div class="services-rail" aria-label="Continuum du système CliCom">
-        <div class="rail-step">
-          <span class="rail-num">01</span>
-          <strong>Présence</strong>
-          <small>Fondations & crédibilité</small>
-        </div>
-        <i class="rail-arrow" aria-hidden="true">→</i>
-        <div class="rail-step">
-          <span class="rail-num">02</span>
-          <strong>Acquisition</strong>
-          <small>Visibilité & contacts</small>
-        </div>
-        <i class="rail-arrow" aria-hidden="true">→</i>
-        <div class="rail-step">
-          <span class="rail-num">03</span>
-          <strong>Automatisation</strong>
-          <small>Fluidité & temps gagné</small>
-        </div>
-        <i class="rail-arrow" aria-hidden="true">→</i>
-        <div class="rail-step">
-          <span class="rail-num">04</span>
-          <strong>Performance & Sécurité</strong>
-          <small>Mesure & sérénité</small>
+          </div>
         </div>
       </div>
     </div>
@@ -320,45 +285,43 @@ const differentiators = [
   <section class="section services-pillars-section" id="piliers">
     <div class="container">
       <div class="section-heading">
-        <div class="eyebrow">Architecture de l'offre</div>
-        <h2>Le système CliCom en <span class="accent">4 piliers interconnectés.</span></h2>
+        <div class="eyebrow">Architecture du système</div>
+        <h2>Le système CliCom en 4 piliers interconnectés.</h2>
         <p>Chaque pilier répond à un enjeu clé de votre entreprise et s'articule avec les autres pour former un moteur de croissance fiable.</p>
       </div>
 
       <div class="pillars-stack">
         {pillars.map((pillar) => (
-          <article class="pillar-block" id={`pilier-${pillar.number}`}>
-            <div class="pillar-block__header">
-              <div class="pillar-block__meta">
-                <span class="pillar-block__num">{pillar.number}</span>
-                <span class="pillar-block__badge">{pillar.badge}</span>
-              </div>
-              <div class="pillar-block__title-wrap">
+          <article class="pillar-row" id={`pilier-${pillar.number}`}>
+            <div class="pillar-row__intro">
+              <span class="pillar-row__num">{pillar.number}</span>
+              <div class="pillar-row__title-wrap">
+                <span class="pillar-row__tag">{pillar.badge}</span>
                 <h3>{pillar.title}</h3>
-                <p class="pillar-block__subtitle">{pillar.subtitle}</p>
+                <p class="pillar-row__subtitle">{pillar.subtitle}</p>
               </div>
             </div>
 
-            <div class="pillar-block__body">
-              <div class="pillar-block__diagnostics">
-                <div class="diagnostic-box diagnostic-box--problem">
-                  <strong>Le problème fréquent :</strong>
+            <div class="pillar-row__content">
+              <div class="pillar-row__narrative">
+                <div class="narrative-block">
+                  <strong>Le défi fréquent</strong>
                   <p>{pillar.problem}</p>
                 </div>
-                <div class="diagnostic-box diagnostic-box--result">
-                  <strong>Le résultat visé :</strong>
+                <div class="narrative-block narrative-block--result">
+                  <strong>La valeur créée</strong>
                   <p>{pillar.result}</p>
                 </div>
               </div>
 
-              <div class="pillar-block__capabilities">
-                <strong>Capacités & expertises mobilisées :</strong>
-                <div class="capabilities-grid">
+              <div class="pillar-row__capabilities">
+                <span class="capabilities-title">Expertises mobilisées :</span>
+                <div class="capabilities-list">
                   {pillar.capabilities.map((cap) => (
-                    <a href={cap.href} class="capability-item">
-                      <div class="capability-item__head">
+                    <a href={cap.href} class="cap-card">
+                      <div class="cap-card__header">
                         <h4>{cap.title}</h4>
-                        <span class="capability-item__arrow" aria-hidden="true">↗</span>
+                        <span class="cap-card__arrow" aria-hidden="true">↗</span>
                       </div>
                       <p>{cap.desc}</p>
                     </a>
@@ -367,9 +330,9 @@ const differentiators = [
               </div>
             </div>
 
-            <div class="pillar-block__footer">
+            <div class="pillar-row__footer">
               <span>Pages détaillées :</span>
-              <div class="pillar-block__links">
+              <div class="pillar-row__links">
                 {pillar.links.map((link) => (
                   <a href={link.href} class="pillar-link">
                     {link.label} <span aria-hidden="true">→</span>
@@ -388,26 +351,26 @@ const differentiators = [
     <div class="container">
       <div class="section-heading">
         <div class="eyebrow eyebrow--cyan">Notre démarche</div>
-        <h2>Nous partons du besoin métier, <span class="gradient-text">pas de la technologie.</span></h2>
+        <h2>Nous partons du besoin métier, pas de la technologie.</h2>
         <p>Une collaboration efficace ne commence pas par le choix d’un outil, mais par la compréhension de votre modèle et de vos priorités opérationnelles.</p>
       </div>
 
       <div class="grid grid--3 approach-grid">
-        <article class="card approach-card">
-          <div class="approach-step">01</div>
-          <h3>Diagnostic & Priorisation</h3>
+        <div class="approach-item">
+          <span class="approach-item__num">01</span>
+          <h3>Diagnostic &amp; Priorisation</h3>
           <p>Nous identifions où se situe votre point de friction majeur : visibilité insuffisante, perte de conversion sur votre site ou traitement trop lent des opportunités.</p>
-        </article>
-        <article class="card approach-card">
-          <div class="approach-step">02</div>
+        </div>
+        <div class="approach-item">
+          <span class="approach-item__num">02</span>
           <h3>Activation progressive</h3>
           <p>Nous déployons uniquement les briques pertinentes pour votre situation, avec un calendrier réaliste et des jalons de validation partagés.</p>
-        </article>
-        <article class="card approach-card">
-          <div class="approach-step">03</div>
-          <h3>Mesure & Optimisation</h3>
+        </div>
+        <div class="approach-item">
+          <span class="approach-item__num">03</span>
+          <h3>Mesure &amp; Optimisation</h3>
           <p>Nous suivons les résultats sur vos demandes réelles et faisons évoluer le dispositif dans la durée, sans complexité superflue.</p>
-        </article>
+        </div>
       </div>
     </div>
   </section>
@@ -417,515 +380,307 @@ const differentiators = [
     <div class="container">
       <div class="section-heading">
         <div class="eyebrow">Ce qui nous distingue</div>
-        <h2>Pourquoi les PME romandes <span class="accent">choisissent CliCom.</span></h2>
+        <h2>Pourquoi les PME romandes choisissent CliCom.</h2>
         <p>Une agence conçue pour les PME exigeantes : clarté, proximité, pragmatisme et indépendance technique.</p>
       </div>
 
       <div class="grid grid--3 diff-grid">
-        {differentiators.map((diff) => (
-          <article class="card diff-card">
-            <div class="diff-card__icon" aria-hidden="true">
-              <Icon name="spark" />
-            </div>
+        {differentiators.map((diff, idx) => (
+          <div class="diff-item">
+            <span class="diff-item__index">0{idx + 1}</span>
             <h3>{diff.title}</h3>
             <p>{diff.text}</p>
-          </article>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Bloc final de conversion : Faire le point sur votre digital -->
-  <section class="section section--dark services-cta-section">
-    <div class="container services-cta-panel">
-      <div class="services-cta-copy">
+  <!-- Bloc final de conversion -->
+  <section class="section section--dark">
+    <div class="container cta-panel">
+      <div class="cta-panel__copy">
         <div class="eyebrow eyebrow--cyan">Passer à l'action</div>
         <h2>Faire le point sur votre digital.</h2>
         <p>
           En 30 minutes, analysons votre présence en ligne, vos canaux d'acquisition et vos processus pour identifier les actions prioritaires les plus rentables pour votre PME.
         </p>
-        <div class="services-cta-actions">
-          <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
-          <Button href="/audit-gratuit/" variant="secondary">Demander un audit gratuit</Button>
-        </div>
       </div>
-      <div class="services-cta-meta">
-        <div class="meta-item">
-          <strong>30 minutes concrètes</strong>
-          <span>Échange direct avec un spécialiste</span>
-        </div>
-        <div class="meta-item">
-          <strong>Sans engagement</strong>
-          <span>Recommandations pragmatiques pour PME</span>
-        </div>
-        <div class="meta-item">
-          <strong>Suisse romande</strong>
-          <span>Proximité locale & réactivité</span>
-        </div>
+      <div class="button-row">
+        <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
+        <Button href="/audit-gratuit/" variant="secondary">Demander un audit gratuit</Button>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Concept section */
+  /* Concept Section */
   .services-concept {
-    padding-bottom: var(--space-6);
     border-bottom: 1px solid var(--color-border);
   }
   .services-concept__grid {
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap: clamp(36px, 6vw, 72px);
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(36px, 5vw, 64px);
     align-items: start;
-    margin-bottom: clamp(48px, 6vw, 72px);
   }
   .services-concept__lead h2 {
-    margin: 10px 0 20px;
-    font-size: clamp(1.85rem, 3.2vw, 2.65rem);
-    line-height: 1.12;
+    font-size: clamp(1.85rem, 2.5vw, 2.4rem);
+    line-height: 1.15;
   }
   .lead-text {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     line-height: 1.65;
     color: var(--color-text-muted);
   }
-  .services-concept__comparison {
+  .services-concept__split {
     display: grid;
-    gap: 16px;
+    gap: 24px;
   }
-  .concept-card {
-    padding: clamp(20px, 3vw, 28px);
-    border-radius: var(--radius-card);
-    border: 1px solid var(--color-border);
+  .concept-item {
+    padding-top: 18px;
+    border-top: 1px solid var(--color-border);
   }
-  .concept-card--legacy {
-    background: rgba(247, 249, 252, 0.7);
-    border-color: var(--color-border);
-  }
-  .concept-card--system {
-    background: linear-gradient(145deg, #ffffff, var(--color-primary-soft));
-    border-color: rgba(36, 87, 255, 0.28);
-    box-shadow: 0 12px 32px rgba(36, 87, 255, 0.06);
-  }
-  .concept-card__tag {
-    display: inline-block;
-    margin-bottom: 10px;
-    font-size: 0.72rem;
-    font-weight: 780;
+  .concept-item__num {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
     letter-spacing: 0.1em;
-    text-transform: uppercase;
     color: var(--color-text-muted);
+    margin-bottom: 6px;
   }
-  .concept-card--system .concept-card__tag {
-    color: var(--color-primary);
-  }
-  .concept-card h3 {
+  .concept-item h3 {
     margin: 0 0 8px;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: var(--color-midnight);
   }
-  .concept-card p {
+  .concept-item p {
     margin: 0;
     font-size: 0.95rem;
     line-height: 1.55;
     color: var(--color-text-muted);
   }
-
-  /* Rail de continuité */
-  .services-rail {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr auto);
-    align-items: center;
-    gap: 12px;
-    padding: 24px 28px;
-    background: var(--color-midnight);
-    border-radius: var(--radius-card);
-    color: white;
-    box-shadow: var(--shadow-card);
-  }
-  .services-rail {
-    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
-  }
-  .rail-step {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .rail-num {
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    color: var(--color-cyan);
-  }
-  .rail-step strong {
-    font-size: 1.05rem;
-    color: white;
-    letter-spacing: -0.02em;
-  }
-  .rail-step small {
-    font-size: 0.8rem;
-    color: var(--color-dark-muted);
-  }
-  .rail-arrow {
-    color: var(--color-cyan);
-    font-style: normal;
-    font-size: 1.25rem;
-    opacity: 0.8;
+  .concept-item--highlight h3 {
+    color: var(--color-primary);
   }
 
-  /* Pillars Stack */
+  /* Pillars Stack — Editorial Pacing */
   .services-pillars-section {
     background: var(--color-background);
   }
   .pillars-stack {
     display: flex;
     flex-direction: column;
-    gap: clamp(36px, 5vw, 54px);
+    gap: clamp(48px, 6vw, 72px);
   }
-  .pillar-block {
-    display: flex;
-    flex-direction: column;
-    padding: clamp(28px, 4vw, 44px);
-    background: white;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-surface);
-    box-shadow: var(--shadow-card);
-    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  .pillar-row {
+    padding-top: 32px;
+    border-top: 1px solid var(--color-border-strong);
   }
-  .pillar-block:hover {
-    border-color: rgba(36, 87, 255, 0.28);
-    box-shadow: var(--shadow-card-hover);
+  .pillar-row__intro {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 32px;
   }
-  .pillar-block__header {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--color-border);
-    margin-bottom: 28px;
-  }
-  .pillar-block__meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .pillar-block__num {
-    display: inline-grid;
-    place-items: center;
-    width: 34px;
-    height: 34px;
-    background: var(--color-primary-soft);
-    color: var(--color-primary);
-    border-radius: 50%;
-    font-size: 0.82rem;
+  .pillar-row__num {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
     font-weight: 800;
-    letter-spacing: 0.05em;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--color-primary);
   }
-  .pillar-block__badge {
+  .pillar-row__tag {
+    display: block;
     font-size: 0.72rem;
-    font-weight: 780;
+    font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--color-primary);
-  }
-  .pillar-block__title-wrap h3 {
-    margin: 0 0 6px;
-    font-size: clamp(1.6rem, 2.6vw, 2.15rem);
-    color: var(--color-midnight);
-  }
-  .pillar-block__subtitle {
-    margin: 0;
-    font-size: 1.05rem;
     color: var(--color-text-muted);
-  }
-
-  .pillar-block__body {
-    display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    gap: clamp(32px, 5vw, 60px);
-    align-items: start;
-  }
-  .pillar-block__diagnostics {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  .diagnostic-box {
-    padding: 18px 20px;
-    border-radius: var(--radius-card-small);
-  }
-  .diagnostic-box strong {
-    display: block;
-    font-size: 0.76rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
     margin-bottom: 6px;
   }
-  .diagnostic-box p {
+  .pillar-row__title-wrap h3 {
+    margin: 0 0 8px;
+    font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+    color: var(--color-midnight);
+  }
+  .pillar-row__subtitle {
     margin: 0;
-    font-size: 0.94rem;
-    line-height: 1.55;
-  }
-  .diagnostic-box--problem {
-    background: rgba(247, 249, 252, 0.85);
-    border-left: 3px solid var(--color-border-strong);
-  }
-  .diagnostic-box--problem strong {
+    font-size: 1.125rem;
     color: var(--color-text-muted);
   }
-  .diagnostic-box--problem p {
-    color: var(--color-midnight);
+
+  .pillar-row__content {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+    margin-bottom: 28px;
   }
-  .diagnostic-box--result {
-    background: var(--color-primary-soft);
-    border-left: 3px solid var(--color-primary);
+  .pillar-row__narrative {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
-  .diagnostic-box--result strong {
+  .narrative-block {
+    padding-left: 18px;
+    border-left: 2px solid var(--color-border-strong);
+  }
+  .narrative-block strong {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 6px;
+  }
+  .narrative-block p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--color-text);
+  }
+  .narrative-block--result {
+    border-left-color: var(--color-primary);
+  }
+  .narrative-block--result strong {
     color: var(--color-primary);
   }
-  .diagnostic-box--result p {
-    color: var(--color-midnight);
-  }
 
-  .pillar-block__capabilities > strong {
+  .capabilities-title {
     display: block;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-text-muted);
     margin-bottom: 14px;
   }
-  .capabilities-grid {
+  .capabilities-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+    gap: 12px;
   }
-  .capability-item {
+  .cap-card {
     display: flex;
     flex-direction: column;
-    padding: 16px 18px;
-    background: rgba(247, 249, 252, 0.7);
+    padding: 16px;
+    background: white;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-card-small);
-    text-decoration: none;
-    transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
   }
-  .capability-item:hover {
-    transform: translateY(-2px);
+  .cap-card:hover {
     border-color: var(--color-primary);
-    background: white;
-    box-shadow: 0 6px 18px rgba(36, 87, 255, 0.08);
+    transform: translateY(-2px);
   }
-  .capability-item__head {
+  .cap-card__header {
     display: flex;
-    align-items: baseline;
     justify-content: space-between;
+    align-items: baseline;
     gap: 8px;
     margin-bottom: 6px;
   }
-  .capability-item__head h4 {
+  .cap-card__header h4 {
     margin: 0;
     font-size: 0.95rem;
-    font-weight: 740;
     color: var(--color-midnight);
   }
-  .capability-item__arrow {
+  .cap-card__arrow {
+    font-size: 0.9rem;
     color: var(--color-primary);
-    font-size: 0.95rem;
-    transition: transform var(--transition-fast);
   }
-  .capability-item:hover .capability-item__arrow {
-    transform: translate(2px, -2px);
-  }
-  .capability-item p {
+  .cap-card p {
     margin: 0;
     font-size: 0.84rem;
-    line-height: 1.45;
-    color: var(--color-text-muted);
-  }
-
-  .pillar-block__footer {
+  .pillar-row__footer {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 16px;
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid var(--color-border);
-    flex-wrap: wrap;
-  }
-  .pillar-block__footer > span {
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    gap: 12px 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--color-border);
+    font-size: 0.8125rem;
     color: var(--color-text-muted);
-    font-weight: 700;
   }
-  .pillar-block__links {
+  .pillar-row__links {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 14px;
   }
   .pillar-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 14px;
-    background: var(--color-primary-soft);
-    border-radius: 999px;
-    font-size: 0.84rem;
-    font-weight: 700;
     color: var(--color-primary);
-    text-decoration: none;
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    font-weight: 600;
   }
   .pillar-link:hover {
-    background: rgba(36, 87, 255, 0.16);
-    transform: translateX(2px);
+    text-decoration: underline;
   }
 
-  /* Approach section */
+  /* Approach Grid */
   .approach-grid {
-    margin-top: var(--space-4);
+    gap: clamp(24px, 4vw, 40px);
   }
-  .approach-card {
-    padding: clamp(24px, 3.5vw, 36px);
+  .approach-item {
+    padding-top: 20px;
+    border-top: 1px solid var(--color-dark-border);
   }
-  .approach-step {
-    display: inline-block;
-    margin-bottom: 16px;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--color-cyan);
-    letter-spacing: 0.05em;
+  .approach-item__num {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #93c5fd;
+    margin-bottom: 10px;
   }
-  .approach-card h3 {
-    margin-bottom: 12px;
+  .approach-item h3 {
+    margin: 0 0 10px;
     font-size: 1.25rem;
     color: white;
   }
-  .approach-card p {
+  .approach-item p {
     margin: 0;
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.55;
     color: var(--color-dark-muted);
   }
 
-  /* Differentiation section */
+  /* Diff Grid */
   .diff-grid {
-    margin-top: var(--space-4);
+    gap: clamp(24px, 4vw, 40px);
   }
-  .diff-card {
-    padding: clamp(24px, 3vw, 32px);
+  .diff-item {
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border);
   }
-  .diff-card__icon {
-    display: inline-grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    margin-bottom: 16px;
-    background: var(--color-primary-soft);
+  .diff-item__index {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     color: var(--color-primary);
-    border-radius: 12px;
+    margin-bottom: 8px;
   }
-  .diff-card__icon :global(svg) {
-    width: 22px;
-    height: 22px;
-  }
-  .diff-card h3 {
-    margin-bottom: 10px;
-    font-size: 1.18rem;
+  .diff-item h3 {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
     color: var(--color-midnight);
   }
-  .diff-card p {
+  .diff-item p {
     margin: 0;
     font-size: 0.92rem;
     line-height: 1.55;
     color: var(--color-text-muted);
   }
 
-  /* CTA Panel */
-  .services-cta-section {
-    background: var(--color-midnight);
-    color: white;
-  }
-  .services-cta-panel {
-    display: grid;
-    grid-template-columns: 1.25fr 0.75fr;
-    gap: clamp(40px, 6vw, 80px);
-    align-items: center;
-  }
-  .eyebrow--cyan {
-    color: var(--color-cyan) !important;
-  }
-  .services-cta-copy h2 {
-    margin: 8px 0 16px;
-    font-size: clamp(2rem, 3.5vw, 2.75rem);
-    color: white;
-  }
-  .services-cta-copy p {
-    margin: 0 0 28px;
-    color: var(--color-dark-muted);
-    font-size: 1.08rem;
-    line-height: 1.6;
-    max-width: 580px;
-  }
-  .services-cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .services-cta-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 28px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--color-dark-border);
-    border-radius: var(--radius-card);
-  }
-  .meta-item {
-    display: flex;
-    flex-direction: column;
-  }
-  .meta-item strong {
-    font-size: 1.05rem;
-    color: var(--color-cyan);
-  }
-  .meta-item span {
-    font-size: 0.85rem;
-    color: var(--color-dark-muted);
-  }
-
-  /* Responsive */
-  @media (max-width: 960px) {
-    .services-concept__grid,
-    .pillar-block__body,
-    .services-cta-panel {
-      grid-template-columns: 1fr;
-    }
-    .services-rail {
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .rail-arrow {
-      display: none;
-    }
+  @media (max-width: 1024px) {
+    .services-concept__grid { grid-template-columns: 1fr; }
+    .pillar-row__content { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 680px) {
-    .capabilities-grid {
-      grid-template-columns: 1fr;
-    }
-    .services-rail {
-      grid-template-columns: 1fr;
-      padding: 20px;
-    }
-    .services-cta-actions {
-      flex-direction: column;
-    }
-    .services-cta-actions :global(.button) {
-      width: 100%;
-    }
+    .pillar-row__intro { grid-template-columns: 1fr; gap: 8px; }
+    .capabilities-list { grid-template-columns: 1fr; }
   }
 </style>

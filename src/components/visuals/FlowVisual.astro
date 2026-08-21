@@ -6,4 +6,27 @@ const line=points.map((p,i)=>`${i?'L':'M'}${p.x} ${p.y}`).join(' ');
 ---
 <div class="flow-visual" data-visual-motion aria-hidden="true"><svg viewBox="0 0 900 360" focusable="false"><defs><linearGradient id="automation-route"><stop stop-color="#2457ff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><g class="lanes"><path d="M40 90H860M40 270H860"/></g><path class="track" d={line}/><path class="route" data-visual-path d={line}/><circle class="signal" r="5" style={`--signal-path:path('${line}')`}/>{points.map((p,i)=><g class:list={['step',{'decision':i===2}]} data-visual-node><rect x={p.x-70} y={p.y-38} width="140" height="76" rx="14"/><text class="index" x={p.x} y={p.y-7} text-anchor="middle">{String(i+1).padStart(2,'0')}</text><text x={p.x} y={p.y+14} text-anchor="middle">{labels[i]}</text>{i===2&&<path class="branch" d={`M${p.x} ${p.y+38}v46h92`}/>}</g>)}</svg></div>
 <script>import '../../scripts/visuals/svg-motion';</script>
-<style>.flow-visual,.flow-visual svg{width:100%;min-height:330px}.lanes path{stroke:rgba(36,87,255,.07);stroke-width:var(--visual-line-secondary)}.track,.route,.branch{fill:none;stroke:rgba(36,87,255,.18);stroke-width:var(--visual-line-primary)}.route{stroke:url(#automation-route);stroke-width:var(--visual-line-active)}.step rect{fill:white;stroke:rgba(36,87,255,.32);stroke-width:var(--visual-line-primary)}.step.decision rect{fill:rgba(36,87,255,.1);stroke:#22d3ee}.step text{fill:#58657a;font:700 10px Manrope,sans-serif;letter-spacing:.08em}.step .index{fill:#2457ff;font-size:9px}.signal{fill:#22d3ee;offset-path:var(--signal-path);filter:drop-shadow(0 0 6px #22d3ee)}.is-visual-active .signal{animation:flow-signal var(--visual-loop) linear infinite}@keyframes flow-signal{to{offset-distance:100%}}@media(max-width:680px){.flow-visual,.flow-visual svg{min-height:240px}.step text{font-size:8px}.signal{display:none}}@media(prefers-reduced-motion:reduce){.signal{animation:none}}</style>
+<style>
+  .flow-visual, .flow-visual svg { width: 100%; min-height: 330px; }
+  /* Level 3: Guide lanes */
+  .lanes path { stroke: rgba(36, 87, 255, 0.08); stroke-width: var(--visual-line-secondary); }
+  /* Level 2: Flow route track */
+  .track, .branch { fill: none; stroke: rgba(36, 87, 255, 0.16); stroke-width: var(--visual-line-primary); }
+  .route { fill: none; stroke: url(#automation-route); stroke-width: var(--visual-line-active); stroke-linecap: round; }
+  .step rect { fill: #ffffff; stroke: rgba(36, 87, 255, 0.26); stroke-width: var(--visual-line-primary); }
+  .step text { fill: var(--color-text-muted); font: 700 10px 'Manrope Variable', Manrope, sans-serif; letter-spacing: 0.09em; }
+  .step .index { fill: var(--color-primary); font-size: 9px; }
+  /* Level 1: Decision step & automated signal */
+  .step.decision rect { fill: rgba(36, 87, 255, 0.08); stroke: var(--color-cyan); stroke-width: var(--visual-line-active); }
+  .signal { fill: var(--color-cyan); offset-path: var(--signal-path); filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.65)); }
+  .is-visual-active .signal { animation: flow-signal var(--visual-loop) linear infinite; }
+  @keyframes flow-signal { to { offset-distance: 100%; } }
+  @media (max-width: 680px) {
+    .flow-visual, .flow-visual svg { min-height: 240px; }
+    .step text { font-size: 8px; }
+    .signal { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .signal { animation: none; }
+  }
+</style>

@@ -193,130 +193,72 @@ const sectors = [
 >
   <PageHero
     eyebrow="Solutions par défis métier"
-    title="Quel problème bloque le développement de <span class='gradient-text'>votre PME ?</span>"
-    intro="Vous n’avez pas besoin de maîtriser le jargon technique, le code ou les algorithmes. Identifiez simplement ce qui freine vos résultats : nous structurons les solutions et leviers pertinents pour y répondre."
+    title="Résoudre les blocages qui freinent le développement de votre PME."
+    intro="Vous n’avez pas besoin de maîtriser le jargon technique. Identifiez simplement ce qui freine vos résultats : nous structurons les solutions et leviers pertinents pour y répondre."
     primary="#problemes"
-    primaryLabel="Identifier votre défi métier ↓"
+    primaryLabel="Explorer les solutions ↓"
     secondary="/services/"
     secondaryLabel="Voir les services par compétence"
+    showBand={false}
   />
-
-  <!-- Mental Model Switch Banner -->
-  <section class="mental-model-section" aria-label="Aide au choix de navigation">
-    <div class="container">
-      <div class="mental-model-bar">
-        <div class="mental-model-card mental-model-card--active">
-          <div class="mental-model-badge">Vous êtes ici</div>
-          <span class="mental-model-query">« Je sais ce qui me bloque »</span>
-          <strong>Entrée par Problèmes Métier (Solutions)</strong>
-          <p>Vous partez de votre réalité opérationnelle : manque de visibilité, devis sans suite, perte de temps administratif.</p>
-        </div>
-
-        <div class="mental-model-divider" aria-hidden="true">
-          <span>OU</span>
-        </div>
-
-        <div class="mental-model-card mental-model-card--alt">
-          <div class="mental-model-badge mental-model-badge--alt">Catalogue technique</div>
-          <span class="mental-model-query">« Je sais ce qu'il me faut »</span>
-          <strong>Entrée par Compétences (Services)</strong>
-          <p>Vous recherchez une expertise technique précise parmi nos 4 piliers : Présence · Acquisition · Automatisation · Performance.</p>
-          <a href="/services/" class="mental-model-link">Accéder au catalogue Services <span>→</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Quick Filter Jump Links -->
-  <section class="quick-nav-section" aria-label="Navigation rapide par solution">
-    <div class="container">
-      <nav class="quick-nav" aria-label="Accès direct aux défis">
-        <span class="quick-nav__label">Accès direct :</span>
-        <div class="quick-nav__links">
-          {solutions.map((sol) => (
-            <a href={`#${sol.id}`} class="quick-nav__pill">
-              <span class="quick-nav__num">{sol.number}</span>
-              <span>{sol.theme}</span>
-            </a>
-          ))}
-        </div>
-      </nav>
-    </div>
-  </section>
 
   <!-- Detailed Solutions List -->
   <section class="section section--white" id="problemes">
     <div class="container">
       <div class="section-heading">
-        <div class="eyebrow">5 Réponses méthodiques</div>
-        <h2>Des solutions concrètes pour <span class="accent">débloquer vos résultats.</span></h2>
+        <div class="eyebrow">Méthode de résolution</div>
+        <h2>5 réponses concrètes aux défis des PME romandes.</h2>
         <p>Chaque solution associe un diagnostic clair, une méthode d’intervention éprouvée et les expertises techniques indispensables.</p>
       </div>
 
-      <div class="solutions-stack">
+      <div class="solutions-stream">
         {solutions.map((sol) => (
-          <article class="solution-block card" id={sol.id}>
-            <!-- Solution Header -->
-            <div class="solution-block__header">
-              <div class="solution-block__meta">
-                <span class="solution-block__num">{sol.number}</span>
-                <span class="solution-block__theme">{sol.theme}</span>
+          <article class="solution-entry" id={sol.id}>
+            <div class="solution-entry__head">
+              <span class="solution-entry__num">{sol.number}</span>
+              <div class="solution-entry__titles">
+                <span class="solution-entry__theme">{sol.theme}</span>
+                <h3>{sol.title}</h3>
+                <p>{sol.subtitle}</p>
               </div>
-              <h3>{sol.title}</h3>
-              <p class="solution-block__subtitle">{sol.subtitle}</p>
             </div>
 
-            <!-- Solution Core Grid -->
-            <div class="solution-block__grid">
-              <!-- Left Column: The Problem & The Business Cost -->
-              <div class="solution-block__diagnostic">
-                <div class="diagnostic-box diagnostic-box--problem">
-                  <div class="diagnostic-box__tag">
-                    <span class="dot dot--red" aria-hidden="true"></span>
-                    Ce qui vous bloque aujourd’hui
-                  </div>
-                  <ul class="diagnostic-list">
-                    {sol.problems.map((p) => (
-                      <li>
-                        <span class="cross-icon" aria-hidden="true">✕</span>
-                        <span>{p}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <div class="solution-entry__grid">
+              <!-- 01 Problème -->
+              <div class="solution-column">
+                <span class="column-step">01 · Le constat terrain</span>
+                <h4>Ce qui bloque aujourd’hui</h4>
+                <ul class="clean-list">
+                  {sol.problems.map((p) => (
+                    <li>{p}</li>
+                  ))}
+                </ul>
+              </div>
 
-                <div class="diagnostic-box diagnostic-box--impact">
-                  <div class="diagnostic-box__tag">
-                    <span class="dot dot--amber" aria-hidden="true"></span>
-                    L’impact direct sur votre PME
-                  </div>
+              <!-- 02 Approche -->
+              <div class="solution-column">
+                <span class="column-step">02 · L’intervention</span>
+                <h4>L’approche CliCom</h4>
+                <p>{sol.approach}</p>
+                <div class="impact-note">
+                  <strong>Impact visé :</strong>
                   <p>{sol.impact}</p>
                 </div>
               </div>
 
-              <!-- Right Column: Approach & Services -->
-              <div class="solution-block__resolution">
-                <div class="diagnostic-box diagnostic-box--approach">
-                  <div class="diagnostic-box__tag">
-                    <span class="dot dot--blue" aria-hidden="true"></span>
-                    L’approche CliCom
-                  </div>
-                  <p>{sol.approach}</p>
+              <!-- 03 Système & Action -->
+              <div class="solution-column solution-column--action">
+                <span class="column-step">03 · Briques activées</span>
+                <h4>Compétences mobilisées</h4>
+                <div class="services-nav">
+                  {sol.services.map((srv) => (
+                    <a href={srv.href} class="srv-link">
+                      <span>{srv.label}</span>
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  ))}
                 </div>
-
-                <div class="solution-block__services">
-                  <span class="services-title">Expertises mobilisées dans cette solution :</span>
-                  <div class="services-links">
-                    {sol.services.map((srv) => (
-                      <a href={srv.href} class="service-chip">
-                        <span>{srv.label}</span>
-                        <span class="arrow" aria-hidden="true">→</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-
-                <div class="solution-block__action">
+                <div class="solution-entry__cta">
                   <CalendlyButton label={`${sol.ctaLabel} →`} fallbackHref="/contact/" />
                 </div>
               </div>
@@ -330,367 +272,94 @@ const sectors = [
   <!-- Sector Navigation Strip -->
   <section class="section section--compact sectors-section">
     <div class="container">
-      <div class="sectors-panel">
-        <div class="sectors-heading">
-          <span class="eyebrow">Approche sectorielle</span>
-          <h3>Vous souhaitez une réponse adaptée à votre secteur ?</h3>
-          <p>Nous adaptons le système digital aux réalités opérationnelles et réglementaires de chaque métier en Suisse romande.</p>
-        </div>
-        <div class="sectors-grid">
-          {sectors.map((sec) => (
-            <a href={sec.href} class="sector-card">
-              <strong>{sec.name}</strong>
-              <span>{sec.desc}</span>
-              <span class="sector-card__arrow" aria-hidden="true">→</span>
-            </a>
-          ))}
-        </div>
+      <div class="section-heading">
+        <div class="eyebrow">Approche sectorielle</div>
+        <h2>Une réponse adaptée à votre secteur d’activité.</h2>
+        <p>Nous adaptons le système digital aux réalités opérationnelles et réglementaires de chaque métier en Suisse romande.</p>
+      </div>
+
+      <div class="grid grid--3 sectors-stream">
+        {sectors.map((sec, idx) => (
+          <a href={sec.href} class="sector-item">
+            <span class="sector-item__num">0{idx + 1}</span>
+            <h3>{sec.name}</h3>
+            <p>{sec.desc}</p>
+            <span class="sector-item__arrow" aria-hidden="true">Découvrir →</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
   <!-- Final CTA Panel -->
   <section class="section section--dark">
-    <div class="container solutions-cta-panel">
-      <div class="solutions-cta-copy">
+    <div class="container cta-panel">
+      <div class="cta-panel__copy">
         <div class="eyebrow eyebrow--cyan">Diagnostic sans engagement</div>
         <h2>Votre situation combine plusieurs de ces défis ?</h2>
-        <p>C’est le cas de la grande majorité des PME en développement. Un échange direct de 30 minutes permet de faire le point, d’identifier le point de friction prioritaire et de déterminer la première étape la plus rentable.</p>
-        <div class="solutions-cta-actions">
-          <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
-          <Button href="/audit-gratuit/" variant="secondary">Demander un diagnostic digital</Button>
-        </div>
+        <p>C’est le cas de la majorité des PME en développement. Un échange direct de 30 minutes permet de faire le point, d’identifier le point de friction prioritaire et de déterminer la première étape la plus rentable.</p>
       </div>
-      <div class="solutions-cta-guarantees">
-        <div class="guarantee-item">
-          <strong>Échange pragmatique</strong>
-          <span>Pas de jargon technique, focus 100 % sur vos enjeux métier et votre rentabilité.</span>
-        </div>
-        <div class="guarantee-item">
-          <strong>Priorisation réaliste</strong>
-          <span>Une feuille de route par étapes selon vos ressources internes disponibles.</span>
-        </div>
-        <div class="guarantee-item">
-          <strong>Suisse romande</strong>
-          <span>Expertise ancrée dans le tissu économique et les spécificités régionales suisses.</span>
-        </div>
+      <div class="button-row">
+        <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
+        <Button href="/audit-gratuit/" variant="secondary">Demander un diagnostic digital</Button>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Mental Model Distinction */
-  .mental-model-section {
-    padding-block: var(--space-4);
-    background: var(--color-background);
-  }
-  .mental-model-bar {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: var(--space-3);
-    align-items: stretch;
-  }
-  .mental-model-card {
+  /* Solutions Stream — Open Editorial */
+  .solutions-stream {
     display: flex;
     flex-direction: column;
-    padding: 24px 28px;
-    border-radius: var(--radius-card-small);
-    border: 1px solid var(--color-border);
-    background: white;
+    gap: clamp(56px, 7vw, 84px);
   }
-  .mental-model-card--active {
-    border-color: var(--color-primary);
-    box-shadow: 0 4px 20px rgba(36, 87, 255, 0.08);
-    background: linear-gradient(180deg, #ffffff 0%, var(--color-primary-soft) 100%);
+  .solution-entry {
+    padding-top: 36px;
+    border-top: 1px solid var(--color-border-strong);
+    scroll-margin-top: 96px;
   }
-  .mental-model-card--alt {
-    background: rgba(255, 255, 255, 0.7);
+  .solution-entry__head {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 24px;
+    align-items: baseline;
+    margin-bottom: 32px;
   }
-  .mental-model-badge {
-    align-self: flex-start;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: var(--color-primary);
-    color: white;
+  .solution-entry__num {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--color-primary);
+  }
+  .solution-entry__theme {
+    display: block;
     font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .mental-model-badge--alt {
-    background: var(--color-border-strong);
-    color: var(--color-midnight);
-  }
-  .mental-model-query {
-    font-size: 0.85rem;
-    font-weight: 750;
-    color: var(--color-text-muted);
-    margin-bottom: 4px;
-  }
-  .mental-model-card strong {
-    font-size: 1.05rem;
-    color: var(--color-midnight);
-    margin-bottom: 8px;
-  }
-  .mental-model-card p {
-    margin: 0 0 12px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--color-text);
-  }
-  .mental-model-link {
-    margin-top: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.88rem;
-    font-weight: 750;
-    color: var(--color-primary);
-    text-decoration: none;
-  }
-  .mental-model-link:hover {
-    text-decoration: underline;
-  }
-  .mental-model-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .mental-model-divider span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    font-size: 0.75rem;
-    font-weight: 800;
-    color: var(--color-text-muted);
-  }
-
-  /* Quick Nav Pills */
-  .quick-nav-section {
-    padding-bottom: var(--space-4);
-    background: var(--color-background);
-  }
-  .quick-nav {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 20px;
-    background: white;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    overflow-x: auto;
-  }
-  .quick-nav__label {
-    font-size: 0.82rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-text-muted);
-    white-space: nowrap;
-  }
-  .quick-nav__links {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: nowrap;
-  }
-  .quick-nav__pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: var(--color-background);
-    border: 1px solid var(--color-border);
-    font-size: 0.84rem;
     font-weight: 700;
-    color: var(--color-midnight);
-    white-space: nowrap;
-    transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
-  }
-  .quick-nav__pill:hover {
-    border-color: var(--color-primary);
-    background: var(--color-primary-soft);
-    color: var(--color-primary);
-  }
-  .quick-nav__num {
-    color: var(--color-primary);
-    font-weight: 800;
-    font-size: 0.76rem;
-  }
-
-  /* Solutions Stack */
-  .solutions-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-  .solution-block {
-    padding: clamp(28px, 4vw, 44px);
-    border-radius: var(--radius-card);
-    background: white;
-    border: 1px solid var(--color-border);
-    scroll-margin-top: 100px;
-  }
-  .solution-block__header {
-    margin-bottom: 28px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .solution-block__meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .solution-block__num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3px 10px;
-    background: var(--color-primary-soft);
-    border-radius: 6px;
-    color: var(--color-primary);
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-  }
-  .solution-block__theme {
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-text-muted);
+    margin-bottom: 6px;
   }
-  .solution-block__header h3 {
+  .solution-entry__titles h3 {
     margin: 0 0 6px;
-    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    font-size: clamp(1.65rem, 2.4vw, 2.15rem);
     color: var(--color-midnight);
   }
-  .solution-block__subtitle {
+  .solution-entry__titles p {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.125rem;
     color: var(--color-text-muted);
-    font-weight: 550;
   }
 
-  /* Solution Grid (2 Columns) */
-  .solution-block__grid {
+  /* Solution Columns */
+  .solution-entry__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(24px, 4vw, 40px);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(24px, 3.5vw, 44px);
     align-items: start;
   }
-  .solution-block__diagnostic,
-  .solution-block__resolution {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  /* Diagnostic Boxes */
-  .diagnostic-box {
-    padding: 20px 22px;
-    border-radius: var(--radius-card-small);
-  }
-  .diagnostic-box__tag {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.76rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-  .dot--red { background: #ef4444; }
-  .dot--amber { background: #f59e0b; }
-  .dot--blue { background: var(--color-primary); }
-
-  .diagnostic-box--problem {
-    background: #fef2f2;
-    border: 1px solid rgba(239, 68, 68, 0.2);
-  }
-  .diagnostic-box--problem .diagnostic-box__tag {
-    color: #b91c1c;
-  }
-  .diagnostic-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .diagnostic-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 0.94rem;
-    line-height: 1.5;
-    color: var(--color-midnight);
-  }
-  .cross-icon {
-    color: #ef4444;
-    font-weight: 800;
-    font-size: 0.85rem;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .diagnostic-box--impact {
-    background: #fffbeb;
-    border: 1px solid rgba(245, 158, 11, 0.25);
-  }
-  .diagnostic-box--impact .diagnostic-box__tag {
-    color: #b45309;
-  }
-  .diagnostic-box--impact p {
-    margin: 0;
-    font-size: 0.92rem;
-    line-height: 1.55;
-    color: #78350f;
-    font-weight: 600;
-  }
-
-  .diagnostic-box--approach {
-    background: var(--color-primary-soft);
-    border: 1px solid rgba(36, 87, 255, 0.2);
-  }
-  .diagnostic-box--approach .diagnostic-box__tag {
-    color: var(--color-primary);
-  }
-  .diagnostic-box--approach p {
-    margin: 0;
-    font-size: 0.94rem;
-    line-height: 1.6;
-    color: var(--color-midnight);
-  }
-
-  /* Services Chips */
-  .solution-block__services {
-    padding-top: 4px;
-  }
-  .services-title {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    margin-bottom: 10px;
   }
   .services-links {
     display: flex;
@@ -748,131 +417,61 @@ const sectors = [
     color: var(--color-midnight);
   }
   .sectors-heading p {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: 0.96rem;
+  /* Sectors Stream */
+  .sectors-stream {
+    gap: clamp(20px, 3vw, 32px);
   }
-  .sectors-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-  .sector-card {
-    position: relative;
+  .sector-item {
     display: flex;
     flex-direction: column;
-    padding: 18px 20px;
-    background: var(--color-background);
+    padding: 24px;
+    background: white;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-card-small);
-    text-decoration: none;
-    transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+    border-radius: var(--radius-card);
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
   }
-  .sector-card strong {
-    font-size: 0.96rem;
-    color: var(--color-midnight);
-    margin-bottom: 4px;
-  }
-  .sector-card span:not(.sector-card__arrow) {
-    font-size: 0.84rem;
-    color: var(--color-text-muted);
-    line-height: 1.4;
-  }
-  .sector-card__arrow {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    color: var(--color-primary);
-    font-weight: 800;
-    transition: transform var(--transition-fast);
-  }
-  .sector-card:hover {
+  .sector-item:hover {
     border-color: var(--color-primary);
-    background: var(--color-primary-soft);
     transform: translateY(-2px);
   }
-  .sector-card:hover .sector-card__arrow {
-    transform: translateX(4px);
+  .sector-item__num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .sector-item h3 {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
+    color: var(--color-midnight);
+  }
+  .sector-item p {
+    margin: 0 0 16px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+  .sector-item__arrow {
+    margin-top: auto;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--color-primary);
   }
 
-  /* CTA Dark Panel */
-  .solutions-cta-panel {
-    display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: clamp(40px, 6vw, 80px);
-    align-items: center;
-  }
-  .eyebrow--cyan {
-    color: var(--color-cyan) !important;
-  }
-  .solutions-cta-copy h2 {
-    margin: 8px 0 16px;
-    font-size: clamp(1.75rem, 3.5vw, 2.4rem);
-    color: white;
-  }
-  .solutions-cta-copy p {
-    margin: 0 0 28px;
-    color: var(--color-dark-muted);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    max-width: 580px;
-  }
-  .solutions-cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .solutions-cta-guarantees {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 28px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--color-dark-border);
-    border-radius: var(--radius-card);
-  }
-  .guarantee-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .guarantee-item:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-  .guarantee-item strong {
-    color: var(--color-cyan);
-    font-size: 0.95rem;
-  }
-  .guarantee-item span {
-    color: var(--color-dark-muted);
-    font-size: 0.86rem;
-    line-height: 1.45;
-  }
-
-  /* Responsive */
-  @media (max-width: 950px) {
-    .mental-model-bar {
+  @media (max-width: 1024px) {
+    .solution-entry__grid {
       grid-template-columns: 1fr;
-    }
-    .mental-model-divider {
-      display: none;
-    }
-    .solution-block__grid {
-      grid-template-columns: 1fr;
-    }
-    .sectors-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .solutions-cta-panel {
-      grid-template-columns: 1fr;
+      gap: 28px;
     }
   }
 
-  @media (max-width: 600px) {
-    .sectors-grid {
+  @media (max-width: 680px) {
+    .solution-entry__head {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .sectors-stream {
       grid-template-columns: 1fr;
     }
   }

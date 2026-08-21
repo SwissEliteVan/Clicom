@@ -39,9 +39,9 @@
   position: relative;
   overflow: hidden;
   min-height: 390px;
-  border-radius: 26px;
+  border-radius: 16px;
   background: #070e1f;
-  box-shadow: 0 24px 65px rgba(8, 17, 38, .11);
+  box-shadow: 0 16px 40px rgba(8, 17, 38, .08);
 }
 
 .expertise-editorial--large .expertise-editorial__visual { min-height: 520px; }
@@ -85,7 +85,7 @@
 }
 
 .expertise-editorial__links a span {
-  transition: transform .2s ease;
+  transition: transform var(--transition-micro);
 }
 
 .expertise-media {

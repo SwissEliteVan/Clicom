@@ -4,125 +4,321 @@ import PageHero from '../components/PageHero.astro';
 import Button from '../components/Button.astro';
 import CalendlyButton from '../components/conversion/CalendlyButton.astro';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://clicom.ch/solutions/#webpage',
+      url: 'https://clicom.ch/solutions',
+      name: 'Solutions numériques par problème métier pour PME | CLICOM Suisse',
+      description: 'Trouvez la solution adaptée à votre situation : visibilité locale, conversion de devis, relance commerciale, gain de temps et mesure du ROI.',
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': 'https://clicom.ch/#website',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': 'https://clicom.ch/solutions/#itemlist',
+      name: 'Solutions par défis métier PME',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Être trouvé · Capter les clients qui recherchent vos services en Suisse romande',
+          description: 'Solutions SEO, référencement local, référencement IA et Google Ads pour générer un flux continu de prospects qualifiés.',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Être choisi · Rassurer immédiatement et transformer vos visiteurs en demandes de devis',
+          description: 'Conception de sites web persuasifs, branding professionnel et clarté de l’offre pour maximiser le taux de conversion.',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Ne plus perdre d’opportunités · Suivre chaque contact et relancer vos devis avec méthode',
+          description: 'Organisation CRM, formulaires connectés et séquences de relance automatisées pour augmenter le taux de signature.',
+        },
+        {
+          '@type': 'ListItem',
+          position: 4,
+          name: 'Gagner du temps · Éliminer les ressaisies manuelles et relier vos logiciels métier',
+          description: 'Automatisation des flux administratifs, synchronisation d’outils et assistance IA opérationnelle sous contrôle humain.',
+        },
+        {
+          '@type': 'ListItem',
+          position: 5,
+          name: 'Mesurer et sécuriser · Piloter votre rentabilité avec des indicateurs fiables',
+          description: 'Tableaux de bord d’activité commerciale, maintenance, sécurité technique et accompagnement continu.',
+        },
+      ],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/solutions/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Solutions', item: 'https://clicom.ch/solutions' },
+      ],
+    },
+  ],
+};
+
 const solutions = [
   {
+    id: 'etre-trouve',
     number: '01',
-    title: 'Gagner en visibilité locale et nationale',
-    problem: 'Votre entreprise est difficile à trouver, vos concurrents occupent les premières positions sur Google et votre présence est absente des réponses IA.',
-    benefits: 'Une visibilité organique pérenne sur les requêtes stratégiques de votre secteur en Suisse.',
+    theme: 'Visibilité & Acquisition',
+    title: 'Être trouvé par vos futurs clients en Suisse romande',
+    subtitle: 'Capter la demande au moment précis où vos prospects recherchent vos compétences.',
+    problems: [
+      'Votre entreprise n’apparaît pas sur les requêtes Google stratégiques de votre canton.',
+      'Vos concurrents locaux occupent les premières places et captent les contacts qualifiés.',
+      'Vous dépendez exclusivement du bouche-à-oreille sans flux d’opportunités prévisible.',
+    ],
+    impact: 'Des mandats et contrats à haute valeur ajoutée partent chez des concurrents simplement parce qu’ils sont plus faciles à trouver en ligne.',
+    approach: 'Nous positionnons votre entreprise sur les intentions de recherche à fort potentiel commercial (organique, local et payant) pour construire une source régulière d’opportunités qualifiées.',
     services: [
       { label: 'Référencement naturel (SEO)', href: '/seo/' },
-      { label: 'Référencement IA (ChatGPT, Gemini)', href: '/referencement-ia/' },
-      { label: 'Création de contenu pertinent', href: '/creation-contenu/' },
-      { label: 'Création de site optimisé', href: '/creation-site-web/' },
+      { label: 'Référencement IA (GEO & AEO)', href: '/referencement-ia/' },
+      { label: 'Campagnes Google Ads ciblées', href: '/google-ads/' },
+      { label: 'Création de contenu d’autorité', href: '/creation-contenu/' },
     ],
+    ctaLabel: 'Résoudre mon problème de visibilité',
   },
   {
+    id: 'etre-choisi',
     number: '02',
-    title: 'Générer davantage de prospects qualifiés',
-    problem: 'Votre acquisition est irrégulière, dépend trop du bouche-à-oreille et vos visites ne se transforment pas en demandes concrètes.',
-    benefits: 'Des flux d\'opportunités réguliers grâce à des campagnes ciblées et des pages de destination optimisées.',
-    services: [
-      { label: 'Google Ads', href: '/google-ads/' },
-      { label: 'Publicité sur les réseaux sociaux', href: '/social-ads/' },
-      { label: 'Pages de conversion ciblées', href: '/creation-site-web/' },
+    theme: 'Crédibilité & Conversion',
+    title: 'Être choisi face aux alternatives du marché',
+    subtitle: 'Rassurer immédiatement vos visiteurs et les inciter à faire une demande de devis.',
+    problems: [
+      'Votre site web est vieillissant, lent ou mal adapté à la navigation sur smartphone.',
+      'Votre proposition de valeur est floue et vos visiteurs ne comprennent pas rapidement vos atouts.',
+      'Vous recevez des visites mais très peu de formulaires ou d’appels téléphoniques concrets.',
     ],
-  },
-  {
-    number: '03',
-    title: 'Transformer davantage de visiteurs en clients',
-    problem: 'Vous avez du trafic sur votre site mais peu de prises de contact. Le message manque de clarté et le parcours utilisateur présente des frictions.',
-    benefits: 'Un taux de conversion supérieur grâce à une proposition de valeur limpide et des appels à l\'action rassurants.',
+    impact: 'Chaque visiteur qui quitte votre site sans vous contacter représente un investissement ou une recommandation gâchée.',
+    approach: 'Nous transformons votre vitrine digitale en un outil de réassurance commerciale : message limpide, vitesse de chargement instantanée, preuves tangibles et boutons d’action incitatifs.',
     services: [
-      { label: 'Refonte de site axée conversion', href: '/creation-site-web/' },
-      { label: 'Clarté des messages et contenus', href: '/creation-contenu/' },
-      { label: 'Audit ergonomique et UX', href: '/audit-gratuit/' },
-    ],
-  },
-  {
-    number: '04',
-    title: 'Automatiser les tâches répétitives',
-    problem: 'Saisie manuelle des contacts, relances oubliées, perte de temps administratif et dispersion des données entre plusieurs outils.',
-    benefits: 'Des processus fluides, des demandes traitées en quelques secondes et plus de temps pour vos clients.',
-    services: [
-      { label: 'Automatisation des processus', href: '/automatisation/' },
-      { label: 'Organisation CRM & Suivi', href: '/email-marketing-crm/' },
-      { label: 'Usages IA pragmatiques', href: '/intelligence-artificielle/' },
-    ],
-  },
-  {
-    number: '05',
-    title: 'Structurer et mesurer son acquisition',
-    problem: 'Vos actions numériques sont dispersées, vous manquez de visibilité sur ce qui fonctionne réellement et vos canaux ne sont pas connectés.',
-    benefits: 'Un pilotage clair de vos investissements et un système d\'acquisition cohérent qui travaille en continu.',
-    services: [
-      { label: 'Stratégie & acquisition connectée', href: '/services/' },
-      { label: 'Alignement CRM & Campagnes', href: '/email-marketing-crm/' },
-      { label: 'Audit global de présence', href: '/audit-gratuit/' },
-    ],
-  },
-  {
-    number: '06',
-    title: 'Renforcer son image et sa crédibilité',
-    problem: 'Votre identité visuelle est vieillissante, votre discours manque de consistance et votre présence en ligne ne reflète pas la qualité de vos prestations.',
-    benefits: 'Une image de marque moderne, professionnelle et cohérente qui inspire immédiatement confiance.',
-    services: [
+      { label: 'Création de site web orienté conversion', href: '/creation-site-web/' },
       { label: 'Identité de marque & Branding', href: '/branding/' },
-      { label: 'Création de site haut de gamme', href: '/creation-site-web/' },
+      { label: 'Rédaction persuasive & Pages d’offres', href: '/creation-contenu/' },
       { label: 'Réseaux sociaux professionnels', href: '/reseaux-sociaux/' },
     ],
+    ctaLabel: 'Améliorer mon taux de conversion',
   },
+  {
+    id: 'ne-plus-perdre-leads',
+    number: '03',
+    theme: 'Suivi commercial & Pipeline',
+    title: 'Ne plus perdre d’opportunités et relancer chaque devis',
+    subtitle: 'Structurer la réception de vos leads et assurer un suivi commercial sans faille.',
+    problems: [
+      'Les demandes web arrivent dans une boîte e-mail générique et sont traitées avec retard.',
+      'Le suivi commercial dépend de la mémoire de chacun et les relances sont irrégulières.',
+      'Des devis envoyés restent sans réponse sans que personne ne relance les prospects tièdes.',
+    ],
+    impact: 'Une perte silencieuse de 15 à 30 % de chiffre d’affaires sur des prospects pourtant très intéressés au départ.',
+    approach: 'Nous centralisons vos prises de contact dans un CRM visuel et configurons des séquences de relance automatiques bienveillantes pour signer davantage de propositions.',
+    services: [
+      { label: 'Organisation CRM & Pipeline de vente', href: '/email-marketing-crm/' },
+      { label: 'Automatisation des relances de devis', href: '/automatisation/' },
+      { label: 'Séquences e-mails personnalisées', href: '/email-marketing-crm/' },
+      { label: 'Formulaires web connectés au CRM', href: '/creation-site-web/' },
+    ],
+    ctaLabel: 'Structurer mon suivi commercial',
+  },
+  {
+    id: 'gagner-du-temps',
+    number: '04',
+    theme: 'Productivité & Processus',
+    title: 'Gagner du temps et éliminer les tâches répétitives',
+    subtitle: 'Faire communiquer vos logiciels pour libérer vos équipes du travail administratif.',
+    problems: [
+      'Ressaisir manuellement les coordonnées des clients entre le site, Excel et la facturation.',
+      'Passer des heures à transférer des informations et créer des tâches au lieu de servir les clients.',
+      'Des logiciels de gestion déconnectés qui multiplient les risques d’erreur et les oublis.',
+    ],
+    impact: 'Une surcharge administrative qui épuise vos collaborateurs et ralentit le traitement des commandes.',
+    approach: 'Nous relions vos outils quotidiens grâce à des automatisations robustes et intégrons des assistants IA pragmatiques sous contrôle humain permanent.',
+    services: [
+      { label: 'Automatisation des processus métier', href: '/automatisation/' },
+      { label: 'Synchronisation de logiciels & API', href: '/automatisation/' },
+      { label: 'Intelligence artificielle opérationnelle', href: '/intelligence-artificielle/' },
+      { label: 'Alertes d’équipe & Notifications', href: '/email-marketing-crm/' },
+    ],
+    ctaLabel: 'Automatiser mes tâches répétitives',
+  },
+  {
+    id: 'mesurer-et-securiser',
+    number: '05',
+    theme: 'Pilotage & Sécurité',
+    title: 'Mesurer vos résultats et sécuriser votre infrastructure',
+    subtitle: 'Piloter vos investissements digitaux avec des données claires et un socle durable.',
+    problems: [
+      'Incapacité à identifier précisément quels canaux ou campagnes génèrent du chiffre d’affaires.',
+      'Crainte de dépendre d’outils propriétaires opaques ou d’abonnements mensuels captifs.',
+      'Inquiétude quant à la sécurité technique, aux sauvegardes et à la pérennité du site.',
+    ],
+    impact: 'Des décisions budgétaires prises à l’aveugle et un risque opérationnel permanent sur vos actifs digitaux.',
+    approach: 'Nous mettons en place des tableaux de bord d’indicateurs compréhensibles, livrons un code dont vous êtes 100 % propriétaire et assurons la maintenance et la pérennité de votre socle technique.',
+    services: [
+      { label: 'Notre méthode & Pilotage des résultats', href: '/methode/' },
+      { label: 'Diagnostic de performance & sécurité', href: '/audit-gratuit/' },
+      { label: 'Architecture web maîtrisée', href: '/creation-site-web/' },
+      { label: 'Tableaux de bord d’activité commerciale', href: '/automatisation/' },
+    ],
+    ctaLabel: 'Évaluer ma performance et ma sécurité',
+  },
+];
+
+const sectors = [
+  { name: 'PME suisses', href: '/secteurs/pme/', desc: 'Croissance structurée & rentabilité' },
+  { name: 'Artisans & Bâtiment', href: '/secteurs/artisans/', desc: 'Visibilité locale & demandes de devis' },
+  { name: 'Services professionnels', href: '/secteurs/services-professionnels/', desc: 'Crédibilité B2B & génération de leads' },
+  { name: 'Immobilier', href: '/secteurs/immobilier/', desc: 'Mandats, biens & parcours acquéreurs' },
+  { name: 'E-commerce', href: '/secteurs/ecommerce/', desc: 'Conversion, paniers & fidélisation' },
+  { name: 'Indépendants', href: '/secteurs/independants/', desc: 'Présence professionnelle & prise de contact' },
 ];
 ---
 
 <Layout
-  title="Solutions numériques — CLICOM Suisse"
-  description="Résolvez vos défis numériques concrets : visibilité, acquisition de prospects, conversion, automatisation et image de marque."
+  title="Solutions numériques par problème métier pour PME | CLICOM Suisse"
+  description="Trouvez la solution adaptée au défi de votre PME : visibilité Google, conversion de devis, relance commerciale, gain de temps et mesure du ROI sans jargon."
+  {structuredData}
 >
   <PageHero
-    eyebrow="Solutions"
-    title="Quel problème numérique <span class='gradient-text'>voulez-vous résoudre ?</span>"
-    intro="Nous partons de votre objectif business avant de choisir les services, outils et canaux à mobiliser."
-    primary="#solutions-grid"
-    primaryLabel="Identifier mon besoin →"
+    eyebrow="Solutions par défis métier"
+    title="Quel problème bloque le développement de <span class='gradient-text'>votre PME ?</span>"
+    intro="Vous n’avez pas besoin de maîtriser le jargon technique, le code ou les algorithmes. Identifiez simplement ce qui freine vos résultats : nous structurons les solutions et leviers pertinents pour y répondre."
+    primary="#problemes"
+    primaryLabel="Identifier votre défi métier ↓"
     secondary="/services/"
-    secondaryLabel="Voir tous nos services"
+    secondaryLabel="Voir les services par compétence"
   />
 
-  <section class="section section--white" id="solutions-grid">
+  <!-- Mental Model Switch Banner -->
+  <section class="mental-model-section" aria-label="Aide au choix de navigation">
+    <div class="container">
+      <div class="mental-model-bar">
+        <div class="mental-model-card mental-model-card--active">
+          <div class="mental-model-badge">Vous êtes ici</div>
+          <span class="mental-model-query">« Je sais ce qui me bloque »</span>
+          <strong>Entrée par Problèmes Métier (Solutions)</strong>
+          <p>Vous partez de votre réalité opérationnelle : manque de visibilité, devis sans suite, perte de temps administratif.</p>
+        </div>
+
+        <div class="mental-model-divider" aria-hidden="true">
+          <span>OU</span>
+        </div>
+
+        <div class="mental-model-card mental-model-card--alt">
+          <div class="mental-model-badge mental-model-badge--alt">Catalogue technique</div>
+          <span class="mental-model-query">« Je sais ce qu'il me faut »</span>
+          <strong>Entrée par Compétences (Services)</strong>
+          <p>Vous recherchez une expertise technique précise parmi nos 4 piliers : Présence · Acquisition · Automatisation · Performance.</p>
+          <a href="/services/" class="mental-model-link">Accéder au catalogue Services <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Filter Jump Links -->
+  <section class="quick-nav-section" aria-label="Navigation rapide par solution">
+    <div class="container">
+      <nav class="quick-nav" aria-label="Accès direct aux défis">
+        <span class="quick-nav__label">Accès direct :</span>
+        <div class="quick-nav__links">
+          {solutions.map((sol) => (
+            <a href={`#${sol.id}`} class="quick-nav__pill">
+              <span class="quick-nav__num">{sol.number}</span>
+              <span>{sol.theme}</span>
+            </a>
+          ))}
+        </div>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Detailed Solutions List -->
+  <section class="section section--white" id="problemes">
     <div class="container">
       <div class="section-heading">
-        <div class="eyebrow">Défis &amp; Réponses concrètes</div>
-        <h2>Des solutions structurées autour de <span class="accent">vos enjeux opérationnels.</span></h2>
-        <p>Identifiez votre défi actuel et découvrez les leviers numériques à actionner en priorité.</p>
+        <div class="eyebrow">5 Réponses méthodiques</div>
+        <h2>Des solutions concrètes pour <span class="accent">débloquer vos résultats.</span></h2>
+        <p>Chaque solution associe un diagnostic clair, une méthode d’intervention éprouvée et les expertises techniques indispensables.</p>
       </div>
 
-      <div class="solutions-grid">
+      <div class="solutions-stack">
         {solutions.map((sol) => (
-          <article class="card solution-card">
-            <div class="solution-card__header">
-              <span class="solution-card__number">{sol.number}</span>
+          <article class="solution-block card" id={sol.id}>
+            <!-- Solution Header -->
+            <div class="solution-block__header">
+              <div class="solution-block__meta">
+                <span class="solution-block__num">{sol.number}</span>
+                <span class="solution-block__theme">{sol.theme}</span>
+              </div>
               <h3>{sol.title}</h3>
+              <p class="solution-block__subtitle">{sol.subtitle}</p>
             </div>
 
-            <div class="solution-card__section">
-              <strong>Le constat fréquent :</strong>
-              <p>{sol.problem}</p>
-            </div>
+            <!-- Solution Core Grid -->
+            <div class="solution-block__grid">
+              <!-- Left Column: The Problem & The Business Cost -->
+              <div class="solution-block__diagnostic">
+                <div class="diagnostic-box diagnostic-box--problem">
+                  <div class="diagnostic-box__tag">
+                    <span class="dot dot--red" aria-hidden="true"></span>
+                    Ce qui vous bloque aujourd’hui
+                  </div>
+                  <ul class="diagnostic-list">
+                    {sol.problems.map((p) => (
+                      <li>
+                        <span class="cross-icon" aria-hidden="true">✕</span>
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-            <div class="solution-card__section solution-card__section--benefit">
-              <strong>L'objectif visé :</strong>
-              <p>{sol.benefits}</p>
-            </div>
+                <div class="diagnostic-box diagnostic-box--impact">
+                  <div class="diagnostic-box__tag">
+                    <span class="dot dot--amber" aria-hidden="true"></span>
+                    L’impact direct sur votre PME
+                  </div>
+                  <p>{sol.impact}</p>
+                </div>
+              </div>
 
-            <div class="solution-card__services">
-              <strong>Expertises mobilisées :</strong>
-              <div class="solution-card__links">
-                {sol.services.map((srv) => (
-                  <a href={srv.href} class="solution-link">
-                    {srv.label} <span aria-hidden="true">→</span>
-                  </a>
-                ))}
+              <!-- Right Column: Approach & Services -->
+              <div class="solution-block__resolution">
+                <div class="diagnostic-box diagnostic-box--approach">
+                  <div class="diagnostic-box__tag">
+                    <span class="dot dot--blue" aria-hidden="true"></span>
+                    L’approche CliCom
+                  </div>
+                  <p>{sol.approach}</p>
+                </div>
+
+                <div class="solution-block__services">
+                  <span class="services-title">Expertises mobilisées dans cette solution :</span>
+                  <div class="services-links">
+                    {sol.services.map((srv) => (
+                      <a href={srv.href} class="service-chip">
+                        <span>{srv.label}</span>
+                        <span class="arrow" aria-hidden="true">→</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div class="solution-block__action">
+                  <CalendlyButton label={`${sol.ctaLabel} →`} fallbackHref="/contact/" />
+                </div>
               </div>
             </div>
           </article>
@@ -131,121 +327,475 @@ const solutions = [
     </div>
   </section>
 
-  <!-- Bloc final de conversion -->
+  <!-- Sector Navigation Strip -->
+  <section class="section section--compact sectors-section">
+    <div class="container">
+      <div class="sectors-panel">
+        <div class="sectors-heading">
+          <span class="eyebrow">Approche sectorielle</span>
+          <h3>Vous souhaitez une réponse adaptée à votre secteur ?</h3>
+          <p>Nous adaptons le système digital aux réalités opérationnelles et réglementaires de chaque métier en Suisse romande.</p>
+        </div>
+        <div class="sectors-grid">
+          {sectors.map((sec) => (
+            <a href={sec.href} class="sector-card">
+              <strong>{sec.name}</strong>
+              <span>{sec.desc}</span>
+              <span class="sector-card__arrow" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Panel -->
   <section class="section section--dark">
     <div class="container solutions-cta-panel">
       <div class="solutions-cta-copy">
-        <div class="eyebrow eyebrow--cyan">Conseil sur-mesure</div>
-        <h2>Votre priorité ne rentre pas dans une case ?</h2>
-        <p>Présentez-nous votre situation. Nous vous aiderons à identifier les leviers les plus pertinents pour votre entreprise lors d'un échange direct.</p>
+        <div class="eyebrow eyebrow--cyan">Diagnostic sans engagement</div>
+        <h2>Votre situation combine plusieurs de ces défis ?</h2>
+        <p>C’est le cas de la grande majorité des PME en développement. Un échange direct de 30 minutes permet de faire le point, d’identifier le point de friction prioritaire et de déterminer la première étape la plus rentable.</p>
         <div class="solutions-cta-actions">
           <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
-          <Button href="/audit-gratuit/" variant="secondary">Demander un audit gratuit</Button>
+          <Button href="/audit-gratuit/" variant="secondary">Demander un diagnostic digital</Button>
         </div>
       </div>
-      <div class="solutions-cta-badge">
-        <span>Approche pragmatique</span>
-        <span>Priorisation réaliste</span>
-        <span>Suisse romande</span>
+      <div class="solutions-cta-guarantees">
+        <div class="guarantee-item">
+          <strong>Échange pragmatique</strong>
+          <span>Pas de jargon technique, focus 100 % sur vos enjeux métier et votre rentabilité.</span>
+        </div>
+        <div class="guarantee-item">
+          <strong>Priorisation réaliste</strong>
+          <span>Une feuille de route par étapes selon vos ressources internes disponibles.</span>
+        </div>
+        <div class="guarantee-item">
+          <strong>Suisse romande</strong>
+          <span>Expertise ancrée dans le tissu économique et les spécificités régionales suisses.</span>
+        </div>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .solutions-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3);
+  /* Mental Model Distinction */
+  .mental-model-section {
+    padding-block: var(--space-4);
+    background: var(--color-background);
   }
-  .solution-card {
+  .mental-model-bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-3);
+    align-items: stretch;
+  }
+  .mental-model-card {
     display: flex;
     flex-direction: column;
-    padding: clamp(24px, 4vw, 36px);
-    border-radius: var(--radius-card);
+    padding: 24px 28px;
+    border-radius: var(--radius-card-small);
+    border: 1px solid var(--color-border);
+    background: white;
   }
-  .solution-card__header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-border);
+  .mental-model-card--active {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 20px rgba(36, 87, 255, 0.08);
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-primary-soft) 100%);
   }
-  .solution-card__number {
-    font-size: 0.85rem;
+  .mental-model-card--alt {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  .mental-model-badge {
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: white;
+    font-size: 0.72rem;
     font-weight: 800;
-    color: var(--color-primary);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
   }
-  .solution-card__header h3 {
-    margin: 0;
-    font-size: clamp(1.15rem, 2vw, 1.35rem);
-    letter-spacing: -0.02em;
+  .mental-model-badge--alt {
+    background: var(--color-border-strong);
     color: var(--color-midnight);
   }
-  .solution-card__section {
-    margin-bottom: 16px;
-  }
-  .solution-card__section strong {
-    display: block;
-    font-size: 0.76rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+  .mental-model-query {
+    font-size: 0.85rem;
+    font-weight: 750;
     color: var(--color-text-muted);
     margin-bottom: 4px;
   }
-  .solution-card__section p {
-    margin: 0;
-    font-size: 0.94rem;
-    line-height: 1.55;
+  .mental-model-card strong {
+    font-size: 1.05rem;
     color: var(--color-midnight);
+    margin-bottom: 8px;
   }
-  .solution-card__section--benefit {
-    padding: 12px 14px;
-    background: var(--color-primary-soft);
-    border-radius: 8px;
-    border-left: 3px solid var(--color-primary);
+  .mental-model-card p {
+    margin: 0 0 12px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--color-text);
   }
-  .solution-card__section--benefit strong {
-    color: var(--color-primary);
-  }
-  .solution-card__services {
+  .mental-model-link {
     margin-top: auto;
-    padding-top: 18px;
-    border-top: 1px solid var(--color-border);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    font-weight: 750;
+    color: var(--color-primary);
+    text-decoration: none;
   }
-  .solution-card__services strong {
-    display: block;
-    font-size: 0.74rem;
+  .mental-model-link:hover {
+    text-decoration: underline;
+  }
+  .mental-model-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mental-model-divider span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--color-text-muted);
+  }
+
+  /* Quick Nav Pills */
+  .quick-nav-section {
+    padding-bottom: var(--space-4);
+    background: var(--color-background);
+  }
+  .quick-nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    overflow-x: auto;
+  }
+  .quick-nav__label {
+    font-size: 0.82rem;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+  .quick-nav__links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+  .quick-nav__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--color-midnight);
+    white-space: nowrap;
+    transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+  }
+  .quick-nav__pill:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+  .quick-nav__num {
+    color: var(--color-primary);
+    font-weight: 800;
+    font-size: 0.76rem;
+  }
+
+  /* Solutions Stack */
+  .solutions-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .solution-block {
+    padding: clamp(28px, 4vw, 44px);
+    border-radius: var(--radius-card);
+    background: white;
+    border: 1px solid var(--color-border);
+    scroll-margin-top: 100px;
+  }
+  .solution-block__header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .solution-block__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 10px;
   }
-  .solution-card__links {
+  .solution-block__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 10px;
+    background: var(--color-primary-soft);
+    border-radius: 6px;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+  .solution-block__theme {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .solution-block__header h3 {
+    margin: 0 0 6px;
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    color: var(--color-midnight);
+  }
+  .solution-block__subtitle {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    font-weight: 550;
+  }
+
+  /* Solution Grid (2 Columns) */
+  .solution-block__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 4vw, 40px);
+    align-items: start;
+  }
+  .solution-block__diagnostic,
+  .solution-block__resolution {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Diagnostic Boxes */
+  .diagnostic-box {
+    padding: 20px 22px;
+    border-radius: var(--radius-card-small);
+  }
+  .diagnostic-box__tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .dot--red { background: #ef4444; }
+  .dot--amber { background: #f59e0b; }
+  .dot--blue { background: var(--color-primary); }
+
+  .diagnostic-box--problem {
+    background: #fef2f2;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  .diagnostic-box--problem .diagnostic-box__tag {
+    color: #b91c1c;
+  }
+  .diagnostic-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .diagnostic-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.94rem;
+    line-height: 1.5;
+    color: var(--color-midnight);
+  }
+  .cross-icon {
+    color: #ef4444;
+    font-weight: 800;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .diagnostic-box--impact {
+    background: #fffbeb;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+  }
+  .diagnostic-box--impact .diagnostic-box__tag {
+    color: #b45309;
+  }
+  .diagnostic-box--impact p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #78350f;
+    font-weight: 600;
+  }
+
+  .diagnostic-box--approach {
+    background: var(--color-primary-soft);
+    border: 1px solid rgba(36, 87, 255, 0.2);
+  }
+  .diagnostic-box--approach .diagnostic-box__tag {
+    color: var(--color-primary);
+  }
+  .diagnostic-box--approach p {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--color-midnight);
+  }
+
+  /* Services Chips */
+  .solution-block__services {
+    padding-top: 4px;
+  }
+  .services-title {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 10px;
+  }
+  .services-links {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
-  .solution-link {
+  .service-chip {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    padding: 6px 11px;
-    background: rgba(247, 249, 252, 0.9);
+    gap: 8px;
+    padding: 8px 14px;
+    background: white;
     border: 1px solid var(--color-border);
-    border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: 650;
+    border-radius: 999px;
+    font-size: 0.84rem;
+    font-weight: 700;
     color: var(--color-midnight);
     text-decoration: none;
-    transition: border-color var(--transition-fast), color var(--transition-fast);
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
   }
-  .solution-link:hover {
+  .service-chip .arrow {
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+  }
+  .service-chip:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
+    background: var(--color-primary-soft);
   }
+  .service-chip:hover .arrow {
+    transform: translateX(3px);
+  }
+
+  .solution-block__action {
+    margin-top: 8px;
+  }
+
+  /* Sectors Strip */
+  .sectors-section {
+    background: var(--color-background);
+  }
+  .sectors-panel {
+    padding: clamp(32px, 5vw, 48px);
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+  .sectors-heading {
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+  .sectors-heading h3 {
+    margin: 8px 0 10px;
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+    color: var(--color-midnight);
+  }
+  .sectors-heading p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.96rem;
+  }
+  .sectors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .sector-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card-small);
+    text-decoration: none;
+    transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+  }
+  .sector-card strong {
+    font-size: 0.96rem;
+    color: var(--color-midnight);
+    margin-bottom: 4px;
+  }
+  .sector-card span:not(.sector-card__arrow) {
+    font-size: 0.84rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+  .sector-card__arrow {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    color: var(--color-primary);
+    font-weight: 800;
+    transition: transform var(--transition-fast);
+  }
+  .sector-card:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-soft);
+    transform: translateY(-2px);
+  }
+  .sector-card:hover .sector-card__arrow {
+    transform: translateX(4px);
+  }
+
+  /* CTA Dark Panel */
   .solutions-cta-panel {
     display: grid;
     grid-template-columns: 1.3fr 0.7fr;
@@ -272,27 +822,57 @@ const solutions = [
     flex-wrap: wrap;
     gap: 12px;
   }
-  .solutions-cta-badge {
+  .solutions-cta-guarantees {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 24px;
+    gap: 16px;
+    padding: 28px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--color-dark-border);
     border-radius: var(--radius-card);
   }
-  .solutions-cta-badge span {
-    padding: 8px 12px;
-    border: 1px solid var(--color-dark-border);
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 650;
-    color: var(--color-cyan);
-    text-align: center;
+  .guarantee-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
-  @media (max-width: 850px) {
-    .solutions-grid,
+  .guarantee-item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .guarantee-item strong {
+    color: var(--color-cyan);
+    font-size: 0.95rem;
+  }
+  .guarantee-item span {
+    color: var(--color-dark-muted);
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+
+  /* Responsive */
+  @media (max-width: 950px) {
+    .mental-model-bar {
+      grid-template-columns: 1fr;
+    }
+    .mental-model-divider {
+      display: none;
+    }
+    .solution-block__grid {
+      grid-template-columns: 1fr;
+    }
+    .sectors-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
     .solutions-cta-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .sectors-grid {
       grid-template-columns: 1fr;
     }
   }

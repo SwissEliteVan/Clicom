@@ -1,5 +1,13 @@
 import type { APIRoute } from 'astro';
 import nodemailer from 'nodemailer';
+import {
+  cleanSingleLine,
+  cleanMultiline,
+  escapeHtml,
+  isValidEmail,
+  isValidUrl,
+  isAllowedOrigin,
+} from '../../lib/contact/validation';
 
 export const prerender = false;
 
@@ -23,49 +31,6 @@ const json = (body: Record<string, unknown>, status: number) =>
     status,
     headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' },
   });
-
-const cleanSingleLine = (value: unknown, max: number) =>
-  typeof value === 'string'
-    ? value
-        .replace(/[\u0000-\u001F\u007F]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim()
-        .slice(0, max)
-    : '';
-
-const cleanMultiline = (value: unknown, max: number) =>
-  typeof value === 'string'
-    ? value
-        .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
-        .trim()
-        .slice(0, max)
-    : '';
-
-const escapeHtml = (value: string) =>
-  value.replace(/[&<>'"]/g, (character) => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    "'": '&#39;',
-    '"': '&quot;',
-  })[character] ?? character);
-
-const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
-
-const isAllowedOrigin = (origin: string | null, siteUrl?: URL): boolean => {
-  if (!origin) return true;
-  try {
-    const originUrl = new URL(origin);
-    if (siteUrl && originUrl.origin === siteUrl.origin) return true;
-    if (originUrl.origin === 'https://clicom.ch') return true;
-    if (import.meta.env.DEV) {
-      if (['localhost', '127.0.0.1', '[::1]'].includes(originUrl.hostname)) return true;
-    }
-  } catch {
-    return false;
-  }
-  return false;
-};
 
 const sweepExpiredRequests = (now: number) => {
   if (now - lastSweep < WINDOW_MS) return;
@@ -105,7 +70,7 @@ const getMailConfig = () => {
 
 export const POST: APIRoute = async ({ request, clientAddress, site: siteUrl }) => {
   const origin = request.headers.get('origin');
-  if (!isAllowedOrigin(origin, siteUrl)) {
+  if (!isAllowedOrigin(origin, siteUrl, import.meta.env.DEV)) {
     return json({ success: false, message: 'Requête non autorisée.' }, 403);
   }
 
@@ -140,13 +105,8 @@ export const POST: APIRoute = async ({ request, clientAddress, site: siteUrl }) 
   if (nom.length < 2 || objectif.length < 10 || !isValidEmail(email)) {
     return json({ success: false, message: 'Veuillez vérifier les champs obligatoires.' }, 400);
   }
-  if (site) {
-    try {
-      const url = new URL(site);
-      if (!['http:', 'https:'].includes(url.protocol)) throw new Error('Invalid protocol');
-    } catch {
-      return json({ success: false, message: 'Veuillez saisir une adresse de site valide.' }, 400);
-    }
+  if (site && !isValidUrl(site)) {
+    return json({ success: false, message: 'Veuillez saisir une adresse de site valide.' }, 400);
   }
 
   const mail = getMailConfig();

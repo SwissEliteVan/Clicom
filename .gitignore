@@ -10,12 +10,14 @@ node_modules/
 # Firecrawl temporary files
 .firecrawl/
 
-# logs
+# logs & test outputs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 astro-check.log
+test-results/
+playwright-report/
 
 # environment variables
 .env

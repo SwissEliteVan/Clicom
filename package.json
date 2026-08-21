@@ -8,6 +8,9 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
     "validate": "astro check && tsc --noEmit && astro build",
     "build": "astro build",
     "start": "HOST=0.0.0.0 node ./dist/server/entry.mjs",
@@ -27,7 +30,10 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.62.1",
     "@types/nodemailer": "^8.0.1",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.11"
   }
 }

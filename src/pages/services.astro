@@ -1,146 +1,449 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import ServiceCard from '../components/ServiceCard.astro';
 import Button from '../components/Button.astro';
 import CalendlyButton from '../components/conversion/CalendlyButton.astro';
+import Icon from '../components/Icon.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/services/#systeme',
+      name: 'Système digital PME CLICOM',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Système digital complet pour PME en Suisse romande : Présence digitale, Acquisition, Automatisation et Performance & sécurité.',
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Piliers du système CliCom',
+        itemListElement: [
+          {
+            '@type': 'OfferCatalog',
+            name: 'Présence digitale',
+            itemListElement: [
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Création de site web', url: 'https://clicom.ch/creation-site-web/' } },
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Identité de marque & Branding', url: 'https://clicom.ch/branding/' } },
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Création de contenu', url: 'https://clicom.ch/creation-contenu/' } },
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Réseaux sociaux', url: 'https://clicom.ch/reseaux-sociaux/' } },
+            ],
+          },
+          {
+            '@type': 'OfferCatalog',
+            name: 'Acquisition',
+            itemListElement: [
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Référencement naturel (SEO)', url: 'https://clicom.ch/seo/' } },
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Référencement IA', url: 'https://clicom.ch/referencement-ia/' } },
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Google Ads', url: 'https://clicom.ch/google-ads/' } },
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Publicité sur les réseaux sociaux', url: 'https://clicom.ch/social-ads/' } },
+            ],
+          },
+          {
+            '@type': 'OfferCatalog',
+            name: 'Automatisation',
+            itemListElement: [
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Automatisation des processus', url: 'https://clicom.ch/automatisation/' } },
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'CRM & E-mail marketing', url: 'https://clicom.ch/email-marketing-crm/' } },
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Intelligence artificielle', url: 'https://clicom.ch/intelligence-artificielle/' } },
+            ],
+          },
+          {
+            '@type': 'OfferCatalog',
+            name: 'Performance & sécurité',
+            itemListElement: [
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Méthode & suivi continu', url: 'https://clicom.ch/methode/' } },
+              { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Audit digital gratuit', url: 'https://clicom.ch/audit-gratuit/' } },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/services/#breadcrumb',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Accueil',
+          item: 'https://clicom.ch/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Services',
+          item: 'https://clicom.ch/services',
+        },
+      ],
+    },
+  ],
+};
+
+const pillars = [
+  {
+    number: '01',
+    badge: 'FONDATIONS & CRÉDIBILITÉ',
+    title: 'Présence digitale',
+    subtitle: 'Rendre votre entreprise visible, crédible et attractive dès le premier regard.',
+    problem: 'Un site web vieillissant, lent ou inadapté au mobile, un discours confus et une identité qui ne reflète pas la qualité de vos prestations. Les visiteurs arrivent et repartent sans comprendre pourquoi vous choisir.',
+    result: 'Une image professionnelle rassurante, une proposition de valeur limpide en quelques secondes, une navigation fluide et un socle technique ultra-rapide conçu pour convertir.',
+    capabilities: [
+      {
+        title: 'Création de sites web orientés conversion',
+        desc: 'Architecture lisible, design moderne, développement performant et formulaires optimisés.',
+        href: '/creation-site-web/',
+      },
+      {
+        title: 'Positionnement & Identité de marque (Branding)',
+        desc: 'Charte graphique soignée, cohérence visuelle et discours de marque différenciant.',
+        href: '/branding/',
+      },
+      {
+        title: 'Création de contenu & Argumentation',
+        desc: 'Textes clairs, pages d’offres convaincantes et preuves concrètes pour faciliter la décision.',
+        href: '/creation-contenu/',
+      },
+      {
+        title: 'Présence éditoriale sur les réseaux sociaux',
+        desc: 'Prises de parole régulières et valorisation de votre savoir-faire sur les canaux adaptés.',
+        href: '/reseaux-sociaux/',
+      },
+    ],
+    links: [
+      { label: 'Découvrir la création de site', href: '/creation-site-web/' },
+      { label: 'Voir le branding', href: '/branding/' },
+    ],
+  },
+  {
+    number: '02',
+    badge: 'VISIBILITÉ & DEMANDES QUALIFIÉES',
+    title: 'Acquisition',
+    subtitle: 'Capter les intentions réelles et générer un flux continu d’opportunités.',
+    problem: 'Une dépendance risquée au seul bouche-à-oreille, un flux d’opportunités irrégulier ou des budgets publicitaires gaspillés sur des clics sans lendemain qui ne se transforment jamais en demandes concrètes.',
+    result: 'Des prospects qualifiés en Suisse romande qui découvrent vos services au moment précis où ils formulent un besoin commercial ou comparent les solutions du marché.',
+    capabilities: [
+      {
+        title: 'Référencement naturel (SEO & Local)',
+        desc: 'Positionnement durable sur Google sur les requêtes stratégiques de votre secteur en Suisse.',
+        href: '/seo/',
+      },
+      {
+        title: 'Référencement IA (ChatGPT, Gemini, Perplexity)',
+        desc: 'Structuration des données et entités pour être identifié et cité dans les moteurs conversationnels.',
+        href: '/referencement-ia/',
+      },
+      {
+        title: 'Campagnes Google Ads à forte intention',
+        desc: 'Ciblage précis des recherches actives avec mesure rigoureuse du coût par contact utile.',
+        href: '/google-ads/',
+      },
+      {
+        title: 'Publicité ciblée sur les réseaux sociaux (Meta & LinkedIn)',
+        desc: 'Création de demande, ciblage B2B/B2C et reciblage des audiences déjà engagées.',
+        href: '/social-ads/',
+      },
+    ],
+    links: [
+      { label: 'Explorer le SEO naturel', href: '/seo/' },
+      { label: 'Campagnes Google Ads', href: '/google-ads/' },
+      { label: 'Visibilité dans l’IA', href: '/referencement-ia/' },
+    ],
+  },
+  {
+    number: '03',
+    badge: 'FLUIDITÉ & TEMPS GAGNÉ',
+    title: 'Automatisation',
+    subtitle: 'Traiter chaque demande instantanément sans alourdir votre quotidien.',
+    problem: 'Des formulaires web traités avec plusieurs jours de retard, des coordonnées recopiées à la main dans des tableaux Excel, des relances oubliées et des heures perdues sur des tâches administratives répétitives.',
+    result: 'Une prise en charge immédiate de chaque lead, une transmission automatique au bon interlocuteur, des relances programmées et des équipes commerciales libérées des frictions techniques.',
+    capabilities: [
+      {
+        title: 'Automatisation des flux opérationnels',
+        desc: 'Connexion de vos formulaires, outils de gestion et messageries pour supprimer les doubles saisies.',
+        href: '/automatisation/',
+      },
+      {
+        title: 'Organisation CRM & Séquences e-mail',
+        desc: 'Centralisation des contacts, pipeline commercial lisible et scénarios de suivi pertinents.',
+        href: '/email-marketing-crm/',
+      },
+      {
+        title: 'Assistance par intelligence artificielle',
+        desc: 'Intégration d’outils IA pragmatiques et sécurisés pour assister le tri, la rédaction ou le support.',
+        href: '/intelligence-artificielle/',
+      },
+    ],
+    links: [
+      { label: 'Voir l’automatisation', href: '/automatisation/' },
+      { label: 'Structurer votre CRM', href: '/email-marketing-crm/' },
+      { label: 'Usages IA pragmatiques', href: '/intelligence-artificielle/' },
+    ],
+  },
+  {
+    number: '04',
+    badge: 'CONTINUITÉ & CONTRÔLE',
+    title: 'Performance & sécurité',
+    subtitle: 'Mesurer les résultats concrets, protéger votre écosystème et progresser.',
+    problem: 'Aucune visibilité sur la rentabilité de vos actions digitales, des sites abandonnés sans maintenance qui deviennent vulnérables ou lents, et la crainte permanente d’une panne ou d’une perte de données.',
+    result: 'Un écosystème numérique rapide, sécurisé, hébergé de façon fiable en Suisse, monitoré en continu et piloté grâce à des indicateurs de performance commerciale limpides.',
+    capabilities: [
+      {
+        title: 'Mesure analytique & Suivi des conversions',
+        desc: 'Configuration de tableaux de bord clairs pour mesurer les prises de contact et le retour sur investissement.',
+        href: '/audit-gratuit/',
+      },
+      {
+        title: 'Hébergement haute performance & Sécurité',
+        desc: 'Serveurs suisses fiables, certificats SSL, sauvegardes régulières et conformité aux standards de protection.',
+        href: '/contact/',
+      },
+      {
+        title: 'Maintenance préventive & Évolution continue',
+        desc: 'Mises à jour proactives, optimisation Core Web Vitals et ajustements réguliers au fil de votre croissance.',
+        href: '/methode/',
+      },
+    ],
+    links: [
+      { label: 'Découvrir notre méthode', href: '/methode/' },
+      { label: 'Demander un audit de performance', href: '/audit-gratuit/' },
+    ],
+  },
+];
+
+const differentiators = [
+  {
+    title: 'PME en Suisse romande',
+    text: 'Un partenaire ancré localement (Vaud, Genève, Valais, Fribourg, Neuchâtel, Jura), disponible et connaissant les réalités du marché suisse.',
+  },
+  {
+    title: 'Métier avant technologie',
+    text: 'Pas de jargon inutile ni de buzzwords. Nous parlons de vos clients, de votre rentabilité et de l’organisation de vos équipes.',
+  },
+  {
+    title: 'Conseil & Réalisation intégrés',
+    text: 'Un interlocuteur unique qui conçoit la stratégie et assure l’exécution technique, sans déperdition entre plusieurs sous-traitants.',
+  },
+  {
+    title: 'Approche progressive',
+    text: 'Vous activez uniquement les briques nécessaires à votre stade de maturité, sans forfait rigide imposé ni surcoût caché.',
+  },
+  {
+    title: 'Visibilité reliée à la conversion',
+    text: 'Le trafic n’est qu’un moyen : nous concevons chaque parcours pour amener le visiteur vers une prise de contact qualifiée.',
+  },
+  {
+    title: 'Automatisation utile & encadrée',
+    text: 'Des gains de temps réels grâce à l’automatisation et l’IA, toujours placés sous le contrôle et le jugement de vos collaborateurs.',
+  },
+];
 ---
 
 <Layout
-  title="Services numériques — CLICOM Suisse"
-  description="Site web, visibilité, acquisition, contenu et automatisation : découvrez les expertises CLICOM pour développer votre présence numérique."
+  title="Services digitaux pour PME en Suisse romande | CLICOM"
+  description="Découvrez le système digital CliCom : Présence digitale, Acquisition, Automatisation et Performance & sécurité. Un digital cohérent et rentable pour PME."
+  {structuredData}
 >
   <PageHero
-    eyebrow="Services"
-    title="Les expertises nécessaires pour construire une présence numérique <span class='gradient-text'>plus efficace.</span>"
-    intro="Site web, visibilité, acquisition, contenu et automatisation : CLICOM assemble les expertises utiles en fonction de vos objectifs."
-    primary="#expertises"
-    primaryLabel="Explorer nos expertises →"
+    eyebrow="Services & Système PME"
+    title="Un digital cohérent plutôt qu'une <span class='gradient-text'>accumulation d'outils.</span>"
+    intro="CliCom ne vous vend pas des prestations isolées : nous sélectionnons, structurons et relions les compétences numériques réellement utiles aux objectifs de votre PME."
+    primary="#piliers"
+    primaryLabel="Explorer les 4 piliers →"
     secondary="/solutions/"
-    secondaryLabel="Voir nos solutions par problème"
+    secondaryLabel="Voir les solutions par défi métier"
+    showBand={false}
   />
 
-  <section class="section section--white services-intro">
+  <!-- Constat métier & vision système -->
+  <section class="section section--white services-concept">
     <div class="container">
-      <div class="services-intro__grid">
-        <div class="services-intro__lead">
-          <div class="eyebrow">Notre approche</div>
-          <h2>Pas d'accumulation d'outils inutiles. <span class="accent">Uniquement ce qui compte.</span></h2>
+      <div class="services-concept__grid">
+        <div class="services-concept__lead">
+          <div class="eyebrow">Le constat PME</div>
+          <h2>Vous ne cherchez pas du SEO ou un CRM. <span class="accent">Vous cherchez des résultats.</span></h2>
+          <p class="lead-text">
+            Une PME ne cherche pas à empiler des logiciels pour le plaisir de la technologie. Elle cherche plus de demandes de devis qualifiées, une meilleure organisation commerciale et du temps libéré pour ses équipes.
+          </p>
         </div>
-        <div class="services-intro__body">
-          <p>Chaque entreprise possède des priorités différentes. Nous identifions les leviers réellement utiles avant de choisir les outils, les canaux et les actions à mettre en œuvre.</p>
-          <div class="services-method-pills">
-            <span>Comprendre</span>
-            <i>→</i>
-            <span>Prioriser</span>
-            <i>→</i>
-            <span>Construire</span>
-            <i>→</i>
-            <span>Mesurer</span>
-            <i>→</i>
-            <span>Améliorer</span>
-          </div>
+        <div class="services-concept__comparison">
+          <article class="concept-card concept-card--legacy">
+            <div class="concept-card__tag">L'approche classique par catalogue</div>
+            <h3>Des prestations dispersées</h3>
+            <p>Faire appel à un freelance SEO, une agence web et acheter un CRM séparément crée des ruptures, de la perte de données et des coûts cachés.</p>
+          </article>
+          <article class="concept-card concept-card--system">
+            <div class="concept-card__tag">L'approche système CliCom</div>
+            <h3>Un écosystème interconnecté</h3>
+            <p>Chaque composant alimente le suivant : le site crédibilise, les campagnes attirent, l'automatisation traite et le suivi fidélise.</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Rail de continuité du système -->
+      <div class="services-rail" aria-label="Continuum du système CliCom">
+        <div class="rail-step">
+          <span class="rail-num">01</span>
+          <strong>Présence</strong>
+          <small>Fondations & crédibilité</small>
+        </div>
+        <i class="rail-arrow" aria-hidden="true">→</i>
+        <div class="rail-step">
+          <span class="rail-num">02</span>
+          <strong>Acquisition</strong>
+          <small>Visibilité & contacts</small>
+        </div>
+        <i class="rail-arrow" aria-hidden="true">→</i>
+        <div class="rail-step">
+          <span class="rail-num">03</span>
+          <strong>Automatisation</strong>
+          <small>Fluidité & temps gagné</small>
+        </div>
+        <i class="rail-arrow" aria-hidden="true">→</i>
+        <div class="rail-step">
+          <span class="rail-num">04</span>
+          <strong>Performance & Sécurité</strong>
+          <small>Mesure & sérénité</small>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--white" id="expertises">
+  <!-- Les 4 piliers du système -->
+  <section class="section services-pillars-section" id="piliers">
     <div class="container">
       <div class="section-heading">
-        <div class="eyebrow">Catalogue des expertises</div>
-        <h2>Des compétences ciblées pour <span class="accent">chaque étape de votre croissance.</span></h2>
-        <p>De la première impression sur votre site jusqu'à l'automatisation de vos flux internes.</p>
+        <div class="eyebrow">Architecture de l'offre</div>
+        <h2>Le système CliCom en <span class="accent">4 piliers interconnectés.</span></h2>
+        <p>Chaque pilier répond à un enjeu clé de votre entreprise et s'articule avec les autres pour former un moteur de croissance fiable.</p>
       </div>
 
-      <div class="grid grid--3">
-        <ServiceCard
-          id="web"
-          icon="code"
-          title="Création de sites web"
-          text="Sites rapides, sécurisés et pensés pour convertir vos visiteurs en contacts qualifiés."
-          href="/creation-site-web/"
-        />
-        <ServiceCard
-          id="seo"
-          icon="search"
-          title="Référencement naturel (SEO)"
-          text="Positionnement durable sur Google pour capter les recherches de vos futurs clients."
-          href="/seo/"
-        />
-        <ServiceCard
-          id="geo"
-          icon="spark"
-          title="Référencement IA"
-          text="Optimisation de votre visibilité dans les moteurs de réponse comme ChatGPT, Perplexity et Gemini."
-          href="/referencement-ia/"
-        />
-        <ServiceCard
-          id="ads"
-          icon="cursor"
-          title="Google Ads"
-          text="Campagnes de recherche ciblées pour capter une intention d'achat immédiate et mesurable."
-          href="/google-ads/"
-        />
-        <ServiceCard
-          id="social-ads"
-          icon="target"
-          title="Publicité sur les réseaux sociaux"
-          text="Campagnes ciblées sur Meta et LinkedIn pour développer votre notoriété et vos prospects."
-          href="/social-ads/"
-        />
-        <ServiceCard
-          id="social"
-          icon="globe"
-          title="Réseaux sociaux"
-          text="Stratégie éditoriale, rythme de publication et valorisation de votre image professionnelle."
-          href="/reseaux-sociaux/"
-        />
-        <ServiceCard
-          id="contenu"
-          icon="spark"
-          title="Création de contenu"
-          text="Articles, visuels, pages clés et argumentaires pour convaincre et rassurer vos prospects."
-          href="/creation-contenu/"
-        />
-        <ServiceCard
-          id="automation"
-          icon="automation"
-          title="Automatisation des processus"
-          text="Connexion de vos outils pour éliminer les tâches répétitives et accélérer le traitement des demandes."
-          href="/automatisation/"
-        />
-        <ServiceCard
-          id="crm"
-          icon="chart"
-          title="CRM & E-mail marketing"
-          text="Organisation de vos contacts, suivi commercial fluide et scénarios relationnels pertinents."
-          href="/email-marketing-crm/"
-        />
-        <ServiceCard
-          icon="automation"
-          title="Intelligence artificielle"
-          text="Intégration d'outils IA pragmatiques au service de votre productivité et de vos équipes."
-          href="/intelligence-artificielle/"
-        />
-        <ServiceCard
-          id="branding"
-          icon="target"
-          title="Identité de marque & Branding"
-          text="Positionnement clair, charte graphique cohérente et présence numérique rassurante."
-          href="/branding/"
-        />
+      <div class="pillars-stack">
+        {pillars.map((pillar) => (
+          <article class="pillar-block" id={`pilier-${pillar.number}`}>
+            <div class="pillar-block__header">
+              <div class="pillar-block__meta">
+                <span class="pillar-block__num">{pillar.number}</span>
+                <span class="pillar-block__badge">{pillar.badge}</span>
+              </div>
+              <div class="pillar-block__title-wrap">
+                <h3>{pillar.title}</h3>
+                <p class="pillar-block__subtitle">{pillar.subtitle}</p>
+              </div>
+            </div>
+
+            <div class="pillar-block__body">
+              <div class="pillar-block__diagnostics">
+                <div class="diagnostic-box diagnostic-box--problem">
+                  <strong>Le problème fréquent :</strong>
+                  <p>{pillar.problem}</p>
+                </div>
+                <div class="diagnostic-box diagnostic-box--result">
+                  <strong>Le résultat visé :</strong>
+                  <p>{pillar.result}</p>
+                </div>
+              </div>
+
+              <div class="pillar-block__capabilities">
+                <strong>Capacités & expertises mobilisées :</strong>
+                <div class="capabilities-grid">
+                  {pillar.capabilities.map((cap) => (
+                    <a href={cap.href} class="capability-item">
+                      <div class="capability-item__head">
+                        <h4>{cap.title}</h4>
+                        <span class="capability-item__arrow" aria-hidden="true">↗</span>
+                      </div>
+                      <p>{cap.desc}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div class="pillar-block__footer">
+              <span>Pages détaillées :</span>
+              <div class="pillar-block__links">
+                {pillar.links.map((link) => (
+                  <a href={link.href} class="pillar-link">
+                    {link.label} <span aria-hidden="true">→</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Bloc final de conversion -->
+  <!-- Approche : partir du besoin -->
+  <section class="section section--dark services-approach">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow eyebrow--cyan">Notre démarche</div>
+        <h2>Nous partons du besoin métier, <span class="gradient-text">pas de la technologie.</span></h2>
+        <p>Une collaboration efficace ne commence pas par le choix d’un outil, mais par la compréhension de votre modèle et de vos priorités opérationnelles.</p>
+      </div>
+
+      <div class="grid grid--3 approach-grid">
+        <article class="card approach-card">
+          <div class="approach-step">01</div>
+          <h3>Diagnostic & Priorisation</h3>
+          <p>Nous identifions où se situe votre point de friction majeur : visibilité insuffisante, perte de conversion sur votre site ou traitement trop lent des opportunités.</p>
+        </article>
+        <article class="card approach-card">
+          <div class="approach-step">02</div>
+          <h3>Activation progressive</h3>
+          <p>Nous déployons uniquement les briques pertinentes pour votre situation, avec un calendrier réaliste et des jalons de validation partagés.</p>
+        </article>
+        <article class="card approach-card">
+          <div class="approach-step">03</div>
+          <h3>Mesure & Optimisation</h3>
+          <p>Nous suivons les résultats sur vos demandes réelles et faisons évoluer le dispositif dans la durée, sans complexité superflue.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Différenciation Suisse Romande & PME -->
+  <section class="section section--white services-diff">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Ce qui nous distingue</div>
+        <h2>Pourquoi les PME romandes <span class="accent">choisissent CliCom.</span></h2>
+        <p>Une agence conçue pour les PME exigeantes : clarté, proximité, pragmatisme et indépendance technique.</p>
+      </div>
+
+      <div class="grid grid--3 diff-grid">
+        {differentiators.map((diff) => (
+          <article class="card diff-card">
+            <div class="diff-card__icon" aria-hidden="true">
+              <Icon name="spark" />
+            </div>
+            <h3>{diff.title}</h3>
+            <p>{diff.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bloc final de conversion : Faire le point sur votre digital -->
   <section class="section section--dark services-cta-section">
     <div class="container services-cta-panel">
       <div class="services-cta-copy">
-        <div class="eyebrow eyebrow--cyan">Orientation personnalisée</div>
-        <h2>Vous ne savez pas par où commencer ?</h2>
-        <p>Un échange de 30 minutes suffit souvent pour clarifier les premières priorités et définir les leviers les plus rentables pour votre situation.</p>
+        <div class="eyebrow eyebrow--cyan">Passer à l'action</div>
+        <h2>Faire le point sur votre digital.</h2>
+        <p>
+          En 30 minutes, analysons votre présence en ligne, vos canaux d'acquisition et vos processus pour identifier les actions prioritaires les plus rentables pour votre PME.
+        </p>
         <div class="services-cta-actions">
           <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
           <Button href="/audit-gratuit/" variant="secondary">Demander un audit gratuit</Button>
@@ -148,16 +451,16 @@ import CalendlyButton from '../components/conversion/CalendlyButton.astro';
       </div>
       <div class="services-cta-meta">
         <div class="meta-item">
-          <strong>30 minutes</strong>
-          <span>Échange direct et concret</span>
+          <strong>30 minutes concrètes</strong>
+          <span>Échange direct avec un spécialiste</span>
         </div>
         <div class="meta-item">
           <strong>Sans engagement</strong>
-          <span>Conseils orientés PME</span>
+          <span>Recommandations pragmatiques pour PME</span>
         </div>
         <div class="meta-item">
           <strong>Suisse romande</strong>
-          <span>Expertise locale et réactivité</span>
+          <span>Proximité locale & réactivité garantie</span>
         </div>
       </div>
     </div>
@@ -165,45 +468,383 @@ import CalendlyButton from '../components/conversion/CalendlyButton.astro';
 </Layout>
 
 <style>
-  .services-intro {
-    padding-bottom: var(--space-4);
+  /* Concept section */
+  .services-concept {
+    padding-bottom: var(--space-6);
     border-bottom: 1px solid var(--color-border);
   }
-  .services-intro__grid {
+  .services-concept__grid {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: clamp(32px, 6vw, 64px);
-    align-items: center;
+    grid-template-columns: 1fr 1.15fr;
+    gap: clamp(36px, 6vw, 72px);
+    align-items: start;
+    margin-bottom: clamp(48px, 6vw, 72px);
   }
-  .services-intro__lead h2 {
-    margin-top: 8px;
-    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  .services-concept__lead h2 {
+    margin: 10px 0 20px;
+    font-size: clamp(1.85rem, 3.2vw, 2.65rem);
+    line-height: 1.12;
   }
-  .services-intro__body p {
-    margin: 0 0 20px;
-    font-size: 1.05rem;
-    line-height: 1.6;
+  .lead-text {
+    font-size: 1.1rem;
+    line-height: 1.65;
     color: var(--color-text-muted);
   }
-  .services-method-pills {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
+  .services-concept__comparison {
+    display: grid;
+    gap: 16px;
   }
-  .services-method-pills span {
-    padding: 6px 12px;
+  .concept-card {
+    padding: clamp(20px, 3vw, 28px);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+  }
+  .concept-card--legacy {
+    background: rgba(247, 249, 252, 0.7);
+    border-color: var(--color-border);
+  }
+  .concept-card--system {
+    background: linear-gradient(145deg, #ffffff, var(--color-primary-soft));
+    border-color: rgba(36, 87, 255, 0.28);
+    box-shadow: 0 12px 32px rgba(36, 87, 255, 0.06);
+  }
+  .concept-card__tag {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 0.72rem;
+    font-weight: 780;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .concept-card--system .concept-card__tag {
+    color: var(--color-primary);
+  }
+  .concept-card h3 {
+    margin: 0 0 8px;
+    font-size: 1.25rem;
+    color: var(--color-midnight);
+  }
+  .concept-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+  }
+
+  /* Rail de continuité */
+  .services-rail {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr auto);
+    align-items: center;
+    gap: 12px;
+    padding: 24px 28px;
+    background: var(--color-midnight);
+    border-radius: var(--radius-card);
+    color: white;
+    box-shadow: var(--shadow-card);
+  }
+  .services-rail {
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  }
+  .rail-step {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .rail-num {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--color-cyan);
+  }
+  .rail-step strong {
+    font-size: 1.05rem;
+    color: white;
+    letter-spacing: -0.02em;
+  }
+  .rail-step small {
+    font-size: 0.8rem;
+    color: var(--color-dark-muted);
+  }
+  .rail-arrow {
+    color: var(--color-cyan);
+    font-style: normal;
+    font-size: 1.25rem;
+    opacity: 0.8;
+  }
+
+  /* Pillars Stack */
+  .services-pillars-section {
+    background: var(--color-background);
+  }
+  .pillars-stack {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(36px, 5vw, 54px);
+  }
+  .pillar-block {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(28px, 4vw, 44px);
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-surface);
+    box-shadow: var(--shadow-card);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+  .pillar-block:hover {
+    border-color: rgba(36, 87, 255, 0.28);
+    box-shadow: var(--shadow-card-hover);
+  }
+  .pillar-block__header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 28px;
+  }
+  .pillar-block__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .pillar-block__num {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
     background: var(--color-primary-soft);
     color: var(--color-primary);
-    border-radius: 999px;
-    font-size: 0.8rem;
+    border-radius: 50%;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+  .pillar-block__badge {
+    font-size: 0.72rem;
+    font-weight: 780;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .pillar-block__title-wrap h3 {
+    margin: 0 0 6px;
+    font-size: clamp(1.6rem, 2.6vw, 2.15rem);
+    color: var(--color-midnight);
+  }
+  .pillar-block__subtitle {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+  }
+
+  .pillar-block__body {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(32px, 5vw, 60px);
+    align-items: start;
+  }
+  .pillar-block__diagnostics {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .diagnostic-box {
+    padding: 18px 20px;
+    border-radius: var(--radius-card-small);
+  }
+  .diagnostic-box strong {
+    display: block;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .diagnostic-box p {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+  .diagnostic-box--problem {
+    background: rgba(247, 249, 252, 0.85);
+    border-left: 3px solid var(--color-border-strong);
+  }
+  .diagnostic-box--problem strong {
+    color: var(--color-text-muted);
+  }
+  .diagnostic-box--problem p {
+    color: var(--color-midnight);
+  }
+  .diagnostic-box--result {
+    background: var(--color-primary-soft);
+    border-left: 3px solid var(--color-primary);
+  }
+  .diagnostic-box--result strong {
+    color: var(--color-primary);
+  }
+  .diagnostic-box--result p {
+    color: var(--color-midnight);
+  }
+
+  .pillar-block__capabilities > strong {
+    display: block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 14px;
+  }
+  .capabilities-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .capability-item {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 18px;
+    background: rgba(247, 249, 252, 0.7);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card-small);
+    text-decoration: none;
+    transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+  }
+  .capability-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+    background: white;
+    box-shadow: 0 6px 18px rgba(36, 87, 255, 0.08);
+  }
+  .capability-item__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .capability-item__head h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 740;
+    color: var(--color-midnight);
+  }
+  .capability-item__arrow {
+    color: var(--color-primary);
+    font-size: 0.95rem;
+    transition: transform var(--transition-fast);
+  }
+  .capability-item:hover .capability-item__arrow {
+    transform: translate(2px, -2px);
+  }
+  .capability-item p {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: var(--color-text-muted);
+  }
+
+  .pillar-block__footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border);
+    flex-wrap: wrap;
+  }
+  .pillar-block__footer > span {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
     font-weight: 700;
   }
-  .services-method-pills i {
-    color: var(--color-text-muted);
-    font-style: normal;
-    font-size: 0.8rem;
+  .pillar-block__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
+  .pillar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: var(--color-primary-soft);
+    border-radius: 999px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+  }
+  .pillar-link:hover {
+    background: rgba(36, 87, 255, 0.16);
+    transform: translateX(2px);
+  }
+
+  /* Approach section */
+  .approach-grid {
+    margin-top: var(--space-4);
+  }
+  .approach-card {
+    padding: clamp(24px, 3.5vw, 36px);
+  }
+  .approach-step {
+    display: inline-block;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-cyan);
+    letter-spacing: 0.05em;
+  }
+  .approach-card h3 {
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+    color: white;
+  }
+  .approach-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-dark-muted);
+  }
+
+  /* Differentiation section */
+  .diff-grid {
+    margin-top: var(--space-4);
+  }
+  .diff-card {
+    padding: clamp(24px, 3vw, 32px);
+  }
+  .diff-card__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 16px;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    border-radius: 12px;
+  }
+  .diff-card__icon :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  .diff-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.18rem;
+    color: var(--color-midnight);
+  }
+  .diff-card p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+  }
+
+  /* CTA Panel */
   .services-cta-section {
     background: var(--color-midnight);
     color: white;
@@ -219,13 +860,13 @@ import CalendlyButton from '../components/conversion/CalendlyButton.astro';
   }
   .services-cta-copy h2 {
     margin: 8px 0 16px;
-    font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
     color: white;
   }
   .services-cta-copy p {
     margin: 0 0 28px;
     color: var(--color-dark-muted);
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     line-height: 1.6;
     max-width: 580px;
   }
@@ -238,7 +879,7 @@ import CalendlyButton from '../components/conversion/CalendlyButton.astro';
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 24px;
+    padding: 28px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--color-dark-border);
     border-radius: var(--radius-card);
@@ -252,13 +893,39 @@ import CalendlyButton from '../components/conversion/CalendlyButton.astro';
     color: var(--color-cyan);
   }
   .meta-item span {
-    font-size: 0.84rem;
+    font-size: 0.85rem;
     color: var(--color-dark-muted);
   }
-  @media (max-width: 850px) {
-    .services-intro__grid,
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .services-concept__grid,
+    .pillar-block__body,
     .services-cta-panel {
       grid-template-columns: 1fr;
+    }
+    .services-rail {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .rail-arrow {
+      display: none;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .capabilities-grid {
+      grid-template-columns: 1fr;
+    }
+    .services-rail {
+      grid-template-columns: 1fr;
+      padding: 20px;
+    }
+    .services-cta-actions {
+      flex-direction: column;
+    }
+    .services-cta-actions :global(.button) {
+      width: 100%;
     }
   }
 </style>

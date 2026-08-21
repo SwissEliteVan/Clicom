@@ -13,30 +13,30 @@ const links = [
 
 const serviceGroups = [
   {
-    title: 'Acquisition',
-    links: [
-      ['/seo/', 'SEO'],
-      ['/referencement-ia/', 'Référencement IA'],
-      ['/google-ads/', 'Google Ads'],
-      ['/social-ads/', 'Publicité sur les réseaux sociaux'],
-    ],
-  },
-  {
-    title: 'Création',
+    title: 'Présence digitale',
     links: [
       ['/creation-site-web/', 'Sites web'],
-      ['/creation-contenu/', 'Contenu'],
+      ['/branding/', 'Branding & Identité'],
+      ['/creation-contenu/', 'Création de contenu'],
       ['/reseaux-sociaux/', 'Réseaux sociaux'],
-      ['/branding/', 'Branding'],
     ],
   },
   {
-    title: 'Technologie',
+    title: 'Acquisition',
     links: [
-      ['/intelligence-artificielle/', 'Intelligence artificielle'],
-      ['/automatisation/', 'Automatisation'],
+      ['/seo/', 'SEO naturel'],
+      ['/referencement-ia/', 'Référencement IA'],
+      ['/google-ads/', 'Google Ads'],
+      ['/social-ads/', 'Publicité Social Ads'],
+    ],
+  },
+  {
+    title: 'Automatisation & Suivi',
+    links: [
+      ['/automatisation/', 'Automatisation des flux'],
       ['/email-marketing-crm/', 'CRM & e-mail'],
-      ['/faq/', 'FAQ'],
+      ['/intelligence-artificielle/', 'Intelligence artificielle'],
+      ['/methode/', 'Notre méthode'],
     ],
   },
 ];
@@ -56,9 +56,9 @@ const serviceGroups = [
         </summary>
         <div class="mega-menu">
           <div class="mega-menu__intro">
-            <span class="mega-menu__kicker">Expertises Clicom</span>
-            <strong>Attirer. Convertir.<br />Automatiser. Accélérer.</strong>
-            <a href="/services">Voir tous les services <span aria-hidden="true">→</span></a>
+            <span class="mega-menu__kicker">Système digital PME</span>
+            <strong>Présence · Acquisition.<br />Automatisation · Suivi.</strong>
+            <a href="/services">Voir le système complet <span aria-hidden="true">→</span></a>
           </div>
           {serviceGroups.map((group) => (
             <div class="mega-menu__group">
@@ -85,7 +85,7 @@ const serviceGroups = [
         <a class:list={{ active: serviceActive }} href="/services" aria-current={serviceActive ? 'page' : undefined}>Services <span>→</span></a>
         {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}<span>→</span></a>)}
         <div class="mobile-menu__services">
-          <span>Services prioritaires</span>
+          <span>Piliers du système</span>
           <div><a href="/creation-site-web/">Sites web</a><a href="/seo/">SEO</a><a href="/google-ads/">Publicité</a><a href="/automatisation/">Automatisation</a></div>
         </div>
         <Button href="/audit-gratuit/">Demander un audit gratuit <span aria-hidden="true">→</span></Button>

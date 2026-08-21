@@ -1,8 +1,5 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, ScrollTrigger } from './motion/core';
 
 const hero = document.querySelector<HTMLElement>('[data-hero]');
 if (hero) initialiseHero(hero);

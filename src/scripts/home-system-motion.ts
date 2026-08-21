@@ -1,6 +1,6 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
+import { gsap } from './motion/core';
+import { bindAstroMotionCleanup } from './motion/lifecycle';
+import { motion } from './motion/tokens';
 
 const section = document.querySelector<HTMLElement>('[data-system-story]');
 if (section) initialiseSystem(section);
@@ -36,7 +36,7 @@ function initialiseSystem(root: HTMLElement) {
 
       const timeline = gsap.timeline({
         defaults:{ ease:'none' },
-        scrollTrigger:{ trigger:steps[0], endTrigger:steps[steps.length-1], start:'top 58%', end:'bottom 44%', scrub:.75, invalidateOnRefresh:true,
+        scrollTrigger:{ trigger:steps[0], endTrigger:steps[steps.length-1], start:'top 58%', end:'bottom 44%', scrub:motion.scrub.smooth, invalidateOnRefresh:true,
           onUpdate:self => activate(Math.min(3,Math.floor(self.progress * 4))) }
       });
       timeline
@@ -82,6 +82,5 @@ function initialiseSystem(root: HTMLElement) {
     return () => media.revert();
   },root);
 
-  const cleanup = () => { context.revert(); ScrollTrigger.getAll().filter(trigger => trigger.trigger && root.contains(trigger.trigger as Node)).forEach(trigger => trigger.kill()); };
-  document.addEventListener('astro:before-swap',cleanup,{once:true});
+  bindAstroMotionCleanup(root, context);
 }

@@ -1,4 +1,4 @@
-import gsap from 'gsap';
+import { gsap } from '../motion/core';
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll<HTMLElement>('[data-visual-motion]:not([data-visual-ready])').forEach((visual) => {

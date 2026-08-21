@@ -1,6 +1,5 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, ScrollTrigger } from './motion/core';
+import { bindAstroMotionCleanup } from './motion/lifecycle';
 
 const section = document.querySelector<HTMLElement>('[data-expertise-section]');
 if (section) initialiseExpertise(section);
@@ -51,6 +50,5 @@ function initialiseExpertise(root: HTMLElement) {
     media.add('(prefers-reduced-motion: reduce)',()=>gsap.set('[data-expertise-media] *',{clearProps:'all'}));
     return()=>{removers.splice(0).forEach(remove=>remove());media.revert()};
   },root);
-  const cleanup=()=>{context.revert();ScrollTrigger.getAll().filter(trigger=>trigger.trigger&&root.contains(trigger.trigger as Node)).forEach(trigger=>trigger.kill())};
-  document.addEventListener('astro:before-swap',cleanup,{once:true});
+  bindAstroMotionCleanup(root, context);
 }

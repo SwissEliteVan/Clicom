@@ -2,110 +2,144 @@
 import CommercialPage from '../components/CommercialPage.astro';
 import webImage from '../assets/editorial/creation-site-web-responsive-suisse.webp';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/creation-site-web/#service',
+      name: 'Création de site web pour PME en Suisse romande',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Conception et développement de sites web ultra-rapides, ergonomiques et orientés conversion pour les PME en Suisse romande.',
+      serviceType: 'Création de sites web',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/creation-site-web/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'Création de site web', item: 'https://clicom.ch/creation-site-web/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Un site beau, mais difficile à utiliser pour décider',
-    text: 'Le design attire l’attention, sans expliquer assez vite l’offre, les preuves ou la prochaine étape à suivre pour un prospect.',
+    title: 'Un site esthétique mais difficile à utiliser pour décider',
+    text: 'Le design attire le regard, sans expliquer assez vite votre différence, vos preuves ou la démarche à suivre pour demander un devis.',
   },
   {
-    title: 'Des contenus sans hiérarchie claire',
-    text: 'Les messages importants sont noyés, les parcours changent d’une page à l’autre et les appels à l’action manquent de contexte.',
+    title: 'Des parcours mobiles et des messages confus',
+    text: 'Les offres sont mal hiérarchisées, le temps de chargement décourage les prospects et les formulaires créent des frictions inutiles.',
   },
   {
-    title: 'Une base technique qui limite la suite',
-    text: 'Lenteur, expérience mobile fragile, SEO technique incomplet ou suivi absent rendent le site plus difficile à faire évoluer.',
+    title: 'Une base technique fermée qui bloque l’évolution',
+    text: 'Lenteur, maintenance complexe, SEO technique incomplet ou absence de tracking empêchent de relier le site à votre CRM et à vos campagnes.',
   },
 ];
 
 const services = [
-  { title: 'Cadrage et structure', text: 'Clarifier objectifs, audiences, offres, pages prioritaires et actions à mesurer avant de dessiner.' },
-  { title: 'UX et hiérarchie des contenus', text: 'Organiser les parcours, les messages et les preuves pour réduire l’effort nécessaire à la compréhension.' },
-  { title: 'Design responsive', text: 'Concevoir une interface cohérente sur mobile, tablette et desktop, sans traiter le mobile comme une adaptation tardive.' },
-  { title: 'Développement Astro', text: 'Mettre en œuvre un socle moderne, maintenable et performant, adapté au niveau d’autonomie recherché.' },
-  { title: 'SEO technique et performance', text: 'Intégrer structure, balisage, vitesse et bonnes pratiques techniques dès la conception du projet.' },
-  { title: 'Formulaires, tracking et mise en ligne', text: 'Relier les prises de contact à une mesure utile et organiser le lancement avec les vérifications nécessaires.' },
+  { title: 'Cadrage stratégique & Arborescence', text: 'Clarifier vos offres prioritaires, vos cibles en Suisse romande et les parcours de décision avant de dessiner.' },
+  { title: 'UX & Rédaction persuasive', text: 'Organiser les argumentaires, preuves et appels à l’action pour réduire l’effort de compréhension des visiteurs.' },
+  { title: 'Design responsive sur-mesure', text: 'Concevoir une interface élégante et crédible, pensée en priorité pour l’expérience mobile et tablette.' },
+  { title: 'Développement Astro haute performance', text: 'Mettre en œuvre un socle moderne, sécurisé et ultra-rapide, sans dépendance lourde ni surcoût caché.' },
+  { title: 'SEO technique & Balisage sémantique', text: 'Intégrer vitesse, structure de données, balisage Schema.org et bonnes pratiques d’indexation dès la conception.' },
+  { title: 'Formulaires & Connexion CRM', text: 'Relier chaque prise de contact à votre outil de suivi commercial pour un traitement immédiat et mesurable.' },
 ];
 
 const process = [
-  { title: 'Comprendre', text: 'Cadrer l’offre, les audiences, les contenus disponibles, les objectifs et les contraintes techniques.' },
-  { title: 'Structurer', text: 'Définir l’architecture, les parcours, les priorités de contenu et les actions à faciliter.' },
-  { title: 'Concevoir', text: 'Traduire le positionnement en interfaces claires, crédibles et adaptées à chaque écran.' },
-  { title: 'Développer', text: 'Intégrer le site, les composants, les formulaires et les fondations techniques utiles au projet.' },
-  { title: 'Lancer et améliorer', text: 'Tester, mettre en ligne, mesurer les premiers signaux et faire évoluer les priorités avec méthode.' },
+  { title: 'Comprendre', text: 'Cadrer vos offres, vos clients idéaux, vos contenus disponibles et vos contraintes techniques métier.' },
+  { title: 'Structurer', text: 'Définir l’arborescence, les parcours de conversion et la hiérarchie des messages clés.' },
+  { title: 'Concevoir', text: 'Traduire votre positionnement en interfaces claires, crédibles et parfaitement adaptées à chaque écran.' },
+  { title: 'Développer', text: 'Intégrer le site sur un moteur moderne, brancher les formulaires et configurer les outils de mesure.' },
+  { title: 'Lancer & Suivre', text: 'Tester, sécuriser la mise en ligne, vérifier le tracking et planifier les améliorations continues.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Un outil commercial',
-  title: 'Un beau site ne suffit pas s’il ne facilite pas une décision.',
-  intro: 'Un site efficace met de l’ordre dans votre proposition de valeur, rassure au bon moment et rend la prise de contact plus simple sur tous les écrans.',
+  eyebrow: 'Intégration au système',
+  title: 'Comment votre site s’intègre dans le système digital CliCom.',
+  intro: 'Un site web efficace ne vit pas isolé : il est le socle sur lequel s’appuient votre acquisition et vos flux de suivi.',
   items: [
-    { title: 'Clarté avant décoration', text: 'Le visiteur doit comprendre rapidement ce que vous proposez, pour qui et pourquoi votre approche mérite son attention.' },
-    { title: 'Mobile et vitesse dès le départ', text: 'L’expérience ne peut pas être pensée uniquement sur grand écran : performance et lisibilité influencent chaque parcours.' },
-    { title: 'Conversion et mesure intégrées', text: 'Les appels à l’action, formulaires et signaux de conversion se conçoivent avec le site, pas après son lancement.' },
+    { title: 'Socle de l’Acquisition', text: 'Vos campagnes Google Ads et votre référencement naturel mènent vers des pages optimisées pour convertir le trafic en opportunités.' },
+    { title: 'Déclencheur de l’Automatisation', text: 'Chaque formulaire soumis transmet instantanément les données qualifiées dans votre CRM et alerte la bonne personne.' },
+    { title: 'Mesure de la Performance', text: 'Les prises de contact sont trackées avec rigueur pour évaluer la rentabilité réelle de vos investissements digitaux.' },
   ],
 };
 
 const faq = [
   {
-    question: 'Combien coûte la création ou la refonte d’un site web ?',
-    answer: 'Le budget dépend du périmètre, du nombre de pages, des contenus, des fonctionnalités, des intégrations et du niveau d’accompagnement. Nous cadrons ces éléments avant de proposer une solution adaptée.',
+    question: 'Combien coûte la création ou la refonte d’un site web pour une PME ?',
+    answer: 'Le budget dépend du périmètre, du nombre de pages, de la complexité des intégrations et du niveau d’accompagnement éditorial. Nous cadrons ces éléments ensemble avant de proposer une proposition transparente et détaillée.',
   },
   {
-    question: 'Combien de temps faut-il pour créer un site ?',
-    answer: 'Le calendrier dépend surtout du périmètre, de la disponibilité des contenus, des validations et des intégrations nécessaires. Un planning réaliste est défini au moment du cadrage.',
+    question: 'Combien de temps faut-il pour créer un site internet ?',
+    answer: 'Le calendrier dépend du périmètre, de la disponibilité des contenus et des validations. Un planning réaliste avec des jalons précis est défini dès la phase de cadrage.',
   },
   {
-    question: 'Puis-je garder mon domaine actuel ?',
-    answer: 'Oui, dans la plupart des cas. La conservation ou le transfert du domaine est vérifié dans le plan de mise en ligne pour éviter les ruptures inutiles.',
+    question: 'Puis-je conserver mon nom de domaine et mes adresses e-mails ?',
+    answer: 'Oui. La conservation de votre domaine et la continuité de votre messagerie sont systématiquement assurées et vérifiées dans notre plan de mise en ligne.',
   },
   {
     question: 'Qui possède le site après sa mise en ligne ?',
-    answer: 'Les modalités de propriété, d’accès et de maintenance sont clarifiées dans le projet. L’objectif est que votre entreprise dispose des éléments nécessaires pour faire évoluer le site dans le cadre choisi.',
+    answer: 'Vous êtes 100 % propriétaire de votre site web, de son code source et de ses contenus. Vous disposez d’une totale autonomie sans abonnement captif.',
   },
   {
-    question: 'Pouvez-vous reprendre un site existant ?',
-    answer: 'Oui. Nous pouvons auditer un site existant pour conserver ce qui fonctionne, corriger les points de friction et organiser une refonte progressive ou plus complète selon le besoin.',
+    question: 'Pouvez-vous moderniser un site web existant ?',
+    answer: 'Oui. Nous auditons votre site existant pour identifier ce qui fonctionne, corriger les points de friction et organiser une refonte progressive ou complète selon vos priorités.',
   },
 ];
 ---
 
 <CommercialPage
-  title="Création de site web orienté conversion | CLICOM"
-  description="Sites web clairs, rapides et évolutifs : UX, design, développement Astro, SEO technique, formulaires et tracking au service des demandes."
+  title="Création de site web orienté conversion pour PME | CLICOM Suisse"
+  description="Sites web sur-mesure pour PME en Suisse romande : ergonomie, design moderne, vitesse Astro et parcours orientés conversion pour générer des demandes utiles."
+  pillarTag="Pilier 01 · Présence digitale"
   eyebrow="Création de site web"
   h1="Un site web conçu pour <span class='accent'>convaincre, rassurer et générer des demandes.</span>"
-  intro="CLICOM conçoit des sites web qui rendent l’offre plus claire, renforcent la crédibilité et facilitent le passage de la visite à la prise de contact."
+  intro="CliCom conçoit des sites web sur-mesure pour les PME romandes : proposition de valeur limpide, navigation mobile fluide et structure technique optimisée pour transformer vos visiteurs en contacts qualifiés."
   {problems}
-  solution="Votre site ne doit pas seulement présenter votre entreprise. Il doit soutenir vos objectifs commerciaux avec une expérience claire, rapide, mobile et mesurable."
+  solution="Votre site ne doit pas être une simple vitrine statique : c’est le point central de votre système digital. Il doit crédibiliser votre savoir-faire et faciliter la prise de contact sur tous les écrans."
   {services}
   {process}
   benefits={[
-    'Une proposition de valeur plus immédiate à comprendre',
-    'Des parcours et appels à l’action plus simples à suivre',
-    'Une expérience cohérente sur mobile, tablette et desktop',
-    'Un socle SEO et technique pensé dès le début du projet',
-    'Des demandes et interactions plus faciles à mesurer',
+    'Une proposition de valeur comprise en quelques secondes par vos visiteurs',
+    'Des demandes de devis plus fréquentes et mieux qualifiées',
+    'Une vitesse de chargement instantanée sur mobile et ordinateur',
+    'Un socle SEO technique robuste pensé dès la conception du projet',
+    'Une connexion directe avec vos outils commerciaux et votre CRM',
   ]}
   {faq}
   links={[
-    { href: '/seo/', label: 'SEO' },
-    { href: '/branding/', label: 'Branding' },
-    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/services/', label: 'Le système complet CliCom' },
+    { href: '/seo/', label: 'SEO & Visibilité' },
+    { href: '/branding/', label: 'Branding & Identité' },
+    { href: '/automatisation/', label: 'Automatisation des flux' },
   ]}
   problemEyebrow="Pourquoi un site peut rester inefficace"
   problemsTitle="La confiance se construit dans les détails du parcours."
   offerTitle="Concevoir un site qui relie image, performance et conversion."
   processTitle="Du cadrage à la mise en ligne, sans rupture entre stratégie et technique."
-  benefitsTitle="Un site plus clair pour vos visiteurs et plus utile à votre entreprise."
+  benefitsTitle="Un site plus clair pour vos visiteurs et plus rentable pour votre PME."
   faqTitle="Les questions à éclaircir avant de lancer un projet web."
   {decisionGuide}
-  heroPrimaryLabel="Nous présenter votre projet"
+  heroPrimaryLabel="Parler de votre projet de site"
   heroSecondary="#approach"
-  heroSecondaryLabel="Découvrir notre méthode"
+  heroSecondaryLabel="Découvrir notre démarche"
   heroPrimaryCalendly={true}
   ctaTitle="Faisons de votre site un outil commercial plus clair."
   ctaText="Réservez un échange de 30 minutes pour discuter de votre site actuel, de votre projet et des priorités qui peuvent améliorer le parcours de vos visiteurs."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
   editorialImage={webImage}
+  {structuredData}
 />

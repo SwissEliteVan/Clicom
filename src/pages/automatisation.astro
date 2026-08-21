@@ -1,88 +1,121 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/automatisation/#service',
+      name: 'Automatisation des processus pour PME en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Automatisation des flux commerciaux, formulaires web, alertes d’équipe et synchronisation de données pour PME en Suisse romande.',
+      serviceType: 'Automatisation des processus métier',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/automatisation/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'Automatisation des processus', item: 'https://clicom.ch/automatisation/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Des demandes traitées trop tard',
-    text: 'Les formulaires, e-mails et campagnes alimentent plusieurs outils, ce qui retarde parfois la notification, l’attribution ou la première réponse.',
+    title: 'Des demandes commerciales traitées avec trop de retard',
+    text: 'Les formulaires web tombent dans une boîte générique, retardant la notification, l’attribution au bon collaborateur et la première prise de contact.',
   },
   {
-    title: 'Des données recopiées à la main',
-    text: 'Les mêmes informations passent d’un formulaire au CRM, d’un tableau à un outil de reporting ou d’une équipe à l’autre, avec un risque d’erreur.',
+    title: 'Des données recopiées à la main entre plusieurs logiciels',
+    text: 'Recopier les coordonnées des prospects d’un e-mail vers Excel, puis vers le CRM ou l’outil de facturation crée des erreurs et fait perdre un temps précieux.',
   },
   {
-    title: 'Un reporting qui prend plus de temps que l’analyse',
-    text: 'La collecte, la consolidation et la mise en forme des données limitent le temps disponible pour décider et améliorer les actions.',
+    title: 'Des relances de devis oubliées par manque de système',
+    text: 'L’absence de rappels automatisés conduit à l’abandon de prospects tièdes qui auraient pourtant signé avec un suivi plus régulier.',
   },
 ];
 
 const services = [
-  { title: 'Formulaire vers CRM', text: 'Créer ou enrichir les fiches de contact à partir des informations utiles recueillies sur le site.' },
-  { title: 'Lead vers notification et suivi', text: 'Orienter une demande vers la bonne personne, créer une tâche et donner le contexte nécessaire à une réponse rapide.' },
-  { title: 'Devis et relances', text: 'Déclencher les étapes de suivi après une proposition, avec des règles adaptées à votre fonctionnement commercial.' },
-  { title: 'Onboarding client', text: 'Préparer les actions et informations qui aident les équipes à accueillir un nouveau client de façon cohérente.' },
-  { title: 'Synchronisation des données', text: 'Faire circuler des informations définies entre les outils pour limiter les doubles saisies et les écarts.' },
-  { title: 'Reporting automatisé', text: 'Consolider les indicateurs utiles afin de consacrer davantage de temps à leur interprétation et à la décision.' },
+  { title: 'Connexion Formulaires Web vers CRM', text: 'Intégrer automatiquement chaque demande de contact ou devis dans votre base avec l’historique des informations fournies.' },
+  { title: 'Routage des leads & Alertes d’équipe instantanées', text: 'Notifier la bonne personne (par e-mail, Slack ou Teams) et créer la tâche commerciale associée dès qu’un lead arrive.' },
+  { title: 'Automatisation du suivi de devis', text: 'Déclencher des scénarios de relance programmés et courtois après l’envoi d’une proposition tarifaire.' },
+  { title: 'Synchronisation des contacts & Outils métier', text: 'Faire communiquer vos différents logiciels pour supprimer les doubles saisies et maintenir des données fiables.' },
+  { title: 'Processus d’accueil client (Onboarding)', text: 'Automatiser l’envoi des pièces contractuelles, questionnaires et informations clés dès la signature d’un contrat.' },
+  { title: 'Tableaux de bord & Rapports automatisés', text: 'Consolider vos indicateurs d’activité commerciale sans passer des heures à compiler manuellement des chiffres.' },
 ];
 
 const process = [
-  { title: 'Cartographier', text: 'Documenter les outils, données, étapes et exceptions qui composent le processus actuel.' },
-  { title: 'Simplifier', text: 'Retirer les doublons et les ambiguïtés avant de connecter des outils ou d’ajouter des règles.' },
-  { title: 'Prioriser', text: 'Choisir les flux fréquents, stables et suffisamment documentés qui méritent un premier effort.' },
-  { title: 'Connecter', text: 'Mettre en place les automatisations avec les contrôles, alertes et responsabilités nécessaires.' },
-  { title: 'Superviser', text: 'Vérifier les résultats, traiter les exceptions et faire évoluer le flux lorsque le fonctionnement change.' },
+  { title: 'Cartographier', text: 'Documenter vos flux actuels, les outils utilisés et les étapes manuelles qui ralentissent vos équipes.' },
+  { title: 'Simplifier', text: 'Supprimer les doublons et clarifier les règles métier avant de connecter les logiciels pour ne pas automatiser le désordre.' },
+  { title: 'Prioriser', text: 'Sélectionner les 2 ou 3 flux fréquents et stables qui apporteront le gain de temps le plus immédiat à votre PME.' },
+  { title: 'Connecter & Sécuriser', text: 'Mettre en place les automatisations avec des alertes d’erreur et des mécanismes de contrôle rigoureux.' },
+  { title: 'Superviser', text: 'Former vos collaborateurs, vérifier la bonne exécution et faire évoluer les flux au fil de votre activité.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Garder le contrôle',
-  title: 'Ce qu’il vaut mieux ne pas automatiser.',
-  intro: 'L’automatisation est utile quand elle fiabilise un processus compris. Automatiser une étape confuse, sensible ou instable peut simplement accélérer un problème existant.',
+  eyebrow: 'Intégration au système',
+  title: 'Ce qu’il faut automatiser — et ce qu’il faut garder à l’humain.',
+  intro: 'L’automatisation est un levier puissant pour fiabiliser l’organisation sans jamais déshumaniser la relation client.',
   items: [
-    { title: 'Un processus jamais clarifié', text: 'Avant de le connecter à des outils, il faut savoir qui décide, quelles données comptent et comment les exceptions sont gérées.' },
-    { title: 'Une décision qui demande du jugement', text: 'Les échanges sensibles, arbitrages complexes ou validations à forte conséquence doivent conserver un contrôle humain adapté.' },
-    { title: 'Des données peu fiables', text: 'Une synchronisation ne corrige pas une donnée erronée. La qualité des sources et les règles de mise à jour restent essentielles.' },
+    { title: 'Automatiser les passages d’information', text: 'La transmission des coordonnées, l’envoi d’accusés de réception, les alertes d’équipe et la mise à jour des statuts.' },
+    { title: 'Conserver le jugement humain', text: 'L’écoute des besoins complexes, la personnalisation des conseils, la négociation et les choix stratégiques.' },
+    { title: 'Relier la Présence à l’Acquisition', text: 'Permet de traiter immédiatement chaque opportunité générée par votre site web et vos campagnes publicitaires.' },
   ],
 };
 
 const faq = [
   {
-    question: 'Que peut-on automatiser en premier ?',
-    answer: 'Les tâches fréquentes, prévisibles, chronophages et suffisamment documentées constituent souvent les meilleurs premiers candidats. Nous cherchons le gain utile, pas l’automatisation maximale.',
+    question: 'Quels sont les premiers flux à automatiser dans une PME ?',
+    answer: 'La capture des demandes web vers le CRM, les notifications instantanées aux commerciaux et les relances de devis constituent les flux les plus immédiatement rentables.',
   },
   {
-    question: 'Faut-il changer tous nos outils ?',
-    answer: 'Pas nécessairement. Nous évaluons d’abord les outils existants, leurs possibilités de connexion et la simplicité du processus à mettre en place.',
+    question: 'Faut-il changer tous nos logiciels existants pour automatiser ?',
+    answer: 'Non. Nous travaillons en priorité avec vos outils actuels grâce à des connecteurs API standards. Nous ne recommandons un changement que si un logiciel bloque réellement votre fonctionnement.',
   },
   {
-    question: 'Comment éviter une automatisation fragile ?',
-    answer: 'En simplifiant le flux, en limitant les dépendances inutiles, en testant les cas principaux et en prévoyant une supervision des erreurs ou des exceptions.',
+    question: 'Comment évite-t-on les pannes ou les erreurs dans les automatisations ?',
+    answer: 'En concevant des scénarios simples avec gestion des exceptions, alertes immédiates en cas d’anomalie et journalisation des flux pour intervenir rapidement.',
   },
   {
-    question: 'L’automatisation remplace-t-elle les équipes ?',
-    answer: 'Elle vise surtout à réduire les tâches répétitives et à fiabiliser les passages d’information. Les équipes conservent les décisions, la relation et les situations qui demandent du contexte.',
+    question: 'L’automatisation remplace-t-elle des collaborateurs ?',
+    answer: 'Non. Elle libère vos équipes des tâches de saisie ingrates et chronophages pour leur permettre de se concentrer sur l’accompagnement des clients et le développement commercial.',
   },
 ];
 ---
 
 <CommercialPage
-  title="Automatisation : relier vos outils et vos processus | CLICOM"
-  description="Automatisation des formulaires, leads, devis, onboarding, synchronisation de données et reporting pour réduire les tâches répétitives et les frictions."
+  title="Automatisation des processus pour PME | CLICOM Suisse"
+  description="Automatisation des flux marketing, formulaires, leads, alertes et synchronisation d'outils pour PME en Suisse romande. Gagnez du temps et éliminez les erreurs."
+  pillarTag="Pilier 03 · Automatisation"
   eyebrow="Automatisation"
-  h1="Réduire les tâches répétitives et fiabiliser les échanges entre <span class='gradient-text'>vos outils.</span>"
-  intro="CLICOM aide à simplifier puis automatiser les flux marketing et commerciaux qui font perdre du temps, créent des erreurs ou ralentissent le suivi des demandes."
+  h1="Éliminer les tâches répétitives et relier vos outils pour <span class='gradient-text'>gagner du temps.</span>"
+  intro="CliCom connecte vos formulaires web, votre CRM, vos messageries et vos outils de gestion : chaque opportunité est traitée instantanément, sans ressaisie manuelle ni oubli en Suisse romande."
   {problems}
-  solution="L’objectif n’est pas d’automatiser tout ce qui bouge. Il est de fiabiliser les étapes utiles et de libérer du temps pour les décisions, les équipes et la relation client."
+  solution="L’objectif n’est pas d’automatiser tout ce qui bouge. Il est de fiabiliser les étapes clés de vos flux de travail pour libérer du temps à vos équipes et répondre plus vite à vos clients."
   {services}
   {process}
   benefits={[
-    'Des demandes prises en charge plus rapidement',
-    'Moins de ressaisie et de risques d’erreur manuelle',
-    'Des informations mieux synchronisées entre les outils',
-    'Un reporting plus régulier et moins chronophage',
-    'Des flux documentés, supervisés et plus simples à faire évoluer',
+    'Une réactivité commerciale immédiate dès la réception d’une demande web',
+    'Zéro ressaisie manuelle et suppression des erreurs de transcription',
+    'Des relances systématiques qui augmentent le taux de signature de vos devis',
+    'Des heures de travail administratif économisées chaque semaine pour vos équipes',
+    'Des processus documentés, fiables et sous contrôle humain permanent',
   ]}
   {faq}
   links={[
+    { href: '/services/', label: 'Le système complet CliCom' },
     { href: '/email-marketing-crm/', label: 'E-mail marketing & CRM' },
     { href: '/intelligence-artificielle/', label: 'Intelligence artificielle' },
     { href: '/creation-site-web/', label: 'Création de site web' },
@@ -91,15 +124,16 @@ const faq = [
   problemsTitle="Les frictions s’accumulent souvent entre les outils, pas dans une seule tâche."
   offerTitle="Simplifier les flux avant de les connecter."
   processTitle="De la cartographie à la supervision, sans automatiser à l’aveugle."
-  benefitsTitle="Des opérations plus fiables et plus de temps pour les tâches à valeur humaine."
-  faqTitle="Les questions à poser avant d’automatiser un processus."
+  benefitsTitle="Des opérations plus fluides et plus de temps pour vos clients."
+  faqTitle="Les questions utiles avant d’automatiser un processus."
   {decisionGuide}
-  heroPrimaryLabel="Identifier vos priorités d’automatisation"
+  heroPrimaryLabel="Faire le point sur vos flux"
   heroSecondary="#approach"
   heroSecondaryLabel="Voir des exemples de flux"
   heroPrimaryCalendly={true}
   ctaTitle="Repérons les tâches qui méritent vraiment d’être automatisées."
-  ctaText="Réservez un échange de 30 minutes pour discuter de vos outils, de vos points de friction et des flux les plus utiles à simplifier."
+  ctaText="Réservez un échange de 30 minutes pour discuter de vos outils, de vos points de friction et des flux les plus utiles à simplifier dans votre PME."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
+  {structuredData}
 />

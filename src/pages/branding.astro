@@ -1,106 +1,140 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/branding/#service',
+      name: 'Identité de marque & Branding pour PME en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Positionnement stratégique, identité visuelle, logo, charte graphique et langage de marque pour PME en Suisse romande.',
+      serviceType: 'Branding et identité de marque',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/branding/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'Branding & Identité', item: 'https://clicom.ch/branding/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Une marque difficile à distinguer',
-    text: 'Le positionnement, les messages ou les codes visuels ressemblent trop aux alternatives du marché pour rendre la différence évidente.',
+    title: 'Une image vieillissante qui ne reflète plus votre niveau d’expertise',
+    text: 'Votre entreprise a évolué et vos prestations sont solides, mais votre identité visuelle donne une impression dépassée face aux acteurs du marché.',
   },
   {
-    title: 'Des supports qui ne racontent pas la même histoire',
-    text: 'Site, contenus, réseaux sociaux et publicité utilisent des tons, des visuels ou des niveaux de qualité qui manquent de cohérence.',
+    title: 'Des supports disparates et sans cohérence globale',
+    text: 'Site web, plaquettes, propositions commerciales et réseaux sociaux utilisent des styles et des tons différents qui diluent la confiance.',
   },
   {
-    title: 'Une entreprise qui a évolué sans faire évoluer son identité',
-    text: 'L’offre, l’ambition ou les audiences ont changé, mais la marque ne traduit plus clairement ce que l’entreprise souhaite représenter.',
+    title: 'Un positionnement flou difficile à distinguer de la concurrence',
+    text: 'Vos messages ressemblent à ceux de tout le monde, rendant votre vraie valeur ajoutée difficile à percevoir pour un prospect lors de son choix.',
   },
 ];
 
 const services = [
-  { title: 'Positionnement de marque', text: 'Clarifier audiences, différence, promesse, preuves et territoire pour donner un cap aux décisions créatives.' },
-  { title: 'Messages et langage', text: 'Définir les messages clés et les principes éditoriaux qui rendent la marque reconnaissable dans ses prises de parole.' },
-  { title: 'Logo et identité visuelle', text: 'Concevoir ou faire évoluer les signes, couleurs, typographies et éléments qui constituent l’identité.' },
-  { title: 'Système graphique', text: 'Créer des règles de composition, d’iconographie et de mise en page qui dépassent le seul logo.' },
-  { title: 'Charte et outils d’usage', text: 'Formaliser ce dont les équipes ont besoin pour produire des supports cohérents dans la durée.' },
-  { title: 'Applications digitales', text: 'Déployer la marque sur le site, les contenus, les réseaux sociaux et les campagnes prioritaires.' },
+  { title: 'Positionnement & Différenciation', text: 'Clarifier votre proposition de valeur, votre cible et vos arguments clés en Suisse romande pour guider les choix créatifs.' },
+  { title: 'Logo & Système d’identité visuelle', text: 'Concevoir un univers graphique durable (typographies, palette de couleurs, règles de composition et d’iconographie).' },
+  { title: 'Charte graphique & Guide d’usage', text: 'Formaliser les repères indispensables pour que vos équipes internes appliquent la marque avec simplicité et autonomie.' },
+  { title: 'Messages clés & Ligne éditoriale', text: 'Définir le ton de communication et les formulations qui rendent votre discours percutant et reconnaissable.' },
+  { title: 'Déclinaisons digitales prioritaires', text: 'Déployer la nouvelle identité sur votre site web, vos réseaux sociaux et vos gabarits de présentation.' },
+  { title: 'Supports commerciaux & Papeterie', text: 'Harmoniser cartes de visite, documents d’offres, en-têtes et signatures e-mails selon le nouveau standard.' },
 ];
 
 const process = [
-  { title: 'Explorer', text: 'Comprendre l’entreprise, son marché, ses publics, ses acquis et les perceptions à faire évoluer.' },
-  { title: 'Positionner', text: 'Clarifier la différence, la promesse et les messages qui doivent guider l’identité.' },
-  { title: 'Créer', text: 'Concevoir le système visuel et éditorial avec des partis pris cohérents avec le positionnement.' },
-  { title: 'Formaliser', text: 'Documenter les règles et les outils qui permettent aux équipes de les utiliser avec autonomie.' },
-  { title: 'Déployer', text: 'Appliquer la marque sur les supports prioritaires et ajuster les détails à l’usage réel.' },
+  { title: 'Explorer', text: 'Analyser votre histoire, votre marché, vos concurrents locaux et les perceptions à faire évoluer.' },
+  { title: 'Positionner', text: 'Formuler la promesse, les partis pris stratégiques et le territoire d’expression de la marque.' },
+  { title: 'Créer', text: 'Concevoir les pistes créatives, le logo, le système visuel et les principes de langage associés.' },
+  { title: 'Formaliser', text: 'Documenter la charte graphique et fournir les fichiers sources prêts pour tous les usages.' },
+  { title: 'Déployer', text: 'Intégrer l’identité sur votre site web et l’ensemble de vos points de contact prioritaires.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Bien plus qu’un logo',
-  title: 'Le branding ne se limite pas à un logo.',
-  intro: 'Une identité utile relie stratégie, langage et système graphique pour que la marque reste reconnaissable à chaque point de contact.',
+  eyebrow: 'Intégration au système',
+  title: 'Le branding comme fondation de votre système digital.',
+  intro: 'Une identité soignée ne se limite pas à un fichier graphique : elle renforce la performance de chaque canal.',
   items: [
-    { title: 'Rendre la différence visible', text: 'Le positionnement donne un sens aux choix créatifs et aide les prospects à comprendre ce qui vous distingue.' },
-    { title: 'Créer un système, pas un fichier isolé', text: 'Couleurs, typographies, règles graphiques et ton doivent fonctionner ensemble sur des usages réels.' },
-    { title: 'Relier les supports digitaux', text: 'Le site, le contenu, les réseaux sociaux et la publicité gagnent en cohérence lorsqu’ils partagent la même base.' },
+    { title: 'Crédibilise votre Site Web', text: 'Une charte graphique cohérente transforme la première impression d’un visiteur en confiance immédiate et facilite la conversion.' },
+    { title: 'Augmente l’impact de l’Acquisition', text: 'Des visuels percutants et un message limpide améliorent les taux de clic sur Google Ads et les réseaux sociaux.' },
+    { title: 'Assure la continuité relationnelle', text: 'Des devis, documents commerciaux et e-mails alignés valorisent votre sérieux auprès de vos clients existants.' },
   ],
 };
 
 const faq = [
   {
-    question: 'Une identité visuelle se limite-t-elle au logo ?',
-    answer: 'Non. Le logo est un élément du système. Une identité comprend aussi le positionnement, les messages, les couleurs, les typographies, les compositions, l’iconographie et leurs règles d’usage.',
+    question: 'Le branding se résume-t-il à la création d’un logo ?',
+    answer: 'Non. Le logo est un repère, mais une identité de marque complète comprend le positionnement, les messages clés, les typographies, les couleurs, les règles de mise en page et le ton de communication qui rendent votre entreprise immédiatement reconnaissable.',
   },
   {
-    question: 'Pouvez-vous faire évoluer une marque existante ?',
-    answer: 'Oui. Une évolution peut être progressive ou plus structurante selon ce qui fonctionne déjà, la perception actuelle de la marque et le repositionnement souhaité.',
+    question: 'Pouvez-vous faire évoluer une identité existante sans tout casser ?',
+    answer: 'Oui. Nous pouvons moderniser votre identité de manière progressive pour préserver la notoriété acquise auprès de vos clients tout en rajeunissant votre image et en l’adaptant aux standards digitaux actuels.',
   },
   {
-    question: 'Le branding inclut-il les textes ?',
-    answer: 'Le périmètre peut inclure le positionnement, les messages clés et le tone of voice. L’objectif est de relier ce que la marque dit à la manière dont elle se présente visuellement.',
+    question: 'Quels fichiers et livrables recevons-nous à la fin du projet ?',
+    answer: 'Vous recevez un guide de marque complet (charte graphique), l’ensemble des fichiers logos dans tous les formats professionnels (vectoriel SVG/EPS, PNG haute définition, versions sombres et claires) ainsi que les gabarits convenus.',
   },
   {
-    question: 'Comment la nouvelle identité est-elle déployée ?',
-    answer: 'Nous priorisons les supports qui comptent le plus : site, présentations, contenus, réseaux sociaux ou campagnes. Les règles de marque servent ensuite de repère pour les déploiements suivants.',
+    question: 'Combien de temps faut-il pour concevoir une identité de marque ?',
+    answer: 'Le délai varie généralement entre 3 et 6 semaines selon le périmètre (création complète ou modernisation, nombre de supports à décliner) et le rythme des validations d’étapes.',
   },
 ];
 ---
 
 <CommercialPage
-  title="Branding et identité visuelle cohérente | CLICOM"
-  description="Positionnement, identité visuelle, logo, système graphique et applications digitales pour une marque claire, cohérente et reconnaissable."
+  title="Branding et identité visuelle pour PME | CLICOM Suisse"
+  description="Positionnement de marque, identité visuelle, charte graphique et langage éditorial pour PME en Suisse romande. Une marque claire, cohérente et mémorable."
+  pillarTag="Pilier 01 · Présence digitale"
   eyebrow="Branding"
-  h1="Construire une identité <span class='gradient-text'>cohérente et reconnaissable.</span>"
-  intro="CLICOM relie positionnement, identité visuelle et langage de marque pour créer une base cohérente sur votre site, vos contenus, vos réseaux et vos campagnes."
+  h1="Construire une identité de marque <span class='gradient-text'>claire, crédible et mémorable.</span>"
+  intro="CliCom aide les PME romandes à affirmer leur différence : positionnement précis, charte graphique professionnelle et langage de marque cohérent sur votre site web, vos supports et vos campagnes."
   {problems}
-  solution="Le branding permet de rendre une entreprise plus facile à reconnaître et à comprendre. Il donne un cadre durable aux choix de design, de contenu et de communication."
+  solution="Le branding n’est pas un artifice décoratif : c’est la manière dont vos clients vous perçoivent et se souviennent de vous. Une identité soignée rassure immédiatement, simplifie le choix du prospect et soutient la valeur de vos prestations."
   {services}
   {process}
   benefits={[
-    'Une proposition de valeur plus facile à reconnaître',
-    'Des messages et des visuels mieux alignés',
-    'Des règles utiles pour produire des supports cohérents',
-    'Une identité reliée au site, aux contenus et aux campagnes',
-    'Une base plus solide pour faire évoluer la marque dans le temps',
+    'Une proposition de valeur unique et facile à mémoriser',
+    'Une image professionnelle qui renforce la confiance des décideurs',
+    'Des supports de communication homogènes et simples à décliner',
+    'Une charte graphique pensée pour le web, le mobile et le print',
+    'Un positionnement crédible face à vos concurrents en Suisse romande',
   ]}
   {faq}
   links={[
+    { href: '/services/', label: 'Le système complet CliCom' },
     { href: '/creation-site-web/', label: 'Création de site web' },
     { href: '/creation-contenu/', label: 'Création de contenu' },
     { href: '/reseaux-sociaux/', label: 'Réseaux sociaux' },
   ]}
   problemEyebrow="Pourquoi le branding compte"
-  problemsTitle="Une identité cohérente évite de devoir réexpliquer la marque à chaque support."
-  offerTitle="Donner une même direction à ce que votre marque dit et montre."
-  processTitle="De l’intention de marque à son application sur les supports prioritaires."
-  benefitsTitle="Une marque plus claire à comprendre et plus simple à déployer."
-  faqTitle="Les questions utiles avant de faire évoluer votre identité."
+  problemsTitle="Une identité claire évite de devoir réexpliquer votre valeur à chaque support."
+  offerTitle="Donner une même direction à ce que votre marque montre et exprime."
+  processTitle="De l’analyse stratégique au déploiement sur vos supports prioritaires."
+  benefitsTitle="Une marque plus claire à comprendre et plus simple à déployer pour votre PME."
+  faqTitle="Les questions utiles avant de faire évoluer votre identité de marque."
   {decisionGuide}
-  heroPrimaryLabel="Parler de votre marque"
+  heroPrimaryLabel="Parler de votre identité de marque"
   heroSecondary="#approach"
   heroSecondaryLabel="Voir notre approche"
   heroPrimaryCalendly={true}
   ctaTitle="Clarifions ce que votre marque doit rendre évident."
-  ctaText="Réservez un échange de 30 minutes pour parler de votre positionnement, de votre identité actuelle et des supports à prioriser."
+  ctaText="Réservez un échange de 30 minutes pour parler de votre positionnement, de votre identité actuelle et des supports à prioriser pour votre PME."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
   variant="reverse"
+  {structuredData}
 />

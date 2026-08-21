@@ -1,106 +1,140 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/seo/#service',
+      name: 'Référencement naturel (SEO) pour PME en Suisse romande',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Stratégie SEO, audit technique, référencement local et contenus d’acquisition pour PME en Suisse romande. Développez votre visibilité durable sur Google.',
+      serviceType: 'Référencement naturel (SEO)',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/seo/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'Référencement naturel (SEO)', item: 'https://clicom.ch/seo/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Une visibilité qui ne sert pas assez vos offres',
-    text: 'Vos pages existent, mais elles ne répondent pas clairement aux recherches qui précèdent une prise de contact ou une demande de devis.',
+    title: 'Une visibilité insuffisante face aux concurrents de votre région',
+    text: 'Vos pages existent, mais elles n’apparaissent pas sur les requêtes clés qui précèdent une prise de contact ou une demande de devis dans votre canton.',
   },
   {
-    title: 'Des efforts dispersés',
-    text: 'Technique, contenu, liens et SEO local évoluent chacun de leur côté, sans ordre de priorité ni lecture commerciale commune.',
+    title: 'Des actions SEO dispersées sans priorité commerciale',
+    text: 'Technique, mots-clés, balisage et liens évoluent chacun de leur côté sans stratégie d’ensemble ni focus sur vos offres les plus rentables.',
   },
   {
-    title: 'Des décisions guidées par les positions seules',
-    text: 'Le trafic augmente parfois sans mieux qualifier les visiteurs ni faciliter les demandes réellement utiles à l’entreprise.',
+    title: 'Des visites qui ne se transforment jamais en contacts utiles',
+    text: 'Le trafic augmente parfois sur des requêtes génériques sans attirer des décideurs prêts à solliciter vos services en Suisse.',
   },
 ];
 
 const services = [
-  { title: 'Audit SEO et priorités', text: 'Identifier les freins techniques, éditoriaux et commerciaux avant de multiplier les actions.' },
-  { title: 'Architecture et maillage interne', text: 'Organiser les pages pour que les offres, expertises et contenus se renforcent mutuellement.' },
-  { title: 'SEO technique', text: 'Travailler indexation, performance, balisage et structure pour donner une base fiable au site.' },
-  { title: 'Intentions de recherche', text: 'Choisir les sujets et les requêtes selon ce que les prospects cherchent réellement à comprendre ou comparer.' },
-  { title: 'Pages et contenus utiles', text: 'Créer ou améliorer des contenus capables de répondre avec précision, sans produire pour produire.' },
-  { title: 'SEO local et mesure', text: 'Renforcer la cohérence locale lorsque c’est pertinent et suivre les signaux liés aux demandes.' },
+  { title: 'Audit SEO complet & Priorités business', text: 'Analyser les blocages techniques, la concurrence locale et identifier les requêtes à forte intention commerciale.' },
+  { title: 'Architecture de site & Maillage interne', text: 'Structurer vos pages d’offres et d’expertises pour guider les visiteurs et transmettre l’autorité SEO aux pages clés.' },
+  { title: 'SEO technique & Performance (Core Web Vitals)', text: 'Optimiser la vitesse mobile, l’accessibilité, l’indexation et les balises sémantiques Schema.org pour Google.' },
+  { title: 'Stratégie de contenu & Intentions de recherche', text: 'Sélectionner et rédiger des pages répondant exactement aux questions et critères de choix de vos futurs clients.' },
+  { title: 'Référencement local & Google Business Profile', text: 'Optimiser votre présence géolocalisée (cantons, villes) pour capter les recherches locales en Suisse romande.' },
+  { title: 'Mesure du positionnement & Suivi des leads', text: 'Suivre les signaux réels (visibilité utile, évolution des mots-clés stratégiques, formulaires générés).' },
 ];
 
 const process = [
-  { title: 'Comprendre', text: 'Auditer l’existant, vos offres, vos audiences et la manière dont le marché cherche.' },
-  { title: 'Prioriser', text: 'Choisir une feuille de route réaliste selon l’impact, l’effort et les dépendances.' },
-  { title: 'Optimiser', text: 'Corriger les fondations techniques, l’architecture et les pages les plus importantes.' },
-  { title: 'Développer', text: 'Faire progresser les contenus, le maillage et les signaux de confiance au bon rythme.' },
-  { title: 'Mesurer', text: 'Lire visibilité, trafic qualifié et actions utiles pour ajuster les priorités.' },
+  { title: 'Comprendre & Auditer', text: 'Analyser votre site actuel, vos offres, votre zone géographique et la manière dont vos clients cherchent en ligne.' },
+  { title: 'Prioriser', text: 'Définir une feuille de route claire selon l’impact commercial direct, l’effort technique et vos ressources.' },
+  { title: 'Optimiser le socle', text: 'Corriger les fondations techniques, l’arborescence et les balises sémantiques des pages prioritaires.' },
+  { title: 'Développer l’autorité', text: 'Enrichir les contenus utiles, structurer le maillage interne et consolider les signaux de confiance locaux.' },
+  { title: 'Mesurer & Ajuster', text: 'Piloter les résultats avec des rapports lisibles reliant les gains de visibilité aux demandes de devis générées.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Ce qui compte vraiment',
-  title: 'Le SEO progresse par étapes, pas par promesses.',
-  intro: 'Le référencement naturel est une stratégie de moyen et long terme. La bonne priorité dépend toujours de votre marché, de votre site et de ce qui est déjà en place.',
+  eyebrow: 'Intégration au système',
+  title: 'Le SEO comme moteur d’acquisition durable de votre PME.',
+  intro: 'Le référencement naturel constitue l’actif digital le plus rentable sur le long terme lorsqu’il est relié au reste de votre écosystème.',
   items: [
-    { title: 'Des fondations saines', text: 'Un site accessible, structuré et rapide réduit les freins avant de chercher davantage de visibilité.' },
-    { title: 'La bonne intention', text: 'Une page utile répond à une question précise et accompagne un besoin réel, pas seulement un mot-clé.' },
-    { title: 'Des preuves cohérentes', text: 'Contenu, liens internes, informations locales et signaux de confiance se construisent dans le temps.' },
+    { title: 'S’appuie sur la Présence', text: 'Nécessite un site web clair, rapide et crédible pour que le trafic obtenu se transforme en prises de contact réelles.' },
+    { title: 'Complète Google Ads', text: 'Construit une visibilité organique pérenne qui réduit votre dépendance exclusive aux budgets publicitaires payants.' },
+    { title: 'Alimente l’Automatisation', text: 'Les leads organiques sont instantanément captés et orientés dans votre CRM pour un traitement sans délai.' },
   ],
 };
 
 const faq = [
   {
-    question: 'Quand le SEO produit-il des résultats ?',
-    answer: 'Le SEO demande du temps. Le rythme dépend de votre marché, de l’état du site, de la concurrence et de la capacité à mettre les recommandations en œuvre. Nous privilégions des jalons concrets plutôt qu’une promesse de délai artificiel.',
+    question: 'Quand le référencement naturel produit-il des résultats mesurables ?',
+    answer: 'Le SEO est une démarche de moyen et long terme. Selon l’état de départ de votre site, la concurrence locale et le rythme d’implémentation, les premiers gains de visibilité s’observent généralement entre 3 et 6 mois. Nous définissons des jalons observables dès le départ.',
   },
   {
     question: 'Pouvez-vous garantir une première position sur Google ?',
-    answer: 'Non. Aucun prestataire sérieux ne peut garantir une position. CLICOM s’engage sur une méthode, des priorités claires et un suivi lisible des actions engagées.',
+    answer: 'Non. Aucun prestataire sérieux ne peut garantir contractuellement une première position, car les algorithmes de Google restent souverains. CliCom s’engage sur une méthode rigoureuse, des actions transparentes et un suivi orienté résultats concrets.',
   },
   {
-    question: 'Le SEO local est-il utile pour une entreprise suisse ?',
-    answer: 'Il est pertinent lorsque les clients recherchent une offre dans une zone précise ou doivent pouvoir vérifier facilement vos informations. Son rôle est évalué selon votre marché et vos zones de service.',
+    question: 'Pourquoi le SEO local est-il capital pour une PME suisse romande ?',
+    answer: 'Parce qu’une grande majorité des recherches professionnelles intègrent une intention locale (par canton ou région). Un bon référencement local vous permet d’apparaître précisément lorsque des clients de votre zone d’intervention cherchent un prestataire de proximité.',
   },
   {
-    question: 'Le SEO remplace-t-il Google Ads ?',
-    answer: 'Non. Le SEO construit un actif organique dans la durée, alors que Google Ads peut capter une demande existante plus rapidement. Les deux leviers peuvent se compléter selon vos priorités.',
+    question: 'Le SEO remplace-t-il les campagnes Google Ads ?',
+    answer: 'Non, les deux sont complémentaires. Google Ads apporte des résultats immédiats pour capter une demande urgente, tandis que le SEO construit une autorité durable qui continue de générer des opportunités sans coût par clic.',
   },
 ];
 ---
 
 <CommercialPage
-  title="SEO en Suisse romande : stratégie et audit | CLICOM"
-  description="Audit SEO, architecture, contenus, SEO technique et suivi pour mieux répondre aux recherches de vos prospects en Suisse romande."
+  title="SEO en Suisse romande : référencement naturel pour PME | CLICOM"
+  description="Stratégie SEO, audit technique, optimisation locale et contenus ciblés pour PME en Suisse romande. Développez une visibilité durable sur Google."
+  pillarTag="Pilier 02 · Acquisition"
   eyebrow="Référencement naturel"
-  h1="Être trouvé par les bonnes personnes, <span class='accent'>au bon moment.</span>"
-  intro="CLICOM construit une stratégie SEO qui relie les recherches de vos prospects, la clarté de vos offres et les actions que votre site doit générer."
+  h1="Être trouvé sur Google par vos futurs clients, <span class='accent'>au moment où ils vous cherchent.</span>"
+  intro="CliCom construit des stratégies SEO durables pour les PME romandes : optimisation technique, référencement local et contenus utiles pour capter des recherches à forte intention commerciale."
   {problems}
-  solution="Le SEO ne consiste pas à accumuler des mots-clés. Il doit rendre votre entreprise plus facile à trouver, à comprendre et à choisir lorsque l’intention existe."
+  solution="Le SEO ne consiste pas à accumuler des mots-clés sans discernement. Il doit rendre votre entreprise facile à trouver, à comprendre et à choisir par les décideurs qui recherchent vos compétences en Suisse."
   {services}
   {process}
   benefits={[
-    'Des priorités fondées sur les recherches et les objectifs réels',
-    'Une architecture plus claire pour les visiteurs comme pour les moteurs',
-    'Des contenus reliés à vos offres plutôt qu’à des volumes isolés',
-    'Une présence locale mieux structurée lorsque le marché le justifie',
-    'Une mesure qui relie la visibilité aux demandes utiles',
+    'Un flux continu de prospects qualifiés sans payer pour chaque clic',
+    'Une visibilité prioritaire sur votre zone géographique en Suisse romande',
+    'Un site techniquement performant et valorisé par les moteurs de recherche',
+    'Un actif digital pérenne qui continue de travailler pour vous dans le temps',
+    'Un suivi transparent reliant l’évolution des positions aux demandes de devis',
   ]}
   {faq}
   links={[
+    { href: '/services/', label: 'Le système complet CliCom' },
     { href: '/referencement-ia/', label: 'Référencement IA' },
-    { href: '/creation-contenu/', label: 'Création de contenu' },
     { href: '/creation-site-web/', label: 'Création de site web' },
+    { href: '/google-ads/', label: 'Google Ads' },
   ]}
   problemEyebrow="Pourquoi le SEO compte"
-  problemsTitle="Être visible ne suffit pas : il faut être pertinent."
-  offerTitle="Relier recherche, contenu et conversion."
-  processTitle="Une progression lisible, adaptée à votre point de départ."
-  benefitsTitle="Une visibilité organique plus utile à vos objectifs."
-  faqTitle="Les questions à poser avant de lancer une stratégie SEO."
+  problemsTitle="Être visible ne suffit pas : il faut capter les bonnes intentions."
+  offerTitle="Relier recherche, contenu et conversion commerciale."
+  processTitle="Une progression structurée et adaptée au point de départ de votre PME."
+  benefitsTitle="Une visibilité organique durable et rentable pour vos objectifs."
+  faqTitle="Les questions utiles avant de lancer une démarche SEO."
   {decisionGuide}
-  heroPrimaryLabel="Demander un audit SEO"
+  heroPrimaryLabel="Faire le point sur votre SEO"
   heroSecondary="#approach"
-  heroSecondaryLabel="Voir notre approche"
+  heroSecondaryLabel="Voir notre démarche"
   heroPrimaryCalendly={true}
   ctaTitle="Votre visibilité mérite une feuille de route réaliste."
-  ctaText="Réservez un échange de 30 minutes pour faire le point sur votre site, votre marché et les priorités SEO les plus utiles."
+  ctaText="Réservez un échange de 30 minutes pour faire le point sur votre site, votre concurrence locale et les priorités SEO les plus rentables pour votre PME."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
   variant="reverse"
+  {structuredData}
 />

@@ -1,105 +1,139 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/creation-contenu/#service',
+      name: 'Création de contenu stratégique pour PME en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Rédaction de pages d’offres, articles SEO, guides d’autorité et argumentaires de vente pour PME en Suisse romande.',
+      serviceType: 'Création de contenu stratégique',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/creation-contenu/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'Création de contenu', item: 'https://clicom.ch/creation-contenu/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Des contenus qui occupent l’espace sans aider à décider',
-    text: 'Les publications existent, mais elles n’expliquent pas assez clairement l’offre, la différence ou la prochaine étape à suivre.',
+    title: 'Une expertise réelle mais difficile à exprimer avec clarté',
+    text: 'Vos prestations sont d’excellente qualité, mais vos textes sont trop techniques ou confus pour un décideur non spécialiste en phase de choix.',
   },
   {
-    title: 'Une expertise difficile à transformer',
-    text: 'Vos équipes connaissent leur sujet, sans toujours disposer d’un cadre pour le rendre compréhensible à des prospects non spécialistes.',
+    title: 'Des contenus qui décrivent sans donner envie d’agir',
+    text: 'Beaucoup de texte pour peu d’impact, sans hiérarchie des bénéfices client, sans preuves concrètes ni appels à l’action incitatifs.',
   },
   {
-    title: 'Une production peu réutilisée',
-    text: 'Un même sujet est recréé séparément pour le site, les réseaux et les campagnes au lieu d’alimenter plusieurs formats utiles.',
+    title: 'Une production dispersée et jamais réutilisée',
+    text: 'Réécrire séparément pour le site, les e-mails et les réseaux sociaux sans ligne directrice commune fait perdre du temps et affaiblit le message.',
   },
 ];
 
 const services = [
-  { title: 'Pages d’offres et landing pages', text: 'Des pages qui structurent une proposition de valeur, rassurent et orientent vers une action claire.' },
-  { title: 'Articles et pages SEO', text: 'Des contenus pensés autour d’une intention de recherche, d’une expertise et d’un rôle dans le parcours.' },
-  { title: 'Guides, FAQ et comparatifs', text: 'Des formats qui aident à comprendre, comparer et lever les hésitations avant une décision.' },
-  { title: 'Contenus pour les réseaux sociaux', text: 'Des déclinaisons adaptées aux plateformes retenues, avec une ligne éditoriale cohérente.' },
-  { title: 'Newsletters et séquences', text: 'Des rendez-vous utiles pour entretenir une relation, accompagner un sujet ou relancer avec pertinence.' },
-  { title: 'Créatifs de campagne', text: 'Des angles et variations conçus pour nourrir les tests publicitaires, sans diluer le message de marque.' },
+  { title: 'Pages d’offres & Landing pages de conversion', text: 'Structurer vos propositions commerciales avec des arguments limpides, des preuves rassurantes et des boutons d’action visibles.' },
+  { title: 'Articles d’autorité & Contenus SEO', text: 'Répondre précisément aux questions et intentions de recherche de vos futurs clients pour capter du trafic qualifié sur Google.' },
+  { title: 'Études de cas & Récits de réalisations', text: 'Mettre en valeur vos réussites et résultats concrets en Suisse romande pour lever les hésitations avant la prise de contact.' },
+  { title: 'Contenus professionnels pour réseaux sociaux', text: 'Décliner votre expertise en publications régulières sur LinkedIn pour maintenir votre notoriété auprès de votre réseau.' },
+  { title: 'Séquences d’e-mails & Messages de relance', text: 'Rédiger des messages bienveillants et pertinents pour accompagner les prospects après l’envoi d’un devis.' },
+  { title: 'Gabarits & Argumentaires pour vos équipes', text: 'Fournir à vos collaborateurs des trames de présentation et des réponses types pour homogénéiser vos échanges commerciaux.' },
 ];
 
 const process = [
-  { title: 'Cadrer', text: 'Comprendre l’offre, l’audience, le niveau de maturité et l’objectif du contenu.' },
-  { title: 'Choisir', text: 'Prioriser les sujets et formats qui peuvent réellement servir le parcours client.' },
-  { title: 'Produire', text: 'Rédiger, concevoir ou coordonner la création avec un niveau d’exigence adapté au canal.' },
-  { title: 'Décliner', text: 'Réutiliser une idée forte dans les formats qui ont un rôle clair sur le site, les réseaux ou les campagnes.' },
-  { title: 'Mesurer', text: 'Observer lecture, engagement et actions utiles pour faire évoluer le système éditorial.' },
+  { title: 'Cadrer', text: 'Identifier les questions fréquentes, les critères de décision et les freins de vos clients cibles.' },
+  { title: 'Hiérarchiser', text: 'Sélectionner les sujets et formats qui soutiennent directement vos objectifs d’acquisition et de vente.' },
+  { title: 'Rédiger', text: 'Écrire avec un ton professionnel, direct, accessible et débarrassé de tout jargon creux.' },
+  { title: 'Optimiser', text: 'Intégrer les mots-clés stratégiques, le balisage sémantique et les déclencheurs de conversion.' },
+  { title: 'Décliner', text: 'Réutiliser les messages clés sur votre site web, vos campagnes publicitaires et vos e-mails de suivi.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Un rôle pour chaque contenu',
-  title: 'La qualité et le rôle comptent plus que le volume.',
-  intro: 'Un contenu n’a pas besoin de tout faire. Il doit répondre à une intention précise et s’inscrire dans le parcours de vos prospects.',
+  eyebrow: 'Intégration au système',
+  title: 'Le contenu comme carburant du système digital CliCom.',
+  intro: 'Un bon contenu n’a pas besoin de tout dire : il doit jouer un rôle précis dans le parcours de vos prospects.',
   items: [
-    { title: 'Expliquer', text: 'Rendre un sujet, une offre ou un processus assez clair pour que le visiteur puisse avancer.' },
-    { title: 'Comparer', text: 'Donner les repères utiles pour évaluer des options, des méthodes ou des niveaux d’accompagnement.' },
-    { title: 'Faire agir', text: 'Relier le contenu à une prochaine étape crédible : page d’offre, demande, ressource ou échange.' },
+    { title: 'Alimente la Présence', text: 'Rend vos pages web convaincantes, agréables à lire et rassurantes dès les premières secondes de visite.' },
+    { title: 'Génère l’Acquisition', text: 'Positionne votre entreprise comme référence sur Google (SEO) en répondant aux vraies interrogations du marché.' },
+    { title: 'Soutient l’Automatisation', text: 'Fournit les textes des e-mails, devis et alertes transmis automatiquement à vos prospects et clients.' },
   ],
 };
 
 const faq = [
   {
-    question: 'Travaillez-vous avec nos équipes internes ?',
-    answer: 'Oui. CLICOM peut définir le cadre éditorial, produire certains contenus, accompagner vos équipes ou organiser une répartition hybride selon les expertises disponibles.',
+    question: 'Comment travaillez-vous avec nos équipes internes pour rédiger ?',
+    answer: 'Nous réalisons des entretiens courts avec vos experts métier pour capter votre valeur, vos anecdotes et vos arguments réels, puis nous nous chargeons de la mise en forme éditoriale et de l’optimisation.',
   },
   {
-    question: 'Le contenu est-il optimisé pour le SEO ?',
-    answer: 'Les contenus destinés à la recherche sont construits autour des intentions, de la structure du site et de leur rôle dans le parcours. L’optimisation ne doit jamais réduire la qualité ou la précision de la réponse.',
+    question: 'Les contenus sont-ils optimisés pour le référencement naturel (SEO) ?',
+    answer: 'Oui. Chaque contenu destiné au web est structuré autour des intentions de recherche réelles de votre cible, tout en préservant une lecture naturelle et agréable pour les humains.',
   },
   {
-    question: 'Peut-on réutiliser des contenus existants ?',
-    answer: 'Souvent, oui. Un audit éditorial permet d’identifier les contenus qui méritent d’être clarifiés, regroupés, mis à jour ou déclinés dans un autre format.',
+    question: 'Pouvez-vous reprendre et améliorer des textes existants ?',
+    answer: 'Tout à fait. Un audit éditorial permet d’identifier les pages existantes à clarifier, enrichir ou réorganiser pour maximiser leur impact commercial sans tout réécrire de zéro.',
   },
   {
-    question: 'Combien de contenus faut-il produire ?',
-    answer: 'Le bon rythme dépend des objectifs, des ressources et des sujets réellement utiles à vos audiences. Nous privilégions un plan tenable plutôt qu’un volume imposé.',
+    question: 'Quelle est la fréquence de publication recommandée ?',
+    answer: 'Nous privilégions toujours la régularité et la pertinence par rapport au volume. Un rythme tenable (par exemple 1 à 2 contenus stratégiques par mois) apporte de bien meilleurs résultats qu’une surproduction discontinue.',
   },
 ];
 ---
 
 <CommercialPage
-  title="Création de contenu stratégique | CLICOM"
-  description="Pages, articles, guides, FAQ, contenus sociaux et créatifs : une création de contenu pensée pour expliquer, comparer et faire avancer."
+  title="Création de contenu stratégique pour PME | CLICOM Suisse"
+  description="Rédaction de pages d’offres, articles SEO, guides et contenus commerciaux pour PME en Suisse romande. Des contenus clairs pour expliquer, convaincre et convertir."
+  pillarTag="Pilier 01 / 02 · Présence & Acquisition"
   eyebrow="Création de contenu"
-  h1="Des contenus qui aident à <span class='gradient-text'>comprendre, comparer et décider.</span>"
-  intro="CLICOM transforme votre expertise en contenus utiles pour le site, le SEO, les réseaux sociaux et les campagnes, avec un rôle clair pour chaque format."
+  h1="Des contenus clairs qui aident vos prospects à <span class='gradient-text'>comprendre, comparer et décider.</span>"
+  intro="CliCom transforme votre savoir-faire technique en argumentaires limpides et percutants pour votre site web, votre référencement naturel et vos campagnes d’acquisition."
   {problems}
-  solution="Produire davantage n’est pas un objectif en soi. Le contenu doit rendre votre offre plus compréhensible, renforcer la confiance et faciliter la suite du parcours."
+  solution="Produire du volume n’est pas un objectif en soi. Chaque contenu doit avoir un rôle précis dans votre système commercial : éclairer une question, lever une objection et faciliter la prise de contact."
   {services}
   {process}
   benefits={[
-    'Des messages plus clairs pour les prospects comme pour les équipes',
-    'Des contenus reliés aux offres, aux recherches et aux campagnes',
-    'Une production mieux réutilisée sur les canaux pertinents',
-    'Un rythme éditorial compatible avec vos ressources',
-    'Des choix guidés par le rôle de chaque contenu, pas par le volume',
+    'Une proposition de valeur claire qui met en valeur votre savoir-faire',
+    'Des pages d’offres structurées pour transformer les visites en contacts',
+    'Un meilleur positionnement sur les recherches clés de votre secteur',
+    'Des argumentaires réutilisables par l’ensemble de vos équipes',
+    'Un gain de temps significatif sur la production de vos supports',
   ]}
   {faq}
   links={[
-    { href: '/seo/', label: 'SEO' },
-    { href: '/reseaux-sociaux/', label: 'Réseaux sociaux' },
-    { href: '/social-ads/', label: 'Publicité sur les réseaux sociaux' },
+    { href: '/services/', label: 'Le système complet CliCom' },
+    { href: '/creation-site-web/', label: 'Création de site web' },
+    { href: '/seo/', label: 'Référencement naturel' },
+    { href: '/social-ads/', label: 'Publicité Social Ads' },
   ]}
   problemEyebrow="Pourquoi le contenu compte"
-  problemsTitle="Un bon contenu réduit l’effort nécessaire pour choisir."
-  offerTitle="Construire un système éditorial qui sert vos décisions commerciales."
-  processTitle="De l’expertise brute à des formats utiles sur les bons canaux."
-  benefitsTitle="Une présence éditoriale plus cohérente et plus utile."
-  faqTitle="Les vraies questions avant d’organiser votre production de contenu."
+  problemsTitle="Un bon contenu réduit l’effort nécessaire pour faire confiance et choisir."
+  offerTitle="Construire un socle éditorial au service de vos objectifs commerciaux."
+  processTitle="De votre expertise brute à des formats utiles sur les bons canaux."
+  benefitsTitle="Une prise de parole plus cohérente et plus rentable pour votre PME."
+  faqTitle="Les questions utiles avant d’organiser votre production de contenu."
   {decisionGuide}
-  heroPrimaryLabel="Parler de votre stratégie de contenu"
+  heroPrimaryLabel="Parler de votre stratégie éditoriale"
   heroSecondary="#approach"
   heroSecondaryLabel="Voir les formats possibles"
   heroPrimaryCalendly={true}
-  ctaTitle="Donnez un rôle plus clair à vos contenus."
-  ctaText="Réservez un échange de 30 minutes pour identifier les contenus qui peuvent mieux soutenir vos offres, votre visibilité ou vos campagnes."
+  ctaTitle="Donnez un rôle plus clair et rentable à vos contenus."
+  ctaText="Réservez un échange de 30 minutes pour identifier les pages et messages qui peuvent mieux soutenir vos offres et votre visibilité en Suisse romande."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
+  {structuredData}
 />

@@ -1,106 +1,140 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/reseaux-sociaux/#service',
+      name: 'Gestion des réseaux sociaux pour PME en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Stratégie éditoriale, rythme de publication et valorisation de votre expertise sur LinkedIn et Meta pour PME en Suisse romande.',
+      serviceType: 'Gestion des réseaux sociaux professionnels',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/reseaux-sociaux/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'Réseaux sociaux', item: 'https://clicom.ch/reseaux-sociaux/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Une présence irrégulière',
-    text: 'La publication dépend du temps restant, ce qui rend la marque difficile à reconnaître et les efforts impossibles à faire progresser.',
+    title: 'Une présence irrégulière qui donne une impression d’inactivité',
+    text: 'Publier au gré du temps disponible laisse des mois de silence qui incitent les prospects et candidats à douter de votre dynamisme.',
   },
   {
-    title: 'Des contenus sans ligne directrice',
-    text: 'Les formats s’accumulent, sans rôle clair pour soutenir le positionnement, la relation avec la communauté ou les objectifs business.',
+    title: 'Des publications sans fil conducteur ni objectif business',
+    text: 'Partager des contenus génériques sans lien avec vos réalisations, votre savoir-faire ou vos priorités commerciales en Suisse romande.',
   },
   {
-    title: 'Trop de plateformes à gérer',
-    text: 'Être partout épuise les ressources et réduit la qualité. Toutes les plateformes ne sont pas pertinentes pour toutes les entreprises.',
+    title: 'L’éparpillement sur trop de canaux sans ressources suffisantes',
+    text: 'Tenter d’être présent partout sans pouvoir maintenir la qualité nécessaire sur le canal clé (notamment LinkedIn en B2B).',
   },
 ];
 
 const services = [
-  { title: 'Choix des réseaux pertinents', text: 'Définir les plateformes qui correspondent à vos audiences, à votre offre et aux capacités réelles de vos équipes.' },
-  { title: 'Ligne éditoriale', text: 'Clarifier les sujets, le ton, les preuves et les formats qui donnent une cohérence à votre présence.' },
-  { title: 'Planning réaliste', text: 'Organiser les temps forts, la fréquence et les responsabilités pour construire une régularité tenable.' },
-  { title: 'Création et adaptation de formats', text: 'Décliner des contenus pour les usages des plateformes retenues sans perdre l’identité de la marque.' },
-  { title: 'Publication et community management', text: 'Planifier, publier, modérer et répondre selon le périmètre défini avec vos équipes.' },
-  { title: 'Mesure et amélioration', text: 'Lire les signaux utiles pour ajuster la ligne éditoriale et le rôle des réseaux dans votre système marketing.' },
+  { title: 'Sélection des plateformes pertinentes', text: 'Identifier où se trouvent vos clients réels (LinkedIn, Instagram, Facebook) pour concentrer vos ressources avec efficacité.' },
+  { title: 'Ligne éditoriale & Piliers thématiques', text: 'Clarifier les sujets porteurs (chantiers, réalisations, coulisses, expertise, recrutement) et le ton adapté à votre secteur.' },
+  { title: 'Calendrier de publication tenable', text: 'Construire une cadence réaliste et prévisible, parfaitement compatible avec le rythme de travail de votre PME.' },
+  { title: 'Création visuelle & Rédaction des posts', text: 'Concevoir des formats visuels soignés et des accroches percutantes respectant votre charte graphique.' },
+  { title: 'Planification & Modération des échanges', text: 'Programmer les diffusions aux horaires d’audience optimale et gérer les commentaires et messages entrants.' },
+  { title: 'Mesure d’impact & Synergie publicitaire', text: 'Suivre l’engagement qualifié, les visites générées et amplifier les meilleures publications via la sponsorisation ciblée.' },
 ];
 
 const process = [
-  { title: 'Analyser', text: 'Comprendre marque, audiences, contenus existants et place des réseaux dans le parcours client.' },
-  { title: 'Prioriser', text: 'Choisir les plateformes et les objectifs qui justifient un effort régulier.' },
-  { title: 'Planifier', text: 'Définir piliers éditoriaux, formats, calendrier et mode de collaboration.' },
-  { title: 'Publier', text: 'Produire et diffuser avec une cadence compatible avec la qualité attendue.' },
-  { title: 'Ajuster', text: 'Mesurer les signaux utiles, apprendre et faire évoluer le dispositif sans suivre toutes les tendances.' },
+  { title: 'Analyser', text: 'Étudier vos audiences cibles, vos canaux actuels et les contenus déjà disponibles au sein de votre entreprise.' },
+  { title: 'Prioriser', text: 'Choisir les 1 ou 2 plateformes stratégiques et définir les messages différenciants à faire passer.' },
+  { title: 'Planifier', text: 'Rédiger les publications du mois, concevoir les visuels et soumettre le planning à validation.' },
+  { title: 'Publier', text: 'Diffuser de manière régulière avec un niveau d’exigence constant qui honore votre marque.' },
+  { title: 'Ajuster', text: 'Analyser les retours, repérer les sujets les plus engageants et affiner le calendrier mois après mois.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Faire moins, mais mieux',
-  title: 'La bonne présence sociale n’est pas la présence partout.',
-  intro: 'Une stratégie sociale crédible choisit les plateformes où la marque peut être réellement utile, régulière et reconnaissable.',
+  eyebrow: 'Intégration au système',
+  title: 'Les réseaux sociaux dans l’écosystème commercial PME.',
+  intro: 'Une présence sociale crédible choisit les canaux où votre entreprise peut être utile, régulière et reconnaissable.',
   items: [
-    { title: 'Choisir avec intention', text: 'Chaque réseau doit avoir un rôle clair : visibilité, expertise, relation, marque employeur ou soutien à une campagne.' },
-    { title: 'Tenir dans la durée', text: 'Un calendrier réaliste vaut mieux qu’une fréquence ambitieuse qui ne peut pas être maintenue.' },
-    { title: 'Relier au business', text: 'Les contenus sociaux doivent rester cohérents avec les offres, le site, les campagnes et les objectifs de marque.' },
+    { title: 'Renforce la Présence', text: 'Offre une vitrine vivante de votre actualité et humanise vos prestations auprès de vos prospects.' },
+    { title: 'Prépare l’Acquisition', text: 'Maintient votre entreprise à l’esprit des décideurs jusqu’au moment où leur projet se concrétise.' },
+    { title: 'Complète les Campagnes', text: 'Fournit une base de confiance solide aux prospects qui visitent vos profils après avoir vu une annonce publicitaire.' },
   ],
 };
 
 const faq = [
   {
-    question: 'Sur quels réseaux faut-il être présent ?',
-    answer: 'Uniquement là où vos audiences, vos objectifs et vos ressources justifient une présence régulière. Le choix peut évoluer, mais il doit rester intentionnel.',
+    question: 'Sur quels réseaux sociaux une PME suisse doit-elle être présente ?',
+    answer: 'Cela dépend de votre cible : LinkedIn est incontournable pour le B2B, le recrutement et les services professionnels. Instagram et Facebook sont privilégiés pour les artisans, le commerce local et les prestations visuelles. Nous recommandons de dominer un canal avant de vous disperser.',
   },
   {
-    question: 'Pouvez-vous gérer les publications ?',
-    answer: 'Oui. Le périmètre peut inclure stratégie, planning, production, publication, modération et reporting, ou seulement les étapes qui complètent vos ressources internes.',
+    question: 'Quelle est la fréquence de publication idéale ?',
+    answer: 'Nous privilégions 1 à 2 publications de grande qualité par semaine plutôt qu’un volume quotidien qui lasserait l’audience ou dégraderait la pertinence des messages.',
   },
   {
-    question: 'Combien faut-il publier ?',
-    answer: 'La fréquence dépend de la plateforme, des formats, des ressources et du niveau de qualité que la marque peut maintenir. Nous construisons un rythme tenable.',
+    question: 'Pouvez-vous gérer l’intégralité des publications pour nous ?',
+    answer: 'Oui. Nous pouvons prendre en charge la rédaction, la création visuelle, la planification et le reporting, en travaillant à partir de photos ou d’informations brutes que vous nous transmettez simplement.',
   },
   {
-    question: 'Comment mesurez-vous les résultats ?',
-    answer: 'Nous regardons les indicateurs adaptés à l’objectif : attention, engagement qualifié, visites utiles, conversations, candidatures ou soutien à une campagne. Le nombre d’abonnés seul ne suffit pas.',
+    question: 'Comment mesurez-vous le succès des réseaux sociaux ?',
+    answer: 'Nous analysons l’engagement qualifié (commentaires de professionnels, partages), la portée sur votre cible régionale et les visites utiles envoyées vers votre site web, plutôt que la simple accumulation d’abonnés passifs.',
   },
 ];
 ---
 
 <CommercialPage
-  title="Réseaux sociaux : présence éditoriale crédible | CLICOM"
-  description="Stratégie, ligne éditoriale, planning, création, publication et mesure pour une présence sociale cohérente avec vos objectifs business."
+  title="Gestion des réseaux sociaux pour PME | CLICOM Suisse"
+  description="Stratégie éditoriale, rythme de publication et valorisation de votre expertise sur LinkedIn et Meta pour PME en Suisse romande. Une présence crédible et régulière."
+  pillarTag="Pilier 01 / 02 · Présence & Acquisition"
   eyebrow="Réseaux sociaux"
   h1="Construire une présence régulière et crédible sur les <span class='accent'>plateformes réellement pertinentes.</span>"
-  intro="CLICOM aide les entreprises à choisir les bons réseaux, organiser leur ligne éditoriale et publier avec une cohérence durable avec la marque et les objectifs business."
+  intro="CliCom aide les PME de Suisse romande à choisir les bons réseaux, structurer leur ligne éditoriale et maintenir un rythme de publication professionnel sans dispersion."
   {problems}
-  solution="Les réseaux sociaux doivent avoir un rôle utile dans votre système marketing : mieux expliquer, entretenir la relation, renforcer la marque ou soutenir une campagne."
+  solution="Les réseaux sociaux doivent jouer un rôle concret dans votre écosystème commercial : valoriser vos réalisations, entretenir la relation avec vos partenaires, asseoir votre notoriété locale et soutenir vos recrutements."
   {services}
   {process}
   benefits={[
-    'Des plateformes choisies selon vos audiences et vos objectifs',
-    'Une ligne éditoriale plus claire et reconnaissable',
-    'Un planning compatible avec vos ressources réelles',
-    'Des contenus plus cohérents avec le site et les campagnes',
-    'Une mesure adaptée au rôle de chaque réseau',
+    'Une présence professionnelle et dynamique sur vos plateformes clés',
+    'Un planning éditorial maîtrisé sans surcharger vos équipes internes',
+    'Des publications soignées qui mettent en valeur vos réalisations',
+    'Une ligne de communication alignée avec votre site web et vos valeurs',
+    'Une mesure claire des retombées et de l’engagement sur votre région',
   ]}
   {faq}
   links={[
-    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/services/', label: 'Le système complet CliCom' },
     { href: '/social-ads/', label: 'Publicité sur les réseaux sociaux' },
-    { href: '/branding/', label: 'Branding' },
+    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/branding/', label: 'Branding & Identité' },
   ]}
   problemEyebrow="Pourquoi une présence cohérente compte"
   problemsTitle="La régularité construit la confiance quand elle reste utile."
   offerTitle="Une présence sociale organisée autour de votre marque et de vos priorités."
   processTitle="Du choix des réseaux à l’amélioration continue de vos contenus."
-  benefitsTitle="Moins de dispersion, plus de cohérence dans votre présence sociale."
-  faqTitle="Les questions à éclaircir avant de structurer vos réseaux sociaux."
+  benefitsTitle="Moins de dispersion, plus de crédibilité pour votre entreprise."
+  faqTitle="Les questions utiles avant de structurer vos réseaux sociaux."
   {decisionGuide}
   heroPrimaryLabel="Parler de vos réseaux sociaux"
   heroSecondary="#approach"
   heroSecondaryLabel="Découvrir notre approche"
   heroPrimaryCalendly={true}
-  ctaTitle="Construisons une présence sociale que vos équipes peuvent réellement tenir."
-  ctaText="Réservez un échange de 30 minutes pour identifier les plateformes, les contenus et l’organisation les plus utiles à votre contexte."
+  ctaTitle="Construisons une présence sociale que votre PME peut réellement tenir."
+  ctaText="Réservez un échange de 30 minutes pour identifier les plateformes, les contenus et l’organisation les plus utiles à votre contexte en Suisse romande."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
   variant="reverse"
+  {structuredData}
 />

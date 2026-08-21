@@ -2,106 +2,140 @@
 import CommercialPage from '../components/CommercialPage.astro';
 import geoImage from '../assets/editorial/geo-knowledge.webp';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/referencement-ia/#service',
+      name: 'Référencement IA (GEO & AEO) pour PME en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Optimisation de la visibilité et structuration de données pour les moteurs conversationnels (ChatGPT, Gemini, Perplexity) pour PME en Suisse romande.',
+      serviceType: 'Référencement IA & GEO',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/referencement-ia/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'Référencement IA', item: 'https://clicom.ch/referencement-ia/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Des informations de marque éparpillées',
-    text: 'Les données qui décrivent votre entreprise, vos offres et vos expertises sont incomplètes, contradictoires ou difficiles à relier.',
+    title: 'Des informations d’entreprise fragmentées et peu lisibles par les IA',
+    text: 'Les données qui décrivent vos offres, expertises et réalisations sont incomplètes ou contradictoires, empêchant les modèles de bien vous identifier.',
   },
   {
-    title: 'Des contenus difficiles à exploiter',
-    text: 'Les réponses sont vagues, peu structurées ou sans éléments vérifiables pour éclairer une question précise.',
+    title: 'Des contenus trop flous pour être retenus comme sources fiables',
+    text: 'L’absence de réponses directes, de données chiffrées et de structures sémantiques claires empêche les moteurs génératifs de vous citer.',
   },
   {
-    title: 'Une attente de résultats impossibles à garantir',
-    text: 'Les moteurs génératifs changent, choisissent leurs sources et répondent selon le contexte : aucune présence dans ChatGPT ou Gemini ne peut être promise.',
+    title: 'Des attentes décalées face aux réalités des modèles génératifs',
+    text: 'Les moteurs de réponse IA évoluent constamment : personne ne peut garantir une citation magique, mais on peut parfaitement structurer les signaux émis.',
   },
 ];
 
 const services = [
-  { title: 'Diagnostic de présence et de questions', text: 'Repérer les sujets, entités et informations qui doivent être mieux compris en ligne.' },
-  { title: 'Architecture de l’information', text: 'Clarifier la relation entre votre entreprise, vos offres, vos expertises et vos preuves.' },
-  { title: 'Réponses explicites et contenus utiles', text: 'Structurer des pages qui répondent clairement aux questions des prospects, sans jargon inutile.' },
-  { title: 'Données structurées pertinentes', text: 'Mettre en place les balises qui décrivent utilement le contenu, sans surbalisage ni effet d’annonce.' },
-  { title: 'Cohérence des entités', text: 'Aligner les informations importantes sur vos canaux pour rendre votre présence plus fiable et identifiable.' },
-  { title: 'SEO et autorité éditoriale', text: 'Consolider les fondations SEO et les contenus qui restent indispensables aux nouveaux usages de recherche.' },
+  { title: 'Diagnostic de visibilité IA & Entités', text: 'Analyser comment votre entreprise et vos expertises sont actuellement comprises et restituées par ChatGPT, Gemini et Perplexity.' },
+  { title: 'Architecture de l’information & Sémantique', text: 'Clarifier les relations entre votre marque, vos offres prioritaires et vos zones de service en Suisse romande.' },
+  { title: 'Réponses explicites & Pages d’autorité', text: 'Structurer des contenus précis qui répondent sans détour aux questions concrètes posées par vos prospects.' },
+  { title: 'Balisage Schema.org & Données structurées', text: 'Intégrer les balises techniques nécessaires pour expliciter vos prestations aux robots d’indexation IA.' },
+  { title: 'Alignement des entités sur le web', text: 'Harmoniser vos informations professionnelles clés sur vos profils et annuaires de référence pour renforcer votre fiabilité.' },
+  { title: 'Consolidation du socle SEO technique', text: 'Garantir un site rapide et accessible, condition indispensable pour que les moteurs IA explorent et exploitent vos pages.' },
 ];
 
 const process = [
-  { title: 'Cartographier', text: 'Identifier les questions, contenus, informations de marque et écarts de cohérence.' },
-  { title: 'Clarifier', text: 'Préciser vos sujets, vos offres et les réponses que les visiteurs doivent pouvoir trouver.' },
-  { title: 'Structurer', text: 'Améliorer l’architecture, les pages et les données qui rendent ces informations compréhensibles.' },
-  { title: 'Publier', text: 'Développer des contenus utiles, sourcés lorsque nécessaire et cohérents avec le SEO.' },
-  { title: 'Suivre', text: 'Observer les évolutions sans confondre veille, signaux et garanties de visibilité.' },
+  { title: 'Cartographier', text: 'Identifier les questions de recherche, les informations d’entreprise et les manques de structure actuels.' },
+  { title: 'Clarifier', text: 'Définir vos entités de marque, vos offres clés et les réponses explicites que vous apportez au marché.' },
+  { title: 'Structurer', text: 'Intégrer les schémas de données et optimiser l’architecture technique de vos pages d’autorité.' },
+  { title: 'Publier & Sourcer', text: 'Rédiger des contenus informatifs fiables, vérifiables et parfaitement alignés avec vos objectifs SEO.' },
+  { title: 'Observer & Ajuster', text: 'Suivre les évolutions des réponses génératives sans céder aux promesses artificielles.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Un complément au SEO',
-  title: 'Préparer les bons signaux, sans promettre une citation.',
-  intro: 'Le référencement IA améliore la compréhension et la cohérence de votre présence. Il complète le SEO traditionnel, mais ne donne pas le contrôle sur les réponses des modèles.',
+  eyebrow: 'Intégration au système',
+  title: 'Le référencement IA comme prolongement naturel du SEO.',
+  intro: 'Le référencement IA (GEO) améliore la compréhension de votre présence sans jamais remplacer les fondations techniques.',
   items: [
-    { title: 'Ce que nous renforçons', text: 'La clarté des contenus, les entités, les données structurées et la cohérence des informations de marque.' },
-    { title: 'Ce qui reste incertain', text: 'Les sources retenues, le contexte de chaque requête et l’évolution des interfaces génératives.' },
-    { title: 'Pourquoi le SEO reste central', text: 'Un site techniquement solide, des contenus utiles et des signaux de confiance restent les fondations de cette approche.' },
+    { title: 'Ce que nous renforçons', text: 'La précision des contenus, les entités de marque, les données structurées et la cohérence de vos informations web.' },
+    { title: 'Ce qui reste variable', text: 'Le choix algorithmique instantané de chaque moteur selon le contexte exact de la requête de l’utilisateur.' },
+    { title: 'Pourquoi le SEO reste central', text: 'Un site web performant, bien indexé et riche en preuves réelles reste la base indispensable pour être cité.' },
   ],
 };
 
 const faq = [
   {
     question: 'Peut-on garantir d’apparaître dans ChatGPT, Gemini ou un autre moteur IA ?',
-    answer: 'Non. Les réponses dépendent du modèle, de ses sources et du contexte de la demande. Nous travaillons sur les signaux que votre entreprise maîtrise, sans promettre une citation.',
+    answer: 'Non. Les moteurs génératifs recomposent leurs réponses selon de multiples variables. CliCom travaille sur l’ensemble des signaux que votre entreprise maîtrise (données structurées, clarté sémantique, autorité), sans promesse artificielle de résultat garanti.',
   },
   {
-    question: 'Quelle est la différence avec le SEO ?',
-    answer: 'Le SEO vise notamment la compréhension, l’indexation et la visibilité dans les résultats de recherche. Le référencement IA ajoute une attention particulière à la structure des réponses, aux entités et à la cohérence des informations. Les deux approches se renforcent.',
+    question: 'Quelle est la différence entre le SEO traditionnel et le référencement IA (GEO) ?',
+    answer: 'Le SEO traditionnel vise l’indexation et le positionnement dans les listes de résultats de Google. Le référencement IA (Generative Engine Optimization) vise la compréhension et la citation de votre expertise dans les réponses synthétisées par les modèles de langage.',
   },
   {
-    question: 'Combien de temps faut-il ?',
-    answer: 'Il faut d’abord traiter les fondations les plus utiles. Les effets dépendent de l’existant, du rythme de publication et des évolutions des moteurs. Nous définissons des priorités observables plutôt qu’un délai garanti.',
+    question: 'Quels contenus sont prioritaires pour le référencement IA ?',
+    answer: 'Les pages d’offres détaillées, les guides comparatifs, les FAQ précises et les données d’entreprise officielles sont les plus directement exploitées par les moteurs conversationnels.',
   },
   {
-    question: 'Quels contenus sont concernés ?',
-    answer: 'Les pages d’offres, pages d’expertise, FAQ, guides, études, informations d’entreprise et contenus qui répondent à des questions précises peuvent être concernés selon votre activité.',
+    question: 'Le référencement IA est-il utile pour une PME locale en Suisse ?',
+    answer: 'Oui, car de plus en plus de décideurs et consommateurs utilisent les interfaces conversationnelles pour comparer des prestataires locaux et obtenir des recommandations directes.',
   },
 ];
 ---
 
 <CommercialPage
-  title="Référencement IA : structurer votre visibilité | CLICOM"
-  description="Structurez vos contenus, entités et données pour rendre votre entreprise plus facile à comprendre dans les nouveaux parcours de recherche."
+  title="Référencement IA (GEO & AEO) en Suisse | CLICOM"
+  description="Optimisation de votre visibilité dans ChatGPT, Gemini, Perplexity et les moteurs de réponse IA. Structurez vos données et entités de marque avec CLICOM."
+  pillarTag="Pilier 02 · Acquisition"
   eyebrow="GEO & AEO"
   h1="Rendre votre entreprise plus facile à <span class='gradient-text'>comprendre, identifier et citer.</span>"
-  intro="CLICOM aide à structurer les contenus et les signaux qui rendent votre expertise plus lisible pour les personnes, les moteurs de recherche et les interfaces génératives."
+  intro="CliCom aide les PME romandes à structurer les données et les contenus qui rendent leur savoir-faire compréhensible et citable par les moteurs de recherche génératifs (ChatGPT, Gemini, Perplexity)."
   {problems}
-  solution="Le référencement IA ne remplace pas le SEO. Il prolonge un travail de clarté, de cohérence et d’autorité pour les parcours de recherche qui deviennent conversationnels."
+  solution="Le référencement IA ne remplace pas le SEO traditionnel : il prolonge un travail d’exactitude, de structure de données et d’autorité pour les nouveaux parcours de recherche conversationnels."
   {services}
   {process}
   benefits={[
-    'Une information de marque plus cohérente et plus facile à vérifier',
-    'Des contenus qui répondent plus explicitement aux vraies questions',
-    'Des données structurées utilisées avec discernement',
-    'Une approche compatible avec les fondations SEO existantes',
-    'Une veille pragmatique, sans promesse artificielle de présence',
+    'Une information d’entreprise claire, vérifiable et structurée pour les IA',
+    'Des réponses explicites intégrées à vos pages pour lever les doutes des décideurs',
+    'Un balisage Schema.org exploitable par tous les moteurs de recherche modernes',
+    'Une longueur d’avance sur l’évolution des usages de recherche en ligne',
+    'Une démarche rigoureuse sans illusion ni promesse algorithmique infondée',
   ]}
   {faq}
   links={[
-    { href: '/seo/', label: 'SEO' },
-    { href: '/creation-contenu/', label: 'Création de contenu' },
+    { href: '/services/', label: 'Le système complet CliCom' },
+    { href: '/seo/', label: 'SEO naturel' },
+    { href: '/creation-site-web/', label: 'Création de site web' },
     { href: '/intelligence-artificielle/', label: 'Intelligence artificielle' },
   ]}
   problemEyebrow="Pourquoi s’y préparer"
   problemsTitle="Les moteurs ont besoin de comprendre avant de pouvoir recommander."
   offerTitle="Une présence plus claire pour les nouveaux parcours de recherche."
   processTitle="Une méthode prudente, fondée sur des signaux que vous maîtrisez."
-  benefitsTitle="Mieux expliquer votre expertise, aujourd’hui et demain."
-  faqTitle="Les limites et les priorités du référencement IA."
+  benefitsTitle="Mieux expliquer votre expertise, aujourd’hui et pour les années à venir."
+  faqTitle="Les limites réelles et les priorités du référencement IA."
   {decisionGuide}
-  heroPrimaryLabel="Évaluer votre présence IA"
+  heroPrimaryLabel="Faire le point sur votre visibilité IA"
   heroSecondary="#approach"
-  heroSecondaryLabel="Comprendre l’approche"
+  heroSecondaryLabel="Comprendre notre démarche"
   heroPrimaryCalendly={true}
   ctaTitle="Clarifions ce qui rend votre expertise plus lisible en ligne."
-  ctaText="Réservez un échange de 30 minutes pour identifier les contenus, informations et fondations SEO à traiter en priorité."
+  ctaText="Réservez un échange de 30 minutes pour identifier les contenus, informations et fondations SEO à structurer en priorité pour votre PME."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
   editorialImage={geoImage}
+  {structuredData}
 />

@@ -1,106 +1,140 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/email-marketing-crm/#service',
+      name: 'CRM et E-mail marketing pour PME en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Organisation de base de contacts, pipeline commercial visuel et séquences e-mail de relance pour PME en Suisse romande.',
+      serviceType: 'CRM et E-mail marketing',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/email-marketing-crm/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'CRM & E-mail marketing', item: 'https://clicom.ch/email-marketing-crm/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Des contacts dispersés entre plusieurs outils',
-    text: 'Informations commerciales, demandes de contact et historiques d’échange vivent dans des fichiers, boîtes e-mail ou outils qui se répondent mal.',
+    title: 'Des contacts éparpillés entre boîtes e-mails et tableurs',
+    text: 'Informations commerciales, devis envoyés et historiques d’échange vivent dans des fichiers isolés sans vision centralisée.',
   },
   {
-    title: 'Un suivi qui dépend trop de la mémoire de chacun',
-    text: 'Les prospects qui ne sont pas prêts immédiatement peuvent sortir du parcours, tandis que les relances restent difficiles à coordonner.',
+    title: 'Un suivi commercial qui dépend de la mémoire de chacun',
+    text: 'Les prospects qui ne signent pas tout de suite sortent du radar, tandis que les relances restent difficiles à coordonner au quotidien.',
   },
   {
-    title: 'Des communications identiques pour des besoins différents',
-    text: 'Les messages ne tiennent pas assez compte de l’intérêt exprimé, de l’étape du cycle de vente ou de la relation déjà établie.',
+    title: 'Des communications de masse identiques pour des besoins différents',
+    text: 'Envoyer les mêmes e-mails génériques sans tenir compte de l’intérêt réel, du secteur ou de l’état d’avancement de la relation.',
   },
 ];
 
 const services = [
-  { title: 'Structure CRM et pipeline', text: 'Organiser contacts, entreprises, opportunités, étapes et responsabilités autour de votre cycle commercial réel.' },
-  { title: 'Capture et qualification des demandes', text: 'Relier formulaires, campagnes ou prises de contact à des informations utiles pour orienter le suivi.' },
-  { title: 'Segmentation exploitable', text: 'Créer des groupes qui correspondent à des intérêts, niveaux de maturité ou relations réellement actionnables.' },
-  { title: 'E-mails et séquences de suivi', text: 'Concevoir des communications utiles après un nouveau lead, une demande de devis ou une étape clé du parcours.' },
-  { title: 'Relances et continuité commerciale', text: 'Rendre visibles les prochaines actions et faciliter le passage entre marketing, vente et service client.' },
-  { title: 'Mesure et amélioration', text: 'Suivre les signaux qui aident à mieux comprendre l’engagement, la qualité du pipeline et les points de friction.' },
+  { title: 'Configuration CRM & Pipeline commercial visuel', text: 'Structurer vos contacts, entreprises, montants d’affaires et étapes de vente selon votre cycle commercial réel.' },
+  { title: 'Capture & Qualification automatique des demandes', text: 'Enregistrer directement les formulaires web avec les informations de contexte utiles pour orienter le premier contact.' },
+  { title: 'Segmentation exploitable de la base clients', text: 'Créer des groupes de contacts pertinents selon leurs intérêts, leur maturité ou leur historique pour des messages ciblés.' },
+  { title: 'Séquences d’e-mails & Scénarios de relance', text: 'Programmer des e-mails courtois et personnalisés après une demande de devis, un rendez-vous ou une étape clé.' },
+  { title: 'Passation fluide entre marketing et vente', text: 'Rendre visibles les prochaines actions et faciliter la collaboration entre vos collaborateurs commerciaux.' },
+  { title: 'Tableaux de bord d’activité & Mesure du taux de signature', text: 'Suivre le volume d’opportunités en cours, les délais de conversion et la valeur de votre pipeline.' },
 ];
 
 const process = [
-  { title: 'Cartographier', text: 'Comprendre les outils, les données, le cycle de vente et les moments où les contacts se perdent.' },
-  { title: 'Structurer', text: 'Définir les champs utiles, les étapes, les responsabilités et les règles de qualité des données.' },
-  { title: 'Segmenter', text: 'Organiser les audiences et les signaux nécessaires à des communications plus pertinentes.' },
-  { title: 'Activer', text: 'Mettre en place les campagnes, relances et scénarios qui accompagnent vraiment le parcours.' },
-  { title: 'Améliorer', text: 'Lire les résultats, ajuster les séquences et maintenir une structure CRM utilisable par les équipes.' },
+  { title: 'Cartographier', text: 'Analyser vos outils actuels, votre cycle de vente et les moments où des opportunités sont perdues.' },
+  { title: 'Structurer', text: 'Définir les champs clés, nettoyer les listes de contacts et configurer les étapes du pipeline commercial.' },
+  { title: 'Segmenter', text: 'Organiser les listes et critères pour adresser des communications pertinentes et non intrusives.' },
+  { title: 'Activer les flux', text: 'Rédiger les modèles d’e-mails, paramétrer les relances automatiques et former vos équipes.' },
+  { title: 'Piloter & Optimiser', text: 'Analyser les taux d’ouverture, de réponse et de signature pour affiner continuellement les scénarios.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Scénarios utiles',
-  title: 'Mieux suivre chaque relation, sans transformer l’e-mail en bruit de masse.',
-  intro: 'Le CRM et l’e-mail marketing fonctionnent lorsqu’ils apportent la bonne information ou la bonne relance à un moment qui a du sens pour le prospect ou le client.',
+  eyebrow: 'Intégration au système',
+  title: 'Le CRM comme moteur relationnel du système CliCom.',
+  intro: 'Le CRM et l’e-mail marketing fonctionnent lorsqu’ils apportent la bonne information ou la bonne relance au moment le plus opportun.',
   items: [
-    { title: 'Nouveau lead et demande de devis', text: 'Accuser réception, qualifier, attribuer une action et relancer avec le contexte nécessaire aux équipes commerciales.' },
-    { title: 'Onboarding et relation client', text: 'Accompagner les premières étapes, partager les informations utiles et maintenir une continuité après la signature.' },
-    { title: 'Réactivation et développement', text: 'Recontacter des clients ou contacts existants avec une raison claire, fondée sur leur relation et leur intérêt.' },
+    { title: 'Nouveau lead & Demande de devis', text: 'Accuser réception instantanément, attribuer la tâche au bon commercial et planifier la relance avec contexte.' },
+    { title: 'Accueil & Suivi client', text: 'Accompagner les premières étapes de la collaboration et partager les informations utiles après la signature.' },
+    { title: 'Fidélisation & Réactivation', text: 'Recontacter vos clients existants avec une proposition pertinente au moment où un nouveau besoin émerge.' },
   ],
 };
 
 const faq = [
   {
-    question: 'Quel CRM faut-il choisir ?',
-    answer: 'Le bon choix dépend du cycle de vente, du nombre d’utilisateurs, des outils à connecter et du niveau de personnalisation réellement nécessaire. Nous partons de vos usages avant de recommander une structure.',
+    question: 'Quel CRM choisir pour une PME en Suisse romande ?',
+    answer: 'Le bon choix dépend du nombre d’utilisateurs, de la complexité de votre cycle de vente et de vos logiciels existants. Nous sélectionnons des outils simples, intuitifs et rapidement adoptés par vos équipes sans usine à gaz.',
   },
   {
-    question: 'Peut-on travailler avec notre CRM actuel ?',
-    answer: 'Souvent, oui. Nous commençons par examiner les données, les étapes et les possibilités de l’outil existant avant d’envisager un changement.',
+    question: 'Peut-on travailler avec notre outil CRM actuel ?',
+    answer: 'Oui, très souvent. Nous analysons la structure actuelle, nettoyons les données et configurons les automatisations manquantes sur votre outil existant avant d’envisager toute migration.',
   },
   {
-    question: 'Quelle différence entre une newsletter et une séquence e-mail ?',
-    answer: 'Une newsletter s’adresse généralement à un groupe selon un rendez-vous éditorial. Une séquence se déclenche ou s’adapte à une étape, un intérêt ou une action dans le parcours.',
+    question: 'Quelle est la différence entre une newsletter et une séquence e-mail de suivi ?',
+    answer: 'Une newsletter est un envoi d’actualités périodique à l’ensemble de votre liste. Une séquence e-mail est un flux automatisé qui se déclenche suite à une action précise d’un prospect (ex: demande de devis, téléchargement de guide) pour l’accompagner dans sa décision.',
   },
   {
-    question: 'Comment éviter des e-mails trop intrusifs ?',
-    answer: 'En limitant les scénarios à des messages utiles, en respectant le contexte de la relation et en mesurant l’engagement plutôt que la seule fréquence d’envoi.',
+    question: 'Comment éviter que les e-mails de relance soient perçus comme intrusifs ?',
+    answer: 'En limitant les messages à des contenus utiles et bienveillants (conseils, réponses aux questions fréquentes, proposition d’aide), en espaçant raisonnablement les envois et en respectant le rythme de décision du client.',
   },
 ];
 ---
 
 <CommercialPage
-  title="E-mail marketing et CRM : mieux suivre vos prospects | CLICOM"
-  description="CRM, segmentation, e-mails, relances et scénarios de suivi pour mieux accompagner les prospects et clients sans dépendre uniquement de nouvelles campagnes."
+  title="CRM & E-mail marketing pour PME | CLICOM Suisse"
+  description="Organisation de vos contacts, structuration de pipeline commercial et scénarios e-mail de suivi pour PME en Suisse romande. Suivez chaque opportunité avec méthode."
+  pillarTag="Pilier 03 · Automatisation"
   eyebrow="E-mail marketing & CRM"
-  h1="Mieux suivre les prospects et maintenir la relation sans dépendre uniquement de <span class='accent'>nouvelles campagnes.</span>"
-  intro="CLICOM organise vos données, vos étapes commerciales et vos communications pour que chaque prospect ou client soit mieux suivi au fil de sa relation avec vous."
+  h1="Organiser vos contacts et suivre chaque opportunité avec un <span class='accent'>CRM clair et des e-mails utiles.</span>"
+  intro="CliCom aide les PME romandes à structurer leur base de contacts, clarifier leur pipeline commercial et déployer des scénarios e-mail pertinents pour accompagner chaque prospect jusqu’à la signature."
   {problems}
-  solution="L’e-mail marketing et le CRM ne servent pas à envoyer plus de messages. Ils servent à mieux comprendre la relation, mieux organiser le suivi et intervenir au bon moment."
+  solution="L’e-mail marketing et le CRM ne servent pas à envoyer du spam : ils permettent de savoir où en est chaque relation, d’intervenir au bon moment avec le bon message et de ne plus jamais laisser une opportunité sans réponse."
   {services}
   {process}
   benefits={[
-    'Une base de contacts plus claire et plus utilisable',
-    'Des relances mieux reliées aux étapes du parcours',
-    'Des communications plus pertinentes selon le contexte',
-    'Une meilleure continuité entre marketing, vente et service client',
-    'Des opportunités et des relations plus faciles à suivre',
+    'Une vision centralisée et en temps réel de toutes vos opportunités commerciales',
+    'Des relances structurées qui augmentent le taux de signature de vos offres',
+    'Un historique d’échange clair et partagé au sein de votre équipe',
+    'Des communications ciblées et perçues comme professionnelles par vos prospects',
+    'Un suivi précis de la rentabilité de vos actions d’acquisition',
   ]}
   {faq}
   links={[
-    { href: '/automatisation/', label: 'Automatisation' },
+    { href: '/services/', label: 'Le système complet CliCom' },
+    { href: '/automatisation/', label: 'Automatisation des flux' },
     { href: '/creation-contenu/', label: 'Création de contenu' },
-    { href: '/intelligence-artificielle/', label: 'Intelligence artificielle' },
+    { href: '/creation-site-web/', label: 'Création de site web' },
   ]}
-  problemEyebrow="Pourquoi la relation se perd trop souvent"
-  problemsTitle="Le bon suivi commence par une information fiable et un prochain pas clair."
-  offerTitle="Relier données, relances et équipes autour du parcours client."
-  processTitle="Une méthode qui organise la relation avant de l’automatiser."
-  benefitsTitle="Des contacts mieux suivis et des échanges plus cohérents."
-  faqTitle="Les questions utiles avant de structurer CRM et e-mail marketing."
+  problemEyebrow="Pourquoi la relation commerciale se perd trop souvent"
+  problemsTitle="Le bon suivi commence par une information fiable et une prochaine action claire."
+  offerTitle="Relier données, relances et collaborateurs autour du parcours d’achat."
+  processTitle="Une méthode qui organise vos échanges avant de les automatiser."
+  benefitsTitle="Des contacts mieux suivis et un pipeline commercial plus prévisible."
+  faqTitle="Les questions utiles avant de structurer votre CRM et vos e-mails."
   {decisionGuide}
-  heroPrimaryLabel="Parler de votre CRM"
+  heroPrimaryLabel="Faire le point sur votre CRM"
   heroSecondary="#approach"
   heroSecondaryLabel="Voir les scénarios possibles"
   heroPrimaryCalendly={true}
   ctaTitle="Faisons le point sur vos contacts, vos relances et votre pipeline."
-  ctaText="Réservez un échange de 30 minutes pour identifier les étapes où votre CRM et vos e-mails peuvent apporter le plus de continuité."
+  ctaText="Réservez un échange de 30 minutes pour identifier les étapes où votre CRM et vos e-mails peuvent apporter le plus de rigueur commerciale à votre PME."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
   variant="reverse"
+  {structuredData}
 />

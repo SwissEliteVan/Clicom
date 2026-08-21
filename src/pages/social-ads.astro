@@ -1,105 +1,139 @@
 ---
 import CommercialPage from '../components/CommercialPage.astro';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/social-ads/#service',
+      name: 'Publicité sur les réseaux sociaux (Social Ads) pour PME en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Campagnes publicitaires ciblées sur Meta (Facebook, Instagram) et LinkedIn pour PME en Suisse romande. Créez de la demande et réactivez vos prospects.',
+      serviceType: 'Publicité sur les réseaux sociaux',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/social-ads/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'Publicité sur les réseaux sociaux', item: 'https://clicom.ch/social-ads/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Une portée qui ne crée pas assez d’intérêt',
-    text: 'Les audiences voient les publicités, sans toujours comprendre rapidement ce qui rend l’offre pertinente pour elles.',
+    title: 'Une visibilité payante qui ne suscite pas d’intérêt réel',
+    text: 'Vos cibles voient passer vos publicités sans comprendre rapidement en quoi votre prestation résout leur problème concret en Suisse.',
   },
   {
-    title: 'Des publications simplement “boostées”',
-    text: 'Mettre du budget derrière une publication ne remplace ni une stratégie d’audience, ni une promesse claire, ni un dispositif de test.',
+    title: 'Des publications simplement « boostées » sans stratégie de conversion',
+    text: 'Mettre du budget sur un post ordinaire sans ciblage précis, sans promesse forte ni page de capture n’apporte que des likes sans valeur commerciale.',
   },
   {
-    title: 'Des créatifs qui s’essoufflent',
-    text: 'Les mêmes formats et messages tournent trop longtemps, alors que l’apprentissage dépend du renouvellement et de la comparaison des angles.',
+    title: 'Des visuels publicitaires qui s’essoufflent dans la durée',
+    text: 'Diffuser les mêmes messages trop longtemps fait chuter l’efficacité : le succès dépend du renouvellement régulier et du test de plusieurs angles.',
   },
 ];
 
 const services = [
-  { title: 'Stratégie Meta Ads', text: 'Campagnes Facebook et Instagram structurées autour du rôle de chaque audience dans le parcours.' },
-  { title: 'LinkedIn Ads lorsque c’est pertinent', text: 'Activation B2B évaluée selon la cible, le cycle de décision, la valeur de l’offre et le budget disponible.' },
-  { title: 'Audiences et retargeting', text: 'Segments de découverte, d’engagement et de reciblage organisés selon la maturité des personnes touchées.' },
-  { title: 'Créatifs publicitaires', text: 'Angles, formats et variations conçus pour susciter l’intérêt, expliquer et nourrir les tests.' },
-  { title: 'Landing pages et parcours', text: 'Pages cohérentes avec les promesses de campagne, pensées pour réduire les frictions après le clic.' },
-  { title: 'Tracking et apprentissage', text: 'Suivi des actions utiles et lecture de la performance au-delà des impressions ou du taux de clic.' },
+  { title: 'Stratégie Meta Ads (Facebook & Instagram)', text: 'Bâtir des campagnes ciblées selon le niveau de maturité de vos audiences (découverte, considération, conversion).' },
+  { title: 'Campagnes LinkedIn Ads (B2B)', text: 'Cibler directement les fonctions clés, secteurs d’activité et dirigeants d’entreprises en Suisse romande.' },
+  { title: 'Segmentation d’audiences & Retargeting', text: 'Mettre en place des scénarios de reciblage pour recontacter intelligemment les visiteurs de votre site web.' },
+  { title: 'Création de visuels & Formats percutants', text: 'Concevoir des déclinaisons graphiques et des accroches variées pour tester ce qui résonne le mieux avec votre cible.' },
+  { title: 'Landing pages dédiées & Parcours fluides', text: 'Concevoir des pages d’atterrissage en parfaite harmonie avec la promesse de la publicité pour maximiser les leads.' },
+  { title: 'Tracking des conversions & Pilotage de la rentabilité', text: 'Suivre les coûts par prospect utile et ajuster l’allocation budgétaire sur les combinaisons les plus performantes.' },
 ];
 
 const process = [
-  { title: 'Positionner', text: 'Clarifier l’audience, le message, l’offre et la place de la campagne dans le parcours.' },
-  { title: 'Préparer', text: 'Organiser les créatifs, les pages, le tracking et les audiences à tester.' },
-  { title: 'Diffuser', text: 'Lancer avec un cadre de budget et des hypothèses explicites, sans tout multiplier dès le départ.' },
-  { title: 'Tester', text: 'Comparer angles, formats, audiences et parcours pour apprendre de manière structurée.' },
-  { title: 'Développer', text: 'Renforcer les combinaisons utiles et renouveler les créatifs avant qu’ils ne s’essoufflent.' },
+  { title: 'Positionner', text: 'Clarifier vos audiences idéales, le message clé, l’offre mise en avant et le rôle de la campagne dans votre entonnoir.' },
+  { title: 'Préparer', text: 'Concevoir les visuels publicitaires, rédiger les accroches, monter les pages de destination et vérifier le tracking.' },
+  { title: 'Diffuser', text: 'Lancer les campagnes avec un cadre de budget maîtrisé et des hypothèses explicites à valider.' },
+  { title: 'Tester & Comparer', text: 'Comparer les performances des différents formats, messages et audiences pour identifier les plus réceptifs.' },
+  { title: 'Développer', text: 'Renforcer les variantes gagnantes et renouveler les créatifs avant qu’ils ne s’épuisent.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Deux leviers différents',
-  title: 'Social Ads et Google Ads ne répondent pas au même moment.',
-  intro: 'Google Ads capte une demande déjà exprimée. Les campagnes sociales travaillent souvent plus tôt : elles créent de l’intérêt, expliquent une offre et reconnectent les personnes déjà engagées.',
+  eyebrow: 'Intégration au système',
+  title: 'Social Ads et Google Ads : deux forces complémentaires.',
+  intro: 'Google Ads capte les recherches déjà formulées, tandis que les Social Ads créent la demande auprès de ceux qui ne vous connaissent pas encore.',
   items: [
-    { title: 'Capter une recherche', text: 'Google Ads est adapté lorsqu’une personne formule déjà un besoin ou cherche une solution précise.' },
-    { title: 'Créer et nourrir la demande', text: 'Social Ads permet de faire découvrir une offre à des audiences qui ne vous recherchent pas encore activement.' },
-    { title: 'Réactiver avec pertinence', text: 'Le retargeting reconnecte les personnes déjà exposées, à condition que le message et la page restent utiles.' },
+    { title: 'Capter une intention (Google Ads)', text: 'Idéal lorsqu’une personne formule déjà un besoin précis sur un moteur de recherche.' },
+    { title: 'Créer de l’intérêt (Social Ads)', text: 'Permet de faire découvrir votre savoir-faire à des professionnels qui n’avaient pas encore identifié leur besoin.' },
+    { title: 'Réactiver (Retargeting)', text: 'Maintient le contact avec les prospects ayant déjà manifesté un intérêt pour votre entreprise.' },
   ],
 };
 
 const faq = [
   {
-    question: 'Quelle plateforme faut-il choisir ?',
-    answer: 'Le choix dépend de vos audiences, de votre offre, de votre cycle de décision et de votre capacité à produire des créatifs adaptés. Nous ne recommandons pas une plateforme par défaut.',
+    question: 'Quelle plateforme choisir entre Meta et LinkedIn pour une PME ?',
+    answer: 'LinkedIn est particulièrement adapté pour le B2B avec un ciblage précis par poste et secteur. Meta (Instagram et Facebook) est redoutable pour le grand public, les artisans, l’immobilier et le commerce local. Nous évaluons le meilleur mix lors du cadrage.',
   },
   {
-    question: 'Booster une publication suffit-il ?',
-    answer: 'Non. Le boost peut avoir un rôle ponctuel, mais une stratégie Social Ads complète organise objectifs, audiences, messages, créatifs, retargeting, pages et mesure.',
+    question: 'Pourquoi le simple « boost » de post est-il déconseillé ?',
+    answer: 'Le boost optimise uniquement l’engagement de surface (likes, vues), sans ciblage fin ni suivi des conversions. Une campagne Social Ads structurée optimise directement la génération de demandes de devis et de contacts qualifiés.',
   },
   {
-    question: 'Faut-il produire beaucoup de créatifs ?',
-    answer: 'Il faut surtout un plan de renouvellement réaliste. Plusieurs angles et formats aident à apprendre sans confondre volume et qualité.',
+    question: 'Combien de visuels publicitaires faut-il créer ?',
+    answer: 'Nous testons généralement 3 à 5 déclinaisons de formats et de messages dès le lancement, puis nous renouvelons les créatifs toutes les quelques semaines pour éviter la lassitude de l’audience.',
   },
   {
-    question: 'Pouvez-vous garantir un ROAS ?',
-    answer: 'Non. La performance dépend de l’offre, du marché, des créatifs, du site, du budget et du suivi commercial. Nous pilotons ce qui peut l’être et rendons les apprentissages lisibles.',
+    question: 'Pouvez-vous garantir un retour sur investissement publicitaire (ROAS) ?',
+    answer: 'Non, car le résultat final dépend également de votre offre commerciale, de votre réactivité et du marché. Nous mettons en œuvre une méthodologie rigoureuse pour optimiser le coût par lead utile et rendre chaque dépense lisible.',
   },
 ];
 ---
 
 <CommercialPage
-  title="Social Ads : créer et réactiver la demande | CLICOM"
-  description="Campagnes Meta et LinkedIn, créatifs, audiences, retargeting, landing pages et tracking pour créer une demande mieux qualifiée."
+  title="Social Ads pour PME en Suisse romande : Meta & LinkedIn | CLICOM"
+  description="Campagnes publicitaires ciblées sur Meta (Facebook, Instagram) et LinkedIn pour PME en Suisse. Faites découvrir vos offres et réactivez vos prospects."
+  pillarTag="Pilier 02 · Acquisition"
   eyebrow="Publicité sur les réseaux sociaux"
-  h1="Créer de la demande auprès d’audiences qui ne vous <span class='gradient-text'>recherchent pas encore.</span>"
-  intro="CLICOM conçoit des campagnes sociales qui font connaître une offre, nourrissent l’intérêt et réactivent les audiences déjà engagées."
+  h1="Faire découvrir vos offres et générer de la demande avec des campagnes <span class='gradient-text'>Social Ads ciblées.</span>"
+  intro="CliCom conçoit des campagnes publicitaires sur Meta et LinkedIn pour les PME romandes : ciblage précis de vos audiences idéales, visuels engageants et parcours de conversion optimisés."
   {problems}
-  solution="Les campagnes sociales ne se résument pas à diffuser une publication. Elles relient créatifs, audiences, pages, retargeting et suivi dans un cycle d’apprentissage continu."
+  solution="Les campagnes publicitaires sur les réseaux sociaux ne se résument pas à diffuser une annonce : elles relient créatifs captivants, ciblage rigoureux, pages de destination et reciblage dans un cycle d’apprentissage continu."
   {services}
   {process}
   benefits={[
-    'Des plateformes retenues pour leur pertinence, pas par réflexe',
-    'Des créatifs construits pour expliquer et tester des angles',
-    'Des audiences reliées à leur niveau de maturité',
-    'Un retargeting plus cohérent avec les interactions précédentes',
-    'Une lecture de la performance qui dépasse les métriques de surface',
+    'Des plateformes activées selon vos cibles réelles en Suisse romande',
+    'Des visuels soignés construits pour tester différents angles d’accroche',
+    'Des audiences segmentées selon leur degré d’intérêt et de maturité',
+    'Un dispositif de retargeting pour réengager vos anciens visiteurs',
+    'Une lecture claire des performances axée sur le coût par contact utile',
   ]}
   {faq}
   links={[
+    { href: '/services/', label: 'Le système complet CliCom' },
     { href: '/google-ads/', label: 'Google Ads' },
-    { href: '/creation-contenu/', label: 'Création de contenu' },
     { href: '/creation-site-web/', label: 'Création de site web' },
+    { href: '/creation-contenu/', label: 'Création de contenu' },
   ]}
   problemEyebrow="Pourquoi les campagnes sociales demandent une méthode"
-  problemsTitle="L’attention se gagne avec un message utile, pas avec un simple budget."
-  offerTitle="Créer, tester et améliorer des campagnes qui accompagnent la décision."
-  processTitle="Un cycle court entre hypothèse, diffusion et apprentissage."
-  benefitsTitle="Des campagnes sociales plus lisibles et mieux reliées au parcours."
-  faqTitle="Les questions à éclaircir avant d’activer Social Ads."
+  problemsTitle="L’attention se gagne avec un message percutant, pas avec un simple budget."
+  offerTitle="Créer, tester et optimiser des campagnes qui font progresser la décision."
+  processTitle="Un cycle court entre hypothèse, diffusion et apprentissage continu."
+  benefitsTitle="Des campagnes sociales plus lisibles et rentables pour votre PME."
+  faqTitle="Les questions à éclaircir avant d’investir en Social Ads."
   {decisionGuide}
-  heroPrimaryLabel="Évaluer votre potentiel Social Ads"
+  heroPrimaryLabel="Faire le point sur votre potentiel Social Ads"
   heroSecondary="#approach"
-  heroSecondaryLabel="Voir notre approche"
+  heroSecondaryLabel="Découvrir notre démarche"
   heroPrimaryCalendly={true}
   ctaTitle="Faisons le point sur vos audiences, vos créatifs et vos pages."
-  ctaText="Réservez un échange de 30 minutes pour évaluer la place de Social Ads dans votre acquisition et les conditions d’un test utile."
+  ctaText="Réservez un échange de 30 minutes pour évaluer la place de Social Ads dans votre stratégie d’acquisition en Suisse romande et tester le dispositif."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
+  {structuredData}
 />

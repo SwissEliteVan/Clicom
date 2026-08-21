@@ -58,6 +58,8 @@ interface Props {
   ctaText?: string;
   ctaLabel?: string;
   ctaCalendly?: boolean;
+  pillarTag?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -91,6 +93,8 @@ const {
   ctaText = 'Un échange de 30 minutes permet de clarifier votre contexte, les priorités et le bon niveau d’accompagnement.',
   ctaLabel = 'Réserver un échange de 30 min →',
   ctaCalendly = false,
+  pillarTag,
+  structuredData,
 } = Astro.props;
 
 const visualByEyebrow: Record<string, 'web' | 'seo' | 'geo' | 'ads' | 'ai' | 'automation'> = {
@@ -103,11 +107,12 @@ const visualByEyebrow: Record<string, 'web' | 'seo' | 'geo' | 'ads' | 'ai' | 'au
 };
 
 const visual = visualByEyebrow[eyebrow];
+const displayEyebrow = pillarTag ? `${pillarTag} · ${eyebrow}` : eyebrow;
 ---
 
-<Layout {title} {description}>
+<Layout {title} {description} {structuredData}>
   <PageHero
-    {eyebrow}
+    eyebrow={displayEyebrow}
     title={h1}
     {intro}
     primaryLabel={heroPrimaryLabel}
@@ -234,7 +239,14 @@ const visual = visualByEyebrow[eyebrow];
         }
       </div>
       <nav class="related" aria-label="Expertises associées">
-        <strong>À découvrir aussi</strong>
+        <div class="related-system-banner">
+          <div>
+            <span class="related-system-badge">Système CliCom</span>
+            <strong>Ce service s'intègre dans un système à 4 piliers</strong>
+          </div>
+          <a href="/services#piliers" class="related-system-link">Explorer les 4 piliers <span aria-hidden="true">→</span></a>
+        </div>
+        <strong>Services associés :</strong>
         {links.map((link) => <a href={link.href}>{link.label} <span>→</span></a>)}
       </nav>
     </div>
@@ -275,8 +287,14 @@ const visual = visualByEyebrow[eyebrow];
   .faq-list details[open] summary span { transform: rotate(45deg); }
   .faq-list p { max-width: 780px; padding: 0 40px 24px 0; }
   .related { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--color-border); }
-  .related strong { width: 100%; margin-bottom: 6px; }
-  .related a { padding: 9px 13px; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-text-muted); font-size: .84rem; font-weight: 680; }
+  .related-system-banner { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; margin-bottom: 12px; background: var(--color-primary-soft); border-radius: var(--radius-card-small); border: 1px solid rgba(36,87,255,0.14); flex-wrap: wrap; }
+  .related-system-badge { display: block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 2px; }
+  .related-system-banner strong { font-size: 0.95rem; color: var(--color-midnight); }
+  .related-system-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.86rem; font-weight: 750; color: var(--color-primary); text-decoration: none; }
+  .related-system-link:hover { text-decoration: underline; }
+  .related strong { width: 100%; margin-bottom: 6px; font-size: 0.88rem; }
+  .related a:not(.related-system-link) { padding: 9px 15px; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-text-muted); font-size: .84rem; font-weight: 680; transition: border-color var(--transition-fast), color var(--transition-fast); }
+  .related a:not(.related-system-link):hover { border-color: var(--color-primary); color: var(--color-primary); }
   .related a span { color: var(--color-primary); }
   @media (max-width: 900px) {
     .split, .benefits { grid-template-columns: 1fr; }

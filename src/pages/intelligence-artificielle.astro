@@ -2,107 +2,141 @@
 import CommercialPage from '../components/CommercialPage.astro';
 import aiImage from '../assets/editorial/ai-editorial.webp';
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/intelligence-artificielle/#service',
+      name: 'Intelligence artificielle opérationnelle pour PME en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Intégration d’usages IA pragmatiques, sécurisés et encadrés sous contrôle humain pour PME en Suisse romande. Traitement de données, synthèse et support.',
+      serviceType: 'Intégration d’intelligence artificielle',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/intelligence-artificielle/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://clicom.ch/services' },
+        { '@type': 'ListItem', position: 3, name: 'Intelligence artificielle', item: 'https://clicom.ch/intelligence-artificielle/' },
+      ],
+    },
+  ],
+};
+
 const problems = [
   {
-    title: 'Trop d’outils, peu de direction',
-    text: 'Les expérimentations se multiplient sans problème prioritaire, sans cadre de données ni intégration claire dans le travail quotidien.',
+    title: 'Trop d’outils et d’expérimentations sans retour sur investissement',
+    text: 'Tester des dizaines d’applications IA isolées sans objectif métier prioritaire, sans cadre de données et sans intégration dans le quotidien de vos équipes.',
   },
   {
-    title: 'Des tâches toujours manuelles malgré un potentiel d’assistance',
-    text: 'Recherche, tri, synthèse, qualification ou rédaction sont répétés sans toujours identifier ce qui peut être réellement amélioré.',
+    title: 'Des tâches d’analyse et de rédaction toujours lentes et manuelles',
+    text: 'Recherche documentaire, tri de dossiers, synthèses de réunions ou réponses types sont répétés manuellement sans exploiter le potentiel d’assistance de l’IA.',
   },
   {
-    title: 'Des réponses difficiles à fiabiliser',
-    text: 'Sans contexte, sources, règles et validation, un résultat généré peut sembler convaincant sans être assez fiable pour le cas d’usage.',
+    title: 'La crainte justifiée de résultats erronés ou de fuites de données',
+    text: 'Sans règles strictes de confidentialité, sans sources vérifiées et sans validation humaine, un outil génératif peut produire des erreurs dommageables.',
   },
 ];
 
 const services = [
-  { title: 'Priorisation des cas d’usage', text: 'Choisir les sujets où l’IA peut apporter un gain concret, mesurable et compatible avec vos contraintes.' },
-  { title: 'Analyse et classification', text: 'Assister le tri, la synthèse ou la catégorisation de données avec un périmètre et des contrôles définis.' },
-  { title: 'Assistance rédactionnelle', text: 'Créer des cadres de recherche, de préparation ou de rédaction qui conservent les sources et la validation nécessaires.' },
-  { title: 'Recherche interne et support', text: 'Faciliter l’accès à une information structurée pour les équipes, lorsque les contenus et les droits d’accès le permettent.' },
-  { title: 'Qualification et traitement de données', text: 'Aider à enrichir, orienter ou préparer des informations sans déléguer aveuglément les décisions sensibles.' },
-  { title: 'Intégration aux processus', text: 'Relier les usages IA aux outils et étapes existants, avec le bon niveau d’automatisation et de contrôle humain.' },
+  { title: 'Audit d’opportunité & Sélection des cas d’usage', text: 'Identifier les tâches récurrentes où l’IA apporte un gain de productivité concret et mesurable à votre PME.' },
+  { title: 'Tri, classification & Extraction de données', text: 'Automatiser la catégorisation de demandes entrantes, de factures ou de documents selon vos critères métier.' },
+  { title: 'Assistance à la rédaction & Préparation documentaire', text: 'Mettre en place des cadres de préparation assistée (comptes-rendus, propositions, synthèses) avec contrôle des sources.' },
+  { title: 'Recherche interne & Base de connaissances d’entreprise', text: 'Permettre à vos collaborateurs d’interroger instantanément vos procédures, manuels et documentations internes sécurisées.' },
+  { title: 'Support & Réponses types contextualisées', text: 'Aider vos équipes à formuler des réponses rapides et qualitatives aux questions fréquentes de vos clients.' },
+  { title: 'Sécurisation des données & Charte d’usage', text: 'Garantir la confidentialité de vos informations professionnelles et définir les règles de validation humaine obligatoire.' },
 ];
 
 const process = [
-  { title: 'Cadrer', text: 'Partir d’un problème fréquent, d’un objectif clair et d’un niveau de risque compris par les équipes.' },
-  { title: 'Prototyper', text: 'Tester un périmètre limité pour vérifier l’utilité, la qualité des résultats et les points de vigilance.' },
-  { title: 'Vérifier', text: 'Définir les sources, règles, données, validations et responsabilités nécessaires à un usage fiable.' },
-  { title: 'Intégrer', text: 'Inscrire l’usage dans les outils et processus lorsque le prototype répond réellement au besoin.' },
-  { title: 'Améliorer', text: 'Mesurer la valeur, documenter les limites et ajuster l’usage avec les retours des équipes.' },
+  { title: 'Cadrer', text: 'Partir d’un besoin opérationnel fréquent, d’un objectif de gain de temps clair et d’un niveau de risque maîtrisé.' },
+  { title: 'Prototyper', text: 'Tester la solution sur un périmètre restreint pour vérifier l’exactitude des réponses et la simplicité de prise en main.' },
+  { title: 'Encadrer', text: 'Définir les sources de données officielles, les consignes strictes et les points de contrôle humain indispensables.' },
+  { title: 'Intégrer', text: 'Déployer l’assistant IA directement dans les outils quotidiens de vos collaborateurs en Suisse romande.' },
+  { title: 'Améliorer', text: 'Former vos équipes, mesurer le temps gagné et faire évoluer les modèles selon les retours d’expérience.' },
 ];
 
 const decisionGuide = {
-  eyebrow: 'Une IA utile est encadrée',
-  title: 'L’IA ne remplace ni le processus ni le contrôle humain.',
-  intro: 'Elle peut assister, analyser ou accélérer certaines étapes. Sa valeur dépend toujours de la qualité des données, du contexte fourni et de la responsabilité conservée par les équipes.',
+  eyebrow: 'Intégration au système',
+  title: 'L’IA comme assistant opérationnel sous contrôle humain.',
+  intro: 'L’intelligence artificielle ne remplace ni le processus métier ni le jugement humain : elle amplifie l’efficacité de vos équipes.',
   items: [
-    { title: 'IA ≠ automatisation complète', text: 'L’IA peut produire une recommandation ou une première version ; l’automatisation choisit ensuite si et comment une étape est déclenchée.' },
-    { title: 'Les données et le contexte restent essentiels', text: 'Un outil ne peut pas compenser des informations imprécises, des sources manquantes ou un processus qui n’est pas défini.' },
-    { title: 'Le contrôle humain est une fonctionnalité', text: 'La validation, les seuils d’alerte et la responsabilité des décisions doivent être adaptés à l’impact de chaque usage.' },
+    { title: 'Assistance ≠ Décision autonome', text: 'L’IA propose, synthétise ou prépare une version de travail ; votre collaborateur valide et conserve l’entière responsabilité.' },
+    { title: 'La rigueur des données prime', text: 'Un outil IA n’est utile que s’il s’appuie sur des informations d’entreprise fiables, structurées et protégées.' },
+    { title: 'Synergie avec l’Automatisation', text: 'Se combine avec vos flux de travail pour accélérer le traitement des demandes sans rupture organisationnelle.' },
   ],
 };
 
 const faq = [
   {
-    question: 'Par où commencer avec l’intelligence artificielle ?',
-    answer: 'Par un problème concret, fréquent et suffisamment mesurable, plutôt que par le choix d’un outil. Un bon premier cas d’usage doit pouvoir être testé dans un périmètre maîtrisé.',
+    question: 'Par où une PME doit-elle commencer avec l’intelligence artificielle ?',
+    answer: 'Par un problème concret et fréquent (par exemple : le tri des demandes entrantes, la synthèse de documents techniques ou la recherche d’informations internes), plutôt que par le choix d’un logiciel à la mode. Nous débutons toujours par un prototype testé sur un cas d’usage délimité.',
   },
   {
-    question: 'L’IA remplace-t-elle une automatisation complète ?',
-    answer: 'Non. L’IA peut aider à interpréter, classer ou préparer une action. Une automatisation complète exige ensuite des règles, des conditions et un niveau de confiance adaptés au processus.',
+    question: 'Comment garantissez-vous la confidentialité de nos données d’entreprise ?',
+    answer: 'Nous sélectionnons des modèles et environnements professionnels garantissant que vos données ne sont ni partagées publiquement ni réutilisées pour entraîner des modèles tiers, conformément aux exigences suisses de protection des données.',
   },
   {
-    question: 'Comment limiter les erreurs ?',
-    answer: 'En apportant le bon contexte, en définissant les sources et les règles, en testant les résultats et en gardant une validation humaine lorsque l’impact le demande.',
+    question: 'L’IA remplace-t-elle des collaborateurs dans l’entreprise ?',
+    answer: 'Non. Notre démarche vise à assister vos équipes pour éliminer les tâches ingrates de ressaisie et de recherche, afin qu’elles puissent consacrer leur temps au conseil, à la relation client et aux décisions stratégiques.',
   },
   {
-    question: 'L’IA peut-elle remplacer les équipes ?',
-    answer: 'Notre approche vise à assister les équipes, réduire certaines tâches répétitives et mieux rendre l’information disponible. Les décisions, la relation et le jugement métier restent essentiels.',
+    question: 'Quelle est la différence entre automatisation classique et intelligence artificielle ?',
+    answer: 'L’automatisation classique applique des règles fixes (« si un formulaire arrive, envoyer un e-mail »). L’IA apporte une capacité d’analyse, de compréhension du langage et de synthèse sur des données non structurées, avant de passer le relais au flux automatisé.',
   },
 ];
 ---
 
 <CommercialPage
-  title="Intelligence artificielle : des usages concrets | CLICOM"
-  description="Analyse, classification, assistance rédactionnelle, recherche interne, support et intégration IA pour des gains concrets, contrôlés et mesurables."
+  title="Intelligence artificielle pour PME en Suisse : usages concrets | CLICOM"
+  description="Intégration d’outils IA pragmatiques et sécurisés pour assister vos équipes : synthèse, analyse, préparation de contenus et support. Sans effets d’annonce."
+  pillarTag="Pilier 03 · Automatisation"
   eyebrow="Intelligence artificielle"
-  h1="Utiliser l’IA là où elle apporte un <span class='accent'>gain concret.</span>"
-  intro="CLICOM aide les entreprises à identifier, tester et intégrer des usages IA pragmatiques, avec des données, des processus et un contrôle humain adaptés."
+  h1="Intégrer l’intelligence artificielle là où elle apporte un <span class='accent'>gain opérationnel concret.</span>"
+  intro="CliCom accompagne les PME romandes dans l’adoption d’usages IA pragmatiques : assistance au traitement de données, préparation documentaire et support interne, toujours sous le contrôle et la responsabilité de vos collaborateurs."
   {problems}
-  solution="L’IA est utile lorsqu’elle améliore une tâche précise sans masquer les limites, les données nécessaires ou la responsabilité humaine qui doit rester en place."
+  solution="L’IA n’a de valeur que si elle résout un problème précis du quotidien. Nous ne vendons pas d’utopie technologique : nous mettons en place des assistants opérationnels encadrés, avec des sources vérifiables et un contrôle humain systématique."
   {services}
   {process}
   benefits={[
-    'Des cas d’usage choisis pour leur valeur, pas pour l’effet de nouveauté',
-    'Des résultats mieux encadrés par le contexte, les sources et les validations',
-    'Une distinction claire entre assistance IA et automatisation de processus',
-    'Une intégration plus cohérente avec les outils et pratiques existants',
-    'Un cadre évolutif qui tient compte des limites et des retours des équipes',
+    'Des cas d’usage sélectionnés pour leur rentabilité et leur utilité immédiate',
+    'Un gain de temps significatif sur les tâches d’analyse, de tri et de synthèse',
+    'Une sécurité stricte pour vos données d’entreprise et informations confidentielles',
+    'Une adoption rapide par vos équipes grâce à des outils intégrés et documentés',
+    'Le maintien du jugement humain et de l’expertise métier au cœur des décisions',
   ]}
   {faq}
   links={[
-    { href: '/automatisation/', label: 'Automatisation' },
+    { href: '/services/', label: 'Le système complet CliCom' },
+    { href: '/automatisation/', label: 'Automatisation des flux' },
     { href: '/referencement-ia/', label: 'Référencement IA' },
-    { href: '/email-marketing-crm/', label: 'E-mail marketing & CRM' },
+    { href: '/email-marketing-crm/', label: 'CRM & E-mail marketing' },
   ]}
   problemEyebrow="Pourquoi l’IA déçoit parfois"
   problemsTitle="Un outil puissant ne résout pas un problème mal défini."
-  offerTitle="Partir du travail réel pour construire un usage réellement utile."
+  offerTitle="Partir du travail réel pour bâtir des assistants véritablement utiles."
   processTitle="Du cas d’usage au déploiement, avec des contrôles proportionnés."
   benefitsTitle="Des usages IA plus concrets, plus fiables et plus faciles à adopter."
-  faqTitle="Les questions à poser avant d’intégrer l’IA dans vos processus."
+  faqTitle="Les questions utiles avant d’intégrer l’IA dans vos processus."
   {decisionGuide}
   heroPrimaryLabel="Parler d’un cas d’usage IA"
   heroSecondary="#approach"
   heroSecondaryLabel="Comprendre notre méthode"
   heroPrimaryCalendly={true}
   ctaTitle="Évaluons un usage IA à partir de votre réalité opérationnelle."
-  ctaText="Réservez un échange de 30 minutes pour identifier une tâche, un processus ou une information qui mérite d’être étudié avec méthode."
+  ctaText="Réservez un échange de 30 minutes pour identifier une tâche, un processus ou une information qui mérite d’être étudiée avec méthode dans votre PME."
   ctaLabel="Réserver un échange de 30 min →"
   ctaCalendly={true}
   variant="reverse"
   editorialImage={aiImage}
+  {structuredData}
 />

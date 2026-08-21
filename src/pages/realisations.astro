@@ -4,46 +4,254 @@ import PageHero from '../components/PageHero.astro';
 import CTA from '../components/CTA.astro';
 import CaseStudyCard from '../components/CaseStudyCard.astro';
 import { caseStudies } from '../data/case-studies';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': 'https://clicom.ch/realisations/#collection',
+      url: 'https://clicom.ch/realisations',
+      name: 'Réalisations & Projets digitaux pour PME | CLICOM Suisse',
+      description: 'Découvrez nos projets concrets pour PME en Suisse romande : sites web pensés pour l’usage, clarté de l’offre et parcours orientés conversion.',
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': 'https://clicom.ch/#website',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': 'https://clicom.ch/realisations/#itemlist',
+      name: 'Réalisations et études de cas CLICOM',
+      itemListElement: caseStudies.map((study, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: study.client,
+        description: study.problem,
+        url: `https://clicom.ch/realisations/${study.slug}/`,
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/realisations/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Réalisations', item: 'https://clicom.ch/realisations' },
+      ],
+    },
+  ],
+};
+
 const approach = [
-  { number: '01', title: 'Problème', text: 'Cadrer la situation, les objectifs et les contraintes avant de choisir les leviers.' },
-  { number: '02', title: 'Stratégie', text: 'Définir une direction, des priorités et des critères de décision compréhensibles.' },
-  { number: '03', title: 'Actions', text: 'Relier création, acquisition, technologie et contenus dans un plan exécutable.' },
-  { number: '04', title: 'Résultats', text: 'Documenter les effets observés avec leur période, leur périmètre et leurs limites.' },
+  {
+    number: '01',
+    title: 'Comprendre le problème',
+    text: 'Cadrer le défi opérationnel, les clients cibles et les freins de conversion avant de concevoir la moindre interface.',
+  },
+  {
+    number: '02',
+    title: 'Définir la stratégie',
+    text: 'Structurer l’arborescence, la hiérarchie des messages clés et le rôle précis de chaque point de contact.',
+  },
+  {
+    number: '03',
+    title: 'Déployer avec rigueur',
+    text: 'Concevoir un design responsive soigné, rédiger des argumentaires clairs et développer un socle technique rapide.',
+  },
+  {
+    number: '04',
+    title: 'Vérifier l’usage réel',
+    text: 'Observer la fluidité des parcours, la lisibilité de l’offre et la simplicité de prise de contact sur tous les écrans.',
+  },
 ];
+
 const expertise = [
-  ['/creation-site-web/', 'Sites web & conversion'], ['/seo/', 'SEO & contenu'], ['/google-ads/', 'Acquisition payante'],
-  ['/referencement-ia/', 'Référencement IA'], ['/automatisation/', 'Automatisation'], ['/branding/', 'Positionnement & marque'],
+  ['/creation-site-web/', 'Sites web & Conversion'],
+  ['/branding/', 'Branding & Identité visuelle'],
+  ['/creation-contenu/', 'Contenu & Rédaction'],
+  ['/seo/', 'Référencement naturel (SEO)'],
+  ['/google-ads/', 'Acquisition Google Ads'],
+  ['/automatisation/', 'Automatisation des flux'],
 ];
 ---
 
-<Layout title="Réalisations et études de cas — CLICOM" description="Découvrez la méthode CLICOM et, à mesure de leur publication, des études de cas documentées avec contexte, actions et résultats vérifiables.">
-  <PageHero eyebrow="Réalisations" title="Montrer le travail avec <span class='accent'>contexte et transparence.</span>" intro="Chaque future étude de cas présentera le problème de départ, les choix effectués, les actions déployées et les résultats publiables — sans raccourci ni chiffre isolé." primary="/contact/" primaryLabel="Parler de mon projet →" secondary="/methode/" secondaryLabel="Voir notre méthode" />
+<Layout
+  title="Réalisations & projets digitaux pour PME | CLICOM Suisse"
+  description="Découvrez nos projets concrets pour PME en Suisse romande : sites web pensés pour l’usage, clarté de l’offre et parcours orientés conversion."
+  {structuredData}
+>
+  <PageHero
+    eyebrow="Preuves & Réalisations"
+    title="Des projets conçus pour être utilisés, <span class='accent'>pas seulement présentés.</span>"
+    intro="Chaque réalisation CliCom part d’un besoin opérationnel concret : structurer une offre lisible, inspirer confiance et guider le visiteur vers une prise de contact simple et fluide en Suisse romande."
+    primary="#projets"
+    primaryLabel="Découvrir les projets ↓"
+    secondary="/methode/"
+    secondaryLabel="Voir notre méthode"
+  />
 
-  <section class="section section--white" aria-labelledby="approach-title"><div class="container approach"><div class="section-heading"><div class="eyebrow">Notre lecture d’un projet</div><h2 id="approach-title">Du problème aux résultats, <span class="accent">sans perdre le contexte.</span></h2><p>La preuve utile ne se limite pas à un visuel final. Elle explique pourquoi une décision a été prise et comment sa contribution a été évaluée.</p></div><div class="approach__flow">{approach.map(item => <article><span>{item.number}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>
+  <!-- Section Projets & Études de cas -->
+  <section class="section section--white" id="projets" aria-labelledby="cases-title">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Études de cas documentées</div>
+        <h2 id="cases-title">Des réalisations adaptées à <span class="accent">la réalité de chaque métier.</span></h2>
+        <p>Découvrez comment nous traduisons l’expertise de nos clients en interfaces limpides, crédibles et faciles à utiliser.</p>
+      </div>
 
-  <section class="section section--dark" aria-labelledby="expertise-title"><div class="container expertise"><div><div class="eyebrow">Expertises mobilisables</div><h2 id="expertise-title">Une équipe de leviers, <span class="gradient-text">une direction commune.</span></h2></div><nav aria-label="Expertises liées aux réalisations">{expertise.map(([href,label]) => <a href={href}><span>{label}</span><i aria-hidden="true">→</i></a>)}</nav></div></section>
+      <div class="case-list">
+        {caseStudies.map((study) => (
+          <CaseStudyCard {study} />
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <section class="section section--white" aria-labelledby="cases-title"><div class="container"><div class="section-heading"><div class="eyebrow">Études de cas</div><h2 id="cases-title">Les projets publiables, <span class="accent">au bon niveau de détail.</span></h2></div>{caseStudies.length > 0 ? <div class="case-list">{caseStudies.map(study => <CaseStudyCard {study} />)}</div> : <div class="case-empty"><span aria-hidden="true">↗</span><div><h3>Les premières études de cas détaillées seront publiées prochainement.</h3><p>Nous les ajouterons uniquement lorsque les informations, médias et résultats pourront être présentés avec l’accord et le contexte nécessaires.</p></div></div>}</div></section>
+  <!-- Section Méthode de preuve -->
+  <section class="section section--white approach-section" aria-labelledby="approach-title">
+    <div class="container approach">
+      <div class="section-heading">
+        <div class="eyebrow">Notre lecture d’un projet</div>
+        <h2 id="approach-title">Du problème au résultat, <span class="accent">sans artifice ni supposition.</span></h2>
+        <p>La preuve utile ne se limite pas à une capture d’écran. Elle explique pourquoi chaque choix a été fait et ce qu’il apporte concrètement à l’entreprise.</p>
+      </div>
+      <div class="approach__flow">
+        {approach.map((item) => (
+          <article>
+            <span>{item.number}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <CTA href="/audit-gratuit/" title="Votre contexte mérite une réponse sur mesure." text="Présentez-nous votre objectif : nous identifierons les expertises et la prochaine étape les plus pertinentes." />
+  <!-- Section Expertises mobilisables -->
+  <section class="section section--dark" aria-labelledby="expertise-title">
+    <div class="container expertise">
+      <div>
+        <div class="eyebrow eyebrow--cyan">Expertises mobilisables</div>
+        <h2 id="expertise-title">Des compétences reliées dans <span class="gradient-text">un même système.</span></h2>
+        <p>Chaque projet combine les expertises nécessaires pour répondre à votre objectif, sans empiler des outils inutiles.</p>
+      </div>
+      <nav aria-label="Expertises liées aux réalisations">
+        {expertise.map(([href, label]) => (
+          <a href={href}>
+            <span>{label}</span>
+            <i aria-hidden="true">→</i>
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- CTA de conversion -->
+  <CTA
+    href="/audit-gratuit/"
+    title="Votre projet mérite une réponse sur-mesure."
+    text="Présentez-nous votre contexte et vos objectifs : nous identifierons les expertises et la prochaine étape les plus pertinentes pour votre PME."
+    label="Demander un diagnostic digital →"
+    calendly={true}
+  />
 </Layout>
 
 <style>
-  .approach { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(48px,8vw,110px); align-items: start; }
-  .approach__flow { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border: 1px solid var(--color-border); border-radius: var(--radius-surface); overflow: hidden; background: var(--color-border); gap: 1px; }
-  .approach__flow article { min-height: 250px; padding: clamp(26px,4vw,40px); background: white; }
-  .approach__flow span { color: var(--color-primary); font-size: .7rem; font-weight: 780; letter-spacing: .12em; }
-  .approach__flow h3 { margin-top: 54px; }
-  .expertise { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(48px,8vw,110px); align-items: start; }
-  .expertise nav { border-top: 1px solid var(--color-dark-border); }
-  .expertise a { display: flex; min-height: 66px; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--color-dark-border); color: white; font-weight: 680; }
-  .expertise a i { color: var(--color-cyan); font-style: normal; transition: transform var(--transition-fast); }
-  .expertise a:hover i { transform: translateX(4px); }
-  .case-list { display: grid; gap: 28px; }
-  .case-empty { display: grid; grid-template-columns: auto 1fr; gap: 28px; max-width: 980px; padding: clamp(28px,5vw,48px); border: 1px solid rgba(36,87,255,.18); border-radius: var(--radius-surface); background: linear-gradient(135deg,var(--color-primary-soft),white); }
-  .case-empty > span { display: grid; width: 52px; height: 52px; place-items: center; border-radius: 50%; color: white; background: var(--color-primary); box-shadow: var(--shadow-primary); }
-  .case-empty h3 { margin-bottom: 10px; }
-  .case-empty p { max-width: 720px; margin: 0; }
-  @media (max-width: 900px) { .approach,.expertise { grid-template-columns: 1fr; } }
-  @media (max-width: 600px) { .approach__flow { grid-template-columns: 1fr; } .approach__flow article { min-height: 0; } .approach__flow h3 { margin-top: 28px; } .case-empty { grid-template-columns: 1fr; } }
+  .case-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .approach-section {
+    border-top: 1px solid var(--color-border);
+  }
+  .approach {
+    display: grid;
+    grid-template-columns: 0.72fr 1.28fr;
+    gap: clamp(48px, 8vw, 110px);
+    align-items: start;
+  }
+  .approach__flow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-surface);
+    overflow: hidden;
+    background: var(--color-border);
+    gap: 1px;
+  }
+  .approach__flow article {
+    min-height: 220px;
+    padding: clamp(26px, 4vw, 36px);
+    background: white;
+  }
+  .approach__flow span {
+    color: var(--color-primary);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+  .approach__flow h3 {
+    margin-top: 24px;
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+    color: var(--color-midnight);
+  }
+  .approach__flow p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+  }
+  .expertise {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(48px, 8vw, 110px);
+    align-items: start;
+  }
+  .eyebrow--cyan {
+    color: var(--color-cyan) !important;
+  }
+  .expertise nav {
+    border-top: 1px solid var(--color-dark-border);
+  }
+  .expertise a {
+    display: flex;
+    min-height: 66px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--color-dark-border);
+    color: white;
+    font-weight: 680;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .expertise a:hover {
+    color: var(--color-cyan);
+  }
+  .expertise a i {
+    color: var(--color-cyan);
+    font-style: normal;
+    transition: transform var(--transition-fast);
+  }
+  .expertise a:hover i {
+    transform: translateX(4px);
+  }
+  @media (max-width: 900px) {
+    .approach,
+    .expertise {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .approach__flow {
+      grid-template-columns: 1fr;
+    }
+    .approach__flow article {
+      min-height: 0;
+    }
+  }
 </style>

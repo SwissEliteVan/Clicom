@@ -12,43 +12,266 @@ export function getStaticPaths() {
 
 interface Props { study: CaseStudy }
 const { study } = Astro.props;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CreativeWork',
+      '@id': `https://clicom.ch/realisations/${study.slug}/#project`,
+      name: study.client,
+      headline: study.seo.title,
+      description: study.seo.description,
+      image: study.image.src,
+      author: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      datePublished: study.date,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `https://clicom.ch/realisations/${study.slug}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Réalisations', item: 'https://clicom.ch/realisations' },
+        { '@type': 'ListItem', position: 3, name: study.client, item: `https://clicom.ch/realisations/${study.slug}/` },
+      ],
+    },
+  ],
+};
 ---
 
-<Layout title={study.seo.title} description={study.seo.description} canonical={study.seo.canonical} ogImage={study.seo.socialImage ?? study.image.src}>
+<Layout
+  title={study.seo.title}
+  description={study.seo.description}
+  canonical={study.seo.canonical}
+  ogImage={study.seo.socialImage ?? study.image.src}
+  {structuredData}
+>
   <CaseStudyHero {study} />
 
-  <section class="section section--white"><div class="container story"><div><div class="eyebrow">Stratégie</div><h2>Une direction construite à partir du <span class="accent">problème réel.</span></h2></div><p class="story__lead">{study.strategy}</p></div></section>
+  <!-- Contexte & Stratégie -->
+  <section class="section section--white">
+    <div class="container story">
+      <div>
+        <div class="eyebrow">Stratégie &amp; Contexte</div>
+        <h2>Une direction construite à partir du <span class="accent">besoin réel.</span></h2>
+      </div>
+      <p class="story__lead">{study.strategy}</p>
+    </div>
+  </section>
 
-  <section class="section"><div class="container actions"><div class="section-heading"><div class="eyebrow">Actions</div><h2>Le travail <span class="accent">déployé.</span></h2></div><ol>{study.actions.map((action,index) => <li><span>{String(index + 1).padStart(2,'0')}</span><p>{action}</p></li>)}</ol></div></section>
+  <!-- Actions & Travail déployé -->
+  <section class="section">
+    <div class="container actions">
+      <div class="section-heading">
+        <div class="eyebrow">Ce qui a été livré</div>
+        <h2>Le travail <span class="accent">déployé.</span></h2>
+      </div>
+      <ol>
+        {study.actions.map((action, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <p>{action}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
 
-  {study.results.length > 0 && <section class="section section--dark"><div class="container"><div class="section-heading"><div class="eyebrow">Résultats documentés</div><h2>Les effets observés, avec leur <span class="gradient-text">contexte.</span></h2></div><div class="results">{study.results.map(result => <CaseStudyResult {result} />)}</div></div></section>}
+  <!-- Résultats observés et vérifiables -->
+  {study.results.length > 0 && (
+    <section class="section section--dark">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow eyebrow--cyan">Preuves qualitatives</div>
+          <h2>Les effets observés sur <span class="gradient-text">l’expérience client.</span></h2>
+        </div>
+        <div class="results">
+          {study.results.map((result) => (
+            <CaseStudyResult {result} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
-  {study.gallery && study.gallery.length > 0 && <section class="section section--white"><div class="container gallery">{study.gallery.map(image => <figure><img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" /></figure>)}</div></section>}
+  {study.gallery && study.gallery.length > 0 && (
+    <section class="section section--white">
+      <div class="container gallery">
+        {study.gallery.map((image) => (
+          <figure>
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
+          </figure>
+        ))}
+      </div>
+    </section>
+  )}
 
-  {study.video && <section class="section section--white"><div class="container video"><video controls preload="metadata" poster={study.video.poster?.src} aria-label={study.video.title}><source src={study.video.src} /></video></div></section>}
+  {study.video && (
+    <section class="section section--white">
+      <div class="container video">
+        <video controls preload="metadata" poster={study.video.poster?.src} aria-label={study.video.title}>
+          <source src={study.video.src} />
+        </video>
+      </div>
+    </section>
+  )}
 
-  {study.testimonial && <section class="section quote"><div class="container"><figure><blockquote>« {study.testimonial.quote} »</blockquote><figcaption>{study.testimonial.author}{study.testimonial.role && <span> · {study.testimonial.role}</span>}</figcaption></figure></div></section>}
+  {study.testimonial && (
+    <section class="section quote">
+      <div class="container">
+        <figure>
+          <blockquote>« {study.testimonial.quote} »</blockquote>
+          <figcaption>
+            {study.testimonial.author}
+            {study.testimonial.role && <span> · {study.testimonial.role}</span>}
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  )}
 
-  <CTA href="/contact/" title="Parlons de votre prochain projet." text="Présentez-nous votre contexte, vos objectifs et les principaux obstacles à résoudre." />
+  <!-- Navigation de retour et CTA -->
+  <section class="section section--compact case-back-nav">
+    <div class="container">
+      <a href="/realisations/" class="back-link">
+        <span aria-hidden="true">←</span> Voir toutes les réalisations
+      </a>
+    </div>
+  </section>
+
+  <CTA
+    href="/contact/"
+    title="Parlons de votre prochain projet."
+    text="Présentez-nous votre contexte, vos objectifs et les principaux obstacles à résoudre pour votre PME."
+    label="Parler de votre projet →"
+    calendly={true}
+  />
 </Layout>
 
 <style>
-  .story { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(40px,8vw,100px); align-items: start; }
-  .story__lead { max-width: 780px; margin: 0; font-size: clamp(1.2rem,2.3vw,1.75rem); line-height: 1.5; }
-  .actions { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(40px,8vw,100px); }
-  .actions ol { margin: 0; padding: 0; border-top: 1px solid var(--color-border); list-style: none; }
-  .actions li { display: grid; grid-template-columns: 54px 1fr; gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--color-border); }
-  .actions li span { color: var(--color-primary); font-size: .72rem; font-weight: 780; }
-  .actions li p { margin: 0; }
-  .results { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--space-3); }
-  .gallery { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--space-3); }
-  .gallery figure { margin: 0; overflow: hidden; border-radius: var(--radius-card); background: var(--color-primary-soft); }
-  .gallery img { width: 100%; height: auto; }
-  .video video { display: block; width: 100%; border-radius: var(--radius-surface); background: var(--color-midnight); }
-  .quote { background: var(--color-primary-soft); }
-  .quote figure { max-width: 900px; margin: 0 auto; text-align: center; }
-  .quote blockquote { margin: 0 0 24px; color: var(--color-midnight); font-size: clamp(1.65rem,4vw,3.1rem); font-weight: 700; line-height: 1.18; letter-spacing: -.04em; }
-  .quote figcaption { color: var(--color-text-muted); font-weight: 680; }
-  @media (max-width: 900px) { .story,.actions { grid-template-columns: 1fr; } .results { grid-template-columns: 1fr; } }
-  @media (max-width: 620px) { .gallery { grid-template-columns: 1fr; } }
+  .story {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(40px, 8vw, 100px);
+    align-items: start;
+  }
+  .story__lead {
+    max-width: 780px;
+    margin: 0;
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    line-height: 1.6;
+    color: var(--color-midnight);
+  }
+  .actions {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: clamp(40px, 8vw, 100px);
+  }
+  .actions ol {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-border);
+    list-style: none;
+  }
+  .actions li {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 16px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .actions li span {
+    color: var(--color-primary);
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+  .actions li p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--color-midnight);
+  }
+  .eyebrow--cyan {
+    color: var(--color-cyan) !important;
+  }
+  .results {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+  .gallery figure {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: var(--color-primary-soft);
+  }
+  .gallery img {
+    width: 100%;
+    height: auto;
+  }
+  .video video {
+    display: block;
+    width: 100%;
+    border-radius: var(--radius-surface);
+    background: var(--color-midnight);
+  }
+  .quote {
+    background: var(--color-primary-soft);
+  }
+  .quote figure {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .quote blockquote {
+    margin: 0 0 24px;
+    color: var(--color-midnight);
+    font-size: clamp(1.65rem, 4vw, 3.1rem);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.04em;
+  }
+  .quote figcaption {
+    color: var(--color-text-muted);
+    font-weight: 680;
+  }
+  .case-back-nav {
+    padding-top: var(--space-4);
+    padding-bottom: 0;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+    font-weight: 750;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 900px) {
+    .story,
+    .actions {
+      grid-template-columns: 1fr;
+    }
+    .results {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 620px) {
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

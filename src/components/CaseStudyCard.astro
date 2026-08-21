@@ -5,22 +5,169 @@ const { study } = Astro.props;
 ---
 
 <article class="case-card card card--interactive">
-  <div class="case-card__media"><img src={study.image.src} alt={study.image.alt} width={study.image.width} height={study.image.height} loading="lazy" /></div>
+  <div class="case-card__media">
+    <img src={study.image.src} alt={study.image.alt} width={study.image.width} height={study.image.height} loading="lazy" />
+  </div>
   <div class="case-card__body">
-    <div class="case-card__meta"><span>{study.sector}</span><time datetime={study.date}>{new Date(study.date).toLocaleDateString('fr-CH', { year: 'numeric', month: 'long' })}</time></div>
-    <h2>{study.client}</h2>
-    <p>{study.problem}</p>
-    <a class="text-link" href={`/realisations/${study.slug}/`}>Découvrir le projet <span aria-hidden="true">→</span></a>
+    <div class="case-card__meta">
+      <span class="case-card__sector">{study.sector}</span>
+      <time datetime={study.date}>{new Date(study.date).toLocaleDateString('fr-CH', { year: 'numeric', month: 'long' })}</time>
+    </div>
+    <h3>{study.client}</h3>
+    <div class="case-card__section">
+      <strong>Défi &amp; Contexte :</strong>
+      <p>{study.problem}</p>
+    </div>
+
+    {study.results.length > 0 && (
+      <div class="case-card__proof">
+        <strong>Preuve &amp; Réalisation :</strong>
+        <p><span>{study.results[0].value}</span> — {study.results[0].context}</p>
+      </div>
+    )}
+
+    <div class="case-card__services">
+      <strong>Services mobilisés :</strong>
+      <div class="case-card__chips">
+        {study.services.map((s) => (
+          <span class="case-chip">{s.label}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="case-card__action">
+      <a class="button button--secondary" href={`/realisations/${study.slug}/`}>
+        Consulter l’étude de cas <span aria-hidden="true">→</span>
+      </a>
+    </div>
   </div>
 </article>
 
 <style>
-  .case-card { display: grid; grid-template-columns: minmax(240px,.8fr) minmax(0,1.2fr); gap: 0; padding: 0; overflow: hidden; }
-  .case-card__media { min-height: 330px; overflow: hidden; background: var(--color-primary-soft); }
-  .case-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-base); }
-  .case-card__body { padding: clamp(28px,5vw,54px); }
-  .case-card__meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-bottom: 30px; color: var(--color-text-muted); font-size: .7rem; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; }
-  .case-card__meta span { color: var(--color-primary); }
-  @media (hover:hover) { .case-card:hover img { transform: scale(1.025); } }
-  @media (max-width: 700px) { .case-card { grid-template-columns: 1fr; } .case-card__media { min-height: 220px; } }
+  .case-card {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+    background: white;
+    box-shadow: var(--shadow-card);
+  }
+  .case-card__media {
+    position: relative;
+    min-height: 380px;
+    overflow: hidden;
+    background: var(--color-midnight);
+  }
+  .case-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+  .case-card__body {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(28px, 4vw, 44px);
+  }
+  .case-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    color: var(--color-text-muted);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .case-card__sector {
+    padding: 4px 10px;
+    background: var(--color-primary-soft);
+    border-radius: 999px;
+    color: var(--color-primary);
+  }
+  .case-card h3 {
+    margin: 0 0 16px;
+    font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+    color: var(--color-midnight);
+  }
+  .case-card__section {
+    margin-bottom: 16px;
+  }
+  .case-card__section strong,
+  .case-card__proof strong,
+  .case-card__services strong {
+    display: block;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+  }
+  .case-card__section p {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--color-midnight);
+  }
+  .case-card__proof {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    background: var(--color-primary-soft);
+    border-radius: 8px;
+    border-left: 3px solid var(--color-primary);
+  }
+  .case-card__proof p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--color-midnight);
+  }
+  .case-card__proof p span {
+    font-weight: 750;
+    color: var(--color-primary);
+  }
+  .case-card__services {
+    margin-top: auto;
+    margin-bottom: 20px;
+  }
+  .case-card__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .case-chip {
+    padding: 4px 10px;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 650;
+    color: var(--color-midnight);
+  }
+  .case-card__action {
+    margin-top: 8px;
+  }
+  .case-card__action .button {
+    width: 100%;
+    justify-content: center;
+  }
+  @media (hover: hover) {
+    .case-card:hover .case-card__media img {
+      transform: scale(1.03);
+    }
+  }
+  @media (max-width: 850px) {
+    .case-card {
+      grid-template-columns: 1fr;
+    }
+    .case-card__media {
+      min-height: 240px;
+    }
+  }
 </style>

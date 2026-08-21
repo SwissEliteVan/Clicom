@@ -7,30 +7,67 @@ import PageHero from '../components/PageHero.astro';
   <PageHero eyebrow="Confidentialité" title="Politique de <span class='accent'>confidentialité.</span>" intro="Informations relatives au traitement des données transmises à CLICOM." />
   <section class="section section--white">
     <div class="container legal-copy">
-      <p class="legal-notice"><strong>Document à finaliser :</strong> les éléments marqués doivent être complétés ou validés avant la mise en production.</p>
       <h2>Responsable du traitement</h2>
-      <p><strong>CLICOM</strong><br />Raison sociale, forme juridique et adresse : <mark>À COMPLÉTER / À VALIDER AVANT MISE EN PRODUCTION</mark><br />Email : <a href="mailto:hello@clicom.ch">hello@clicom.ch</a><br />Téléphone : <a href="tel:+41788238950">+41 78 823 89 50</a></p>
-      <h2>Données collectées</h2>
-      <p>Lorsque vous utilisez le formulaire de contact, CLICOM reçoit les informations que vous renseignez : nom, entreprise, site internet, email, téléphone et contenu de votre demande. Les données techniques strictement nécessaires au fonctionnement et à la sécurité du site peuvent également être traitées.</p>
+      <p>
+        <strong>CLICOM</strong><br />
+        Raison sociale, forme juridique et adresse postale : en attente de validation / transmission par le propriétaire.<br />
+        Email : <a href="mailto:hello@clicom.ch">hello@clicom.ch</a><br />
+        Téléphone : <a href="tel:+41788238950">+41 78 823 89 50</a>
+      </p>
+
+      <h2>Données collectées via le formulaire</h2>
+      <p>
+        Lorsque vous utilisez le formulaire de contact du site, CLICOM recueille les informations transmises : nom, entreprise (facultatif), adresse de site internet (facultatif), adresse e-mail, numéro de téléphone (facultatif) et description de votre demande.
+      </p>
+
       <h2>Finalités du traitement</h2>
-      <p>Ces données sont utilisées pour recevoir votre demande, vous répondre, préparer un échange et protéger le formulaire contre les abus. Toute autre finalité éventuelle doit être documentée avant sa mise en œuvre.</p>
+      <p>
+        Ces informations sont utilisées pour recevoir votre message, analyser votre besoin, vous répondre et échanger dans le cadre de votre démarche. Des mécanismes techniques automatisés (filtrage des champs et limitation du taux de requêtes) sont également appliqués afin de protéger le formulaire contre les soumissions abusives et le spam.
+      </p>
+
       <h2>Base juridique</h2>
-      <p><mark>À COMPLÉTER / À VALIDER AVANT MISE EN PRODUCTION</mark> — la base juridique applicable à chaque traitement doit être confirmée selon le cadre légal retenu.</p>
+      <p>
+        La qualification de la base juridique applicable à chaque traitement (gestion des démarches précontractuelles, respect des obligations légales, intérêt légitime ou consentement) est soumise à la validation juridique formelle de l'éditeur selon la législation applicable.
+      </p>
+
       <h2>Durée de conservation</h2>
-      <p><mark>À COMPLÉTER / À VALIDER AVANT MISE EN PRODUCTION</mark> — définir et documenter les durées de conservation applicables aux demandes et aux échanges associés.</p>
-      <h2>Destinataires et prestataires</h2>
-      <p>Les données sont destinées aux personnes autorisées à traiter les demandes adressées à CLICOM. Les messages envoyés via le formulaire sont transmis par notre serveur de messagerie SMTP hébergé chez <strong>Hostinger</strong>. Les coordonnées complètes de l'hébergeur et les conditions applicables doivent être <mark>À VALIDER AVANT MISE EN PRODUCTION</mark>.</p>
-      <p><mark>À COMPLÉTER / À VALIDER AVANT MISE EN PRODUCTION</mark> — confirmer la liste des prestataires, leurs rôles, les lieux de traitement et les garanties applicables aux éventuels transferts de données.</p>
-      <h2>Sécurité</h2>
-      <p>Des mesures techniques et organisationnelles adaptées doivent protéger les données contre l’accès non autorisé, la perte, l’altération ou la divulgation. <mark>À VALIDER AVANT MISE EN PRODUCTION</mark> — documenter les mesures effectivement mises en œuvre.</p>
-      <h2>Cookies et analytics</h2>
-      <p>Des outils de mesure d'audience, notamment Google Analytics via Google Tag Manager, peuvent être activés uniquement après votre consentement. <mark>À VALIDER AVANT MISE EN PRODUCTION</mark> — confirmer les cookies et traceurs effectivement utilisés et, si nécessaire, mettre en place l'information et le recueil du consentement appropriés.</p>
+      <p>
+        Les durées de conservation applicables aux données recueillies via le formulaire et aux échanges commerciaux associés sont en cours de définition formelle par l’éditeur selon les exigences légales applicables.
+      </p>
+
+      <h2>Destinataires et prestataires techniques</h2>
+      <p>
+        Les données transmises sont destinées aux personnes chargées du suivi des demandes au sein de CLICOM. Les flux techniques font appel aux prestataires suivants :
+      </p>
+      <ul>
+        <li><strong>Hébergement et messagerie :</strong> l’application web et l’acheminement des e-mails par protocole SMTP s'appuient sur l’infrastructure de la plateforme Hostinger.</li>
+        <li><strong>Prise de rendez-vous en ligne (optionnelle) :</strong> lorsqu’un lien ou module Calendly est sollicité par l’utilisateur, le chargement s’effectue à la demande lors de l’interaction, sous réserve de la configuration active du service. À défaut, l’utilisateur est orienté vers le formulaire de contact classique.</li>
+      </ul>
+
+      <h2>Mesures de sécurité</h2>
+      <p>
+        Des mesures techniques sont mises en œuvre sur la plateforme : chiffrement des communications en transit (HTTPS/TLS), en-têtes de sécurité HTTP stricts (notamment Content-Security-Policy et HSTS), assainissement des entrées et limitation du débit de requêtes sur le point de terminaison du formulaire.
+      </p>
+
+      <h2>Cookies et mesure d'audience</h2>
+      <p>
+        Les scripts externes d'analyse d'audience ou de suivi publicitaire (tels que Google Tag Manager ou Google Analytics) ne sont pas déployés ni activés par défaut sans configuration préalable et sans recueil d’un consentement explicite.
+      </p>
+
       <h2>Droits des personnes</h2>
-      <p>Selon le droit applicable, vous pouvez disposer de droits concernant vos données, notamment l’accès, la rectification, l’effacement, la limitation ou l’opposition. L’étendue exacte de ces droits et les modalités de recours doivent être <mark>validées avant mise en production</mark>.</p>
-      <h2>Demandes liées aux données</h2>
-      <p>Pour toute question ou demande relative à vos données personnelles, écrivez à <a href="mailto:hello@clicom.ch">hello@clicom.ch</a>. Une vérification d’identité peut être demandée lorsque cela est nécessaire pour protéger vos informations.</p>
+      <p>
+        Conformément à la législation applicable relative à la protection des données (notamment la loi fédérale suisse sur la protection des données), toute personne dont les données sont traitées peut demander des renseignements sur ses données, leur rectification ou leur suppression.
+      </p>
+
+      <h2>Contact pour vos données</h2>
+      <p>
+        Pour toute question ou demande concernant vos données personnelles, vous pouvez écrire à : <a href="mailto:hello@clicom.ch">hello@clicom.ch</a>.
+      </p>
+
       <h2>Mise à jour</h2>
-      <p>Date d’entrée en vigueur et historique des mises à jour : <mark>À COMPLÉTER / À VALIDER AVANT MISE EN PRODUCTION</mark>.</p>
+      <p>
+        Cette politique a été mise à jour en août 2026. Elle sera complétée dès la transmission des informations formelles de l'éditeur.
+      </p>
     </div>
   </section>
 </Layout>
@@ -38,8 +75,9 @@ import PageHero from '../components/PageHero.astro';
 <style>
   .legal-copy { max-width: 880px; }
   .legal-copy h2 { margin-top: 2.8rem; font-size: clamp(1.45rem, 2.5vw, 2rem); }
-  .legal-copy p { line-height: 1.75; }
-  .legal-notice { padding: 20px 22px; border-left: 3px solid var(--color-primary); background: var(--color-primary-soft); }
-  mark { padding: .08em .3em; color: inherit; background: #fff0b8; }
+  .legal-copy p, .legal-copy ul { line-height: 1.75; }
+  .legal-copy ul { margin: 12px 0 20px 20px; color: var(--color-text-muted); }
+  .legal-copy li { margin-bottom: 8px; }
+  .legal-copy li strong { color: var(--color-midnight); }
   a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
 </style>

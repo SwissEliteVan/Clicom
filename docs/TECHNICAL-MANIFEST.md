@@ -1,8 +1,8 @@
-# CLICOM — Manifest technique de la refonte
+# CLICOM — Manifeste technique
 
-> Document de référence pour la branche `refonte-complete`.
+> Document d'architecture et de référence technique du projet CLICOM.
 >
-> Ce manifeste définit les choix techniques, les invariants, les standards de qualité et l'ordre de migration de la refonte complète du site CLICOM. Toute décision d'implémentation doit rester cohérente avec ce document, sauf évolution explicitement documentée.
+> Ce manifeste définit les choix techniques, les invariants, les standards de qualité et l'organisation du site CLICOM. Toute décision d'implémentation doit rester cohérente avec ce document, sauf évolution explicitement documentée.
 
 ## 1. Objectif
 

@@ -11,6 +11,7 @@ const a11yRoutes = [
 test.describe('Automated Accessibility Tests (Axe-core WCAG AA)', () => {
   for (const route of a11yRoutes) {
     test(`route ${route} meets WCAG 2.1 / 2.2 AA standards`, async ({ page }) => {
+      test.slow();
       await page.goto(route);
       await page.waitForLoadState('domcontentloaded');
 

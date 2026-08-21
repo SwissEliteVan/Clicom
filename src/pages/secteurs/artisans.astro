@@ -1,8 +1,125 @@
 ---
 import SectorPage from '../../components/SectorPage.astro';
-const problems=[{title:'Une visibilité locale irrégulière',text:'Les demandes dépendent beaucoup des recommandations et des plateformes intermédiaires.'},{title:'Des réalisations peu valorisées',text:'Le savoir-faire et la qualité d’exécution ne sont pas assez visibles en ligne.'},{title:'Des appels peu qualifiés',text:'Les informations essentielles manquent avant la prise de contact.'}];
-const services=[{title:'Site vitrine local',text:'Présenter métiers, zones, réalisations et modalités de contact.'},{title:'SEO local & Google Ads',text:'Être visible au moment où un besoin concret apparaît.'},{title:'Photo, contenu & suivi',text:'Montrer le savoir-faire et organiser les demandes entrantes.'}];
-const method=[{title:'Cadrer',text:'Métiers, zones et types de chantiers.'},{title:'Prouver',text:'Mettre en valeur expertise et réalisations.'},{title:'Activer',text:'Développer visibilité locale et campagnes.'},{title:'Qualifier',text:'Faciliter les demandes utiles.'}];
-const faq=[{question:'Faut-il un site pour un artisan ?',answer:'Un site clair renforce la crédibilité, présente les prestations et permet de maîtriser davantage sa visibilité.'},{question:'Comment être visible localement ?',answer:'Avec des informations cohérentes, des pages utiles, une présence locale structurée et éventuellement des campagnes ciblées.'},{question:'Peut-on montrer des réalisations ?',answer:'Oui, avec des photos et informations réelles, après validation des droits et de la confidentialité.'}];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/secteurs/artisans/#service',
+      name: 'Marketing digital pour artisans et entreprises du bâtiment en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Création de site vitrine, référencement local Google et capture de demandes de devis pour artisans et professionnels du bâtiment en Suisse romande.',
+      serviceType: 'Marketing digital pour artisans et bâtiment',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/secteurs/artisans/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Secteurs', item: 'https://clicom.ch/secteurs' },
+        { '@type': 'ListItem', position: 3, name: 'Artisans & Bâtiment', item: 'https://clicom.ch/secteurs/artisans/' },
+      ],
+    },
+  ],
+};
+
+const problems = [
+  {
+    title: 'Une présence en ligne invisible sur votre zone de chantier',
+    text: 'Lorsque des propriétaires de votre canton recherchent un artisan pour rénover ou construire, votre entreprise n’apparaît pas face aux concurrents locaux bien référencés.',
+  },
+  {
+    title: 'Un savoir-faire de qualité mais peu de réalisations montrées',
+    text: 'Vos chantiers sont soignés mais vous manquez d’une vitrine claire et professionnelle pour exposer vos photos de travaux et vos certifications professionnelles.',
+  },
+  {
+    title: 'Des journées sur le terrain et des demandes de devis qui attendent',
+    text: 'Occupé sur vos chantiers, vous n’avez pas le temps de consulter vos e-mails immédiatement, ce qui retarde les relances et fait filer des clients vers un concurrent.',
+  },
+];
+
+const services = [
+  {
+    title: 'Site vitrine moderne & Galerie de chantiers',
+    text: 'Mettre en valeur vos corps de métier, vos réalisations avant/après et vos zones d’intervention avec une navigation ultra-rapide sur mobile.',
+  },
+  {
+    title: 'Référencement local (Google Maps & SEO cantonal)',
+    text: 'Optimiser votre fiche Google Business et vos pages locales pour apparaître en tête des recherches dans vos communes cibles.',
+  },
+  {
+    title: 'Formulaires de devis précis & Alertes mobiles',
+    text: 'Capter les détails du projet (type de travaux, délai, budget estimé) et recevoir une notification directe pour rappeler le client au bon moment.',
+  },
+];
+
+const method = [
+  {
+    title: 'Définir la zone',
+    text: 'Identifier vos prestations prioritaires et vos cantons d’intervention en Suisse romande.',
+  },
+  {
+    title: 'Valoriser les preuves',
+    text: 'Sélectionner vos plus beaux chantiers et organiser vos galeries de réalisations réelles.',
+  },
+  {
+    title: 'Activer la visibilité',
+    text: 'Déployer votre site, optimiser Google Maps et activer si besoin des annonces locales Google Ads.',
+  },
+  {
+    title: 'Simplifier le suivi',
+    text: 'Mettre en place des alertes mobiles pour ne plus jamais manquer une opportunité de devis.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Pourquoi un artisan doit-il avoir son propre site plutôt qu’un simple profil d’annuaire ?',
+    answer: 'Votre propre site vous rend 100 % indépendant des commissions d’intermédiaires, crédibilise vos tarifs auprès des clients exigeants et valorise directement votre savoir-faire sans concurrence immédiate sur la même page.',
+  },
+  {
+    question: 'Comment les clients locaux nous trouvent-ils sur Google ?',
+    answer: 'Grâce à un travail combiné sur votre profil Google Business optimisé, des pages web ciblées sur vos cantons et des avis clients authentiques valorisés sur votre site.',
+  },
+  {
+    question: 'Est-il facile de mettre à jour de nouvelles photos de chantiers ?',
+    answer: 'Oui. Nous concevons des interfaces simples et vous formons pour ajouter vos nouvelles photos de réalisations en quelques minutes depuis votre téléphone.',
+  },
+];
 ---
-<SectorPage title="Marketing numérique pour artisans — CLICOM Suisse" description="Site web, SEO local, Google Ads et création de contenu pour développer la visibilité des artisans suisses." eyebrow="Artisans" h1="Faire connaître votre savoir-faire là où vos clients <span class='accent'>vous cherchent.</span>" intro="CLICOM aide les artisans à renforcer leur visibilité locale, valoriser leurs réalisations et mieux qualifier les demandes." {problems} {services} {method} {faq} links={[{href:'/creation-site-web/',label:'Site vitrine'},{href:'/seo/',label:'SEO local'},{href:'/creation-contenu/',label:'Contenu'}]} />
+
+<SectorPage
+  title="Marketing digital pour artisans en Suisse romande | CLICOM"
+  description="Site vitrine, SEO local Google, valorisation de chantiers et formulaires de devis pour artisans et métiers du bâtiment en Suisse romande."
+  eyebrow="Artisans & Métiers du bâtiment"
+  h1="Faire connaître votre savoir-faire artisanal <span class='accent'>dans votre canton.</span>"
+  intro="CliCom aide les artisans et entrepreneurs du bâtiment romands à développer leur visibilité locale, mettre en valeur leurs réalisations et capter des demandes de devis qualifiées."
+  problemEyebrow="Réalités du bâtiment"
+  problemsTitle="Des chantiers exigeants qui méritent une visibilité locale forte."
+  servicesTitle="Des solutions pensées pour les professionnels du terrain."
+  methodTitle="Une démarche simple et concrète, sans jargon technique."
+  solutionsLink={{ href: '/solutions/#etre-trouve', label: 'Découvrir nos solutions pour être trouvé localement' }}
+  ctaTitle="Valorisons vos chantiers et développons vos demandes de devis."
+  ctaText="Demandez un échange pour faire le point sur votre visibilité locale et les opportunités dans votre zone d’intervention."
+  ctaLabel="Demander un échange →"
+  {problems}
+  {services}
+  {method}
+  {faq}
+  links={[
+    { href: '/creation-site-web/', label: 'Création de site vitrine' },
+    { href: '/seo/', label: 'SEO local & Google Maps' },
+    { href: '/google-ads/', label: 'Campagnes Google Ads' },
+    { href: '/creation-contenu/', label: 'Valorisation de réalisations' },
+  ]}
+  {structuredData}
+/>

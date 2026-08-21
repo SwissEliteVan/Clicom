@@ -1,8 +1,125 @@
 ---
 import SectorPage from '../../components/SectorPage.astro';
-const problems=[{title:'Des priorités concurrentes',text:'Site, visibilité, campagnes et outils avancent sans toujours partager la même feuille de route.'},{title:'Des ressources limitées',text:'Les équipes doivent concentrer leur temps et leur budget sur les actions réellement utiles.'},{title:'Une acquisition irrégulière',text:'Le bouche-à-oreille reste important, mais ne suffit pas toujours à soutenir les objectifs.'}];
-const services=[{title:'Site & conversion',text:'Clarifier l’offre et faciliter les demandes sur tous les écrans.'},{title:'SEO & Google Ads',text:'Combiner visibilité durable et capture rapide de la demande.'},{title:'CRM & automatisation',text:'Mieux suivre les contacts, relances et opportunités.'}];
-const method=[{title:'Diagnostiquer',text:'Lire l’existant et les objectifs.'},{title:'Prioriser',text:'Choisir les leviers à plus forte valeur.'},{title:'Déployer',text:'Construire par étapes cohérentes.'},{title:'Optimiser',text:'Mesurer et améliorer dans la durée.'}];
-const faq=[{question:'CLICOM accompagne-t-elle les petites équipes ?',answer:'Oui. Le périmètre et le rythme sont adaptés aux ressources réellement disponibles.'},{question:'Faut-il activer tous les leviers ?',answer:'Non. Nous cherchons d’abord la combinaison la plus pertinente pour vos objectifs.'},{question:'Peut-on commencer par un audit ?',answer:'Oui. Il permet de cadrer les priorités avant tout engagement plus large.'}];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/secteurs/pme/#service',
+      name: 'Accompagnement digital pour PME en Suisse romande',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Partenaire digital global pour PME romandes : création de site web, visibilité locale, acquisition Google Ads et automatisation des flux commerciaux.',
+      serviceType: 'Stratégie et transformation digitale pour PME',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/secteurs/pme/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Secteurs', item: 'https://clicom.ch/secteurs' },
+        { '@type': 'ListItem', position: 3, name: 'PME suisses', item: 'https://clicom.ch/secteurs/pme/' },
+      ],
+    },
+  ],
+};
+
+const problems = [
+  {
+    title: 'Des ressources internes limitées sans équipe marketing dédiée',
+    text: 'Le dirigeant ou les responsables opérationnels portent eux-mêmes la communication sur leur temps précieux, ce qui conduit à des actions sporadiques et sans continuité.',
+  },
+  {
+    title: 'Un besoin d’arbitrage budgétaire strict et de rentabilité visible',
+    text: 'Impossible d’investir à fonds perdus dans des gadgets à la mode : chaque franc investi doit servir des objectifs clairs de notoriété locale ou de génération de devis.',
+  },
+  {
+    title: 'Une dépendance excessive au bouche-à-oreille traditionnel',
+    text: 'Les recommandations restent indispensables mais créent des creux d’activité saisonniers. Une PME a besoin d’un flux d’opportunités plus prévisible et maîtrisé.',
+  },
+];
+
+const services = [
+  {
+    title: 'Présence & Site web orienté conversion',
+    text: 'Concevoir une vitrine digitale moderne, rapide et rassurante qui explique clairement votre proposition de valeur et incite à la prise de contact.',
+  },
+  {
+    title: 'Acquisition ciblée (SEO local & Google Ads)',
+    text: 'Capter les recherches professionnelles à forte intention commerciale dans votre canton sans gaspiller de budget sur des requêtes non qualifiées.',
+  },
+  {
+    title: 'Automatisation & Suivi commercial (CRM)',
+    text: 'Centraliser vos demandes de contact, router les leads vers la bonne personne et programmer des relances systématiques de devis.',
+  },
+];
+
+const method = [
+  {
+    title: 'Diagnostiquer',
+    text: 'Auditer l’existant, vos offres prioritaires et les ressources disponibles au sein de votre entreprise.',
+  },
+  {
+    title: 'Prioriser',
+    text: 'Définir une feuille de route réaliste en sélectionnant uniquement les 2 ou 3 leviers à plus fort impact.',
+  },
+  {
+    title: 'Déployer',
+    text: 'Mettre en place les outils par étapes cohérentes avec un interlocuteur unique et sans perturber vos opérations.',
+  },
+  {
+    title: 'Piloter & Optimiser',
+    text: 'Mesurer les retombées concrètes (demandes reçues, taux de transformation) et ajuster le dispositif dans la durée.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Comment CliCom s’adapte-t-elle à la taille de notre PME ?',
+    answer: 'Nous construisons un accompagnement sur-mesure et progressif : vous disposez d’un interlocuteur unique qui comprend vos contraintes de temps et de budget, sans vous imposer d’équipe pléthorique ni de processus rigides.',
+  },
+  {
+    question: 'Faut-il refaire tout notre système digital d’un coup ?',
+    answer: 'Non. Nous préconisons une approche par étapes : consolider d’abord votre socle web et votre visibilité prioritaire, puis activer l’acquisition et l’automatisation commerciale au rythme de votre croissance.',
+  },
+  {
+    question: 'Comment mesurons-nous le retour sur investissement ?',
+    answer: 'Nous nous concentrons sur des indicateurs d’affaires concrets : nombre de demandes de devis qualifiées reçues, réactivité de suivi commercial et temps administratif économisé par vos équipes.',
+  },
+];
 ---
-<SectorPage title="Agence numérique pour PME suisses — CLICOM" description="Sites web, SEO, publicité et automatisation adaptés aux objectifs et aux ressources des PME suisses." eyebrow="PME suisses" h1="Une croissance en ligne structurée pour les <span class='accent'>PME suisses.</span>" intro="CLICOM aide les PME à relier visibilité, conversion et efficacité commerciale dans un plan réaliste et évolutif." {problems} {services} {method} {faq} links={[{href:'/seo/',label:'SEO'},{href:'/creation-site-web/',label:'Sites web'},{href:'/automatisation/',label:'Automatisation'}]} />
+
+<SectorPage
+  title="Agence digitale pour PME en Suisse romande | CLICOM"
+  description="Un partenaire digital adapté aux réalités des PME romandes : site web orienté conversion, SEO local, Google Ads et automatisation avec interlocuteur unique."
+  eyebrow="PME en Suisse romande"
+  h1="Un partenaire digital pragmatique pour <span class='accent'>les PME romandes.</span>"
+  intro="CliCom aide les dirigeants de PME à structurer leur visibilité, générer des contacts qualifiés et simplifier leur organisation commerciale avec méthode, bon sens et sans jargon technique."
+  problemEyebrow="Réalités PME"
+  problemsTitle="Des contraintes opérationnelles qui demandent des choix clairs."
+  servicesTitle="Un système digital à 4 piliers adapté à votre rythme."
+  methodTitle="Une méthode progressive, du cadrage aux résultats observables."
+  solutionsLink={{ href: '/solutions/', label: 'Découvrir nos solutions par problème métier' }}
+  ctaTitle="Faisons le point sur le développement digital de votre PME."
+  ctaText="Échangeons avec un conseiller pour identifier vos priorités et définir les actions les plus rentables pour votre structure."
+  ctaLabel="Demander un échange →"
+  {problems}
+  {services}
+  {method}
+  {faq}
+  links={[
+    { href: '/services/', label: 'Le système complet CliCom' },
+    { href: '/creation-site-web/', label: 'Création de site web' },
+    { href: '/seo/', label: 'SEO & Visibilité locale' },
+    { href: '/automatisation/', label: 'Automatisation & CRM' },
+  ]}
+  {structuredData}
+/>

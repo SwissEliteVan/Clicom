@@ -1,8 +1,126 @@
 ---
 import SectorPage from '../../components/SectorPage.astro';
-const problems=[{title:'Une expertise complexe à expliquer',text:'Les prospects perçoivent difficilement la différence entre les offres et les prestataires.'},{title:'Un cycle de décision long',text:'La confiance se construit sur plusieurs points de contact avant la prise de rendez-vous.'},{title:'Des prospects de qualité variable',text:'Le positionnement et les contenus ne filtrent pas toujours les demandes pertinentes.'}];
-const services=[{title:'Positionnement & site',text:'Clarifier expertise, offres, preuves et parcours de prise de contact.'},{title:'SEO & contenu d’autorité',text:'Répondre aux questions complexes et renforcer la crédibilité.'},{title:'CRM & maturation des prospects',text:'Accompagner les prospects dans un cycle de décision plus long.'}];
-const method=[{title:'Comprendre',text:'Cartographier offres et décisions.'},{title:'Clarifier',text:'Structurer messages et preuves.'},{title:'Développer',text:'Créer visibilité et contenus utiles.'},{title:'Accompagner',text:'Suivre les contacts dans la durée.'}];
-const faq=[{question:'Comment rendre une offre complexe plus claire ?',answer:'En hiérarchisant les besoins, les résultats attendus, la méthode et les preuves au lieu d’accumuler le jargon.'},{question:'Quel contenu publier ?',answer:'Les questions fréquentes, arbitrages, méthodes et enjeux clients constituent de bons points de départ.'},{question:'Le maturation des prospects convient-il aux services B2B ?',answer:'Oui lorsque la décision demande du temps, plusieurs interlocuteurs ou un niveau élevé de confiance.'}];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/secteurs/services-professionnels/#service',
+      name: 'Marketing digital pour cabinets et services professionnels B2B en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Positionnement de marque, site web d’autorité, SEO et CRM pour fiduciaires, avocats, cabinets de conseil et ingénieurs en Suisse romande.',
+      serviceType: 'Marketing digital pour services professionnels B2B',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/secteurs/services-professionnels/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Secteurs', item: 'https://clicom.ch/secteurs' },
+        { '@type': 'ListItem', position: 3, name: 'Services professionnels', item: 'https://clicom.ch/secteurs/services-professionnels/' },
+      ],
+    },
+  ],
+};
+
+const problems = [
+  {
+    title: 'Une expertise technique pointue difficile à vulgariser',
+    text: 'Vos compétences sont solides mais vos argumentaires restent trop abstraits ou juridiques, empêchant les décideurs d’en percevoir immédiatement la valeur business.',
+  },
+  {
+    title: 'Des cycles de décision longs où la confiance est décisive',
+    text: 'En B2B, le choix d’un cabinet prend du temps et implique plusieurs interlocuteurs : sans points de contact réguliers, le prospect finit par hésiter ou reporter.',
+  },
+  {
+    title: 'Des demandes entrantes disparates et chronophages à trier',
+    text: 'Vous recevez des sollicitations hors cible qui consomment le temps de vos associés sans déboucher sur des mandats d’envergure.',
+  },
+];
+
+const services = [
+  {
+    title: 'Positionnement & Site web d’autorité B2B',
+    text: 'Créer une identité sobre et statutaire qui valorise vos associés, vos domaines de compétence et votre rigueur méthodologique.',
+  },
+  {
+    title: 'SEO d’expertise & Contenus décisionnels',
+    text: 'Positionner votre cabinet sur les interrogations stratégiques des dirigeants et directeurs financiers en Suisse romande.',
+  },
+  {
+    title: 'CRM, LinkedIn & Nurturing commercial',
+    text: 'Maintenir le lien avec vos prospects tout au long du cycle de décision grâce à des séquences ciblées et un pipeline visuel.',
+  },
+];
+
+const method = [
+  {
+    title: 'Comprendre',
+    text: 'Analyser votre pratique, vos offres rentables et le profil de vos clients institutionnels ou privés.',
+  },
+  {
+    title: 'Clarifier',
+    text: 'Rédiger des argumentaires percutants et structurer vos pages de compétences sans jargon inutile.',
+  },
+  {
+    title: 'Établir l’autorité',
+    text: 'Déployer votre site, optimiser votre visibilité sur Google et valoriser vos publications d’experts.',
+  },
+  {
+    title: 'Accompagner',
+    text: 'Mettre en place un outil CRM pour qualifier les mandats et assurer un suivi commercial irréprochable.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Comment préserver la confidentialité et la déontologie de notre profession ?',
+    answer: 'Nous respectons scrupuleusement les règles déontologiques propres à votre ordre professionnel (avocats, réviseurs, notaires) : nos messages valorisent votre compétence et votre méthode sans promesses commerciales agressives.',
+  },
+  {
+    question: 'Quel type de contenu permet de générer des mandats B2B ?',
+    answer: 'Les synthèses d’actualités réglementaires, les décryptages d’évolutions fiscales ou légales, les méthodologies d’audit et les cas d’usage anonymisés sont les formats les plus appréciés des directeurs généraux.',
+  },
+  {
+    question: 'Comment un CRM aide-t-il un cabinet d’experts ?',
+    answer: 'Il permet de centraliser l’historique des échanges, de savoir qui suit quel dossier et de programmer des relances courtoises après l’envoi d’une proposition d’honoraires.',
+  },
+];
 ---
-<SectorPage variant="offset" title="Marketing pour services professionnels — CLICOM" description="Positionnement, site web, SEO, contenu d’autorité, CRM et maturation des prospects pour les entreprises de services professionnels." eyebrow="Services professionnels" h1="Transformer votre expertise en une présence <span class='gradient-text'>claire et crédible.</span>" intro="CLICOM aide les cabinets et entreprises de services à mieux expliquer leur valeur et à développer des demandes qualifiées." {problems} {services} {method} {faq} links={[{href:'/branding/',label:'Positionnement'},{href:'/seo/',label:'SEO'},{href:'/email-marketing-crm/',label:'CRM & maturation des prospects'}]} />
+
+<SectorPage
+  variant="offset"
+  title="Marketing digital pour cabinets et services B2B en Suisse | CLICOM"
+  description="Positionnement, site web d’autorité, SEO d’expertise et CRM pour fiduciaires, avocats, cabinets de conseil et ingénieurs en Suisse romande."
+  eyebrow="Services professionnels & Cabinets B2B"
+  h1="Transformer votre expertise en une présence <span class='gradient-text'>statutaire et crédible.</span>"
+  intro="CliCom accompagne les cabinets d’avocats, fiduciaires, bureaux d’ingénieurs et sociétés de conseil romandes pour affirmer leur autorité et attirer des mandats qualifiés."
+  problemEyebrow="Enjeux B2B"
+  problemsTitle="Des prestations à haute valeur qui exigent une crédibilité absolue."
+  servicesTitle="Un dispositif orienté réassurance et conversion de mandats."
+  methodTitle="Une méthode rigoureuse, respectueuse de vos codes professionnels."
+  solutionsLink={{ href: '/solutions/#etre-choisi', label: 'Découvrir nos solutions pour être choisi en B2B' }}
+  ctaTitle="Valorisons l’expertise de votre cabinet auprès des décideurs."
+  ctaText="Demandez un échange pour aborder le positionnement de votre structure et les opportunités de développement de clientèle."
+  ctaLabel="Demander un échange →"
+  {problems}
+  {services}
+  {method}
+  {faq}
+  links={[
+    { href: '/branding/', label: 'Branding & Positionnement' },
+    { href: '/creation-site-web/', label: 'Création de site d’autorité' },
+    { href: '/seo/', label: 'SEO & Contenu d’expertise' },
+    { href: '/email-marketing-crm/', label: 'CRM & Pipeline commercial' },
+  ]}
+  {structuredData}
+/>

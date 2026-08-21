@@ -1,8 +1,125 @@
 ---
 import SectorPage from '../../components/SectorPage.astro';
-const problems=[{title:'Une concurrence locale forte',text:'Agences, courtiers et plateformes se disputent la visibilité sur les mêmes zones.'},{title:'Des parcours multiples',text:'Vendeurs, acheteurs, propriétaires et locataires n’attendent pas les mêmes informations.'},{title:'Des prospects à traiter rapidement',text:'La qualité du suivi influence directement la transformation des demandes.'}];
-const services=[{title:'Sites & pages de conversion',text:'Parcours dédiés aux mandats, estimations et projets immobiliers.'},{title:'SEO local & publicité',text:'Visibilité géographique et campagnes autour des intentions prioritaires.'},{title:'CRM & qualification',text:'Centralisation, orientation et suivi plus rapide des demandes.'}];
-const method=[{title:'Segmenter',text:'Distinguer audiences et objectifs.'},{title:'Localiser',text:'Structurer zones et intentions.'},{title:'Convertir',text:'Optimiser formulaires et preuves.'},{title:'Suivre',text:'Relier demandes et processus commercial.'}];
-const faq=[{question:'Peut-on créer des pages par zone ?',answer:'Oui, lorsqu’elles apportent une information locale réelle et utile, sans duplication artificielle.'},{question:'Comment générer des demandes d’estimation ?',answer:'Avec une proposition claire, des pages dédiées, un suivi fiable et les canaux d’acquisition adaptés.'},{question:'Le CRM peut-il qualifier les demandes ?',answer:'Oui, selon les informations collectées et les règles définies avec les équipes.'}];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/secteurs/immobilier/#service',
+      name: 'Marketing digital pour agences immobilières et courtiers en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Génération de mandats de vente, pages d’estimation en ligne, SEO local et automatisation du suivi pour agences immobilières et courtiers en Suisse romande.',
+      serviceType: 'Marketing digital pour l’immobilier',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/secteurs/immobilier/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Secteurs', item: 'https://clicom.ch/secteurs' },
+        { '@type': 'ListItem', position: 3, name: 'Immobilier & Courtage', item: 'https://clicom.ch/secteurs/immobilier/' },
+      ],
+    },
+  ],
+};
+
+const problems = [
+  {
+    title: 'Une concurrence féroce pour capter des mandats de vente',
+    text: 'Courtiers traditionnels, agences à commission fixe et grands portails se disputent la visibilité : se démarquer auprès des propriétaires vendeurs est devenu complexe.',
+  },
+  {
+    title: 'Des visiteurs acquéreurs mais peu de propriétaires vendeurs qualifiés',
+    text: 'Votre site présente vos biens actuels mais ne convainc pas assez de propriétaires de vous confier l’estimation et la vente de leur patrimoine.',
+  },
+  {
+    title: 'Un délai de réactivité trop long sur les demandes d’estimation',
+    text: 'Un propriétaire qui souhaite vendre consulte souvent plusieurs courtiers en même temps : être le premier à répondre avec professionnalisme fait toute la différence.',
+  },
+];
+
+const services = [
+  {
+    title: 'Pages de capture de mandats & Estimations en ligne',
+    text: 'Créer des tunnels d’estimation ergonomiques et rassurants qui incitent les propriétaires à solliciter votre expertise locale.',
+  },
+  {
+    title: 'Acquisition géolocalisée (Google Ads & SEO communal)',
+    text: 'Cibler précisément les recherches de vente immobilière et d’estimation sur vos communes et cantons stratégiques.',
+  },
+  {
+    title: 'CRM, routage des leads & Réactivité instantanée',
+    text: 'Alerter vos courtiers en temps réel dès qu’un lead vendeur se déclare et programmer des relances automatiques.',
+  },
+];
+
+const method = [
+  {
+    title: 'Cibler les zones',
+    text: 'Identifier les quartiers, communes et segments de biens (villas, appartements, prestige) prioritaires.',
+  },
+  {
+    title: 'Construire les tunnels',
+    text: 'Déployer les formulaires d’estimation et mettre en scène vos biens vendus comme preuves d’efficacité.',
+  },
+  {
+    title: 'Activer le flux',
+    text: 'Lancer les campagnes payantes et optimiser le référencement naturel local sur vos secteurs géographiques.',
+  },
+  {
+    title: 'Accélérer la conversion',
+    text: 'Relier les demandes à votre CRM pour déclencher un rappel commercial dans les meilleurs délais.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Comment générer plus de mandats de vente exclusifs grâce au digital ?',
+    answer: 'En combinant une page d’estimation très simple d’utilisation, des preuves tangibles de ventes récentes réussies dans la commune et des campagnes d’acquisition ultra-ciblées sur les propriétaires locaux.',
+  },
+  {
+    question: 'Peut-on synchroniser le site avec nos logiciels immobiliers (ex: Omnicasa, Apimo) ?',
+    answer: 'Oui. Nous pouvons intégrer des flux d’annonces pour afficher automatiquement vos biens à la vente et renvoyer les demandes de contact directement dans votre logiciel métier.',
+  },
+  {
+    question: 'Pourquoi Google Ads est-il particulièrement efficace dans l’immobilier ?',
+    answer: 'Parce qu’il permet d’apparaître au moment précis où un propriétaire tape « estimation immobilière [Commune] » ou « vendre appartement [Canton] », captant ainsi une intention d’achat immédiate.',
+  },
+];
 ---
-<SectorPage title="Marketing numérique immobilier en Suisse — CLICOM" description="Sites, SEO local, publicité, pages de conversion et CRM pour les professionnels de l’immobilier en Suisse." eyebrow="Immobilier" h1="Des parcours en ligne conçus pour les enjeux de <span class='accent'>l’immobilier.</span>" intro="CLICOM relie visibilité locale, demandes de mandat, présentation des offres et suivi commercial." {problems} {services} {method} {faq} links={[{href:'/google-ads/',label:'Google Ads'},{href:'/seo/',label:'SEO local'},{href:'/automatisation/',label:'Automatisation'}]} />
+
+<SectorPage
+  title="Marketing digital pour l’immobilier en Suisse romande | CLICOM"
+  description="Génération de mandats de vente, pages d’estimation en ligne, SEO local et CRM pour agences immobilières et courtiers en Suisse romande."
+  eyebrow="Immobilier & Courtage"
+  h1="Générer des mandats de vente et <span class='accent'>valoriser vos biens immobiliers.</span>"
+  intro="CliCom aide les agences immobilières et courtiers romands à capter des propriétaires vendeurs, générer des estimations qualifiées et accélérer le suivi commercial."
+  problemEyebrow="Réalités de l’immobilier"
+  problemsTitle="La captation de mandats exige réactivité et réassurance locale."
+  servicesTitle="Un dispositif orienté rentrée de mandats et transactions."
+  methodTitle="Une méthode calibrée pour les cycles de vente immobiliers."
+  solutionsLink={{ href: '/solutions/#ne-plus-perdre-leads', label: 'Découvrir nos solutions pour ne plus perdre de leads' }}
+  ctaTitle="Développons la rentrée de mandats pour votre agence."
+  ctaText="Demandez un diagnostic digital pour analyser votre zone géographique et structurer votre dispositif de captation de mandats."
+  ctaLabel="Demander un diagnostic digital →"
+  {problems}
+  {services}
+  {method}
+  {faq}
+  links={[
+    { href: '/google-ads/', label: 'Google Ads Immobilier' },
+    { href: '/creation-site-web/', label: 'Pages d’estimation & Site' },
+    { href: '/seo/', label: 'SEO local par commune' },
+    { href: '/automatisation/', label: 'Automatisation & Alertes' },
+  ]}
+  {structuredData}
+/>

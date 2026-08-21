@@ -1,8 +1,131 @@
 ---
 import SectorPage from '../../components/SectorPage.astro';
-const problems=[{title:'Une expertise peu visible',text:'La qualité du travail ne ressort pas clairement dans les recherches ou sur le site.'},{title:'Peu de temps pour communiquer',text:'La prospection et la création de contenu passent après les missions clients.'},{title:'Des demandes mal qualifiées',text:'Les prospects comprennent parfois mal l’offre, la valeur ou le périmètre.'}];
-const services=[{title:'Positionnement & branding',text:'Rendre la différence et la personnalité immédiatement lisibles.'},{title:'Site & SEO local',text:'Être trouvé et rassurer avant le premier échange.'},{title:'Contenu & automatisation',text:'Maintenir une présence régulière et simplifier les relances.'}];
-const method=[{title:'Clarifier',text:'Définir offre, audience et valeur.'},{title:'Présenter',text:'Construire les supports essentiels.'},{title:'Attirer',text:'Activer les canaux pertinents.'},{title:'Simplifier',text:'Automatiser le suivi utile.'}];
-const faq=[{question:'Une page unique peut-elle suffire ?',answer:'Parfois, si l’offre est concentrée. Le format dépend du besoin de réassurance et de visibilité.'},{question:'Comment gagner du temps sur le contenu ?',answer:'Une ligne éditoriale simple et la réutilisation des sujets réduisent l’effort de production.'},{question:'Le SEO local est-il pertinent ?',answer:'Oui lorsque les clients recherchent un prestataire dans une zone géographique précise.'}];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/secteurs/independants/#service',
+      name: 'Solutions digitales pour indépendants et praticiens en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Création de site web professionnel, SEO local, valorisation de votre marque personnelle et prise de rendez-vous pour indépendants et thérapeutes en Suisse.',
+      serviceType: 'Accompagnement digital pour indépendants et praticiens',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/secteurs/independants/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Secteurs', item: 'https://clicom.ch/secteurs' },
+        { '@type': 'ListItem', position: 3, name: 'Indépendants', item: 'https://clicom.ch/secteurs/independants/' },
+      ],
+    },
+  ],
+};
+
+const problems = [
+  {
+    title: 'Une activité en solo où le temps de prospection est inexistant',
+    text: 'Entre vos séances, vos consultations et votre gestion administrative, vous n’avez ni le temps ni l’envie de passer vos soirées à faire de la prospection commerciale.',
+  },
+  {
+    title: 'Une pratique humaine difficile à traduire sans paraître impersonnel',
+    text: 'Vos séances reposent sur l’écoute et la confiance : les modèles de sites génériques et froids ne rendent pas justice à la sensibilité de votre approche.',
+  },
+  {
+    title: 'Des prises de contact compliquées qui créent des allers-retours',
+    text: 'Devoir échanger cinq e-mails pour fixer une date de consultation fait perdre du temps et décourage les personnes prêtes à réserver.',
+  },
+];
+
+const services = [
+  {
+    title: 'Identité visuelle & Site web apaisant',
+    text: 'Créer une vitrine chaleureuse et élégante qui reflète votre personnalité et donne immédiatement envie d’échanger avec vous.',
+  },
+  {
+    title: 'Présentation claire des séances & SEO local',
+    text: 'Expliquer le déroulement de vos consultations en termes accessibles et positionner votre profil dans votre ville ou canton.',
+  },
+  {
+    title: 'Prise de rendez-vous en ligne & Automatisation simple',
+    text: 'Intégrer un agenda de réservation connecté ou un formulaire direct pour fixer vos séances sans friction.',
+  },
+];
+
+const method = [
+  {
+    title: 'Clarifier',
+    text: 'Poser votre démarche, votre public cible et ce qui rend votre accompagnement unique.',
+  },
+  {
+    title: 'Créer',
+    text: 'Concevoir un univers graphique soigné et rédiger des textes bienveillants et limpides.',
+  },
+  {
+    title: 'Rendre visible',
+    text: 'Optimiser votre référencement local sur Google pour être trouvé naturellement dans votre région.',
+  },
+  {
+    title: 'Fluidifier',
+    text: 'Mettre en place la prise de rendez-vous directe pour libérer votre esprit des tâches administratives.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Un site simple suffit-il pour un indépendant ou praticien ?',
+    answer: 'Oui. Un site sobre de quelques pages bien pensées (qui vous êtes, vos prestations, vos tarifs, vos avis et comment réserver) est infiniment plus efficace qu’une structure complexe.',
+  },
+  {
+    question: 'Peut-on intégrer un module de réservation ou de paiement en ligne ?',
+    answer: 'Tout à fait. Nous pouvons brancher votre outil d’agenda (ex: Calendly, OneDoc, Google Agenda) ou une solution de paiement simple pour automatiser vos prises de rendez-vous.',
+  },
+  {
+    question: 'Comment être trouvé localement sans dépenser en publicité ?',
+    answer: 'En optimisant avec rigueur votre fiche Google Business et le balisage sémantique local de votre site web, ce qui permet d’apparaître naturellement dans les recherches de proximité.',
+  },
+];
 ---
-<SectorPage variant="offset" title="Solutions numériques pour indépendants — CLICOM" description="Positionnement, site web, SEO local, contenu et automatisation pour les indépendants en Suisse." eyebrow="Indépendants" h1="Une présence en ligne qui travaille pour votre <span class='gradient-text'>expertise.</span>" intro="CLICOM aide les indépendants à présenter clairement leur valeur, gagner en visibilité et simplifier leur développement commercial." {problems} {services} {method} {faq} links={[{href:'/branding/',label:'Branding'},{href:'/creation-site-web/',label:'Site web'},{href:'/seo/',label:'SEO'}]} />
+
+<SectorPage
+  variant="offset"
+  title="Solutions digitales pour indépendants & praticiens | CLICOM"
+  description="Création de site web professionnel, SEO local et prise de rendez-vous pour indépendants, thérapeutes et coachs en Suisse romande."
+  eyebrow="Indépendants & Praticiens"
+  h1="Une présence en ligne qui valorise votre savoir-faire <span class='gradient-text'>sans vous surcharger.</span>"
+  intro="CliCom aide les thérapeutes, praticiens du bien-être, coachs et indépendants romands à affirmer leur identité, rassurer leurs futurs clients et fluidifier leurs prises de rendez-vous."
+  problemEyebrow="Réalités des indépendants"
+  problemsTitle="Votre temps est précieux : votre site doit travailler pour vous."
+  servicesTitle="Des solutions simples, élégantes et faciles à gérer."
+  methodTitle="Une méthode respectueuse de votre rythme et de votre sensibilité."
+  solutionsLink={{ href: '/solutions/#etre-choisi', label: 'Découvrir nos solutions de présence et réassurance' }}
+  caseStudy={{
+    client: 'Rikunali',
+    slug: 'rikunali',
+    tagline: 'Création d’un univers visuel apaisant et structuration de la présentation des soins pour un espace de bien-être.',
+  }}
+  ctaTitle="Créons une présence digitale qui vous ressemble."
+  ctaText="Demandez un échange pour parler de votre pratique, de vos prestations et de la façon la plus simple de valoriser votre activité."
+  ctaLabel="Demander un échange →"
+  {problems}
+  {services}
+  {method}
+  {faq}
+  links={[
+    { href: '/branding/', label: 'Identité visuelle & Branding' },
+    { href: '/creation-site-web/', label: 'Création de site web' },
+    { href: '/seo/', label: 'Référencement local Google' },
+    { href: '/creation-contenu/', label: 'Rédaction de contenu' },
+  ]}
+  {structuredData}
+/>

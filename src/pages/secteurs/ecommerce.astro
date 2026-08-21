@@ -1,8 +1,131 @@
 ---
 import SectorPage from '../../components/SectorPage.astro';
-const problems=[{title:'Un coût d’acquisition instable',text:'La dépendance aux campagnes fragilise la marge lorsque les coûts augmentent.'},{title:'Des abandons dans le parcours',text:'Navigation, fiches produits ou paiement créent des frictions qui réduisent la conversion.'},{title:'Une fidélisation sous-exploitée',text:'Les données clients nourrissent peu les relances, recommandations et scénarios e-mail.'}];
-const services=[{title:'UX & conversion',text:'Optimiser navigation, fiches, réassurance et étapes de commande.'},{title:'SEO & acquisition payante',text:'Développer la demande organique et piloter les campagnes par la valeur.'},{title:'E-mail, CRM & automatisation',text:'Segmenter, relancer et fidéliser selon les comportements utiles.'}];
-const method=[{title:'Mesurer',text:'Identifier les étapes qui freinent.'},{title:'Prioriser',text:'Choisir les tests selon leur impact.'},{title:'Acquérir',text:'Aligner campagnes, contenus et pages.'},{title:'Fidéliser',text:'Activer données et scénarios relationnels.'}];
-const faq=[{question:'Travaillez-vous le taux de conversion ?',answer:'Oui, à partir des parcours, des données disponibles, des messages et des frictions observées.'},{question:'SEO ou publicité pour un e-commerce ?',answer:'Les deux peuvent être complémentaires : le SEO construit une visibilité durable et la publicité accélère certains temps forts.'},{question:'Quels e-mails automatiser ?',answer:'Accueil, abandon, post-achat, réactivation ou recommandations selon les données et la pertinence commerciale.'}];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      '@id': 'https://clicom.ch/secteurs/ecommerce/#service',
+      name: 'Stratégie et croissance e-commerce pour marques et boutiques en Suisse',
+      provider: {
+        '@type': 'Organization',
+        name: 'CLICOM',
+        url: 'https://clicom.ch/',
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Suisse romande',
+      },
+      description: 'Optimisation de conversion, SEO e-commerce, Google Ads et e-mail marketing automatisé pour boutiques en ligne et marques en Suisse.',
+      serviceType: 'Croissance et développement e-commerce',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://clicom.ch/secteurs/ecommerce/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://clicom.ch/' },
+        { '@type': 'ListItem', position: 2, name: 'Secteurs', item: 'https://clicom.ch/secteurs' },
+        { '@type': 'ListItem', position: 3, name: 'E-commerce', item: 'https://clicom.ch/secteurs/ecommerce/' },
+      ],
+    },
+  ],
+};
+
+const problems = [
+  {
+    title: 'Des coûts publicitaires en hausse qui érodent vos marges nettes',
+    text: 'Dépendre uniquement d’annonces payantes devient risqué lorsque les coûts par clic augmentent sans hausse équivalente du panier moyen.',
+  },
+  {
+    title: 'Des abandons fréquents lors du passage de commande sur mobile',
+    text: 'Un temps de chargement trop long, des fiches produits peu rassurantes ou un tunnel de paiement complexe font fuir les acheteurs au dernier moment.',
+  },
+  {
+    title: 'Une base de clients existants sous-exploitée après le premier achat',
+    text: 'Faute de scénarios e-mails automatisés, vous ne relancez pas les paniers abandonnés et ne réengagez pas vos clients satisfaits pour un second achat.',
+  },
+];
+
+const services = [
+  {
+    title: 'Ergonomie UX & Optimisation du tunnel de vente',
+    text: 'Fluidifier la navigation, enrichir les fiches produits et supprimer les points de friction jusqu’au paiement sécurisé.',
+  },
+  {
+    title: 'SEO e-commerce & Campagnes d’acquisition rentables',
+    text: 'Positionner vos catégories sur Google et piloter vos annonces payantes avec un strict focus sur le retour sur dépenses publicitaires.',
+  },
+  {
+    title: 'E-mail marketing & Scénarios de fidélisation',
+    text: 'Automatiser la récupération de paniers abandonnés, les séquences de bienvenue et les relances de réachat ciblées.',
+  },
+];
+
+const method = [
+  {
+    title: 'Analyser les frictions',
+    text: 'Étudier les étapes de votre entonnoir d’achat et identifier où se situent les pertes de conversion.',
+  },
+  {
+    title: 'Optimiser le parcours',
+    text: 'Améliorer la clarté des pages, la vitesse d’affichage mobile et les déclencheurs de réassurance.',
+  },
+  {
+    title: 'Piloter l’acquisition',
+    text: 'Concentrer le budget média sur les produits à forte marge et consolider le référencement naturel.',
+  },
+  {
+    title: 'Automatiser la relation',
+    text: 'Déployer les flux e-mails pour augmenter la valeur vie client (LTV) sans surcoût d’acquisition.',
+  },
+];
+
+const faq = [
+  {
+    question: 'Comment augmenter le taux de conversion d’une boutique en ligne ?',
+    answer: 'En accélérant le temps de chargement sur smartphone, en simplifiant les options de livraison/paiement (ex: TWINT, cartes) et en affichant des avis clients clairs sur les fiches produits.',
+  },
+  {
+    question: 'Quelle est l’importance de l’e-mail marketing en e-commerce ?',
+    answer: 'C’est souvent le canal le plus rentable car il ne coûte rien en achat d’espace : les e-mails de panier abandonné permettent à eux seuls de récupérer entre 5 et 15 % des ventes perdues.',
+  },
+  {
+    question: 'Travaillez-vous sur Shopify, WooCommerce ou des solutions sur-mesure ?',
+    answer: 'Nous intervenons sur les plateformes standards comme sur des architectures web modernes sur-mesure, selon vos volumes et vos besoins d’autonomie.',
+  },
+];
 ---
-<SectorPage variant="offset" title="Croissance en ligne e-commerce — CLICOM Suisse" description="SEO, publicité, conversion, e-mail marketing et automatisation pour développer un e-commerce en Suisse." eyebrow="E-commerce" h1="Relier acquisition, conversion et fidélisation pour votre <span class='gradient-text'>e-commerce.</span>" intro="CLICOM construit un système de croissance qui tient compte des marges, des parcours et de la valeur client." {problems} {services} {method} {faq} links={[{href:'/google-ads/',label:'Google Ads'},{href:'/email-marketing-crm/',label:'E-mail marketing'},{href:'/creation-site-web/',label:'Conversion web'}]} />
+
+<SectorPage
+  variant="offset"
+  title="Stratégie et croissance e-commerce en Suisse romande | CLICOM"
+  description="Optimisation du taux de conversion, SEO e-commerce, Google Ads et e-mail marketing automatisé pour boutiques en ligne et marques en Suisse."
+  eyebrow="E-commerce & Marques D2C"
+  h1="Relier acquisition, conversion et fidélisation pour votre <span class='gradient-text'>e-commerce.</span>"
+  intro="CliCom aide les boutiques en ligne et marques suisses à structurer leur croissance : tunnels de commande fluides sur mobile, préservation des marges et fidélisation automatisée."
+  problemEyebrow="Réalités e-commerce"
+  problemsTitle="La rentabilité e-commerce dépend de la conversion et du réachat."
+  servicesTitle="Un dispositif orienté marge nette et valeur client."
+  methodTitle="Une méthode itérative pour maximiser la rentabilité de chaque visite."
+  solutionsLink={{ href: '/solutions/#etre-choisi', label: 'Découvrir nos solutions d’optimisation de conversion' }}
+  caseStudy={{
+    client: 'Nat et Patoune',
+    slug: 'nat-et-patoune',
+    tagline: 'Conception d’une boutique animale avec catalogue structuré par univers et parcours d’achat mobile fluide.',
+  }}
+  ctaTitle="Faisons progresser la rentabilité de votre boutique en ligne."
+  ctaText="Demandez un diagnostic digital de vos étapes de commande et de vos canaux d’acquisition afin d’identifier les priorités de conversion."
+  ctaLabel="Demander un diagnostic digital →"
+  {problems}
+  {services}
+  {method}
+  {faq}
+  links={[
+    { href: '/creation-site-web/', label: 'Sites e-commerce & UX' },
+    { href: '/email-marketing-crm/', label: 'E-mail marketing & Relances' },
+    { href: '/google-ads/', label: 'Google Ads E-commerce' },
+    { href: '/seo/', label: 'SEO fiches produits' },
+  ]}
+  {structuredData}
+/>

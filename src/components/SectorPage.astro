@@ -2,25 +2,482 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from './PageHero.astro';
 import Button from './Button.astro';
+import CalendlyButton from './conversion/CalendlyButton.astro';
 
-interface Item { title: string; text: string }
-interface FAQ { question: string; answer: string }
-interface Link { href: string; label: string }
-interface Props {
-  title: string; description: string; eyebrow: string; h1: string; intro: string;
-  problems: Item[]; services: Item[]; method: Item[]; faq: FAQ[]; links: Link[];
-  variant?: 'standard' | 'offset';
+interface Item {
+  title: string;
+  text: string;
 }
-const { title, description, eyebrow, h1, intro, problems, services, method, faq, links, variant = 'standard' } = Astro.props;
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Link {
+  href: string;
+  label: string;
+}
+
+interface CaseStudyRef {
+  client: string;
+  slug: string;
+  tagline: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  h1: string;
+  intro: string;
+  problems: Item[];
+  services: Item[];
+  method: Item[];
+  faq: FAQ[];
+  links: Link[];
+  variant?: 'standard' | 'offset';
+  problemEyebrow?: string;
+  problemsTitle?: string;
+  servicesTitle?: string;
+  methodTitle?: string;
+  solutionsLink?: { href: string; label: string };
+  caseStudy?: CaseStudyRef;
+  ctaTitle?: string;
+  ctaText?: string;
+  ctaLabel?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  h1,
+  intro,
+  problems,
+  services,
+  method,
+  faq,
+  links,
+  variant = 'standard',
+  problemEyebrow = 'Enjeux sectoriels',
+  problemsTitle = 'Des défis concrets propres à votre activité.',
+  servicesTitle = 'Les leviers numériques les plus rentables.',
+  methodTitle = 'Une progression par étapes, adaptée à votre rythme.',
+  solutionsLink = { href: '/solutions/', label: 'Identifier mon défi dans les solutions PME' },
+  caseStudy,
+  ctaTitle = 'Parlons de votre contexte métier et de vos priorités.',
+  ctaText = 'Un échange permet de faire le point sur votre situation, vos ressources internes et la première étape la plus pertinente.',
+  ctaLabel = 'Demander un échange →',
+  structuredData,
+} = Astro.props;
 ---
-<Layout {title} {description}>
-  <PageHero {eyebrow} title={h1} {intro} primary="/audit-gratuit/" primaryLabel="Demander un audit →" secondary="/secteurs/" secondaryLabel="Voir tous les secteurs" />
-  <section class="section section--white"><div class:list={['container','sector-split',{'sector-split--offset':variant==='offset'}]}><div class="section-heading"><div class="eyebrow">Problématiques</div><h2>Des enjeux propres à votre <span class="accent">activité.</span></h2><p>Nous partons de votre réalité commerciale, de votre territoire et de vos ressources avant de choisir les leviers.</p></div><div class="problem-list">{problems.map((item,i)=><article><span>0{i+1}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>)}</div></div></section>
-  <section class="section section--dark"><div class="container"><div class="section-heading"><div class="eyebrow">Services pertinents</div><h2>Un système pour attirer, convertir et <span class="gradient-text">accélérer.</span></h2></div><div class:list={['grid','grid--3','sector-services',{'sector-services--offset':variant==='offset'}]}>{services.map(item=><article class="card"><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>
-  <section class="section section--white"><div class="container"><div class="section-heading"><div class="eyebrow">Méthode</div><h2>Des priorités claires, puis une <span class="accent">exécution mesurable.</span></h2></div><div class="method">{method.map((item,i)=><article><span>{String(i+1).padStart(2,'0')}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>
-  <section class="section"><div class="container faq"><div class="section-heading"><div class="eyebrow">FAQ</div><h2>Questions fréquentes.</h2></div>{faq.map(item=><details><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}<nav class="related" aria-label="Liens associés">{links.map(link=><a href={link.href}>{link.label} →</a>)}</nav></div></section>
-  <section class="section section--white"><div class="container"><div class="cta-panel"><div><h2>Identifions les leviers adaptés à votre secteur.</h2><p>Un audit permet de cadrer les priorités sans ajouter de complexité inutile.</p></div><Button href="/audit-gratuit/">Demander un audit gratuit →</Button></div></div></section>
+
+<Layout {title} {description} {structuredData}>
+  <PageHero
+    {eyebrow}
+    title={h1}
+    {intro}
+    primary="/contact/"
+    primaryLabel="Parler de votre projet →"
+    primaryCalendly={true}
+    secondary="/secteurs/"
+    secondaryLabel="Voir tous les secteurs"
+  />
+
+  <!-- Problématiques sectorielles -->
+  <section class="section section--white">
+    <div class:list={['container', 'sector-split', { 'sector-split--offset': variant === 'offset' }]}>
+      <div class="section-heading">
+        <div class="eyebrow">{problemEyebrow}</div>
+        <h2>{problemsTitle}</h2>
+        <p>Nous partons de votre réalité commerciale, de votre zone géographique en Suisse romande et de vos contraintes avant de recommander le moindre outil.</p>
+        
+        {solutionsLink && (
+          <div class="sector-solution-gateway">
+            <span class="gateway-tag">Passerelle Solutions</span>
+            <a href={solutionsLink.href} class="gateway-link">
+              {solutionsLink.label} <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        )}
+      </div>
+
+      <div class="problem-list">
+        {problems.map((item, i) => (
+          <article>
+            <span>0{i + 1}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services & Leviers prioritaires -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow eyebrow--cyan">Approche &amp; Leviers</div>
+        <h2>{servicesTitle}</h2>
+        <p>Des compétences sélectionnées pour résoudre les freins spécifiques de votre secteur sans dispersion.</p>
+      </div>
+      <div class:list={['grid', 'grid--3', 'sector-services', { 'sector-services--offset': variant === 'offset' }]}>
+        {services.map((item) => (
+          <article class="card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Réalisation sectorielle connexe (si disponible) -->
+  {caseStudy && (
+    <section class="section section--white sector-case-section">
+      <div class="container">
+        <div class="sector-case-card">
+          <div class="sector-case-badge">Réalisation concrète dans ce domaine</div>
+          <div class="sector-case-content">
+            <div>
+              <h3>Projet : {caseStudy.client}</h3>
+              <p>{caseStudy.tagline}</p>
+            </div>
+            <a href={`/realisations/${caseStudy.slug}/`} class="button button--secondary">
+              Consulter l'étude de cas <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Méthode d'intervention -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Notre méthode</div>
+        <h2>{methodTitle}</h2>
+      </div>
+      <div class="method">
+        {method.map((item, i) => (
+          <article>
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ & Liens associés -->
+  <section class="section">
+    <div class="container faq">
+      <div class="section-heading">
+        <div class="eyebrow">FAQ Sectorielle</div>
+        <h2>Questions fréquentes sur ce secteur.</h2>
+      </div>
+      {faq.map((item) => (
+        <details>
+          <summary>
+            {item.question}
+            <span aria-hidden="true">+</span>
+          </summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+
+      <nav class="related" aria-label="Expertises recommandées pour ce secteur">
+        <strong>Expertises associées :</strong>
+        {links.map((link) => (
+          <a href={link.href}>{link.label} <span aria-hidden="true">→</span></a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- CTA Panel -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="cta-panel">
+        <div>
+          <h2>{ctaTitle}</h2>
+          <p>{ctaText}</p>
+        </div>
+        <div class="cta-actions">
+          <CalendlyButton label={ctaLabel} fallbackHref="/contact/" />
+          <Button href="/audit-gratuit/" variant="secondary">Demander un diagnostic digital</Button>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
+
 <style>
-  .sector-split{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(50px,8vw,110px)}.sector-split--offset{grid-template-columns:1.15fr .85fr}.sector-split--offset .section-heading{order:2}.problem-list{border-top:1px solid var(--color-border)}.problem-list article{display:grid;grid-template-columns:48px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid var(--color-border)}.problem-list span,.method span{color:var(--color-primary);font-size:.75rem;font-weight:780}.problem-list h3{margin-bottom:7px}.problem-list p{margin:0}.sector-services--offset .card:first-child{grid-column:span 2;background:rgba(255,255,255,.08)}.method{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--color-border)}.method article{padding:30px;border-right:1px solid var(--color-border)}.method article:last-child{border:0}.method h3{margin-top:28px}.faq{max-width:940px}.faq details{border-bottom:1px solid var(--color-border)}.faq summary{display:flex;min-height:78px;align-items:center;justify-content:space-between;gap:20px;cursor:pointer;font-weight:720;list-style:none}.faq summary::-webkit-details-marker{display:none}.faq summary span{color:var(--color-primary);font-size:1.5rem}.faq details[open] summary span{transform:rotate(45deg)}.faq details p{padding-right:40px}.related{display:flex;flex-wrap:wrap;gap:10px;margin-top:42px}.related a{padding:9px 13px;border:1px solid var(--color-border);border-radius:999px;color:var(--color-primary);font-size:.84rem;font-weight:680}@media(max-width:900px){.sector-split,.sector-split--offset{grid-template-columns:1fr}.sector-split--offset .section-heading{order:initial}.method{grid-template-columns:repeat(2,1fr)}.sector-services--offset .card:first-child{grid-column:auto}}@media(max-width:580px){.method{grid-template-columns:1fr}.method article{padding-inline:0;border-right:0;border-bottom:1px solid var(--color-border)}.faq details p{padding-right:0}}
+  .sector-split {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(50px, 8vw, 110px);
+    align-items: start;
+  }
+  .sector-split--offset {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+  .sector-split--offset .section-heading {
+    order: 2;
+  }
+  .sector-solution-gateway {
+    margin-top: 24px;
+    padding: 16px 18px;
+    background: var(--color-primary-soft);
+    border-radius: var(--radius-card-small);
+    border: 1px solid rgba(36, 87, 255, 0.15);
+  }
+  .gateway-tag {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+  }
+  .gateway-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 750;
+    color: var(--color-midnight);
+    text-decoration: none;
+  }
+  .gateway-link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+  .problem-list {
+    border-top: 1px solid var(--color-border);
+  }
+  .problem-list article {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .problem-list span,
+  .method span {
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+  .problem-list h3 {
+    margin-bottom: 7px;
+    font-size: 1.2rem;
+    color: var(--color-midnight);
+  }
+  .problem-list p {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+  }
+  .eyebrow--cyan {
+    color: var(--color-cyan) !important;
+  }
+  .sector-services--offset .card:first-child {
+    grid-column: span 2;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .sector-case-section {
+    padding-block: var(--space-4);
+    background: var(--color-background);
+  }
+  .sector-case-card {
+    padding: 24px 32px;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+  .sector-case-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+  }
+  .sector-case-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .sector-case-content h3 {
+    margin: 0 0 4px;
+    font-size: 1.25rem;
+    color: var(--color-midnight);
+  }
+  .sector-case-content p {
+    margin: 0;
+    font-size: 0.94rem;
+    color: var(--color-text-muted);
+  }
+  .method {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-block: 1px solid var(--color-border);
+  }
+  .method article {
+    padding: 30px;
+    border-right: 1px solid var(--color-border);
+  }
+  .method article:last-child {
+    border: 0;
+  }
+  .method h3 {
+    margin-top: 24px;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    color: var(--color-midnight);
+  }
+  .method p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+  .faq {
+    max-width: 940px;
+  }
+  .faq details {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .faq summary {
+    display: flex;
+    min-height: 78px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    cursor: pointer;
+    font-weight: 720;
+    list-style: none;
+    font-size: 1.05rem;
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq summary span {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+  }
+  .faq details[open] summary span {
+    transform: rotate(45deg);
+  }
+  .faq details p {
+    padding-right: 40px;
+    padding-bottom: 20px;
+    margin: 0;
+    color: var(--color-midnight);
+    line-height: 1.6;
+  }
+  .related {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+  }
+  .related strong {
+    width: 100%;
+    font-size: 0.85rem;
+    color: var(--color-midnight);
+    margin-bottom: 6px;
+  }
+  .related a {
+    padding: 8px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-midnight);
+    font-size: 0.84rem;
+    font-weight: 680;
+    text-decoration: none;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+  .related a:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .related a span {
+    color: var(--color-primary);
+  }
+  .cta-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: clamp(32px, 5vw, 48px);
+    background: var(--color-primary-soft);
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(36, 87, 255, 0.15);
+    flex-wrap: wrap;
+  }
+  .cta-panel h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    color: var(--color-midnight);
+  }
+  .cta-panel p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  @media (max-width: 900px) {
+    .sector-split,
+    .sector-split--offset {
+      grid-template-columns: 1fr;
+    }
+    .sector-split--offset .section-heading {
+      order: initial;
+    }
+    .method {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .sector-services--offset .card:first-child {
+      grid-column: auto;
+    }
+    .cta-panel {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  @media (max-width: 580px) {
+    .method {
+      grid-template-columns: 1fr;
+    }
+    .method article {
+      padding-inline: 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .faq details p {
+      padding-right: 0;
+    }
+  }
 </style>

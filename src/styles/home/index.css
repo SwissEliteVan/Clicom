@@ -1,0 +1,137 @@
+/* Home foundations & shared section structures */
+@import './hero.css';
+@import './system.css';
+@import './expertise.css';
+@import './method.css';
+@import './work.css';
+@import './cta.css';
+
+.home-shell {
+  overflow: clip;
+  background: #f7f9fc;
+}
+
+.home-section {
+  position: relative;
+  padding: clamp(6rem, 10vw, 10rem) 0;
+}
+
+.home-section--dark {
+  color: #fff;
+  background: #070e1f;
+}
+
+.home-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.3rem;
+  color: var(--color-primary);
+  font-size: .69rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.home-kicker::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 5px rgba(36, 87, 255, .08);
+  content: '';
+}
+
+.home-section--dark .home-kicker,
+.home-cta .home-kicker {
+  color: var(--color-cyan);
+}
+
+.home-section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(280px, .55fr);
+  align-items: end;
+  gap: clamp(2.5rem, 7vw, 7rem);
+  margin-bottom: clamp(3.5rem, 7vw, 6rem);
+}
+
+.home-section-head h2 {
+  max-width: 12ch;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.2rem, 5.7vw, 6.7rem);
+  font-weight: 760;
+  line-height: .94;
+  letter-spacing: -.065em;
+}
+
+.home-section-head p {
+  max-width: 50ch;
+  margin: 0;
+  color: rgba(247, 249, 252, .62);
+  font-size: clamp(1rem, 1.25vw, 1.16rem);
+}
+
+.home-section-head--light h2 {
+  color: var(--color-midnight);
+}
+
+.home-section-head--light p {
+  color: var(--color-text-muted);
+}
+
+.home-sector-band {
+  overflow: hidden;
+  padding: 1.2rem 0;
+  border-block: 1px solid rgba(36, 87, 255, .1);
+  background: #fff;
+}
+
+.home-sector-band .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  color: #536078;
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.home-sector-band i {
+  width: 4px;
+  height: 4px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #22d3ee;
+}
+
+@media (max-width: 820px) {
+  .home-section-head {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .home-section {
+    padding: 4.8rem 0;
+  }
+
+  .home-section-head h2 {
+    font-size: clamp(2.65rem, 12vw, 4rem);
+  }
+
+  .home-sector-band .container {
+    width: max-content;
+    animation: sector-marquee 24s linear infinite;
+  }
+}
+
+@keyframes sector-marquee {
+  to {
+    transform: translateX(-35%);
+  }
+}

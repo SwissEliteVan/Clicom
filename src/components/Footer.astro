@@ -1,4 +1,5 @@
 ---
+import CalendlyButton from './conversion/CalendlyButton.astro';
 const navigation = [['Projets','/realisations/'],['À propos','/agence/'],['Méthode','/methode/'],['Ressources','/ressources/'],['Contact','/contact']];
 const services = [['Sites web','/creation-site-web/'],['Référencement & SEO','/seo/'],['Acquisition Google & Social','/google-ads/'],['Automatisation & CRM','/automatisation/'],['Tous les services','/services']];
 ---
@@ -12,6 +13,7 @@ const services = [['Sites web','/creation-site-web/'],['Référencement & SEO','
         <div class="footer-contact-links">
           <a href="mailto:hello@clicom.ch">hello@clicom.ch</a>
           <a href="tel:+41788238950">078 823 89 50</a>
+          <CalendlyButton label="Réserver un échange de 30 minutes" class="footer-calendly" fallbackHref="/contact/" />
         </div>
       </div>
       <div class="footer-column"><h2>Navigation</h2>{navigation.map(([label,href]) => <a href={href}>{label}</a>)}</div>
@@ -36,9 +38,12 @@ const services = [['Sites web','/creation-site-web/'],['Référencement & SEO','
   .wordmark { display: inline-block; font-size: 2.1rem; font-weight: 800; letter-spacing: -.075em; line-height: 1; }
   .wordmark span { color: var(--color-cyan); }
   .footer-brand p { margin: 20px 0 24px; color: var(--color-dark-muted); font-size: .98rem; line-height: 1.55; }
-  .footer-contact-links { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+  .footer-contact-links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; }
   .footer-contact-links a { color: var(--color-dark-text); font-size: .92rem; font-weight: 650; transition: color var(--transition-fast); }
   .footer-contact-links a:hover { color: white; }
+  .footer-contact-links :global(.calendly-wrap) { display: inline-flex; }
+  .footer-contact-links :global(.button.footer-calendly) { min-height: 0; padding: 0; border: 0; background: none; box-shadow: none; color: var(--color-dark-text); font-size: .92rem; font-weight: 650; }
+  .footer-contact-links :global(.button.footer-calendly:hover) { color: white; }
   .footer-column { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
   .footer-column h2 { margin: 6px 0 15px; color: #78849b; font-size: .68rem; font-weight: 760; letter-spacing: .14em; text-transform: uppercase; }
   .footer-column > a { color: var(--color-dark-muted); font-size: .88rem; transition: color var(--transition-fast), transform var(--transition-fast); }

@@ -9,11 +9,11 @@ import CalendlyButton from '../components/conversion/CalendlyButton.astro';
   <PageHero
     eyebrow="Contact"
     title="Parlons de votre <span class='gradient-text'>projet.</span>"
-    intro="Choisissez la manière la plus simple de nous présenter votre situation : un rendez-vous, un message ou un contact direct."
-    primary="#formulaire"
-    primaryLabel="Écrire un message →"
-    secondary="/audit-gratuit/"
-    secondaryLabel="Demander un audit gratuit"
+    intro="Le plus simple : réservez un échange de 30 minutes. Vous pouvez aussi nous écrire ou nous appeler directement."
+    primaryCalendly={true}
+    primaryLabel="Réserver un échange gratuit de 30 minutes"
+    secondary="#formulaire"
+    secondaryLabel="Écrire un message"
   />
 
   <section class="section section--white" id="contact-options">
@@ -22,7 +22,7 @@ import CalendlyButton from '../components/conversion/CalendlyButton.astro';
         <!-- Chemin 1: Rendez-vous Calendly -->
         <article class="card channel-card channel-card--highlight">
           <div class="eyebrow">Option 1 · Échange direct</div>
-          <h2>Réserver un échange de 30 minutes</h2>
+          <h2>Réserver un échange gratuit de 30 minutes</h2>
           <p>Choisissez directement un créneau pour nous présenter votre entreprise, votre projet et vos priorités.</p>
           <div class="channel-card__action">
             <CalendlyButton label="Choisir un créneau →" fallbackHref="#formulaire" />

@@ -7,9 +7,9 @@ interface Props { title?: string; text?: string; href?: string; label?: string; 
 const {
   title = 'Prêt à accélérer votre croissance ?',
   text = 'Parlons de vos objectifs et identifions les leviers numériques les plus pertinents pour votre entreprise.',
-  href = '/contact#audit',
-  label = 'Demander un audit gratuit →',
-  calendly = false,
+  href = '/contact/',
+  label = 'Réserver un échange gratuit de 30 minutes',
+  calendly = true,
 } = Astro.props;
 ---
 <section class="section"><div class="container"><div class="cta-panel"><div><h2>{title}</h2><p>{text}</p></div>{calendly ? <CalendlyButton label={label} /> : <Button {href}>{label}</Button>}</div></div></section>

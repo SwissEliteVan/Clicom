@@ -46,7 +46,7 @@ SMTP_USER=hello@clicom.ch
 SMTP_PASSWORD=<mot-de-passe-mailbox-ou-app-password>
 EMAIL_FROM=CLICOM <hello@clicom.ch>
 EMAIL_TO=hello@clicom.ch
-PUBLIC_CALENDLY_URL=https://calendly.com/hello-clicom
+PUBLIC_CALENDLY_URL=https://calendly.com/saber-moha/30min
 PUBLIC_WHATSAPP_NUMBER=41788238950
 PUBLIC_GTM_ID=
 ```

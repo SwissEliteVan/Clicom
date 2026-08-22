@@ -21,8 +21,8 @@ const {
   intro,
   secondary,
   secondaryLabel = 'Découvrir nos services',
-  primary = '/contact#audit',
-  primaryLabel = 'Parler de mon projet →',
+  primary,
+  primaryLabel,
   primaryCalendly = false,
   showBand = true,
 } = Astro.props;
@@ -42,7 +42,7 @@ const band = bands[eyebrow as keyof typeof bands];
       <h1 set:html={title}></h1>
       <p>{intro}</p>
       <div class="button-row">
-        {primaryCalendly ? <CalendlyButton label={primaryLabel} /> : <Button href={primary}>{primaryLabel}</Button>}
+        {primaryCalendly || (!primary && !primaryLabel) ? <CalendlyButton label={primaryLabel ?? 'Réserver un échange gratuit de 30 minutes'} fallbackHref="/contact/" /> : <Button href={primary}>{primaryLabel}</Button>}
         {secondary && <Button href={secondary} variant="secondary">{secondaryLabel}</Button>}
       </div>
     </div>

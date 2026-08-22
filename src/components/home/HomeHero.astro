@@ -1,5 +1,6 @@
 ---
 import Button from '../Button.astro';
+import CalendlyButton from '../conversion/CalendlyButton.astro';
 import '../../styles/home/hero.css';
 ---
 <section class="studio-hero" id="accueil" data-hero aria-labelledby="home-title">
@@ -52,9 +53,10 @@ import '../../styles/home/hero.css';
     </h1>
     <p class="studio-hero__lead" data-hero-el>CliCom accompagne les PME de Suisse romande avec des stratégies, sites et outils conçus pour attirer les bons clients, simplifier le travail quotidien et soutenir leur développement.</p>
     <div class="studio-hero__actions" data-hero-el>
-      <Button href="/realisations/">Voir nos projets <span aria-hidden="true">→</span></Button>
-      <Button href="/contact/" variant="ghost">Nous contacter</Button>
+      <CalendlyButton label="Réserver un échange gratuit de 30 minutes" fallbackHref="/contact/" />
+      <Button href="/realisations/" variant="ghost">Voir nos réalisations</Button>
     </div>
+    <p class="studio-hero__micro" data-hero-el>30 minutes, sans engagement</p>
     <ul class="studio-hero__meta" data-hero-el aria-label="Expertises">
       <li>Sites web</li><li>Visibilité &amp; SEO</li><li>Acquisition</li><li>Automatisation</li>
     </ul>

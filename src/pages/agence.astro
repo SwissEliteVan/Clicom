@@ -1,3 +1,168 @@
 ---
-import Layout from '../layouts/Layout.astro';import PageHero from '../components/PageHero.astro';import CTA from '../components/CTA.astro';---
-<Layout title="Agence numérique suisse — Clicom"><PageHero eyebrow="L’agence" title="La précision suisse. <span class='gradient-text'>Le rythme numérique.</span>" intro="Clicom réunit stratégie, créativité, technologie et acquisition pour construire une croissance plus lisible."/><section class="section section--white"><div class="container about"><div><div class="eyebrow">Notre positionnement</div><h2>Le numérique doit faire avancer <span class="accent">l’entreprise.</span></h2></div><div><p class="lead">Nous concevons des systèmes clairs et cohérents. Chaque décision doit renforcer la visibilité, la confiance, la conversion ou l’efficacité opérationnelle.</p></div></div></section><section class="section"><div class="container"><div class="grid grid--4">{[['01','Comprendre','Clarifier vos objectifs, vos publics et vos contraintes.'],['02','Prioriser','Choisir les leviers utiles avant d’ajouter des outils.'],['03','Construire','Créer un socle cohérent, maintenable et mesurable.'],['04','Améliorer','Observer les signaux disponibles et ajuster les actions.']].map(([n,t,text])=><article class="card"><span>{n}</span><h3>{t}</h3><p>{text}</p></article>)}</div></div></section><CTA/></Layout><style>.about{display:grid;grid-template-columns:1fr 1fr;gap:80px}.card span{display:block;margin-bottom:30px;color:var(--color-primary)}@media(max-width:800px){.about{grid-template-columns:1fr;gap:24px}}</style>
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTA from '../components/CTA.astro';
+const principles = [
+  ['01', 'Comprendre', 'Clarifier vos objectifs, vos publics et vos contraintes.'],
+  ['02', 'Prioriser', 'Choisir les leviers utiles avant d’ajouter des outils.'],
+  ['03', 'Construire', 'Créer un socle cohérent, maintenable et mesurable.'],
+  ['04', 'Améliorer', 'Observer les signaux disponibles et ajuster les actions.'],
+];
+const culture = ['Design & typographie', 'Développement Astro', 'UX / UI', 'SEO & contenu', 'Automatisation', 'Mesure & pilotage'];
+---
+<Layout title="Agence numérique suisse — Clicom">
+  <PageHero eyebrow="L’agence" title="La précision suisse. <span class='gradient-text'>Le rythme numérique.</span>" intro="Clicom réunit stratégie, créativité, technologie et acquisition pour construire une croissance plus lisible." />
+
+  <!-- Manifeste -->
+  <section class="section section--white">
+    <div class="container agence-manifest" data-reveal="clip">
+      <div class="eyebrow">Notre positionnement</div>
+      <h2>Le numérique doit faire avancer <span class="accent">l’entreprise.</span></h2>
+      <p class="lead">Nous concevons des systèmes clairs et cohérents. Chaque décision doit renforcer la visibilité, la confiance, la conversion ou l’efficacité opérationnelle.</p>
+      <div class="agence-manifest__line" aria-hidden="true"><i></i><span></span><b>→</b></div>
+    </div>
+  </section>
+
+  <!-- Principes de travail -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading" data-reveal="clip">
+        <div class="eyebrow">Principes de travail</div>
+        <h2>Une culture design &amp; technologie, appliquée avec méthode.</h2>
+        <p>Une société récente ne se présente pas par son historique, mais par la qualité de son exécution et la rigueur de sa méthode.</p>
+      </div>
+      <div class="agence-principles" data-reveal-children>
+        {principles.map(([n, t, text]) => (
+          <article><span>{n}</span><h3>{t}</h3><p>{text}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Culture -->
+  <section class="section section--dark">
+    <div class="container agence-culture">
+      <div>
+        <div class="eyebrow eyebrow--cyan">Culture &amp; Expertises</div>
+        <h2>Une équipe réduite, <span class="gradient-text">un niveau d’exigence élevé.</span></h2>
+        <p>Nous intervenons comme une extension de votre équipe : des profils capables de couvrir stratégie, design, développement et acquisition — sans fausse perception de taille.</p>
+      </div>
+      <div class="agence-culture__chips" data-reveal-children>
+        {culture.map((item) => <b>{item}</b>)}
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Parlons de votre projet et de la meilleure prochaine étape." text="Un échange de 30 minutes permet de clarifier votre contexte, les priorités et le bon niveau d’accompagnement." />
+</Layout>
+
+<style>
+  .agence-manifest {
+    max-width: 1000px;
+  }
+  .agence-manifest h2 {
+    max-width: 14ch;
+    font-size: clamp(2.3rem, 4.4vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+    margin-bottom: 1.4rem;
+  }
+  .agence-manifest .lead {
+    max-width: 640px;
+  }
+  .agence-manifest__line {
+    display: flex;
+    width: 150px;
+    align-items: center;
+    margin-top: 2.4rem;
+    color: var(--color-primary);
+  }
+  .agence-manifest__line i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+  .agence-manifest__line span {
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, var(--color-primary), rgba(14, 165, 233, 0.25));
+  }
+  .agence-manifest__line b {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  .agence-principles {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-surface);
+    background: var(--color-border);
+  }
+  .agence-principles article {
+    padding: clamp(24px, 3vw, 36px);
+    background: white;
+  }
+  .agence-principles article > span {
+    display: block;
+    margin-bottom: 1.8rem;
+    color: var(--color-primary);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+  .agence-principles h3 {
+    margin-bottom: 0.6rem;
+    font-size: 1.2rem;
+  }
+  .agence-principles p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+  }
+
+  .agence-culture {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(40px, 7vw, 90px);
+    align-items: start;
+  }
+  .agence-culture h2 {
+    color: white;
+  }
+  .agence-culture p {
+    color: var(--color-dark-muted);
+  }
+  .agence-culture__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .agence-culture__chips b {
+    padding: 10px 16px;
+    border: 1px solid var(--color-dark-border);
+    border-radius: 999px;
+    color: var(--color-dark-text);
+    background: rgba(255, 255, 255, 0.04);
+    font-size: 0.85rem;
+    font-weight: 650;
+  }
+
+  @media (max-width: 900px) {
+    .agence-principles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .agence-culture {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .agence-principles {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

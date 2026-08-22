@@ -2,12 +2,52 @@
 import Button from '../Button.astro';
 import '../../styles/home/hero.css';
 ---
-<section class="studio-hero" id="accueil" aria-labelledby="home-title">
+<section class="studio-hero" id="accueil" data-hero aria-labelledby="home-title">
   <div class="studio-hero__glow" aria-hidden="true"></div>
   <div class="studio-hero__grid" aria-hidden="true"></div>
+
+  <div class="studio-hero__scene" data-hero-scene aria-hidden="true">
+    <svg viewBox="0 0 720 560" fill="none" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="hero-line-g" x1="0" y1="0" x2="1" y2="1">
+          <stop stop-color="#1b44e4" stop-opacity="0.32" />
+          <stop offset="1" stop-color="#0ea5e9" stop-opacity="0.22" />
+        </linearGradient>
+        <radialGradient id="hero-core-g" cx="0.5" cy="0.5" r="0.5">
+          <stop stop-color="#1b44e4" stop-opacity="0.18" />
+          <stop offset="1" stop-color="#1b44e4" stop-opacity="0.03" />
+        </radialGradient>
+      </defs>
+
+      <circle class="hero-scene__halo" cx="360" cy="280" r="150" fill="url(#hero-core-g)" />
+      <circle cx="360" cy="280" r="100" stroke="#1b44e4" stroke-opacity="0.14" stroke-dasharray="3 8" />
+
+      <path data-hero-path pathLength="1" d="M360 280C300 238 214 168 156 122" stroke="url(#hero-line-g)" stroke-width="1.4" />
+      <path data-hero-path pathLength="1" d="M360 280C404 240 486 172 548 126" stroke="url(#hero-line-g)" stroke-width="1.4" />
+      <path data-hero-path pathLength="1" d="M360 280C416 292 520 312 598 322" stroke="url(#hero-line-g)" stroke-width="1.4" />
+      <path data-hero-path pathLength="1" d="M360 280C414 330 508 404 570 462" stroke="url(#hero-line-g)" stroke-width="1.4" />
+      <path data-hero-path pathLength="1" d="M360 280C300 328 208 402 148 452" stroke="url(#hero-line-g)" stroke-width="1.4" />
+      <path data-hero-path pathLength="1" d="M360 280C306 292 196 312 122 320" stroke="url(#hero-line-g)" stroke-width="1.4" />
+
+      <g data-hero-node transform="translate(156 122)"><circle r="7" fill="#fff" stroke="#1b44e4" stroke-width="1.6" /><text x="0" y="27" text-anchor="middle">SITE</text></g>
+      <g data-hero-node transform="translate(548 126)"><circle r="7" fill="#fff" stroke="#1b44e4" stroke-width="1.6" /><text x="0" y="27" text-anchor="middle">SEO</text></g>
+      <g data-hero-node transform="translate(598 322)"><circle r="7" fill="#fff" stroke="#0ea5e9" stroke-width="1.6" /><text x="0" y="27" text-anchor="middle">ADS</text></g>
+      <g data-hero-node transform="translate(570 462)"><circle r="7" fill="#fff" stroke="#0ea5e9" stroke-width="1.6" /><text x="0" y="27" text-anchor="middle">CRM</text></g>
+      <g data-hero-node transform="translate(148 452)"><circle r="7" fill="#fff" stroke="#1b44e4" stroke-width="1.6" /><text x="0" y="27" text-anchor="middle">AUTO</text></g>
+      <g data-hero-node transform="translate(122 320)"><circle r="7" fill="#fff" stroke="#1b44e4" stroke-width="1.6" /><text x="0" y="27" text-anchor="middle">DATA</text></g>
+
+      <g data-hero-node transform="translate(360 280)">
+        <circle r="58" fill="#1b44e4" opacity="0.07" />
+        <circle r="42" fill="#1b44e4" opacity="0.12" />
+        <text y="1" text-anchor="middle" class="hero-scene__core">CLICOM</text>
+        <text y="18" text-anchor="middle" class="hero-scene__core-sub">SYSTÈME DIGITAL</text>
+      </g>
+    </svg>
+  </div>
+
   <div class="container studio-hero__inner">
     <p class="studio-hero__kicker" data-hero-el>Agence digitale — Suisse romande</p>
-    <h1 id="home-title" class="studio-hero__title" data-hero-el>
+    <h1 id="home-title" class="studio-hero__title" data-hero-title>
       <span>Votre entreprise mérite </span><span>un digital qui travaille </span><span class="studio-hero__accent">vraiment pour elle.</span>
     </h1>
     <p class="studio-hero__lead" data-hero-el>CliCom accompagne les PME de Suisse romande avec des stratégies, sites et outils conçus pour attirer les bons clients, simplifier le travail quotidien et soutenir leur développement.</p>

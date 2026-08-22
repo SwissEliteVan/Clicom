@@ -1,24 +1,16 @@
 /* Home foundations & shared section structures */
 @import './hero.css';
-@import './work.css';
 @import './expertise.css';
+@import './challenges.css';
+@import './method.css';
+@import './system.css';
+@import './work.css';
 @import './about.css';
 @import './cta.css';
 
 .home-shell {
   overflow: clip;
   background: var(--color-background);
-}
-
-/* Révélation discrète — hiérarchie avant tout, jamais masquante */
-.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
-}
-.js [data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
 }
 
 /* Bande secteurs — marquee discret */
@@ -62,11 +54,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .js [data-reveal] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
   .home-sector-band .container {
     animation: none;
   }

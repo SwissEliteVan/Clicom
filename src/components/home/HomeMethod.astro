@@ -1,0 +1,38 @@
+---
+import '../../styles/home/method.css';
+const steps = [
+  ['01', 'Comprendre', 'Objectifs, contexte, audiences, données et contraintes.'],
+  ['02', 'Construire', 'Stratégie, parcours, contenus, campagnes et système de mesure.'],
+  ['03', 'Lancer', 'Déploiement contrôlé, tests et coordination des éléments essentiels.'],
+  ['04', 'Mesurer', 'Lecture des signaux utiles, de la qualité des demandes et des résultats.'],
+  ['05', 'Optimiser', 'Amélioration continue des messages, canaux, parcours et processus.'],
+  ['06', 'Accélérer', 'Développer ce qui fonctionne sans perdre la cohérence du système.'],
+];
+---
+<section id="methode" class="method-section" data-method-section aria-labelledby="method-title">
+  <div class="container">
+    <div class="section-heading" data-reveal="clip">
+      <div class="eyebrow">Méthode</div>
+      <h2 id="method-title">Une méthode structurée, du premier échange au pilotage.</h2>
+      <p>Six étapes claires pour relier stratégie, exécution et amélioration continue — sans jargon ni zone d’ombre.</p>
+    </div>
+
+    <div class="method-track" data-reveal="fade">
+      <div class="method-track__rail" aria-hidden="true"><span data-method-progress></span></div>
+      <ol class="method-track__steps">
+        {steps.map(([number, title, text], index) => (
+          <li class:list={['method-step', index === 0 && 'is-active']} data-method-step>
+            <span class="method-step__node" aria-hidden="true"></span>
+            <span class="method-step__num">{number}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <p class="method-note" data-reveal="fade">
+      <a href="/methode/">Découvrir la méthode complète <span aria-hidden="true">→</span></a>
+    </p>
+  </div>
+</section>

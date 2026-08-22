@@ -6,8 +6,8 @@ const { study } = Astro.props;
 
 <header class="case-hero">
   <div class="container case-hero__inner">
-    <div class="case-hero__copy"><div class="eyebrow">Étude de cas · {study.sector}</div><h1>{study.client}</h1><p>{study.problem}</p><div class="case-hero__services">{study.services.map(service => <a href={service.href}>{service.label}</a>)}</div></div>
-    <div class="case-hero__media"><img src={study.image.src} alt={study.image.alt} width={study.image.width} height={study.image.height} /></div>
+    <div class="case-hero__copy" data-reveal-children><div class="eyebrow">Étude de cas · {study.sector}</div><h1>{study.client}</h1><p>{study.problem}</p><div class="case-hero__services">{study.services.map(service => <a href={service.href}>{service.label}</a>)}</div></div>
+    <div class="case-hero__media" data-reveal="media"><img src={study.image.src} alt={study.image.alt} width={study.image.width} height={study.image.height} /></div>
   </div>
 </header>
 

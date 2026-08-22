@@ -1,0 +1,28 @@
+/* Transitions entre pages — sobres, courtes, rapides.
+   Crossfade + légère translation verticale uniquement. */
+::view-transition-old(root) {
+  animation: clicom-vt-out 0.22s var(--ease-out) both;
+}
+::view-transition-new(root) {
+  animation: clicom-vt-in 0.3s var(--ease-out) both;
+}
+
+@keyframes clicom-vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+@keyframes clicom-vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

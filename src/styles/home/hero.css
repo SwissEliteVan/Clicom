@@ -36,6 +36,69 @@
   max-width: 1120px;
 }
 
+/* Scène système — écosystème digital CLICOM (média signature) */
+.studio-hero__scene {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  right: -2%;
+  width: clamp(360px, 46vw, 640px);
+  opacity: 0.75;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.studio-hero__scene svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.studio-hero__scene text {
+  font: 700 10px 'Manrope Variable', sans-serif;
+  fill: var(--color-text-muted);
+  letter-spacing: 0.08em;
+}
+.studio-hero__scene .hero-scene__core {
+  font-size: 13px;
+  font-weight: 800;
+  fill: var(--color-primary);
+  letter-spacing: 0.1em;
+}
+.studio-hero__scene .hero-scene__core-sub {
+  font-size: 7px;
+  font-weight: 700;
+  fill: var(--color-text-muted);
+  letter-spacing: 0.14em;
+}
+.studio-hero__scene .hero-scene__halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-scene-pulse 4.5s ease-in-out infinite;
+}
+@keyframes hero-scene-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+/* Masque du titre pour la révélation GSAP */
+.js .studio-hero__title {
+  overflow: hidden;
+  padding-bottom: 0.05em;
+}
+
+@media (max-width: 1023px) {
+  .studio-hero__scene {
+    right: -8%;
+    width: 78vw;
+    opacity: 0.32;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-hero__scene .hero-scene__halo {
+    animation: none;
+  }
+}
+
 .studio-hero__kicker {
   display: inline-flex;
   align-items: center;
@@ -121,25 +184,4 @@
   content: '';
 }
 
-/* Animation d'entrée discrète — hiérarchie d'abord */
-.js [data-hero-el] {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-}
-.js [data-hero-el].is-visible {
-  opacity: 1;
-  transform: none;
-}
-.js [data-hero-el]:nth-child(2) { transition-delay: 0.06s; }
-.js [data-hero-el]:nth-child(3) { transition-delay: 0.12s; }
-.js [data-hero-el]:nth-child(4) { transition-delay: 0.18s; }
-.js [data-hero-el]:nth-child(5) { transition-delay: 0.24s; }
-
-@media (prefers-reduced-motion: reduce) {
-  .js [data-hero-el] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
+/* L'animation d'entrée est pilotée par GSAP (scripts/motion/motion.ts). */

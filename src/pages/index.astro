@@ -1,11 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HomeHero from '../components/home/HomeHero.astro';
-import HomeWork from '../components/home/HomeWork.astro';
 import HomeExpertise from '../components/home/HomeExpertise.astro';
-import HomeAbout from '../components/home/HomeAbout.astro';
+import HomeChallenges from '../components/home/HomeChallenges.astro';
+import HomeMethod from '../components/home/HomeMethod.astro';
+import HomeSystemDemo from '../components/home/HomeSystemDemo.astro';
+import HomeWork from '../components/home/HomeWork.astro';
 import HomeProof from '../components/home/HomeProof.astro';
 import HomeFAQ from '../components/home/HomeFAQ.astro';
+import HomeAbout from '../components/home/HomeAbout.astro';
 import HomeCTA from '../components/home/HomeCTA.astro';
 import '../styles/home/index.css';
 const title = 'CLICOM | Agence digitale pour PME en Suisse romande';
@@ -14,39 +17,25 @@ const structuredData = {'@context':'https://schema.org','@graph':[{'@type':['Org
 ---
 <Layout {title} {description} {structuredData}>
   <div class="home-shell">
+    <!-- Positionnement -->
     <HomeHero />
-    <section class="home-sector-band" aria-label="Secteurs accompagnés"><div class="container"><span>PME</span><i></i><span>Artisans</span><i></i><span>Immobilier</span><i></i><span>E-commerce</span><i></i><span>Services professionnels</span><i></i><span>Entreprises locales</span></div></section>
-    <HomeWork />
+    <!-- Expertise -->
     <HomeExpertise />
-    <HomeAbout />
+    <!-- Problèmes résolus -->
+    <HomeChallenges />
+    <!-- Méthode -->
+    <HomeMethod />
+    <!-- Démonstration de savoir-faire -->
+    <HomeSystemDemo />
+    <!-- Projets sélectionnés = preuves -->
+    <HomeWork />
+    <!-- Solutions / Secteurs -->
+    <section class="home-sector-band" aria-label="Secteurs accompagnés"><div class="container"><span>PME</span><i></i><span>Artisans</span><i></i><span>Immobilier</span><i></i><span>E-commerce</span><i></i><span>Services professionnels</span><i></i><span>Entreprises locales</span></div></section>
+    <!-- Preuves documentées -->
     <HomeProof />
     <HomeFAQ />
+    <HomeAbout />
+    <!-- Prise de contact -->
     <HomeCTA />
   </div>
 </Layout>
-
-<script>
-  // Révélations discrètes : renforcent la hiérarchie, jamais le produit.
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealEls = document.querySelectorAll('[data-reveal]');
-  const heroEls = document.querySelectorAll('[data-hero-el]');
-
-  if (reduced || !('IntersectionObserver' in window)) {
-    revealEls.forEach((el) => el.classList.add('is-visible'));
-    heroEls.forEach((el) => el.classList.add('is-visible'));
-  } else {
-    heroEls.forEach((el) => el.classList.add('is-visible'));
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -48px 0px' }
-    );
-    revealEls.forEach((el) => io.observe(el));
-  }
-</script>

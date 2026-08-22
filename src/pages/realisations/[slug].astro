@@ -89,7 +89,7 @@ const structuredData = {
           <div class="eyebrow eyebrow--cyan">Preuves qualitatives</div>
           <h2>Les effets observés sur <span class="gradient-text">l’expérience client.</span></h2>
         </div>
-        <div class="results">
+        <div class="results" data-reveal-children>
           {study.results.map((result) => (
             <CaseStudyResult {result} />
           ))}

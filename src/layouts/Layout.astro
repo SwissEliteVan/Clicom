@@ -1,6 +1,8 @@
 ---
 import '@fontsource-variable/manrope';
 import '../styles/global.css';
+import '../styles/transitions.css';
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -47,6 +49,7 @@ const robots = noindexFollow ? 'noindex,follow' : noindex ? 'noindex,nofollow' :
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <ClientRouter />
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
@@ -78,4 +81,7 @@ const robots = noindexFollow ? 'noindex,follow' : noindex ? 'noindex,nofollow' :
   <main id="contenu"><slot /></main>
   <Footer />
 </body>
+<script>
+  import '../scripts/motion/motion';
+</script>
 </html>

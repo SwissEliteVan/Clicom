@@ -1,16 +1,15 @@
 ---
 import '../../styles/home/about.css';
-const steps = [
-  ['01','Comprendre','Diagnostiquer votre situation, vos priorités et vos objectifs pour définir un plan d’action pragmatique.'],
-  ['02','Construire','Créer un socle solide : site performant, messages clairs, formulaires fiables et outils connectés.'],
-  ['03','Activer','Lancer la visibilité (SEO, Google Ads, contenus) et automatiser le traitement des contacts.'],
-  ['04','Améliorer','Mesurer les retours réels, optimiser les conversions et faire évoluer le système au rythme de votre croissance.'],
-];
 const stack = ['Astro','UX / UI','Front-end','SEO','Google Ads','Automatisation','CRM'];
+const principles = [
+  ['01','Prioriser avant d’ajouter','Chaque levier doit avoir un rôle, un objectif et une place claire dans le parcours.'],
+  ['02','Mesurer ce qui compte','La visibilité et les clics prennent leur sens lorsqu’ils soutiennent des actions utiles.'],
+  ['03','Construire sur mesure','Des systèmes clairs, maintenables et évolutifs — sans dépendance captive ni surcoût caché.'],
+];
 ---
 <section id="apropos" class="about-section" aria-labelledby="about-title">
   <div class="container about-layout">
-    <div class="section-heading" data-reveal>
+    <div class="section-heading" data-reveal="clip">
       <div class="eyebrow">À propos</div>
       <h2 id="about-title">La précision suisse. Le rythme numérique.</h2>
       <p>Le numérique doit faire avancer l’entreprise. Nous concevons des systèmes clairs et cohérents : chaque décision renforce la visibilité, la confiance, la conversion ou l’efficacité opérationnelle.</p>
@@ -18,15 +17,15 @@ const stack = ['Astro','UX / UI','Front-end','SEO','Google Ads','Automatisation'
     </div>
 
     <div class="about-details">
-      <div class="about-steps" data-reveal>
-        {steps.map(([number, title, text]) => (
+      <div class="about-principles" data-reveal-children>
+        {principles.map(([number, title, text]) => (
           <article>
             <span>{number}</span>
             <div><h3>{title}</h3><p>{text}</p></div>
           </article>
         ))}
       </div>
-      <div class="about-foot" data-reveal>
+      <div class="about-foot" data-reveal="fade">
         <div class="about-stack">
           <span>Stack &amp; expertises</span>
           <div class="about-stack__chips">{stack.map((item) => <b>{item}</b>)}</div>

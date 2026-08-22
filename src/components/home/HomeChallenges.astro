@@ -1,0 +1,29 @@
+---
+import '../../styles/home/challenges.css';
+const challenges = [
+  { number: '01', title: 'Être trouvé par vos futurs clients', text: 'Vous n’apparaissez pas sur les recherches Google stratégiques de votre canton, et vos concurrents captent les contacts qualifiés.', href: '/solutions/#etre-trouve' },
+  { number: '02', title: 'Être choisi face aux alternatives', text: 'Un site vieillissant ou une offre floue : vos visiteurs repartent sans comprendre pourquoi vous choisir, ni comment vous contacter.', href: '/solutions/#etre-choisi' },
+  { number: '03', title: 'Ne plus perdre d’opportunités', text: 'Les demandes arrivent dans une boîte générique, le suivi dépend de la mémoire de chacun et les relances restent irrégulières.', href: '/solutions/#ne-plus-perdre-leads' },
+  { number: '04', title: 'Gagner du temps et mesurer', text: 'Ressaisies manuelles, outils déconnectés et aucune visibilité sur la rentabilité réelle de vos actions digitales.', href: '/solutions/#mesurer-et-securiser' },
+];
+---
+<section id="problemes" class="challenges-section" aria-labelledby="challenges-title">
+  <div class="container">
+    <div class="section-heading" data-reveal="clip">
+      <div class="eyebrow">Problèmes résolus</div>
+      <h2 id="challenges-title">Avant les outils, nous partons des blocages réels de votre activité.</h2>
+      <p>Chaque situation est un point de départ : nous construisons le système qui répond au problème métier — pas l’inverse.</p>
+    </div>
+
+    <div class="challenges-grid" data-reveal-children>
+      {challenges.map((c) => (
+        <a href={c.href} class="challenge-card">
+          <span class="challenge-card__num" aria-hidden="true">{c.number}</span>
+          <h3>{c.title}</h3>
+          <p>{c.text}</p>
+          <span class="challenge-card__link">Voir la solution <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

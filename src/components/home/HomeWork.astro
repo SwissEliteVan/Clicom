@@ -15,11 +15,11 @@ const studies = caseStudies;
 
   <div class="work-list">
     {studies.map((study, index) => (
-      <article class:list={['work-item', index % 2 === 1 && 'work-item--reverse']} data-reveal>
-        <a class="work-item__media" href={`/realisations/${study.slug}/`} tabindex="-1" aria-hidden="true">
-          <img src={study.image.src} alt="" width={study.image.width} height={study.image.height} loading="lazy" decoding="async" />
+      <article class:list={['work-item', index % 2 === 1 && 'work-item--reverse']}>
+        <a class="work-item__media" data-reveal="media" href={`/realisations/${study.slug}/`} aria-label={`Découvrir le projet ${study.client}`}>
+          <img src={study.image.src} alt={study.image.alt} width={study.image.width} height={study.image.height} loading="lazy" decoding="async" />
         </a>
-        <div class="work-item__body">
+        <div class="work-item__body" data-reveal-children>
           <div class="work-item__meta">
             <span>Projet 0{index + 1}</span><i></i><small>{new Date(study.date).getFullYear()}</small><i></i><small>{study.sector}</small>
           </div>

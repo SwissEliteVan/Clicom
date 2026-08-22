@@ -1,0 +1,68 @@
+/* Problèmes résolus — la proposition avant la preuve */
+.challenges-section {
+  padding-block: clamp(5.5rem, 9vw, 8.5rem);
+  background: #fff;
+}
+
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.challenge-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: clamp(1.8rem, 3vw, 2.6rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-surface);
+  background: var(--color-background);
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.challenge-card__num {
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+.challenge-card h3 {
+  margin: 0;
+  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+  letter-spacing: -0.03em;
+}
+.challenge-card p {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+.challenge-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  color: var(--color-primary);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+.challenge-card__link span {
+  transition: transform var(--transition-micro);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .challenge-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(27, 68, 228, 0.35);
+    box-shadow: var(--shadow-card-hover);
+  }
+  .challenge-card:hover .challenge-card__link span {
+    transform: translateX(3px);
+  }
+}
+
+@media (max-width: 760px) {
+  .challenges-grid {
+    grid-template-columns: 1fr;
+  }
+}

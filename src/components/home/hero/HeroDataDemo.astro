@@ -1,4 +1,0 @@
----
-const items = [['Visibilité','+ VISIBILITÉ','82'],['Demandes','+ DEMANDES','68'],['Temps de réponse','+ RÉACTIVITÉ','76'],['Tâches manuelles','− TÂCHES MANUELLES','45']];
----
-<section class="hero-demo hero-results" data-scene="results" tabindex="-1"><header><span>RÉSULTATS</span><small>Tableau de synthèse</small></header><div>{items.map(([label,state,value])=><article><span><small>{label}</small><b>{state}</b></span><i><em data-result-bar style={`--value:${value}%`}></em></i></article>)}</div></section>

@@ -1,38 +1,25 @@
 ---
-import Button from './Button.astro';
-import CalendlyButton from './conversion/CalendlyButton.astro';
-
-const navigation = [['Services','/services'],['Solutions','/solutions/'],['Secteurs','/secteurs/'],['Méthode','/methode/'],['Ressources','/ressources/'],['Contact','/contact']];
-const services = [['Présence & Sites web','/creation-site-web/'],['Référencement & visibilité IA','/seo/'],['Acquisition Google & Social Ads','/google-ads/'],['Automatisation & CRM','/automatisation/'],['Système complet PME','/services']];
+const navigation = [['Projets','/realisations/'],['À propos','/agence/'],['Méthode','/methode/'],['Ressources','/ressources/'],['Contact','/contact']];
+const services = [['Sites web','/creation-site-web/'],['Référencement & SEO','/seo/'],['Acquisition Google & Social','/google-ads/'],['Automatisation & CRM','/automatisation/'],['Tous les services','/services']];
 ---
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-cta">
-      <div><span>Votre prochain pas numérique</span><h2>Un projet ou une priorité numérique ?</h2></div>
-      <div class="footer-cta__actions">
-        <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
-        <Button href="/audit-gratuit/" variant="secondary">Demander un audit</Button>
-      </div>
-    </div>
-
     <div class="footer-main">
       <div class="footer-brand">
         <a class="wordmark" href="/" aria-label="Clicom, accueil">clicom<span>.</span></a>
         <p>Agence numérique suisse.<br />Sites, visibilité et automatisation.</p>
-        <div class="brand-line" aria-hidden="true"><i></i><span></span><b>→</b></div>
+        <div class="footer-contact-links">
+          <a href="mailto:hello@clicom.ch">hello@clicom.ch</a>
+          <a href="tel:+41788238950">078 823 89 50</a>
+        </div>
       </div>
       <div class="footer-column"><h2>Navigation</h2>{navigation.map(([label,href]) => <a href={href}>{label}</a>)}</div>
       <div class="footer-column"><h2>Services</h2>{services.map(([label,href]) => <a href={href}>{label}</a>)}</div>
-      <div class="footer-column footer-contact">
-        <h2>Contact</h2>
-        <a href="tel:+41788238950"><span>Téléphone</span>+41 78 823 89 50</a>
-        <a href="mailto:hello@clicom.ch"><span>E-mail</span>hello@clicom.ch</a>
-      </div>
     </div>
 
     <div class="footer-bottom">
-      <span>© {new Date().getFullYear()} Clicom</span>
+      <span>© {new Date().getFullYear()} Clicom — Suisse romande</span>
       <nav class="footer-legal" aria-label="Informations légales">
         <a href="/mentions-legales/">Mentions légales</a>
         <a href="/politique-de-confidentialite/">Politique de confidentialité</a>
@@ -42,34 +29,29 @@ const services = [['Présence & Sites web','/creation-site-web/'],['Référencem
 </footer>
 
 <style>
-  .site-footer { position: relative; overflow: hidden; padding-top: clamp(72px, 9vw, 120px); color: white; background: var(--color-midnight); }
-  .site-footer::before { position: absolute; inset: 0; opacity: .42; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(circle at 75% 25%, black, transparent 58%); content: ''; pointer-events: none; }
+  .site-footer { position: relative; overflow: hidden; padding: clamp(64px, 8vw, 96px) 0 0; color: white; background: var(--color-midnight); }
+  .site-footer::before { position: absolute; inset: 0; opacity: .35; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(circle at 75% 25%, black, transparent 58%); content: ''; pointer-events: none; }
   .site-footer .container { position: relative; z-index: 1; }
-  .footer-cta { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-bottom: clamp(54px, 7vw, 82px); border-bottom: 1px solid var(--color-dark-border); }
-  .footer-cta span { display: block; margin-bottom: 10px; color: var(--color-cyan); font-size: .72rem; font-weight: 760; letter-spacing: .14em; text-transform: uppercase; }
-  .footer-cta h2 { margin: 0; font-size: clamp(2.25rem, 4vw, 3.75rem); }
-  .footer-cta__actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .footer-cta :global(.button) { flex: 0 0 auto; }
-  .footer-main { display: grid; grid-template-columns: 1.55fr .75fr 1fr 1.2fr; gap: clamp(32px, 5vw, 72px); padding-block: clamp(56px, 7vw, 88px); }
-  .wordmark { display: inline-block; font-size: 2.25rem; font-weight: 800; letter-spacing: -.075em; line-height: 1; }
+  .footer-main { display: grid; grid-template-columns: 1.6fr .7fr 1fr; gap: clamp(32px, 5vw, 72px); padding-bottom: clamp(48px, 6vw, 72px); }
+  .wordmark { display: inline-block; font-size: 2.1rem; font-weight: 800; letter-spacing: -.075em; line-height: 1; }
   .wordmark span { color: var(--color-cyan); }
-  .footer-brand p { margin: 24px 0 32px; color: var(--color-dark-muted); font-size: 1rem; line-height: 1.55; }
-  .brand-line { display: flex; width: 130px; align-items: center; color: var(--color-cyan); }
-  .brand-line i { width: 8px; height: 8px; border-radius: 50%; background: var(--color-cyan); }
-  .brand-line span { height: 1px; flex: 1; background: linear-gradient(90deg, var(--color-cyan), rgba(34,211,238,.2)); }
-  .brand-line b { font-size: 1.3rem; font-weight: 400; }
+  .footer-brand p { margin: 20px 0 24px; color: var(--color-dark-muted); font-size: .98rem; line-height: 1.55; }
+  .footer-contact-links { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+  .footer-contact-links a { color: var(--color-dark-text); font-size: .92rem; font-weight: 650; transition: color var(--transition-fast); }
+  .footer-contact-links a:hover { color: white; }
   .footer-column { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
-  .footer-column h2 { margin: 6px 0 17px; color: #78849b; font-size: .68rem; font-weight: 760; letter-spacing: .14em; text-transform: uppercase; }
-  .footer-column > a { color: var(--color-dark-muted); font-size: .87rem; transition: color var(--transition-fast), transform var(--transition-fast); }
+  .footer-column h2 { margin: 6px 0 15px; color: #78849b; font-size: .68rem; font-weight: 760; letter-spacing: .14em; text-transform: uppercase; }
+  .footer-column > a { color: var(--color-dark-muted); font-size: .88rem; transition: color var(--transition-fast), transform var(--transition-fast); }
   .footer-column > a:hover { color: white; transform: translateX(3px); }
-  .footer-contact { gap: 21px; }
-  .footer-contact > a { color: white; font-size: .94rem; font-weight: 650; }
-  .footer-contact > a span { display: block; margin-bottom: 3px; color: #78849b; font-size: .67rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-  .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-block: 24px 28px; border-top: 1px solid var(--color-dark-border); color: #78849b; font-size: .75rem; letter-spacing: .02em; }
+  .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-block: 22px 26px; border-top: 1px solid var(--color-dark-border); color: #78849b; font-size: .75rem; letter-spacing: .02em; }
   .footer-legal { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 22px; }
   .footer-legal a { transition: color var(--transition-fast); }
   .footer-legal a:hover { color: white; }
 
-  @media (max-width: 960px) { .footer-main { grid-template-columns: 1.4fr 1fr 1fr; } .footer-contact { grid-column: 2 / -1; } }
-  @media (max-width: 680px) { .footer-cta { align-items: stretch; flex-direction: column; } .footer-cta :global(.button) { width: 100%; } .footer-main { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } .footer-contact { grid-column: 1 / -1; } .footer-bottom { align-items: flex-start; flex-direction: column; } .footer-legal { justify-content: flex-start; } }
+  @media (max-width: 760px) {
+    .footer-main { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-bottom { align-items: flex-start; flex-direction: column; }
+    .footer-legal { justify-content: flex-start; }
+  }
 </style>

@@ -1,0 +1,30 @@
+---
+import { caseStudies } from '../../data/case-studies';
+const highlights = caseStudies.flatMap((study) => study.results.slice(0, 2));
+---
+<section class="proof-section" aria-labelledby="proof-title">
+  <div class="container">
+    <div class="section-heading" data-reveal>
+      <div class="eyebrow">Preuves</div>
+      <h2 id="proof-title">Des résultats documentés, pas des promesses.</h2>
+      <p>Chaque projet est documenté avec les choix de conception et les résultats observés — sans score artificiel ni chiffre inventé.</p>
+    </div>
+
+    <div class="proof-grid" data-reveal>
+      {highlights.map((result) => (
+        <article>
+          <strong>{result.value}</strong>
+          <span>{result.label}</span>
+          <p>{result.context}</p>
+        </article>
+      ))}
+    </div>
+
+    <p class="proof-clients" data-reveal>
+      Réalisations documentées :
+      {caseStudies.map((study, i) => (
+        <a href={`/realisations/${study.slug}/`}>{study.client}{i < caseStudies.length - 1 ? ' · ' : ''}</a>
+      ))}
+    </p>
+  </div>
+</section>

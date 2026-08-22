@@ -1,203 +1,88 @@
-/* CTA section — Immersive dark card with animated breathing ambient glows */
-.home-cta {
-  padding: clamp(5rem, 9vw, 9rem) 0;
+/* CTA final — simple, un seul accent sombre */
+.final-cta {
+  padding-block: clamp(4.5rem, 8vw, 7.5rem);
   background: #fff;
 }
 
-.home-cta__panel {
+.final-cta__panel {
   position: relative;
-  min-height: 620px;
   overflow: hidden;
-  padding: clamp(2.8rem, 6vw, 6rem);
-  border-radius: 34px;
+  padding: clamp(2.6rem, 6vw, 5.5rem);
+  border-radius: 28px;
   color: #fff;
-  background: #070e1f;
-  box-shadow: 0 35px 100px rgba(8, 17, 38, .18);
+  background: linear-gradient(140deg, #0a1326 0%, var(--color-midnight) 100%);
+  box-shadow: var(--shadow-featured);
   isolation: isolate;
 }
-
-.home-cta__panel::after {
+.final-cta__grid {
   position: absolute;
+  z-index: -1;
   inset: 0;
-  opacity: .24;
-  background: linear-gradient(115deg, transparent 0 38%, rgba(34, 211, 238, .16) 48%, transparent 58% 100%);
-  content: '';
-  transform: translateX(-80%);
-  animation: cta-light-pass 8s ease-in-out infinite;
+  opacity: 0.3;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(80% 90% at 85% 10%, #000, transparent 75%);
   pointer-events: none;
 }
 
-.home-cta__grid {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  opacity: .28;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
-  background-size: 58px 58px;
-  mask-image: linear-gradient(90deg, #000, transparent 88%);
-}
-
-.home-cta__halo {
-  position: absolute;
-  z-index: -1;
-  border-radius: 50%;
-  filter: blur(2px);
-  animation: cta-breathe 7s ease-in-out infinite alternate;
-}
-
-.home-cta__halo--one {
-  right: -10%;
-  bottom: -38%;
-  width: 55%;
-  aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(36, 87, 255, .5), rgba(34, 211, 238, .06) 42%, transparent 70%);
-}
-
-.home-cta__halo--two {
-  top: -28%;
-  right: 24%;
-  width: 34%;
-  aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(34, 211, 238, .12), transparent 70%);
-  animation-delay: -3s;
-}
-
-.home-cta__copy {
+.final-cta__copy {
   position: relative;
-  z-index: 2;
-  max-width: 850px;
+  z-index: 1;
+  max-width: 760px;
 }
 
-.home-cta h2 {
-  max-width: 11ch;
-  margin-bottom: 1.2rem;
+.final-cta h2 {
+  max-width: 16ch;
+  margin-bottom: 1.1rem;
   color: #fff;
-  font-size: clamp(3.3rem, 6vw, 6.8rem);
-  line-height: .92;
-  letter-spacing: -.067em;
+  font-size: clamp(2.3rem, 4.6vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+.final-cta p {
+  max-width: 52ch;
+  color: var(--color-dark-muted);
 }
 
-.home-cta__copy p {
-  max-width: 55ch;
-  color: rgba(247, 249, 252, .64);
-  font-size: clamp(1rem, 1.3vw, 1.16rem);
-}
-
-.home-cta__actions {
-  margin-top: 2rem;
-}
-
-.home-cta .home-kicker::before {
-  box-shadow: 0 0 0 4px rgba(34, 211, 238, .14), 0 0 16px rgba(34, 211, 238, .38);
-  animation: cta-signal-breathe 4s ease-in-out infinite alternate;
-}
-
-.home-cta__actions :where(.button) {
-  min-height: 58px;
-  border-radius: 999px;
-  color: #07102a;
-  background: #ffffff;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
-  transition: transform var(--transition-micro), box-shadow var(--transition-fast), background-color var(--transition-micro);
-}
-
-.home-cta__badges {
-  position: absolute;
-  right: clamp(2.8rem, 6vw, 6rem);
-  bottom: clamp(2.5rem, 5vw, 4rem);
-  left: clamp(2.8rem, 6vw, 6rem);
-  z-index: 2;
+.final-cta__actions {
   display: flex;
-  gap: 12px 24px;
-  padding-top: 1.2rem;
-  border-top: 1px solid rgba(255, 255, 255, .1);
-  color: rgba(255, 255, 255, .42);
-  font-size: .7rem;
-  font-weight: 700;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1.9rem;
+}
+.final-cta__actions :where(.button) {
+  min-height: 54px;
+  border-radius: 999px;
+}
+.final-cta__actions :where(.calendly-wrap) {
+  display: inline-flex;
 }
 
-@keyframes cta-breathe {
-  to {
-    transform: scale(1.08) translate3d(-2%, 2%, 0);
-  }
+.final-cta__direct {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1.7rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
 }
-
-@keyframes cta-signal-breathe {
-  0% {
-    transform: scale(.92);
-    box-shadow: 0 0 0 3px rgba(34, 211, 238, .08), 0 0 8px rgba(34, 211, 238, .2);
-  }
-  100% {
-    transform: scale(1.08);
-    box-shadow: 0 0 0 6px rgba(34, 211, 238, .18), 0 0 22px rgba(34, 211, 238, .5);
-  }
+.final-cta__direct a {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 650;
+  transition: color var(--transition-fast);
 }
-
-@keyframes cta-light-pass {
-  0%, 35% {
-    transform: translateX(-85%);
-    opacity: 0;
-  }
-  48% {
-    opacity: .34;
-  }
-  70%, 100% {
-    transform: translateX(85%);
-    opacity: 0;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .home-cta__actions :where(.button):hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(34, 211, 238, .22);
-  }
-}
-
-@media (max-width: 820px) {
-  .home-cta__panel {
-    min-height: 560px;
-  }
-
-  .home-cta__badges {
-    flex-wrap: wrap;
-  }
+.final-cta__direct a:hover {
+  color: #fff;
 }
 
 @media (max-width: 560px) {
-  .home-cta {
-    padding: 4rem 0;
-  }
-
-  .home-cta__panel {
-    min-height: 520px;
+  .final-cta__panel {
+    border-radius: 22px;
     padding: 2rem;
-    border-radius: 24px;
   }
-
-  .home-cta h2 {
-    font-size: clamp(2.75rem, 12vw, 4.3rem);
-  }
-
-  .home-cta__badges {
-    right: 2rem;
-    bottom: 2rem;
-    left: 2rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-cta__halo,
-  .home-cta__panel::after,
-  .home-cta .home-kicker::before {
-    animation: none !important;
-    transform: none !important;
-  }
-
-  .home-cta__actions :where(.button) {
-    transform: none !important;
-    transition: none !important;
+  .final-cta__actions :where(.button) {
+    width: 100%;
   }
 }

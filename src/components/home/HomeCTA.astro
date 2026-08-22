@@ -3,57 +3,24 @@ import Button from '../Button.astro';
 import CalendlyButton from '../conversion/CalendlyButton.astro';
 import '../../styles/home/cta.css';
 ---
-
-<section class="home-cta" aria-labelledby="home-cta-title">
-  <div class="container home-cta__panel" data-reveal data-reveal-type="scale">
-    <div class="home-cta__halo home-cta__halo--one" aria-hidden="true"></div>
-    <div class="home-cta__halo home-cta__halo--two" aria-hidden="true"></div>
-    <div class="home-cta__grid" aria-hidden="true"></div>
-
-    <div class="home-cta__copy">
-      <span class="home-kicker">Parlons de votre projet</span>
-      <h2 id="home-cta-title">Vous avez un projet, un problème ou simplement besoin d'y voir plus clair ?</h2>
-      <p>Parlons de votre activité et identifions les actions digitales qui peuvent réellement vous aider.</p>
-      <div class="home-cta__actions">
-        <span data-magnetic>
-          <CalendlyButton label="Demander un échange →" fallbackHref="/contact/" />
-        </span>
-        <Button href="/audit-gratuit/" variant="secondary">Demander un audit gratuit</Button>
+<section class="final-cta" aria-labelledby="final-cta-title">
+  <div class="container">
+    <div class="final-cta__panel" data-reveal>
+      <div class="final-cta__grid" aria-hidden="true"></div>
+      <div class="final-cta__copy">
+        <div class="eyebrow eyebrow--cyan">Votre prochain pas numérique</div>
+        <h2 id="final-cta-title">Un projet ou une priorité numérique ?</h2>
+        <p>Parlons de votre activité et identifions les actions digitales qui peuvent réellement vous aider.</p>
+        <div class="final-cta__actions">
+          <CalendlyButton label="Réserver un échange de 30 min →" fallbackHref="/contact/" />
+          <Button href="/audit-gratuit/" variant="secondary">Demander un audit gratuit</Button>
+        </div>
+        <div class="final-cta__direct">
+          <a href="mailto:hello@clicom.ch">hello@clicom.ch</a>
+          <span aria-hidden="true">·</span>
+          <a href="tel:+41788238950">078 823 89 50</a>
+        </div>
       </div>
-      <div class="home-cta__direct">
-        <a href="tel:+41788238950">078 823 89 50</a>
-        <span aria-hidden="true">·</span>
-        <a href="mailto:hello@clicom.ch">hello@clicom.ch</a>
-      </div>
-    </div>
-
-    <div class="home-cta__badges" aria-label="Informations pratiques">
-      <span>Échange de 30 min</span>
-      <span>Sans engagement</span>
-      <span>PME de Suisse romande</span>
     </div>
   </div>
 </section>
-
-<style>
-  .home-cta__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 8px;
-  }
-  .home-cta__direct {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 20px;
-    color: rgba(255,255,255,.55);
-    font-size: .85rem;
-  }
-  .home-cta__direct a {
-    color: rgba(255,255,255,.72);
-    text-decoration: none;
-    transition: color .2s;
-  }
-  .home-cta__direct a:hover { color: white; }
-</style>

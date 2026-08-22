@@ -1,27 +1,34 @@
 ---
-import ExpertiseBuildMedia from './expertise/ExpertiseBuildMedia.astro';
-import ExpertiseVisibilityMedia from './expertise/ExpertiseVisibilityMedia.astro';
-import ExpertiseAcquisitionMedia from './expertise/ExpertiseAcquisitionMedia.astro';
-import ExpertiseAutomationMedia from './expertise/ExpertiseAutomationMedia.astro';
 import '../../styles/home/expertise.css';
 const pillars = [
-  {number:'01',label:'SITES INTERNET & CONVERSION',title:'Construire un socle clair qui mène à l’action.',copy:'Architecture lisible, navigation fluide et contenus ciblés : des sites web conçus pour présenter votre offre et générer des prises de contact.',links:[['/creation-site-web/','Sites Internet'],['/branding/','Identité visuelle']],kind:'build',size:'large'},
-  {number:'02',label:'RÉFÉRENCEMENT & VISIBILITÉ',title:'Rendre votre entreprise trouvée localement.',copy:'Optimisation SEO et visibilité dans les réponses IA pour que vos futurs clients vous découvrent lorsqu’ils recherchent vos services en Suisse romande.',links:[['/seo/','Référencement naturel'],['/referencement-ia/','Visibilité IA']],kind:'visibility',size:'compact'},
-  {number:'03',label:'ACQUISITION',title:'Cibler les besoins concrets sans gaspillage.',copy:'Campagnes Google Ads et réseaux sociaux calibrées pour capter des intentions réelles et rentabiliser votre investissement commercial.',links:[['/google-ads/','Publicité Google'],['/social-ads/','Publicité réseaux sociaux']],kind:'acquisition',size:'compact'},
-  {number:'04',label:'AUTOMATISATION & CRM',title:'Déclencher les bonnes actions sans surcharge.',copy:'Routage automatique des demandes, alertes d’équipe et synchronisation CRM : vos processus tournent sans friction, sous contrôle humain permanent.',links:[['/automatisation/','Automatisation'],['/email-marketing-crm/','Suivi commercial & CRM']],kind:'automation',size:'large'},
+  {number:'01',label:'Sites internet & conversion',title:'Construire un socle clair qui mène à l’action.',copy:'Architecture lisible, navigation fluide et contenus ciblés : des sites web conçus pour présenter votre offre et générer des prises de contact.',links:[['/creation-site-web/','Sites Internet'],['/branding/','Identité visuelle']]},
+  {number:'02',label:'Référencement & visibilité',title:'Rendre votre entreprise trouvée localement.',copy:'Optimisation SEO et visibilité dans les réponses IA pour que vos futurs clients vous découvrent lorsqu’ils recherchent vos services en Suisse romande.',links:[['/seo/','Référencement naturel'],['/referencement-ia/','Visibilité IA']]},
+  {number:'03',label:'Acquisition',title:'Cibler les besoins concrets sans gaspillage.',copy:'Campagnes Google Ads et réseaux sociaux calibrées pour capter des intentions réelles et rentabiliser votre investissement commercial.',links:[['/google-ads/','Publicité Google'],['/social-ads/','Publicité réseaux sociaux']]},
+  {number:'04',label:'Automatisation & CRM',title:'Déclencher les bonnes actions sans surcharge.',copy:'Routage automatique des demandes, alertes d’équipe et synchronisation CRM : vos processus tournent sans friction, sous contrôle humain permanent.',links:[['/automatisation/','Automatisation'],['/email-marketing-crm/','Suivi commercial & CRM']]},
 ];
-const Media = {build:ExpertiseBuildMedia,visibility:ExpertiseVisibilityMedia,acquisition:ExpertiseAcquisitionMedia,automation:ExpertiseAutomationMedia};
 ---
-<section id="expertises" class="home-section home-expertise home-expertise--immersive" aria-labelledby="expertise-title" data-expertise-section>
+<section id="expertises" class="expertise-section" aria-labelledby="expertise-title">
   <div class="container">
-    <div class="home-section-head home-section-head--light" data-reveal data-reveal-type="clip"><div><span class="home-kicker">Expertises</span><h2 id="expertise-title">Les bonnes compétences, activées au bon moment.</h2></div><p>Pas de catalogue rigide ni de prestations superflues : nous sélectionnons et combinons uniquement les expertises adaptées à votre niveau de maturité et à vos priorités réelles.</p></div>
-    <div class="expertise-editorial-grid">
-      {pillars.map((pillar)=>{const Visual=Media[pillar.kind as keyof typeof Media];return <article class:list={['expertise-editorial',`expertise-editorial--${pillar.size}`,`expertise-editorial--${pillar.kind}`]} data-expertise-item={pillar.kind}>
-        <div class="expertise-editorial__meta"><span>{pillar.number}</span><small>{pillar.label}</small></div>
-        <div class="expertise-editorial__visual"><Visual /></div>
-        <div class="expertise-editorial__copy"><h3>{pillar.title}</h3><p>{pillar.copy}</p><div class="expertise-editorial__links">{pillar.links.map(([href,label])=><a href={href}>{label}<span aria-hidden="true">↗</span></a>)}</div></div>
-      </article>})}
+    <div class="section-heading" data-reveal>
+      <div class="eyebrow">Expertises</div>
+      <h2 id="expertise-title">Les bonnes compétences, activées au bon moment.</h2>
+      <p>Pas de catalogue rigide ni de prestations superflues : nous sélectionnons et combinons uniquement les expertises adaptées à votre niveau de maturité et à vos priorités réelles.</p>
+    </div>
+
+    <div class="expertise-list">
+      {pillars.map((pillar) => (
+        <article class="expertise-row" data-reveal>
+          <span class="expertise-row__num" aria-hidden="true">{pillar.number}</span>
+          <div class="expertise-row__main">
+            <span class="expertise-row__label">{pillar.label}</span>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.copy}</p>
+          </div>
+          <div class="expertise-row__links">
+            {pillar.links.map(([href, label]) => <a href={href}>{label}<span aria-hidden="true">→</span></a>)}
+          </div>
+        </article>
+      ))}
     </div>
   </div>
 </section>
-<script>import '../../scripts/home-expertise-motion';</script>

@@ -2,43 +2,10 @@
 import Button from './Button.astro';
 
 const path = Astro.url.pathname;
-const servicePaths = ['/services','/creation-site-web','/seo','/referencement-ia','/google-ads','/social-ads','/reseaux-sociaux','/creation-contenu','/branding','/intelligence-artificielle','/automatisation','/email-marketing-crm'];
-const serviceActive = servicePaths.some((href) => path.startsWith(href));
 const links = [
-  ['/solutions', 'Solutions'],
-  ['/methode', 'Méthode'],
-  ['/tarifs', 'Tarifs'],
+  ['/realisations', 'Projets'],
+  ['/agence', 'À propos'],
   ['/contact', 'Contact'],
-];
-
-const serviceGroups = [
-  {
-    title: 'Présence digitale',
-    links: [
-      ['/creation-site-web/', 'Sites web'],
-      ['/branding/', 'Branding & Identité'],
-      ['/creation-contenu/', 'Création de contenu'],
-      ['/reseaux-sociaux/', 'Réseaux sociaux'],
-    ],
-  },
-  {
-    title: 'Acquisition',
-    links: [
-      ['/seo/', 'SEO naturel'],
-      ['/referencement-ia/', 'Référencement IA'],
-      ['/google-ads/', 'Google Ads'],
-      ['/social-ads/', 'Publicité Social Ads'],
-    ],
-  },
-  {
-    title: 'Automatisation & Suivi',
-    links: [
-      ['/automatisation/', 'Automatisation des flux'],
-      ['/email-marketing-crm/', 'CRM & e-mail'],
-      ['/intelligence-artificielle/', 'Intelligence artificielle'],
-      ['/methode/', 'Notre méthode'],
-    ],
-  },
 ];
 ---
 
@@ -50,28 +17,10 @@ const serviceGroups = [
     </a>
 
     <nav class="desktop-nav" aria-label="Navigation principale">
-      <details class="services-menu" data-menu>
-        <summary class:list={{ active: serviceActive }} aria-haspopup="true" aria-expanded="false">
-          Services <span aria-hidden="true">⌄</span>
-        </summary>
-        <div class="mega-menu">
-          <div class="mega-menu__intro">
-            <span class="mega-menu__kicker">Système digital PME</span>
-            <strong>Présence · Acquisition.<br />Automatisation · Suivi.</strong>
-            <a href="/services">Voir le système complet <span aria-hidden="true">→</span></a>
-          </div>
-          {serviceGroups.map((group) => (
-            <div class="mega-menu__group">
-              <span>{group.title}</span>
-              {group.links.map(([href, label]) => <a href={href}>{label}</a>)}
-            </div>
-          ))}
-        </div>
-      </details>
       {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>)}
     </nav>
 
-    <Button href="/audit-gratuit/" class="header-cta">Demander un audit gratuit <span aria-hidden="true">→</span></Button>
+    <Button href="/audit-gratuit/" class="header-cta">Audit gratuit <span aria-hidden="true">→</span></Button>
 
     <details class="mobile-menu" data-menu>
       <summary aria-label="Ouvrir la navigation" aria-expanded="false">
@@ -82,8 +31,8 @@ const serviceGroups = [
           <span>Navigation</span>
           <span class="brand__name">clicom<span>.</span></span>
         </div>
-        <a class:list={{ active: serviceActive }} href="/services" aria-current={serviceActive ? 'page' : undefined}>Services <span>→</span></a>
         {links.map(([href, label]) => <a class:list={{ active: path.startsWith(href) }} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}<span>→</span></a>)}
+        <a class:list={{ active: path.startsWith('/services') }} href="/services" aria-current={path.startsWith('/services') ? 'page' : undefined}>Services<span>→</span></a>
         <div class="mobile-menu__services">
           <span>Piliers du système</span>
           <div><a href="/creation-site-web/">Sites web</a><a href="/seo/">SEO</a><a href="/google-ads/">Publicité</a><a href="/automatisation/">Automatisation</a></div>
@@ -96,8 +45,6 @@ const serviceGroups = [
 
 <script>
   const menus = document.querySelectorAll<HTMLDetailsElement>('[data-menu]');
-  const header = document.querySelector<HTMLElement>('[data-header]');
-  const isHome = document.body.classList.contains('home-page');
 
   const closeMenu = (menu: HTMLDetailsElement) => {
     menu.open = false;
@@ -124,73 +71,36 @@ const serviceGroups = [
   document.addEventListener('pointerdown', (event) => {
     if (event.target instanceof Node) menus.forEach((menu) => !menu.contains(event.target as Node) && closeMenu(menu));
   });
-
-  if (header && isHome) {
-    let scheduled = false;
-
-    const updateHeader = () => {
-      scheduled = false;
-      header.classList.toggle('is-scrolled', window.scrollY > 24);
-    };
-
-    const onScroll = () => {
-      if (scheduled) return;
-      scheduled = true;
-      window.requestAnimationFrame(updateHeader);
-    };
-
-    updateHeader();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
 </script>
 
 <style>
-  .site-header { position: sticky; top: 0; z-index: var(--z-header); border-bottom: 1px solid rgba(228,232,240,.82); background: rgba(247,249,252,.86); backdrop-filter: blur(18px) saturate(140%); transition: background-color var(--transition-base), border-color var(--transition-base), backdrop-filter var(--transition-base), box-shadow var(--transition-base); }
-  .header-inner { position: relative; display: flex; height: 82px; align-items: center; gap: clamp(20px, 2.4vw, 36px); }
+  .site-header { position: sticky; top: 0; z-index: var(--z-header); border-bottom: 1px solid rgba(228,232,240,.9); background: rgba(248,250,252,.82); backdrop-filter: blur(18px) saturate(140%); }
+  .header-inner { position: relative; display: flex; height: 72px; align-items: center; gap: clamp(20px, 2.4vw, 36px); }
   .brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 11px; margin-right: auto; }
   .brand__mark { position: relative; display: flex; width: 34px; align-items: center; color: var(--color-primary); }
   .brand__mark i { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: var(--color-primary); box-shadow: 0 0 0 5px rgba(36,87,255,.09); }
   .brand__mark::after { width: 13px; height: 1px; background: var(--color-primary); content: ''; }
   .brand__mark b { font-size: 1rem; font-weight: 650; line-height: 1; }
-  .brand__name { font-size: 1.62rem; font-weight: 800; letter-spacing: -.07em; line-height: 1; }
+  .brand__name { font-size: 1.55rem; font-weight: 800; letter-spacing: -.07em; line-height: 1; }
   .brand__name span { color: var(--color-primary); }
-  .desktop-nav { display: flex; height: 100%; align-items: center; gap: clamp(15px, 1.7vw, 25px); }
-  .desktop-nav > a, .services-menu > summary { position: relative; display: flex; min-height: 44px; align-items: center; color: var(--color-text-muted); font-size: .86rem; font-weight: 680; cursor: pointer; list-style: none; transition: color var(--transition-fast); }
-  .services-menu > summary::-webkit-details-marker { display: none; }
-  .services-menu > summary span { margin-left: 5px; font-size: .78rem; transition: transform var(--transition-fast); }
-  .services-menu[open] > summary span { transform: rotate(180deg); }
-  .desktop-nav > a::after, .services-menu > summary::after { position: absolute; right: 50%; bottom: -1px; left: 50%; height: 2px; border-radius: 2px; background: var(--color-primary); content: ''; transition: right var(--transition-fast), left var(--transition-fast); }
-  .desktop-nav > a:hover, .desktop-nav > a.active, .services-menu > summary:hover, .services-menu > summary.active, .services-menu[open] > summary { color: var(--color-midnight); }
-  .desktop-nav > a:hover::after, .desktop-nav > a.active::after, .services-menu > summary:hover::after, .services-menu > summary.active::after, .services-menu[open] > summary::after { right: 0; left: 0; }
-  .services-menu { height: 100%; }
-  .services-menu > summary { height: 100%; }
-  .mega-menu { position: absolute; top: calc(100% + 12px); right: 0; left: 0; display: none; grid-template-columns: 1.25fr repeat(3, 1fr); gap: 1px; padding: 10px; overflow: hidden; border: 1px solid var(--color-border); border-radius: 24px; background: var(--color-border); box-shadow: var(--shadow-featured); }
-  .services-menu[open] .mega-menu { display: grid; animation: mega-menu-in var(--transition-smooth) var(--ease-out); }
-  @keyframes mega-menu-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
-  .mega-menu::before { position: fixed; inset: 82px 0 0; z-index: -1; background: rgba(8,17,38,.08); content: ''; backdrop-filter: blur(2px); }
-  .mega-menu__intro, .mega-menu__group { min-width: 0; padding: 27px; background: white; }
-  .mega-menu__intro { border-radius: 15px 0 0 15px; background: var(--color-midnight); }
-  .mega-menu__kicker, .mega-menu__group > span { display: block; margin-bottom: 19px; color: var(--color-primary); font-size: .67rem; font-weight: 780; letter-spacing: .14em; text-transform: uppercase; }
-  .mega-menu__intro strong { display: block; margin-bottom: 24px; color: white; font-size: 1.24rem; line-height: 1.28; letter-spacing: -.035em; }
-  .mega-menu__intro a { display: inline-flex; gap: 8px; color: var(--color-cyan); font-size: .82rem; font-weight: 700; }
-  .mega-menu__group { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
-  .mega-menu__group:last-child { border-radius: 0 15px 15px 0; }
-  .mega-menu__group > span { color: var(--color-text-muted); }
-  .mega-menu__group a { width: 100%; padding: 7px 0; color: var(--color-midnight); font-size: .86rem; font-weight: 650; transition: color var(--transition-fast), transform var(--transition-fast); }
-  .mega-menu__group a:hover { color: var(--color-primary); transform: translateX(3px); }
-  .header-cta { min-height: 46px; padding: 12px 17px; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
+  .desktop-nav { display: flex; height: 100%; align-items: center; gap: clamp(18px, 2vw, 30px); }
+  .desktop-nav > a { position: relative; display: flex; min-height: 44px; align-items: center; color: var(--color-text-muted); font-size: .9rem; font-weight: 650; transition: color var(--transition-fast); }
+  .desktop-nav > a::after { position: absolute; right: 50%; bottom: -1px; left: 50%; height: 2px; border-radius: 2px; background: var(--color-primary); content: ''; transition: right var(--transition-fast), left var(--transition-fast); }
+  .desktop-nav > a:hover, .desktop-nav > a.active { color: var(--color-midnight); }
+  .desktop-nav > a:hover::after, .desktop-nav > a.active::after { right: 0; left: 0; }
+  .header-cta { min-height: 42px; padding: 10px 16px; font-size: .82rem; }
   .mobile-menu { display: none; }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 760px) {
     .desktop-nav, .header-inner > :global(.header-cta) { display: none; }
     .mobile-menu { display: block; }
-    .mobile-menu > summary { display: grid; width: 46px; height: 46px; place-content: center; gap: 5px; border: 1px solid var(--color-border-strong); border-radius: 12px; background: white; box-shadow: 0 4px 14px rgba(8,17,38,.05); cursor: pointer; list-style: none; }
+    .mobile-menu > summary { display: grid; width: 44px; height: 44px; place-content: center; gap: 5px; border: 1px solid var(--color-border-strong); border-radius: 12px; background: white; box-shadow: 0 4px 14px rgba(8,17,38,.05); cursor: pointer; list-style: none; }
     .mobile-menu > summary::-webkit-details-marker { display: none; }
     .mobile-menu > summary span { display: block; width: 20px; height: 2px; border-radius: 2px; background: var(--color-midnight); transition: transform var(--transition-fast), opacity var(--transition-fast); }
     .mobile-menu[open] > summary span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .mobile-menu[open] > summary span:nth-child(2) { opacity: 0; }
     .mobile-menu[open] > summary span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu__panel { position: absolute; top: calc(100% + 12px); right: 0; left: 0; display: none; gap: 3px; max-height: calc(100vh - 112px); padding: 18px; overflow-y: auto; border: 1px solid var(--color-border); border-radius: 22px; background: rgba(255,255,255,.98); box-shadow: var(--shadow-featured); }
+    .mobile-menu__panel { position: absolute; top: calc(100% + 12px); right: 0; left: 0; display: none; gap: 3px; max-height: calc(100vh - 104px); padding: 18px; overflow-y: auto; border: 1px solid var(--color-border); border-radius: 20px; background: rgba(255,255,255,.98); box-shadow: var(--shadow-featured); }
     .mobile-menu[open] .mobile-menu__panel { display: grid; animation: mobile-menu-in var(--transition-smooth) var(--ease-out); }
     @keyframes mobile-menu-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
     .mobile-menu__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 2px 8px 14px; border-bottom: 1px solid var(--color-border); color: var(--color-text-muted); font-size: .7rem; font-weight: 760; letter-spacing: .13em; text-transform: uppercase; }
@@ -205,94 +115,10 @@ const serviceGroups = [
     .mobile-menu__panel > :global(.button) { width: 100%; margin-top: 8px; }
   }
 
-  @media (max-width: 680px) {
-    .header-inner { height: 72px; }
+  @media (max-width: 480px) {
+    .header-inner { height: 66px; }
     .brand__mark { width: 31px; }
-    .brand__name { font-size: 1.5rem; }
-    .mobile-menu__panel { right: -2px; left: -2px; border-radius: 18px; }
-  }
-
-  :global(body.home-page) .site-header {
-    position: fixed;
-    right: 0;
-    left: 0;
-    border-bottom-color: rgba(255, 255, 255, 0.08);
-    background: linear-gradient(180deg,rgba(8,17,38,.44),rgba(8,17,38,.05));
-    backdrop-filter: none;
-    color: white;
-  }
-
-  :global(body.home-page) .site-header.is-scrolled {
-    top: 10px;
-    right: 16px;
-    left: 16px;
-    border: 1px solid rgba(228, 232, 240, 0.68);
-    border-radius: 18px;
-    border-bottom-color: rgba(228, 232, 240, 0.68);
-    background: rgba(247, 249, 252, 0.88);
-    box-shadow: 0 10px 30px rgba(8, 17, 38, 0.08);
-    backdrop-filter: blur(20px) saturate(140%);
-    color: var(--color-midnight);
-  }
-
-  :global(body.home-page) .brand__mark,
-  :global(body.home-page) .brand__name,
-  :global(body.home-page) .desktop-nav > a,
-  :global(body.home-page) .services-menu > summary {
-    color: rgba(247, 249, 252, 0.88);
-  }
-
-  :global(body.home-page) .site-header.is-scrolled .brand__mark,
-  :global(body.home-page) .site-header.is-scrolled .brand__name,
-  :global(body.home-page) .site-header.is-scrolled .desktop-nav > a,
-  :global(body.home-page) .site-header.is-scrolled .services-menu > summary {
-    color: var(--color-text-muted);
-  }
-
-  :global(body.home-page) .desktop-nav > a:hover,
-  :global(body.home-page) .desktop-nav > a.active,
-  :global(body.home-page) .services-menu > summary:hover,
-  :global(body.home-page) .services-menu > summary.active,
-  :global(body.home-page) .services-menu[open] > summary {
-    color: white;
-  }
-
-  :global(body.home-page) .site-header.is-scrolled .desktop-nav > a:hover,
-  :global(body.home-page) .site-header.is-scrolled .desktop-nav > a.active,
-  :global(body.home-page) .site-header.is-scrolled .services-menu > summary:hover,
-  :global(body.home-page) .site-header.is-scrolled .services-menu > summary.active,
-  :global(body.home-page) .site-header.is-scrolled .services-menu[open] > summary { color: var(--color-midnight); }
-
-  :global(body.home-page) .brand__mark i,
-  :global(body.home-page) .brand__mark::after,
-  :global(body.home-page) .desktop-nav > a::after,
-  :global(body.home-page) .services-menu > summary::after {
-    background: var(--color-cyan);
-  }
-
-  :global(body.home-page) .site-header.is-scrolled .brand__mark i,
-  :global(body.home-page) .site-header.is-scrolled .brand__mark::after,
-  :global(body.home-page) .site-header.is-scrolled .desktop-nav > a::after,
-  :global(body.home-page) .site-header.is-scrolled .services-menu > summary::after {
-    background: var(--color-primary);
-  }
-
-  :global(body.home-page) .header-cta {
-    color: var(--color-midnight);
-    background: rgba(255, 255, 255, 0.92);
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  :global(body.home-page) .header-cta:hover {
-    background: white;
-  }
-
-  :global(body.home-page) .mobile-menu > summary {
-    border-color: rgba(255, 255, 255, 0.16);
-    background: rgba(255, 255, 255, 0.9);
-  }
-
-  @media (max-width: 680px) {
-    :global(body.home-page) .site-header.is-scrolled { top: 8px; right: 8px; left: 8px; border-radius: 15px; }
+    .brand__name { font-size: 1.42rem; }
+    .mobile-menu__panel { right: -2px; left: -2px; border-radius: 16px; }
   }
 </style>

@@ -1,50 +1,22 @@
 ---
 import Button from '../Button.astro';
-import CalendlyButton from '../conversion/CalendlyButton.astro';
-import ImmersiveMesh from '../visuals/ImmersiveMesh.astro';
-import HeroSearchDemo from './hero/HeroSearchDemo.astro';
-import HeroWebsiteDemo from './hero/HeroWebsiteDemo.astro';
-import HeroLeadDemo from './hero/HeroLeadDemo.astro';
-import HeroPipelineDemo from './hero/HeroPipelineDemo.astro';
-import HeroAutomationDemo from './hero/HeroAutomationDemo.astro';
-import HeroAiDemo from './hero/HeroAiDemo.astro';
-import HeroDataDemo from './hero/HeroDataDemo.astro';
-import HeroSecurityDemo from './hero/HeroSecurityDemo.astro';
 import '../../styles/home/hero.css';
 ---
-<section class="home-hero hero-product" data-hero aria-labelledby="home-title">
-  <div class="hero-product__ambient" data-depth="0.25" aria-hidden="true"><ImmersiveMesh /></div><div class="hero-product__wash"></div><div class="hero-product__grid" data-depth="0.45"></div>
-  <div class="container hero-product__inner">
-    <div class="hero-product__copy" data-hero-copy-block>
-      <p class="hero-product__eyebrow" data-hero-detail>AGENCE DIGITALE <i></i> SUISSE ROMANDE</p>
-      <h1 id="home-title"><span><b>Votre entreprise mérite </b></span><span><b>un digital qui travaille </b></span><span><b>vraiment pour elle.</b></span></h1>
-      <p class="hero-product__lead" data-hero-copy>CliCom accompagne les PME de Suisse romande avec des stratégies, sites et outils conçus pour attirer les bons clients, simplifier le travail quotidien et soutenir leur développement.</p>
-      <div class="hero-product__actions" data-hero-cta>
-        <CalendlyButton label="Parlons de votre projet →" fallbackHref="/contact/" />
-        <Button href="/methode/" variant="secondary">Découvrir notre méthode</Button>
-      </div>
-      <div class="hero-product__proof" data-hero-detail><span>Conseil clair</span><span>Solutions adaptées aux PME</span><span>Accompagnement en Suisse romande</span></div>
+<section class="studio-hero" id="accueil" aria-labelledby="home-title">
+  <div class="studio-hero__glow" aria-hidden="true"></div>
+  <div class="studio-hero__grid" aria-hidden="true"></div>
+  <div class="container studio-hero__inner">
+    <p class="studio-hero__kicker" data-hero-el>Agence digitale — Suisse romande</p>
+    <h1 id="home-title" class="studio-hero__title" data-hero-el>
+      <span>Votre entreprise mérite </span><span>un digital qui travaille </span><span class="studio-hero__accent">vraiment pour elle.</span>
+    </h1>
+    <p class="studio-hero__lead" data-hero-el>CliCom accompagne les PME de Suisse romande avec des stratégies, sites et outils conçus pour attirer les bons clients, simplifier le travail quotidien et soutenir leur développement.</p>
+    <div class="studio-hero__actions" data-hero-el>
+      <Button href="/realisations/">Voir nos projets <span aria-hidden="true">→</span></Button>
+      <Button href="/contact/" variant="ghost">Nous contacter</Button>
     </div>
-    <div class="hero-product__stage" data-hero-stage aria-hidden="true">
-      <div class="hero-product__stage-head"><span><i></i>SYSTÈME DIGITAL CLICOM</span><small>DÉMONSTRATION</small></div>
-      <svg class="hero-product__connections" viewBox="0 0 1000 720" preserveAspectRatio="none"><path data-flow="search-site" d="M250 172C340 172 330 230 425 240"/><path data-flow="site-request" d="M590 250C695 250 690 180 790 185"/><path data-flow="request-followup" d="M825 260C825 345 730 360 720 445"/><path data-flow="followup-automation" d="M630 515C520 515 555 600 450 600"/><path data-flow="automation-assist" d="M300 570C200 570 220 455 155 430"/><path data-flow="assist-results" d="M180 360C190 300 150 286 160 240"/><path data-flow="results-security" d="M205 100C410 60 650 80 790 105"/></svg>
-      <div class="hero-product__core" data-hero-core><b>CLICOM</b><span>SYSTÈME DIGITAL</span></div>
-      <div class="hero-product__scene hero-product__scene--search" data-depth="0.65"><HeroSearchDemo /></div><div class="hero-product__scene hero-product__scene--site" data-depth="0.85"><HeroWebsiteDemo /></div><div class="hero-product__scene hero-product__scene--request" data-depth="1"><HeroLeadDemo /></div><div class="hero-product__scene hero-product__scene--followup" data-depth="0.8"><HeroPipelineDemo /></div><div class="hero-product__scene hero-product__scene--automation" data-depth="0.7"><HeroAutomationDemo /></div><div class="hero-product__scene hero-product__scene--assist" data-depth="0.55"><HeroAiDemo /></div><div class="hero-product__scene hero-product__scene--results" data-depth="0.6"><HeroDataDemo /></div><div class="hero-product__scene hero-product__scene--security" data-depth="0.5"><HeroSecurityDemo /></div>
-      <article class="hero-product__traveller" data-request-traveller><small>NOUVELLE DEMANDE</small><b>Sophie Martin</b><span>Création de site</span></article>
-    </div>
+    <ul class="studio-hero__meta" data-hero-el aria-label="Expertises">
+      <li>Sites web</li><li>Visibilité &amp; SEO</li><li>Acquisition</li><li>Automatisation</li>
+    </ul>
   </div>
 </section>
-<script>import '../../scripts/hero-motion';</script>
-<style>
-  .hero-product h1 span:nth-child(3) b { font-size:.78em; }
-  @media (min-width:961px) {
-    .hero-product__scene--site { top:24%; }
-    .hero-product__scene--request { top:25%; }
-    .hero-product__scene--results { top:7%; left:34%; width:210px; }
-    .hero-product__scene--security { top:7%; right:2%; width:225px; }
-  }
-  @media (max-width:560px) {
-    .hero-product__inner { width:100%; padding:5.8rem 1rem 4rem; }
-    .hero-product h1 { max-width:100%; font-size:clamp(2.45rem,11vw,3.25rem); }
-  }
-</style>

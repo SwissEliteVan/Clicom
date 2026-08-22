@@ -1,4 +1,4 @@
-import { gsap } from './motion/core';
+import { gsap, ScrollTrigger } from './motion/core';
 import { bindAstroMotionCleanup } from './motion/lifecycle';
 import { motion } from './motion/tokens';
 
